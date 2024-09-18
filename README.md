@@ -1,3 +1,3 @@
-Hello World
+string HelloWorld;
 string myName = "miri";
 # dotNet5785_5640_5522
