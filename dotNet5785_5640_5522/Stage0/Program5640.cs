@@ -16,5 +16,4 @@ partial class Program
     }
     static partial void wellcome5522();
 
-    string h = "hello";
 }
