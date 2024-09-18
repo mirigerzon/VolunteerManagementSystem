@@ -1,4 +1,6 @@
-﻿partial class Program
+﻿using System.Net.Security;
+
+partial class Program
 {
     static void Main(string[] args)
     {
@@ -12,6 +14,7 @@
         string userName = Console.ReadLine();
         Console.WriteLine("{0}, welcome to my first console", userName);
     }
-
     static partial void wellcome5522();
+
+    string h = "hello";
 }
