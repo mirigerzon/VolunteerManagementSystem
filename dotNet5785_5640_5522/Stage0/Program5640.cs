@@ -15,5 +15,4 @@ partial class Program
         Console.WriteLine("{0}, welcome to my first console", userName);
     }
     static partial void wellcome5522();
-
 }
