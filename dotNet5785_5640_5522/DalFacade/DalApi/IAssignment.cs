@@ -1,7 +1,6 @@
 ﻿namespace DalApi;
 using DO;
-
-internal interface IAssignment
+public interface IAssignment
 {
     void Create(Assignment item);
     Assignment? Read(int id);

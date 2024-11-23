@@ -20,7 +20,6 @@ public record Assignment
     public DateTime? EndTime { get; set; } = null;
     public TerminationTypeEnum? Status { get; set; } = null;
     public Assignment() { } //לשלב 3
-
 }
 
 public enum TerminationTypeEnum
