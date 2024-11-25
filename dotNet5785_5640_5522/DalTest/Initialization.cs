@@ -170,7 +170,6 @@ internal static class Initialization
     "95 Buttercup St, Even Yehuda"
 };
 
-
     private static void CreateVolunteer()
     {
         // Create and add a manager if not already exists
