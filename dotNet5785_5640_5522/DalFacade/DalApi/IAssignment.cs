@@ -1,5 +1,6 @@
 ﻿namespace DalApi;
 using DO;
+
 public interface IAssignment
 {
     void Create(Assignment item);

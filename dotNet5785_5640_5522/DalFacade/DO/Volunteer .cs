@@ -28,8 +28,9 @@ public class Volunteer
     public double? Latitude { get; set; } = null;
     public double? Longitude { get; set; } = null;
     public RoleEnum Role { get; set; }
-    public bool IsActive { get; set; }
-    public TypeOfDistanceEnum TypeOfDistance { get; set; }
+    public bool IsActive { get; set; } = true;
+    public double MaxOfDistance { get; set; } = null;
+    public TypeOfDistanceEnum TypeOfDistance { get; set; } = TypeOfDistanceEnum[0];
     public Volunteer() { } //לשלב 3
 }
 
@@ -45,4 +46,3 @@ public enum TypeOfDistanceEnum
     WalkingDistance,
     DrivingDistance
 }
-

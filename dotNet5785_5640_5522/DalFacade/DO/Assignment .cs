@@ -18,11 +18,14 @@ public record Assignment
     public int VolunteerId { get; set; }
     public DateTime? ArrivalTime { get; set; }
     public DateTime? EndTime { get; set; } = null;
-    public TerminationTypeEnum? Status { get; set; } = null;
-    public Assignment() { } //לשלב 3
+    public TerminationTypeEnum? EndStatus { get; set; } = null;
+    public Assignment() { }
 }
 
 public enum TerminationTypeEnum
 {
-
+    Treated,
+    SelfCancelled,
+    ManagerCancelled,
+    Expired
 }
