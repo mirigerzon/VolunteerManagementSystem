@@ -5,5 +5,4 @@ public interface IConfig
 {
     DateTime Clock { get; set; }
     void reset();
-
 }

@@ -23,11 +23,11 @@ public record Call
     public double? Longitude { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime? MaxEndTime { get; set; } = null;
-    public Call() { } //לשלב 3
+    public Call() { }
 }
 public enum CallStatusEnum
 {
+    New,
+    InProgress,
+    Resolved
 }
-
-
-
