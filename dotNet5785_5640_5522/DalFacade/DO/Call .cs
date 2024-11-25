@@ -23,7 +23,7 @@ public record Call
     public double? Longitude { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime? MaxEndTime { get; set; } = null;
-    public Call() { }
+    public Call(description, address, latitude, longitude) { }
 }
 public enum CallStatusEnum
 {

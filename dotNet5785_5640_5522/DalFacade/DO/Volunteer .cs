@@ -31,7 +31,7 @@ public class Volunteer
     public bool IsActive { get; set; } = true;
     public double MaxOfDistance { get; set; } = null;
     public TypeOfDistanceEnum TypeOfDistance { get; set; } = TypeOfDistanceEnum[0];
-    public Volunteer() { } //לשלב 3
+    public Volunteer(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude) { };
 }
 
 public enum RoleEnum

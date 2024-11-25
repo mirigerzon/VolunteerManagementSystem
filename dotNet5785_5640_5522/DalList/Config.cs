@@ -13,7 +13,8 @@ internal static class Config
 
     internal static void Reset()
     {
-        nextAssignmentId = NextCallId;
+        nextAssignmentId = NextAssignmentId;
+        nextCallId = NextCallId;
         Clock = DateTime.Now;
     }
 }
