@@ -18,7 +18,7 @@ namespace DO;
 public record Call
     (
         int Id,
-        CallStatusEnum? Status,
+        Enums.CallStatusEnum? Status,
         string Description,
         string CallerAddress,
         double Latitude,
@@ -27,11 +27,8 @@ public record Call
         DateTime? MaxEndTime
     )
 {
-    public Call() : this(0, null, "", "", 0, 0, null, null) { }
-}
-public enum CallStatusEnum
-{
-    New,
-    InProgress,
-    Resolved
+    public Call(string description, string callerAddress, double latitude, double longitude)
+        : this(0, null, description, callerAddress, latitude, longitude, null, null)
+    {
+    }
 }

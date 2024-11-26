@@ -17,8 +17,7 @@ namespace DO;
 /// <param name="Role">Role of the volunteer (Mentor or Volunteer).</param>
 /// <param name="IsActive">Indicates whether the volunteer is currently active (default true).</param>
 /// <param name="TypeOfDistance">Type of distance calculation for the volunteer (Aerial, Walking, or Driving distance).</param>
-
-public class Volunteer
+public record Volunteer
 (
     int Id,
     string FirstName,
@@ -29,24 +28,14 @@ public class Volunteer
     string Address,
     double? Latitude,
     double? Longitude,
-    RoleEnum? Role,
+    Enums.RoleEnum? Role,
     bool IsActive,
     double? MaxOfDistance,
-    TypeOfDistanceEnum? TypeOfDistance
+    Enums.TypeOfDistanceEnum? TypeOfDistance
 )
 {
-    public Volunteer(string? Id) : this(0, "", "", "", "", "", "", 0, 0, null, true, null, null) { }
-}
-
-public enum RoleEnum
-{
-    Mentor,
-    Volunteer
-}
-
-public enum TypeOfDistanceEnum
-{
-    AerialDistance,
-    WalkingDistance,
-    DrivingDistance
+    public Volunteer(int id, string firstName, string lastName, string phoneNumber, string email, string password, string address, double latitude, double longitude)
+        : this(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude, null, true, null, null)
+    {
+    }
 }

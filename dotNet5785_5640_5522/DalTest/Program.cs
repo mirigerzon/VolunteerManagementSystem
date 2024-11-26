@@ -7,14 +7,12 @@ using DO;
 using Microsoft.VisualBasic.FileIO;
 
 namespace DalTest;
-
 internal class Program
 {
     private static IVolunteer? s_dalVolunteer = new VolunteerImplementation();
     private static ICall? s_dalCall = new CallImplementation();
     private static IAssignment? s_dalAssignment = new AssignmentImplementation();
     private static IConfig? s_dalConfig = new ConfigImplementation();
-
     private enum MainMenu
     {
         exit, volunteers, calls, assignments, initializingData, displayData, config, resetData
@@ -35,7 +33,6 @@ internal class Program
     {
         exit, minute, hour, day, month, year, displayClockSystem, redefine, displayClockConfig, reset
     }
-
     static void Main(string[] args)
     {
         try
@@ -87,7 +84,6 @@ internal class Program
             Console.WriteLine($"error: {e.ToString()}");
         }
     }
-
     private static void MenuFanction(string typeOf)
     {
         SubMenu option;
@@ -488,87 +484,94 @@ internal class Program
     }
     private static void RedefineFunction()
     {
-        Console.WriteLine("\n enter type of config (volunteer, call, assignment)");
+        Console.WriteLine("\nEnter type of config (volunteer, call, assignment):");
         string typeOf = Console.ReadLine();
-        Console.WriteLine("\n enter ID");
+        Console.WriteLine("\nEnter ID:");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
-            Console.WriteLine("\n Enter valid input");
+            Console.WriteLine("\nEnter valid input:");
+
         string result;
-        switch (typeOf)
+
+        switch (typeOf.ToLower())
         {
             case "volunteer":
-                Console.WriteLine("\n enter type to change ( first name, last name, address, phone number, email)");
-                string option = Console.ReadLine();
-                Console.WriteLine("\n Enter ID");
+                Console.WriteLine("\nEnter field to change (first name, last name, address, phone number, email):");
+                string volunteerOption = Console.ReadLine()?.ToLower();
+
                 var volunteerToChange = s_dalVolunteer.Read(id);
-                while (!int.TryParse(Console.ReadLine(), out id))
-                    Console.WriteLine("\n Enter valid input");
-                switch (option)
+                if (volunteerToChange == null)
+                    throw new Exception("\nVolunteer not found.");
+
+                switch (volunteerOption)
                 {
                     case "first name":
-                        Console.Write("\n Enter First Name: ");
+                        Console.Write("\nEnter First Name: ");
                         result = Console.ReadLine();
-                        volunteerToChange.FirstName = result;
+                        volunteerToChange = volunteerToChange with { FirstName = result };
                         break;
                     case "last name":
-                        Console.Write("\n Enter Last Name: ");
+                        Console.Write("\nEnter Last Name: ");
                         result = Console.ReadLine();
-                        volunteerToChange.LastName = result;
+                        volunteerToChange = volunteerToChange with { LastName = result };
                         break;
                     case "address":
-                        Console.Write("\n Enter Address: ");
+                        Console.Write("\nEnter Address: ");
                         result = Console.ReadLine();
-                        volunteerToChange.Address = result;
+                        volunteerToChange = volunteerToChange with { Address = result };
                         break;
                     case "phone number":
-                        Console.Write("\n Enter Phone Number: ");
+                        Console.Write("\nEnter Phone Number: ");
                         result = Console.ReadLine();
-                        volunteerToChange.PhoneNumber = result;
+                        volunteerToChange = volunteerToChange with { PhoneNumber = result };
                         break;
                     case "email":
-                        Console.Write("\n Enter Email: ");
+                        Console.Write("\nEnter Email: ");
                         result = Console.ReadLine();
-                        volunteerToChange.Email = result;
+                        volunteerToChange = volunteerToChange with { Email = result };
                         break;
                     default:
-                        throw new Exception("\n Invalid input");
+                        throw new Exception("\nInvalid input.");
                 }
+
                 s_dalVolunteer.Update(volunteerToChange);
+                Console.WriteLine("\nVolunteer updated successfully.");
                 break;
+
             case "call":
-                Console.WriteLine("\n enter type to change (description, address)");
-                option = Console.ReadLine();
-                Console.WriteLine("\n Enter ID");
+                Console.WriteLine("\nEnter field to change (description, address):");
+                string callOption = Console.ReadLine()?.ToLower();
 
                 var callToChange = s_dalCall.Read(id);
-                while (!int.TryParse(Console.ReadLine(), out id))
-                    Console.WriteLine("\n Enter valid input");
-                if (callToChange != null)
+                if (callToChange == null)
+                    throw new Exception("\nCall not found.");
+
+                switch (callOption)
                 {
-                    switch (option)
-                    {
-                        case "description":
-                            Console.Write("\n Enter description: ");
-                            result = Console.ReadLine();
-                            callToChange.Description = result;
-                            break;
-                        case "address":
-                            Console.Write("\n Enter address: ");
-                            result = Console.ReadLine();
-                            callToChange.CallerAddress = result;
-                            break;
-                        default:
-                            throw new Exception("\n Invalid input");
-                    }
+                    case "description":
+                        Console.Write("\nEnter Description: ");
+                        result = Console.ReadLine();
+                        callToChange = callToChange with { Description = result };
+                        break;
+                    case "address":
+                        Console.Write("\nEnter Address: ");
+                        result = Console.ReadLine();
+                        callToChange = callToChange with { CallerAddress = result };
+                        break;
+                    default:
+                        throw new Exception("\nInvalid input.");
                 }
-                else throw new Exception("callToChange is null");
+
                 s_dalCall.Update(callToChange);
+                Console.WriteLine("\nCall updated successfully.");
                 break;
+
             case "assignment":
+                Console.WriteLine("\nAssignment update not implemented yet.");
                 break;
+
             default:
-                throw new Exception($"ther is no type of config like {typeOf}");
+                throw new Exception($"\nNo such type of config: {typeOf}");
         }
     }
     private static void DisplayClockConfigFunction()
@@ -587,9 +590,7 @@ internal class Program
     {
         Console.Write(message);
         if (!int.TryParse(Console.ReadLine(), out int result))
-            throw new FormatException("קלט לא חוקי");
+            throw new FormatException("\n Invalid input");
         return result;
     }
-
 }
-

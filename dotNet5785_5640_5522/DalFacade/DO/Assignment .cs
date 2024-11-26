@@ -10,7 +10,6 @@
 /// <param name="ArrivalTime">The time the volunteer arrived at the location (may be null if not arrived yet).</param>
 /// <param name="EndTime">The time the assignment was completed (default is null).</param>
 /// <param name="Status">Current status of the assignment (Waiting, Active, or Closed).</param>
-
 public record Assignment
 (
     int Id,
@@ -18,16 +17,8 @@ public record Assignment
     int VolunteerId,
     DateTime? ArrivalTime,
     DateTime? EndTime,
-    TerminationTypeEnum? EndStatus
+    Enums.TerminationTypeEnum? EndStatus
 )
 {
-    public Assignment(string? Id) : this(0, 0, 0, DateTime.Now, DateTime.Now, null) { }
-}
-
-public enum TerminationTypeEnum
-{
-    Treated,
-    SelfCancelled,
-    ManagerCancelled,
-    Expired
+    public Assignment() : this(0, 0, 0, DateTime.Now, DateTime.Now, null) { }
 }
