@@ -23,6 +23,7 @@ public class AssignmentImplementation : IAssignment
     public void DeleteAll()
     {
         DataSource.AssignmentsList.Clear();
+        Console.WriteLine("\n There are no assignments in Assignment list");
     }
     public Assignment? Read(int id)
     {

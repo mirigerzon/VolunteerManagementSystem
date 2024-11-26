@@ -22,10 +22,13 @@ public class CallImplementation : ICall
     public void DeleteAll()
     {
         DataSource.CallsList.Clear();
+        Console.WriteLine("\n There are no calls in Call list")
     }
     public Call? Read(int id)
     {
-        return DataSource.CallsList.Find(x => x.Id == id);
+        if (DataSource.CallsList != null)
+            return DataSource.CallsList.Find(x => x.Id == id);
+        else throw new Exception($"\n Call with id {id} is undefined");
     }
     public List<Call> ReadAll()
     {

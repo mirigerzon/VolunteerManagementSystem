@@ -39,17 +39,17 @@ internal class Program
             MainMenu option;
             do
             {
-                Console.WriteLine("\n mainMenu is on");
+                Console.WriteLine("\n MainMenu is on");
                 foreach (var options in Enum.GetValues(typeof(MainMenu)))
                 {
                     Console.WriteLine($"\n Enter {(int)options} to {options.ToString().Replace('_', ' ').ToLower()}");
                 }
-                option = (MainMenu)GetIntFromScreen("\n enter your choice: ");
+                option = (MainMenu)GetIntFromScreen("\n Enter your choice: ");
                 Console.Clear();
                 switch (option)
                 {
                     case MainMenu.exit:
-                        Console.WriteLine("\n have a good day!");
+                        Console.WriteLine("\n Have a good day!");
                         break;
                     case MainMenu.volunteers:
                         MenuFanction("volunteers");
@@ -73,7 +73,7 @@ internal class Program
                         ResetDataFunction();
                         break;
                     default:
-                        throw new Exception("\n ther is no option like this");
+                        throw new Exception("\n Ther is no option like this");
                 }
             }
             while (option != MainMenu.exit);
@@ -93,7 +93,7 @@ internal class Program
             {
                 Console.WriteLine($"\n Enter {(int)myOption} to {myOption.ToString().Replace('_', ' ').ToLower()}");
             }
-            option = (SubMenu)GetIntFromScreen("\n enter your choice: ");
+            option = (SubMenu)GetIntFromScreen("\n Enter your choice: ");
             switch (option)
             {
                 case SubMenu.create:
@@ -127,9 +127,9 @@ internal class Program
     }
     private static void DisplayDataFunction()
     {
-        Console.WriteLine("\n enter type of config (volunteer, call, assignment)");
+        Console.WriteLine("\n Enter type of config (volunteer, call, assignment)");
         string typeOf = Console.ReadLine();
-        Console.WriteLine("\n enter ID");
+        Console.WriteLine("\n Enter ID");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
             Console.WriteLine("\n Enter valid input");
@@ -151,7 +151,7 @@ internal class Program
                 else throw new Exception("\n s_dalAssignment is null");
                 break;
             default:
-                throw new Exception($"\n ther is no type of config like {typeOf}");
+                throw new Exception($"\n Ther is no type of config like {typeOf}");
         }
     }
     private static void ConfigMenuFunction()
@@ -164,12 +164,12 @@ internal class Program
             {
                 Console.WriteLine($"\n Enter {(int)myOption} to {myOption.ToString().Replace('_', ' ').ToLower()}");
             }
-            option = (MainMenu)GetIntFromScreen("\n enter your choice: ");
+            option = (MainMenu)GetIntFromScreen("\n Enter your choice: ");
             Console.Clear();
             switch (option)
             {
                 case (MainMenu)SubConfigMenu.exit:
-                    Console.WriteLine("\n have a good day!");
+                    Console.WriteLine("\n Have a good day!");
                     break;
                 case (MainMenu)SubConfigMenu.minute:
                     changeTimeFunction("minute");
@@ -199,7 +199,7 @@ internal class Program
                     ResetFunction();
                     break;
                 default:
-                    throw new Exception("\n ther is no option like this");
+                    throw new Exception("\n Ther is no option like this");
             }
         }
         while (option != MainMenu.exit);
@@ -230,35 +230,35 @@ internal class Program
             Console.WriteLine("\n Enter first name");
             string firstName = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(firstName))
-                throw new Exception("\n first name cannot be null or empty");
+                throw new Exception("\n First name cannot be null or empty");
             Console.WriteLine("\n Enter last name");
             string lastName = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(lastName))
-                throw new Exception("\n last name cannot be null or empty");
+                throw new Exception("\n Last name cannot be null or empty");
             Console.WriteLine("\n Enter phone number");
             string phoneNumber = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(phoneNumber))
-                throw new Exception("\n phone number cannot be null or empty");
+                throw new Exception("\n Phone number cannot be null or empty");
             Console.WriteLine("\n Enter email address");
             string email = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(email))
-                throw new Exception("\n email address cannot be null or empty");
+                throw new Exception("\n Email address cannot be null or empty");
             Console.WriteLine("\n Enter password");
             string password = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(password))
-                throw new Exception("\n password cannot be null or empty");
+                throw new Exception("\n Password cannot be null or empty");
             Console.WriteLine("\n Enter address");
             string address = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(address))
-                throw new Exception("\n address cannot be null or empty");
+                throw new Exception("\n Address cannot be null or empty");
             Console.WriteLine("\n Enter Latitude");
             double latitude;
             if (!double.TryParse(Console.ReadLine(), out latitude))
-                throw new Exception("\n invalid input for Latitude");
+                throw new Exception("\n Invalid input for Latitude");
             Console.WriteLine("\n Enter Longitude");
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
-                throw new Exception("\n invalid input for Longitude");
+                throw new Exception("\n Invalid input for Longitude");
             Volunteer volunteer = new Volunteer(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude);
             s_dalVolunteer.Create(volunteer);
         }
@@ -267,17 +267,17 @@ internal class Program
             Console.WriteLine("\n Enter description");
             string description = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(description))
-                throw new Exception("\n description cannot be null or empty");
+                throw new Exception("\n Description cannot be null or empty");
 
             Console.WriteLine("\n Enter address");
             string address = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(address))
-                throw new Exception("\n address cannot be null or empty");
+                throw new Exception("\n Address cannot be null or empty");
 
             Console.WriteLine("\n Enter Latitude");
             double latitude;
             if (!double.TryParse(Console.ReadLine(), out latitude))
-                throw new Exception("\n invalid input for Latitude");
+                throw new Exception("\n Invalid input for Latitude");
 
             Console.WriteLine("\n Enter Longitude");
             double longitude;
@@ -290,11 +290,11 @@ internal class Program
         else if (typeOf == "assignments")
         {
         }
-        else throw new Exception("ERROR");
+        else throw new Exception("Error");
     }
     private static void ReadFunction(string typeOf)
     {
-        Console.WriteLine("enter ID for display");
+        Console.WriteLine("Enter ID for display");
         int id;
             while (!int.TryParse(Console.ReadLine(), out id))
             Console.WriteLine("\n Enter valid input");
@@ -310,7 +310,7 @@ internal class Program
             if (s_dalAssignment != null)
                 Console.WriteLine(s_dalAssignment.Read(id));
             else throw new Exception("s_dalAssignment is null");
-        else throw new Exception("ERROR");
+        else throw new Exception("Error");
     }
     private static void ReadAllFunction(string typeOf)
     {
@@ -415,9 +415,8 @@ internal class Program
         }
         else if (typeOf == "assignments")
         {
-            Console.WriteLine("\n Assignments update functionality is not implemented yet.");
         }
-        else throw new Exception("ERROR");
+        else throw new Exception("Error");
     }
     private static void DeleteFunction(string typeOf)
     {
@@ -444,7 +443,7 @@ internal class Program
                 s_dalAssignment.Delete(id);
             else throw new Exception("\n s_dalAssignment is null");
         else
-            throw new Exception("ERROR");
+            throw new Exception("\n Error");
     }
     private static void DeleteAllFunction(string typeOf)
     {
@@ -454,7 +453,7 @@ internal class Program
             s_dalCall.DeleteAll();
         else if (typeOf == "assignments")
             s_dalAssignment.DeleteAll();
-        else throw new Exception("ERROR");
+        else throw new Exception("\n Erroe");
     }
     private static void changeTimeFunction(string typeOf)
     {
@@ -470,7 +469,7 @@ internal class Program
                 s_dalConfig.Clock = s_dalConfig.Clock.AddMonths(1);
             else if (typeOf == "year")
                 s_dalConfig.Clock = s_dalConfig.Clock.AddYears(1);
-            else throw new Exception("\n ERROR");
+            else throw new Exception("\n Error");
         }
         else throw new Exception("s_dalConfig is null");
 
@@ -478,112 +477,112 @@ internal class Program
     private static void DisplayClockSystemFunction()
     {
         if (s_dalConfig != null)
-            Console.WriteLine($"the system clock is: {s_dalConfig.Clock}");
+            Console.WriteLine($"The system clock is: {s_dalConfig.Clock}");
         else throw new Exception("s_dalConfig is null");
     }
     private static void RedefineFunction()
     {
-        Console.WriteLine("\nEnter type of config (volunteer, call, assignment):");
+        Console.WriteLine("\n Enter type of config (volunteer, call, assignment):");
         string typeOf = Console.ReadLine();
-        Console.WriteLine("\nEnter ID:");
+        Console.WriteLine("\n Enter ID:");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
-            Console.WriteLine("\nEnter valid input:");
+            Console.WriteLine("\n Enter valid input:");
 
         string result;
 
         switch (typeOf.ToLower())
         {
             case "volunteer":
-                Console.WriteLine("\nEnter field to change (first name, last name, address, phone number, email):");
+                Console.WriteLine("\n Enter field to change (first name, last name, address, phone number, email):");
                 string volunteerOption = Console.ReadLine()?.ToLower();
 
                 var volunteerToChange = s_dalVolunteer.Read(id);
                 if (volunteerToChange == null)
-                    throw new Exception("\nVolunteer not found.");
+                    throw new Exception("\n Volunteer not found.");
 
                 switch (volunteerOption)
                 {
                     case "first name":
-                        Console.Write("\nEnter First Name: ");
+                        Console.Write("\n Enter First Name: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { FirstName = result };
                         break;
                     case "last name":
-                        Console.Write("\nEnter Last Name: ");
+                        Console.Write("\n Enter Last Name: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { LastName = result };
                         break;
                     case "address":
-                        Console.Write("\nEnter Address: ");
+                        Console.Write("\n Enter Address: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { Address = result };
                         break;
                     case "phone number":
-                        Console.Write("\nEnter Phone Number: ");
+                        Console.Write("\n Enter Phone Number: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { PhoneNumber = result };
                         break;
                     case "email":
-                        Console.Write("\nEnter Email: ");
+                        Console.Write("\n Enter Email: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { Email = result };
                         break;
                     default:
-                        throw new Exception("\nInvalid input.");
+                        throw new Exception("\n Invalid input.");
                 }
 
                 s_dalVolunteer.Update(volunteerToChange);
-                Console.WriteLine("\nVolunteer updated successfully.");
+                Console.WriteLine("\n Volunteer updated successfully.");
                 break;
 
             case "call":
-                Console.WriteLine("\nEnter field to change (description, address):");
+                Console.WriteLine("\n Enter field to change (description, address):");
                 string callOption = Console.ReadLine()?.ToLower();
 
                 var callToChange = s_dalCall.Read(id);
                 if (callToChange == null)
-                    throw new Exception("\nCall not found.");
+                    throw new Exception("\n Call not found.");
 
                 switch (callOption)
                 {
                     case "description":
-                        Console.Write("\nEnter Description: ");
+                        Console.Write("\n Enter Description: ");
                         result = Console.ReadLine();
                         callToChange = callToChange with { Description = result };
                         break;
                     case "address":
-                        Console.Write("\nEnter Address: ");
+                        Console.Write("\n Enter Address: ");
                         result = Console.ReadLine();
                         callToChange = callToChange with { CallerAddress = result };
                         break;
                     default:
-                        throw new Exception("\nInvalid input.");
+                        throw new Exception("\n Invalid input.");
                 }
 
                 s_dalCall.Update(callToChange);
-                Console.WriteLine("\nCall updated successfully.");
+                Console.WriteLine("\n Call updated successfully.");
                 break;
 
             case "assignment":
-                Console.WriteLine("\nAssignment update not implemented yet.");
+                Console.WriteLine("\n Assignment update not implemented yet.");
                 break;
 
             default:
-                throw new Exception($"\nNo such type of config: {typeOf}");
+                throw new Exception($"\n No such type of config: {typeOf}");
         }
     }
     private static void DisplayClockConfigFunction()
     {
         if (s_dalConfig != null)
             Console.WriteLine(s_dalConfig.Clock);
-        else throw new Exception("s_dalConfig is null");
+        else throw new Exception("\n s_dalConfig is null");
     }
     private static void ResetFunction()
     {
         if (s_dalConfig != null)
             s_dalConfig.reset();
-        else throw new Exception("s_dalConfig is null");
+        else throw new Exception("\n s_dalConfig is null");
     }
     private static int GetIntFromScreen(string message)
     {
