@@ -8,40 +8,45 @@ public class VolunteerImplementation : IVolunteer
     {
         if (Read(item.Id) != null)
             throw new Exception("volunteer with this ID already exists");
-        DataSource.Volunteer.Add(item);
+        DataSource.VolunteersList.Add(item);
+
     }
 
     public void Delete(int id)
     {
-        var VolunteerToRemove = DataSource.Volunteer.Find(x => x.Id == id);
+        var VolunteerToRemove = DataSource.VolunteersList.Find(x => x.Id == id);
         if (VolunteerToRemove != null)
-            DataSource.Volunteer.Remove(VolunteerToRemove);
+            DataSource.VolunteersList.Remove(VolunteerToRemove);
         else
             throw new Exception("Volunteer with this ID does not exist.");
     }
 
     public void DeleteAll()
     {
-        DataSource.Volunteer.Clear();
+        DataSource.VolunteersList.Clear();
     }
 
     public Volunteer? Read(int id)
     {
-        return DataSource.Volunteer.Find(x => x.Id == id);
+        if (DataSource.VolunteersList != null)
+            return DataSource.VolunteersList.Find(x => x.Id == id);
+        else throw new Exception("DataSource.Volunteer is empty");
     }
 
     public List<Volunteer> ReadAll()
     {
-        return new List<Volunteer>(DataSource.Volunteer);
+        if (DataSource.VolunteersList != null)
+            return new List<Volunteer>(DataSource.VolunteersList);
+        else throw new Exception("DataSource.Volunteer is empty");
     }
 
     public void Update(Volunteer item)
     {
-        var existingVolunteer = DataSource.Volunteer.Find(x => x.Id == item.Id);
+        var existingVolunteer = DataSource.VolunteersList.Find(x => x.Id == item.Id);
         if (existingVolunteer != null)
         {
             Delete(existingVolunteer.Id);
-            DataSource.Volunteer.Add(item);
+            DataSource.VolunteersList.Add(item);
         }
         else
             throw new Exception("Volunteer with this ID does not exist.");

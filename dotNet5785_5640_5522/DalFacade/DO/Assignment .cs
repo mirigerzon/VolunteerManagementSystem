@@ -12,14 +12,16 @@
 /// <param name="Status">Current status of the assignment (Waiting, Active, or Closed).</param>
 
 public record Assignment
+(
+    int Id,
+    int CallId,
+    int VolunteerId,
+    DateTime? ArrivalTime,
+    DateTime? EndTime,
+    TerminationTypeEnum? EndStatus
+)
 {
-    public int Id { get; set; }
-    public int CallId { get; set; }
-    public int VolunteerId { get; set; }
-    public DateTime? ArrivalTime { get; set; }
-    public DateTime? EndTime { get; set; } = null;
-    public TerminationTypeEnum? EndStatus { get; set; } = null;
-    public Assignment() { }
+    public Assignment(string? Id) : this(0, 0, 0, DateTime.Now, DateTime.Now, null) { }
 }
 
 public enum TerminationTypeEnum

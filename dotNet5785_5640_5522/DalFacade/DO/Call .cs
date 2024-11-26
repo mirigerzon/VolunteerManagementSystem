@@ -1,4 +1,6 @@
-﻿using System.Net.NetworkInformation;
+﻿using System;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace DO;
 
@@ -14,16 +16,18 @@ namespace DO;
 /// <param name="StartTime">Start time of the call.</param>
 /// <param name="MaxEndTime">Maximum end time allowed for the call (default null).</param>
 public record Call
+    (
+        int Id,
+        CallStatusEnum? Status,
+        string Description,
+        string CallerAddress,
+        double Latitude,
+        double Longitude,
+        DateTime? StartTime,
+        DateTime? MaxEndTime
+    )
 {
-    public int Id { get; set; }
-    public CallStatusEnum Status { get; set; }
-    public string Description { get; set; } = null;
-    public string CallerAddress { get; set; }
-    public double? Latitude { get; set; }
-    public double? Longitude { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime? MaxEndTime { get; set; } = null;
-    public Call(description, address, latitude, longitude) { }
+    public Call() : this(0, null, "", "", 0, 0, null, null) { }
 }
 public enum CallStatusEnum
 {
