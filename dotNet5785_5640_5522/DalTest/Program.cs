@@ -296,7 +296,7 @@ internal class Program
     {
         Console.WriteLine("enter ID for display");
         int id;
-        while (!int.TryParse(Console.ReadLine(), out id))
+            while (!int.TryParse(Console.ReadLine(), out id))
             Console.WriteLine("\n Enter valid input");
         if (typeOf == "volunteers")
             if (s_dalVolunteer != null)
@@ -331,7 +331,7 @@ internal class Program
         else
             throw new Exception("ERROR");
         if (list == null || !list.Any())
-            throw new Exception($"\n There are no {typeOf} for display");
+            Console.WriteLine($"\n There are no {typeOf} for display");
         else
             foreach (var item in list)
                 Console.WriteLine(new Exception($"\n {item}"));
