@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿using System.Net;
+
+namespace DO;
 
 /// <summary>
 /// Volunteer Entity represents a volunteer with all its properties.
@@ -17,21 +19,23 @@
 /// <param name="TypeOfDistance">Type of distance calculation for the volunteer (Aerial, Walking, or Driving distance).</param>
 
 public class Volunteer
+(
+    int Id,
+    string FirstName,
+    string LastName,
+    string PhoneNumber,
+    string Email,
+    string Password,
+    string Address,
+    double? Latitude,
+    double? Longitude,
+    RoleEnum? Role,
+    bool IsActive,
+    double? MaxOfDistance,
+    TypeOfDistanceEnum? TypeOfDistance
+)
 {
-    public int Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string PhoneNumber { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; } = null;
-    public string Address { get; set; } = null;
-    public double? Latitude { get; set; } = null;
-    public double? Longitude { get; set; } = null;
-    public RoleEnum Role { get; set; }
-    public bool IsActive { get; set; } = true;
-    public double MaxOfDistance { get; set; } = null;
-    public TypeOfDistanceEnum TypeOfDistance { get; set; } = TypeOfDistanceEnum[0];
-    public Volunteer() { } //לשלב 3
+    public Volunteer(string? Id) : this(0, "", "", "", "", "", "", 0, 0, null, true, null, null) { }
 }
 
 public enum RoleEnum

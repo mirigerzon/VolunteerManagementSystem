@@ -173,47 +173,49 @@ internal static class Initialization
     private static void CreateVolunteer()
     {
         // Create and add a manager if not already exists
+        int id = s_rand.Next(200000000, 400000000);
         Volunteer manager = new Volunteer
-        {
-            Id = s_rand.Next(200000000, 400000000),
-            FirstName = "Admin",
-            LastName = "Manager",
-            PhoneNumber = "0521112222",
-            Email = "admin.manager@example.com",
-            Password = "AdminPass123!",
-            Address = "Head Office, Tel Aviv-Jafo",
-            Latitude = "32.085299",
-            Longitude = "34.781769",
-            Role = RoleEnum.Mentor,
-            IsActive = true,
-            MaxOfDistance = s_rand.NextDouble() * (50 - 5) + 5,
-            TypeOfDistance = (TypeOfDistanceEnum)s_rand.Next(0, 3),
-        };
+        (
+            id,
+            "Admin",
+            "Manager",
+            "0521112222",
+            "admin.manager@example.com",
+            "AdminPass123!",
+            "Head Office, Tel Aviv-Jafo",
+            32.085299,
+            34.781769,
+            RoleEnum.Mentor,
+            true,
+            (s_rand.NextDouble() * (50 - 5) + 5),
+            (TypeOfDistanceEnum)s_rand.Next(0, 3)
+        );
         // Check if the manager ID already exists in the system, and add it to the data layer
-        Volunteer? checkManager = s_dalVolunteer?.Read(manager.Id);
+        Volunteer? checkManager = s_dalVolunteer?.Read(id);
         if (checkManager == null)
             s_dalVolunteer?.Create(manager);
         // Create and add 10 volunteers
         for (int i = 0; i < 15; i++)
         {
+            int volId = s_rand.Next(200000000, 400000000);
             Volunteer volunteer = new Volunteer
-            {
-                Id = s_rand.Next(200000000, 400000000),
-                FirstName = FirstNames[i],
-                LastName = LastNames[i],
-                PhoneNumber = PhoneNumbers[i],
-                Email = Emails[i],
-                Password = Passwords[i],
-                Address = VolunteerAddresses[i],
-                Latitude = VolunteerLatitudes[i],
-                Longitude = VolunteerLongitudes[i],
-                Role = RoleEnum.Volunteer,
-                IsActive = true,
-                MaxOfDistance = s_rand.NextDouble() * (50 - 5) + 5,
-                TypeOfDistance = (TypeOfDistanceEnum)s_rand.Next(0, 3),
-            };
+            (
+                volId,
+                FirstNames[i],
+                LastNames[i],
+                PhoneNumbers[i],
+                Emails[i],
+                Passwords[i],
+                VolunteerAddresses[i],
+                VolunteerLatitudes[i],
+                VolunteerLongitudes[i],
+                RoleEnum.Volunteer,
+                true,
+                (s_rand.NextDouble() * (50 - 5) + 5),
+                (TypeOfDistanceEnum)s_rand.Next(0, 3)
+            );
             // Check if the volunteer ID already exists in the system, and add it to the data layer
-            Volunteer? checkVolunteer = s_dalVolunteer?.Read(volunteer.Id);
+            Volunteer? checkVolunteer = s_dalVolunteer?.Read(volId);
             if (checkVolunteer == null)
                 s_dalVolunteer.Create(volunteer);
         }
@@ -242,18 +244,53 @@ internal static class Initialization
             var volunteer = allVolunteers[s_rand.Next(allVolunteers.Count)];
             var call = allCalls[s_rand.Next(allCalls.Count)];
             Assignment assignment = new Assignment
-            {
+            (
                 VolunteerId = volunteer.Id,
                 CallId = call.Id,
                 ArrivalTime = call.StartTime.AddMinutes(s_rand.Next(1, 60)),
-                EndTime = s_rand.Next(0, 2) == ? null
+                EndTime = s_rand.Next(0, 2) == 0 ? null
                 : randomStartTime.AddMinutes(s_rand.Next(1, 181)),
                 EndStatus = (TerminationTypeEnum)s_rand.Next(0, 4)
-            };
+            );
             // Check if the assignment ID already exists in the system, and add it to the data layer
             Assignment? checkAssignment = s_dalAssignment?.Read(assignment.Id);
             if (checkAssignment == null)
                 s_dalAssignment?.Create(assignment);
+        }
+    }
+
+    private static void CreateCall()
+    {
+        int expiredCalls = 0;
+        int totalCalls = 0;
+
+        for (int i = 0; i < 50; i++)
+        {
+            DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1);
+            int range = (s_dalConfig.Clock - startDate).Days;
+            DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
+            DateTime? randomMaxEndTime = (expiredCalls < 5 && s_rand.Next(0, 5) == 0)
+                ? null : (s_rand.Next(0, 2) == 0 ? null : randomStartTime.AddHours(s_rand.Next(1, 48)));
+
+            Call call = new Call
+            {
+                Status = (s_rand.Next(0, 4) == 0)
+                    ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
+                Description = Descriptions[i],
+                CallerAddress = CallerAddresses[i],
+                Latitude = s_rand.NextDouble() * (32.2 - 29.5) + 29.5,
+                Longitude = s_rand.NextDouble() * (35.7 - 34.3) + 34.3,
+                StartTime = randomStartTime,
+                MaxEndTime = randomMaxEndTime,
+            };
+
+            if (randomMaxEndTime == null && expiredCalls < 5)
+                expiredCalls++;
+
+            Call? checkCall = s_dalCall?.Read(call.Id);
+            if (checkCall == null)
+                s_dalCall?.Create(call);
+            totalCalls++;
         }
     }
 
@@ -264,7 +301,7 @@ internal static class Initialization
         s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!");
         s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!");
         Console.WriteLine("Reset Configuration values and List values...");
-        s_dalConfig.Reset();
+        s_dalConfig.reset();
         s_dalVolunteer.DeleteAll();
         s_dalAssignment.DeleteAll();
         s_dalCall.DeleteAll();

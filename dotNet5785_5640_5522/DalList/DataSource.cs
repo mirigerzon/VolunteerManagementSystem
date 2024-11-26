@@ -1,7 +1,8 @@
 ﻿namespace Dal;
+using DO;
 internal static class DataSource
 {
-    internal static List<DO.Volunteer> Volunteer { get; } = new();
-    internal static List<DO.Call> Call { get; } = new();
-    internal static List<DO.Assignment> Assignment { get; } = new();
+    internal static List<Volunteer> VolunteersList{ get; } = new();
+    internal static List<Call> CallsList { get; } = new();
+    internal static List<Assignment> AssignmentsList { get; } = new();
 }
