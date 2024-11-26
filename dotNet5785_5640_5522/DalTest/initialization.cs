@@ -1,7 +1,7 @@
 ﻿namespace DalTest;
 using DalApi;
 using DO;
-
+using static DO.Enums;
 internal static class Initialization
 {
     private static IVolunteer? s_dalVolunteer;
@@ -169,7 +169,6 @@ internal static class Initialization
     "11 Oleander St, Mevaseret Zion",
     "95 Buttercup St, Even Yehuda"
 };
-
     private static void CreateVolunteer()
     {
         // Create and add a manager if not already exists
@@ -185,10 +184,10 @@ internal static class Initialization
             "Head Office, Tel Aviv-Jafo",
             32.085299,
             34.781769,
-            RoleEnum.Mentor,
+            Enums.RoleEnum.Mentor,
             true,
             (s_rand.NextDouble() * (50 - 5) + 5),
-            (TypeOfDistanceEnum)s_rand.Next(0, 3)
+            (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
         );
         // Check if the manager ID already exists in the system, and add it to the data layer
         Volunteer? checkManager = s_dalVolunteer?.Read(id);
@@ -209,10 +208,10 @@ internal static class Initialization
                 VolunteerAddresses[i],
                 VolunteerLatitudes[i],
                 VolunteerLongitudes[i],
-                RoleEnum.Volunteer,
+                Enums.RoleEnum.Volunteer,
                 true,
                 (s_rand.NextDouble() * (50 - 5) + 5),
-                (TypeOfDistanceEnum)s_rand.Next(0, 3)
+                (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
             );
             // Check if the volunteer ID already exists in the system, and add it to the data layer
             Volunteer? checkVolunteer = s_dalVolunteer?.Read(volId);
@@ -233,17 +232,17 @@ internal static class Initialization
             DateTime? randomMaxEndTime = (expiredCalls < 5 && s_rand.Next(0, 5) == 0)
                 ? null : (s_rand.Next(0, 2) == 0 ? null : randomStartTime.AddHours(s_rand.Next(1, 48)));
 
-            Call call = new Call
-            {
-                Status = (s_rand.Next(0, 4) == 0)
-                    ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
-                Description = Descriptions[i],
-                CallerAddress = CallerAddresses[i],
-                Latitude = s_rand.NextDouble() * (32.2 - 29.5) + 29.5,
-                Longitude = s_rand.NextDouble() * (35.7 - 34.3) + 34.3,
-                StartTime = randomStartTime,
-                MaxEndTime = randomMaxEndTime,
-            };
+            Call call = new Call(
+             0,
+             (s_rand.Next(0, 4) == 0) ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
+             Descriptions[i],
+             CallerAddresses[i],
+             s_rand.NextDouble() * (32.2 - 29.5) + 29.5,
+             s_rand.NextDouble() * (35.7 - 34.3) + 34.3,
+             randomStartTime,
+             randomMaxEndTime
+         );
+
 
             if (randomMaxEndTime == null && expiredCalls < 5)
                 expiredCalls++;
@@ -254,7 +253,6 @@ internal static class Initialization
             totalCalls++;
         }
     }
-
     private static void CreateAssignment()
     {
         // Ensure that volunteers, calls, and assignment dependencies are initialized
@@ -272,6 +270,10 @@ internal static class Initialization
         DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1);
         int range = (s_dalConfig.Clock - startDate).Days;
         DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
+        // Sometimes the end time is null or expired
+        DateTime? randomEndTime = s_rand.Next(0, 2) == 0 ?
+            (DateTime?)null :
+            randomStartTime.AddMinutes(s_rand.Next(1, 181));
         // Create 35 random assignments (at least 15 unassigned) 
         for (int i = 0; i < 35; i++)
         {
@@ -279,12 +281,12 @@ internal static class Initialization
             var call = allCalls[i];
             Assignment assignment = new Assignment
             (
-                VolunteerId = volunteer.Id,
-                CallId = call.Id,
-                ArrivalTime = call.StartTime.AddMinutes(s_rand.Next(1, 60)),
-                EndTime = s_rand.Next(0, 2) == 0 ? null
-                : randomStartTime.AddMinutes(s_rand.Next(1, 181)),
-                EndStatus = (TerminationTypeEnum)s_rand.Next(0, 4)
+                0,
+               volunteer.Id,
+               call.Id,
+               randomStartTime,
+               randomEndTime,
+               (Enums.TerminationTypeEnum)s_rand.Next(0, 4)
             );
             // Check if the assignment ID already exists in the system, and add it to the data layer
             Assignment? checkAssignment = s_dalAssignment?.Read(assignment.Id);
@@ -292,42 +294,6 @@ internal static class Initialization
                 s_dalAssignment?.Create(assignment);
         }
     }
-
-    private static void CreateCall()
-    {
-        int expiredCalls = 0;
-        int totalCalls = 0;
-
-        for (int i = 0; i < 50; i++)
-        {
-            DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1);
-            int range = (s_dalConfig.Clock - startDate).Days;
-            DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
-            DateTime? randomMaxEndTime = (expiredCalls < 5 && s_rand.Next(0, 5) == 0)
-                ? null : (s_rand.Next(0, 2) == 0 ? null : randomStartTime.AddHours(s_rand.Next(1, 48)));
-
-            Call call = new Call
-            {
-                Status = (s_rand.Next(0, 4) == 0)
-                    ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
-                Description = Descriptions[i],
-                CallerAddress = CallerAddresses[i],
-                Latitude = s_rand.NextDouble() * (32.2 - 29.5) + 29.5,
-                Longitude = s_rand.NextDouble() * (35.7 - 34.3) + 34.3,
-                StartTime = randomStartTime,
-                MaxEndTime = randomMaxEndTime,
-            };
-
-            if (randomMaxEndTime == null && expiredCalls < 5)
-                expiredCalls++;
-
-            Call? checkCall = s_dalCall?.Read(call.Id);
-            if (checkCall == null)
-                s_dalCall?.Create(call);
-            totalCalls++;
-        }
-    }
-
     public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig)
     {
         s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!");
