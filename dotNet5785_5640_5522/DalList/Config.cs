@@ -1,5 +1,4 @@
 ﻿namespace Dal;
-
 internal static class Config
 {
     internal const int startAssignmentId = 1;

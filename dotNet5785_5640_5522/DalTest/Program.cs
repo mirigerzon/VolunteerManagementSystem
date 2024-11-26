@@ -5,7 +5,6 @@ using Dal;
 using DalApi;
 using DO;
 using Microsoft.VisualBasic.FileIO;
-
 namespace DalTest;
 internal class Program
 {
@@ -81,7 +80,7 @@ internal class Program
         }
         catch (Exception e)
         {
-            Console.WriteLine($"error: {e.ToString()}");
+            Console.WriteLine($"\n error: {e.ToString()}");
         }
     }
     private static void MenuFanction(string typeOf)
@@ -335,7 +334,7 @@ internal class Program
             throw new Exception($"\n There are no {typeOf} for display");
         else
             foreach (var item in list)
-                throw new Exception($"\n {item}");
+                Console.WriteLine(new Exception($"\n {item}"));
     }
     private static void UpdateFunction(string typeOf)
     {

@@ -64,7 +64,6 @@ internal static class Initialization
     "893 Sheinkin St, Tel Aviv",
     "114 Yehuda Halevi St, Tel Aviv"
 };
-
     private static string[] Descriptions = {
     "Flat tire in need of assistance",
     "Car battery drained - requires jump start",
@@ -243,7 +242,6 @@ internal static class Initialization
              randomMaxEndTime
          );
 
-
             if (randomMaxEndTime == null && expiredCalls < 5)
                 expiredCalls++;
 
@@ -274,7 +272,7 @@ internal static class Initialization
         DateTime? randomEndTime = s_rand.Next(0, 2) == 0 ?
             (DateTime?)null :
             randomStartTime.AddMinutes(s_rand.Next(1, 181));
-        // Create 35 random assignments (at least 15 unassigned) 
+        // Create 35 random assignments (at least 15 unassigned)
         for (int i = 0; i < 35; i++)
         {
             var volunteer = allVolunteers[s_rand.Next(allVolunteers.Count)];
@@ -296,18 +294,19 @@ internal static class Initialization
     }
     public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig)
     {
-        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!");
-        Console.WriteLine("Reset Configuration values and List values...");
+        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("\n DAL object can not be null!");
+        s_dalCall = dalCall ?? throw new NullReferenceException("\n DAL object can not be null!");
+        s_dalAssignment = dalAssignment ?? throw new NullReferenceException("\n DAL object can not be null!");
+        s_dalConfig = dalConfig ?? throw new NullReferenceException("\n DAL object can not be null!");
+        Console.WriteLine("\n Reset Configuration values and List values...");
         s_dalConfig.reset();
         s_dalVolunteer.DeleteAll();
         s_dalAssignment.DeleteAll();
         s_dalCall.DeleteAll();
-        Console.WriteLine("Initializing Students list ...");
+        Console.WriteLine("\n Initializing volunteer list ...");
         CreateVolunteer();
+        Console.WriteLine("\n Initializing call list ...");
         CreateCall();
-        CreateAssignment();
+        //CreateAssignment();
     }
 }

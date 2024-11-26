@@ -26,7 +26,7 @@ public class VolunteerImplementation : IVolunteer
     {
         if (DataSource.VolunteersList != null)
             return DataSource.VolunteersList.Find(x => x.Id == id);
-        else throw new Exception("DataSource.Volunteer is empty");
+        else throw new Exception($"Volunteer with id {id} is undefined");
     }
     public List<Volunteer> ReadAll()
     {
