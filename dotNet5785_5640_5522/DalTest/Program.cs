@@ -115,7 +115,7 @@ internal class Program
                     DeleteAllFunction(typeOf);
                     break;
                 default:
-                    throw new Exception("\n ERROR");
+                    throw new Exception("\n Error");
             }
         }
         while (option != SubMenu.exit);
@@ -289,14 +289,44 @@ internal class Program
         }
         else if (typeOf == "assignments")
         {
+            Console.WriteLine("\n Enter volunteer id");
+            string volunteerIdInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(volunteerIdInput))
+                throw new Exception("\n Volunteer id cannot be null or empty");
+
+            int volunteerId;
+            if (!int.TryParse(volunteerIdInput, out volunteerId))
+                throw new Exception("\n Volunteer id must be a valid number");
+
+            Console.WriteLine("\n Enter entry time (yyyy-MM-dd HH:mm)");
+            string entryTimeInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(entryTimeInput))
+                throw new Exception("\n Entry time cannot be null or empty");
+
+            DateTime entryTime;
+            if (!DateTime.TryParse(entryTimeInput, out entryTime))
+                throw new Exception("\n Invalid entry time format");
+
+            Console.WriteLine("\n Enter end time (yyyy-MM-dd HH:mm)");
+            string endTimeInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(endTimeInput))
+                throw new Exception("\n End time cannot be null or empty");
+
+            DateTime endTime;
+            if (!DateTime.TryParse(endTimeInput, out endTime))
+                throw new Exception("\n Invalid end time format");
+
+            Assignment assignment = new Assignment(volunteerId, entryTime, endTime);
+            s_dalAssignment.Create(assignment);
         }
-        else throw new Exception("Error");
+
+        else throw new Exception("\n Error");
     }
     private static void ReadFunction(string typeOf)
     {
         Console.WriteLine("Enter ID for display");
         int id;
-            while (!int.TryParse(Console.ReadLine(), out id))
+        while (!int.TryParse(Console.ReadLine(), out id))
             Console.WriteLine("\n Enter valid input");
         if (typeOf == "volunteers")
             if (s_dalVolunteer != null)
@@ -334,7 +364,7 @@ internal class Program
             Console.WriteLine($"\n There are no {typeOf} for display");
         else
             foreach (var item in list)
-                Console.WriteLine(new Exception($"\n {item}"));
+                Console.WriteLine(($"\n{typeOf} List:\n {item}"));
     }
     private static void UpdateFunction(string typeOf)
     {
@@ -415,6 +445,35 @@ internal class Program
         }
         else if (typeOf == "assignments")
         {
+            Console.WriteLine("\n Enter volunteer id");
+            string volunteerIdInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(volunteerIdInput))
+                throw new Exception("\n Volunteer id cannot be null or empty");
+
+            int volunteerId;
+            if (!int.TryParse(volunteerIdInput, out volunteerId))
+                throw new Exception("\n Volunteer id must be a valid number");
+
+            Console.WriteLine("\n Enter entry time (yyyy-MM-dd HH:mm)");
+            string entryTimeInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(entryTimeInput))
+                throw new Exception("\n Entry time cannot be null or empty");
+
+            DateTime entryTime;
+            if (!DateTime.TryParse(entryTimeInput, out entryTime))
+                throw new Exception("\n Invalid entry time format");
+
+            Console.WriteLine("\n Enter end time (yyyy-MM-dd HH:mm)");
+            string endTimeInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(endTimeInput))
+                throw new Exception("\n End time cannot be null or empty");
+
+            DateTime endTime;
+            if (!DateTime.TryParse(endTimeInput, out endTime))
+                throw new Exception("\n Invalid end time format");
+
+            Assignment assignment = new Assignment(volunteerId, entryTime, endTime);
+            s_dalAssignment.Update(assignment);
         }
         else throw new Exception("Error");
     }
@@ -565,7 +624,42 @@ internal class Program
                 break;
 
             case "assignment":
-                Console.WriteLine("\n Assignment update not implemented yet.");
+                Console.WriteLine("\n Enter field to change (volunteer id, entry time, end time):");
+                string assignmentOption = Console.ReadLine()?.ToLower();
+
+                var assignmentToChange = s_dalAssignment.Read(id);
+                if (assignmentToChange == null)
+                    throw new Exception("\n Call not found.");
+
+                switch (assignmentOption)
+                {
+                    case "volunteer id":
+                        Console.Write("\n Enter Volunteer id: ");
+                        result = Console.ReadLine();
+                        if (!int.TryParse(result, out int volunteerId))
+                            throw new Exception("\n Invalid Volunteer id.");
+                        assignmentToChange = assignmentToChange with { VolunteerId = volunteerId };
+                        break;
+                    case "entry time":
+                        Console.Write("\n Enter Entry time (yyyy-mm-dd hh:mm): ");
+                        result = Console.ReadLine();
+                        if (!DateTime.TryParse(result, out DateTime entryTime))
+                            throw new Exception("\n Invalid Entry time.");
+                        assignmentToChange = assignmentToChange with { ArrivalTime = entryTime };
+                        break;
+                    case "end time":
+                        Console.Write("\n Enter End time (yyyy-mm-dd hh:mm): ");
+                        result = Console.ReadLine();
+                        if (!DateTime.TryParse(result, out DateTime endTime))
+                            throw new Exception("\n Invalid End time.");
+                        assignmentToChange = assignmentToChange with { EndTime = endTime };
+                        break;
+                    default:
+                        throw new Exception("\n Invalid input.");
+                }
+
+                s_dalAssignment.Update(assignmentToChange);
+                Console.WriteLine("\n Assignment updated successfully.");
                 break;
 
             default:

@@ -254,21 +254,23 @@ internal static class Initialization
     private static void CreateAssignment()
     {
         // Ensure that volunteers, calls, and assignment dependencies are initialized
-        if (s_dalVolunteer == null || s_dalCall == null || s_dalAssignment == null)
-            throw new Exception("Dependencies not initialized.");
+        if (s_dalVolunteer == null || s_dalCall == null || s_dalAssignment == null || s_dalConfig == null)
+            throw new Exception("\n Dependencies not initialized.");
         // Fetch all existing volunteers and calls
         var allVolunteers = s_dalVolunteer?.ReadAll().ToList();
         var allCalls = s_dalCall?.ReadAll().ToList();
         // Ensure that volunteers and calls are available before proceeding
         if (allVolunteers == null || allCalls == null || !allVolunteers.Any() || !allCalls.Any())
-            throw new Exception("Volunteers or Calls data is missing.");
+            throw new Exception("\n Volunteers or Calls data is missing.");
         // Define a starting date two years prior to the current date
-        // Calculate the range of days between the start date and the current time
-        // Generate a random start time within the range
         DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1);
+        // Ensure the range is positive before using it
         int range = (s_dalConfig.Clock - startDate).Days;
+        if (range <= 0)
+            throw new Exception("\n Invalid date range. The start date is later than the current date.");
+        // Generate a random start time within the range
         DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
-        // Sometimes the end time is null or expired
+        // Generate a random end time (it could be null or between 1 and 180 minutes after the start time)
         DateTime? randomEndTime = s_rand.Next(0, 2) == 0 ?
             (DateTime?)null :
             randomStartTime.AddMinutes(s_rand.Next(1, 181));
@@ -276,20 +278,22 @@ internal static class Initialization
         for (int i = 0; i < 35; i++)
         {
             var volunteer = allVolunteers[s_rand.Next(allVolunteers.Count)];
-            var call = allCalls[i];
+            var call = allCalls[s_rand.Next(allCalls.Count)];
             Assignment assignment = new Assignment
             (
-                0,
-               volunteer.Id,
-               call.Id,
-               randomStartTime,
-               randomEndTime,
-               (Enums.TerminationTypeEnum)s_rand.Next(0, 4)
+                0, 
+                volunteer.Id,
+                call.Id,
+                randomStartTime,
+                randomEndTime,
+                (Enums.TerminationTypeEnum)s_rand.Next(0, 4) 
             );
-            // Check if the assignment ID already exists in the system, and add it to the data layer
+
             Assignment? checkAssignment = s_dalAssignment?.Read(assignment.Id);
             if (checkAssignment == null)
+            {
                 s_dalAssignment?.Create(assignment);
+            }
         }
     }
     public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig)
@@ -303,10 +307,11 @@ internal static class Initialization
         s_dalVolunteer.DeleteAll();
         s_dalAssignment.DeleteAll();
         s_dalCall.DeleteAll();
-        Console.WriteLine("\n Initializing volunteer list ...");
         CreateVolunteer();
-        Console.WriteLine("\n Initializing call list ...");
+        Console.WriteLine("\n Initializing volunteer list ...");
         CreateCall();
-        //CreateAssignment();
+        Console.WriteLine("\n Initializing call list ...");
+        CreateAssignment();
+        Console.WriteLine("\n Initializing assignment list ...");
     }
 }

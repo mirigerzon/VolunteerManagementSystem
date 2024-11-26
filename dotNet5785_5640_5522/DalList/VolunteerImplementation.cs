@@ -21,7 +21,7 @@ public class VolunteerImplementation : IVolunteer
     public void DeleteAll()
     {
         DataSource.VolunteersList.Clear();
-        Console.WriteLine("\n There are no volunteers in Volunteer list")
+        Console.WriteLine("\n There are no volunteers in Volunteer list");
     }
     public Volunteer? Read(int id)
     {

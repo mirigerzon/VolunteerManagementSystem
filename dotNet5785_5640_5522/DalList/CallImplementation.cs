@@ -22,7 +22,7 @@ public class CallImplementation : ICall
     public void DeleteAll()
     {
         DataSource.CallsList.Clear();
-        Console.WriteLine("\n There are no calls in Call list")
+        Console.WriteLine("\n There are no calls in Call list");
     }
     public Call? Read(int id)
     {
