@@ -5,7 +5,6 @@ using Dal;
 using DalApi;
 using DO;
 using Microsoft.VisualBasic.FileIO;
-
 namespace DalTest;
 internal class Program
 {
@@ -81,7 +80,7 @@ internal class Program
         }
         catch (Exception e)
         {
-            Console.WriteLine($"error: {e.ToString()}");
+            Console.WriteLine($"\n error: {e.ToString()}");
         }
     }
     private static void MenuFanction(string typeOf)
@@ -297,7 +296,7 @@ internal class Program
     {
         Console.WriteLine("enter ID for display");
         int id;
-        while (!int.TryParse(Console.ReadLine(), out id))
+            while (!int.TryParse(Console.ReadLine(), out id))
             Console.WriteLine("\n Enter valid input");
         if (typeOf == "volunteers")
             if (s_dalVolunteer != null)
@@ -332,10 +331,10 @@ internal class Program
         else
             throw new Exception("ERROR");
         if (list == null || !list.Any())
-            throw new Exception($"\n There are no {typeOf} for display");
+            Console.WriteLine($"\n There are no {typeOf} for display");
         else
             foreach (var item in list)
-                throw new Exception($"\n {item}");
+                Console.WriteLine(new Exception($"\n {item}"));
     }
     private static void UpdateFunction(string typeOf)
     {

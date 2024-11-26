@@ -64,7 +64,6 @@ internal static class Initialization
     "893 Sheinkin St, Tel Aviv",
     "114 Yehuda Halevi St, Tel Aviv"
 };
-
     private static string[] Descriptions = {
     "Flat tire in need of assistance",
     "Car battery drained - requires jump start",
@@ -296,18 +295,19 @@ internal static class Initialization
     }
     public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig)
     {
-        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!");
-        Console.WriteLine("Reset Configuration values and List values...");
+        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("\n DAL object can not be null!");
+        s_dalCall = dalCall ?? throw new NullReferenceException("\n DAL object can not be null!");
+        s_dalAssignment = dalAssignment ?? throw new NullReferenceException("\n DAL object can not be null!");
+        s_dalConfig = dalConfig ?? throw new NullReferenceException("\n DAL object can not be null!");
+        Console.WriteLine("\n Reset Configuration values and List values...");
         s_dalConfig.reset();
         s_dalVolunteer.DeleteAll();
         s_dalAssignment.DeleteAll();
         s_dalCall.DeleteAll();
-        Console.WriteLine("Initializing Students list ...");
+        Console.WriteLine("\n Initializing volunteer list ...");
         CreateVolunteer();
+        Console.WriteLine("\n Initializing call list ...");
         CreateCall();
-        CreateAssignment();
+        //CreateAssignment();
     }
 }

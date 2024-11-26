@@ -36,6 +36,5 @@ public record Volunteer
 {
     public Volunteer(int id, string firstName, string lastName, string phoneNumber, string email, string password, string address, double latitude, double longitude)
         : this(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude, null, true, null, null)
-    {
-    }
+    { }
 }
