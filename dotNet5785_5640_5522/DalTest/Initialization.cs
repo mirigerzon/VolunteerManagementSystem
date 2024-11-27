@@ -168,6 +168,7 @@ internal static class Initialization
     "11 Oleander St, Mevaseret Zion",
     "95 Buttercup St, Even Yehuda"
 };
+    //Creates a manager and multiple volunteers, adding them to the system if they don't already exist.
     private static void CreateVolunteer()
     {
         // Create and add a manager if not already exists
@@ -218,6 +219,7 @@ internal static class Initialization
                 s_dalVolunteer.Create(volunteer);
         }
     }
+    //Generates random calls and adds them to the system, ensuring no duplicates exist.
     private static void CreateCall()
     {
         int expiredCalls = 0;
@@ -251,6 +253,7 @@ internal static class Initialization
             totalCalls++;
         }
     }
+    //Creates random assignments linking volunteers to calls and adds them to the system.
     private static void CreateAssignment()
     {
         // Ensure that volunteers, calls, and assignment dependencies are initialized
@@ -281,12 +284,12 @@ internal static class Initialization
             var call = allCalls[s_rand.Next(allCalls.Count)];
             Assignment assignment = new Assignment
             (
-                0, 
+                0,
                 volunteer.Id,
                 call.Id,
                 randomStartTime,
                 randomEndTime,
-                (Enums.TerminationTypeEnum)s_rand.Next(0, 4) 
+                (Enums.TerminationTypeEnum)s_rand.Next(0, 4)
             );
 
             Assignment? checkAssignment = s_dalAssignment?.Read(assignment.Id);
@@ -296,6 +299,7 @@ internal static class Initialization
             }
         }
     }
+    //Initializes the system by resetting data and invoking CreateVolunteer, CreateCall, and CreateAssignment.
     public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig)
     {
         s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("\n DAL object can not be null!");
