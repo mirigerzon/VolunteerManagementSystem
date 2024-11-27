@@ -7,9 +7,17 @@ public class CallImplementation : ICall
 {
     public void Create(Call item)
     {
-        if (Read(item.Id) != null)
-            throw new Exception("call with this ID already exists");
-        DataSource.CallsList.Add(item);
+        Call newCall = new Call(
+            Config.NextCallId,
+            item.Status,
+            item.Description,
+            item.CallerAddress,
+            item.Latitude,
+            item.Longitude,
+            item.StartTime,
+            item.MaxEndTime
+        );
+        DataSource.CallsList.Add(newCall);
     }
     public void Delete(int id)
     {

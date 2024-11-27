@@ -3,6 +3,7 @@ using System;
 using System.Linq.Expressions;
 using Dal;
 using DalApi;
+
 using DO;
 using Microsoft.VisualBasic.FileIO;
 namespace DalTest;
@@ -14,24 +15,51 @@ internal class Program
     private static IConfig? s_dalConfig = new ConfigImplementation();
     private enum MainMenu
     {
-        exit, volunteers, calls, assignments, initializingData, displayData, config, resetData
+        exit,
+        volunteers,
+        calls,
+        assignments,
+        initializingData,
+        displayData,
+        config,
+        resetData
     }
     private enum SubMenu
     {
-        exit, create, read, readAll, update, delete, deleteAll
+        exit,
+        create,
+        read,
+        readAll,
+        update,
+        delete,
+        deleteAll
     }
     private enum AddConfigMenu
     {
-        get, create, add
+        get,
+        create,
+        add
     }
     private enum DisplayConfigMenu
     {
-        getId, DisplayFuncion, Display
+        getId,
+        DisplayFuncion,
+        Display
     }
     private enum SubConfigMenu
     {
-        exit, minute, hour, day, month, year, displayClockSystem, redefine, displayClockConfig, reset
+        exit,
+        minute,
+        hour,
+        day,
+        month,
+        year,
+        displayClockSystem,
+        redefine,
+        displayClockConfig,
+        reset
     }
+    // Main entry point; displays the main menu, handles user input, and routes to corresponding functionality.
     static void Main(string[] args)
     {
         try
@@ -83,6 +111,7 @@ internal class Program
             Console.WriteLine($"\n error: {e.ToString()}");
         }
     }
+    // Handles the submenu for CRUD operations based on the specified type (e.g., volunteers, calls, assignments).
     private static void MenuFanction(string typeOf)
     {
         SubMenu option;
@@ -119,91 +148,102 @@ internal class Program
             }
         }
         while (option != SubMenu.exit);
-        return;
     }
+    // Initializes data by calling the `Initialization.Do` method with the appropriate data sources.
     private static void InitializingDataFunction()
     {
         Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
     }
+    // Displays all data of a specified type (volunteer, call, or assignment) by reading from corresponding data sources.
     private static void DisplayDataFunction()
     {
         Console.WriteLine("\n Enter type of config (volunteer, call, assignment)");
         string typeOf = Console.ReadLine();
-        Console.WriteLine("\n Enter ID");
-        int id;
-        while (!int.TryParse(Console.ReadLine(), out id))
-            Console.WriteLine("\n Enter valid input");
         switch (typeOf)
         {
             case "volunteer":
                 if (s_dalVolunteer != null)
-                    Console.WriteLine(s_dalVolunteer.Read(id));
+                {
+                    var volunteers = s_dalVolunteer.ReadAll();
+                    foreach (var volunteer in volunteers)
+                        Console.WriteLine(volunteer);
+                }
                 else throw new Exception("\n s_dalVolunteer is null");
                 break;
             case "call":
                 if (s_dalCall != null)
-                    Console.WriteLine(s_dalCall.Read(id));
+                {
+                    var calls = s_dalCall.ReadAll();
+                    foreach (var call in calls)
+                        Console.WriteLine(call);
+                }
                 else throw new Exception("\n s_dalCall is null");
                 break;
             case "assignment":
                 if (s_dalAssignment != null)
-                    Console.WriteLine(s_dalAssignment.Read(id));
+                {
+                    var assignments = s_dalAssignment.ReadAll();
+                    foreach (var assignment in assignments)
+                        Console.WriteLine(assignment); 
+                }
                 else throw new Exception("\n s_dalAssignment is null");
                 break;
             default:
-                throw new Exception($"\n Ther is no type of config like {typeOf}");
+                throw new Exception($"\n There is no type of config like {typeOf}");
         }
     }
+    // Handles the configuration submenu to manage time settings, display clock details, or reset configurations.
     private static void ConfigMenuFunction()
     {
-        MainMenu option;
+        SubConfigMenu option;
         do
         {
             Console.WriteLine("\n SubConfigMenu is on");
-            foreach (var myOption in Enum.GetValues(typeof(MainMenu)))
+            foreach (var myOption in Enum.GetValues(typeof(SubConfigMenu)))
             {
                 Console.WriteLine($"\n Enter {(int)myOption} to {myOption.ToString().Replace('_', ' ').ToLower()}");
             }
-            option = (MainMenu)GetIntFromScreen("\n Enter your choice: ");
+            option = (SubConfigMenu)GetIntFromScreen("\n Enter your choice: ");
             Console.Clear();
             switch (option)
             {
-                case (MainMenu)SubConfigMenu.exit:
+                case SubConfigMenu.exit:
                     Console.WriteLine("\n Have a good day!");
                     break;
-                case (MainMenu)SubConfigMenu.minute:
+                case SubConfigMenu.minute:
                     changeTimeFunction("minute");
                     break;
-                case (MainMenu)SubConfigMenu.hour:
+                case SubConfigMenu.hour:
                     changeTimeFunction("hour");
                     break;
-                case (MainMenu)SubConfigMenu.day:
+                case SubConfigMenu.day:
                     changeTimeFunction("day");
                     break;
-                case (MainMenu)SubConfigMenu.month:
+                case SubConfigMenu.month:
                     changeTimeFunction("month");
                     break;
-                case (MainMenu)SubConfigMenu.year:
+                case SubConfigMenu.year:
                     changeTimeFunction("year");
                     break;
-                case (MainMenu)SubConfigMenu.displayClockSystem:
+                case SubConfigMenu.displayClockSystem:
                     DisplayClockSystemFunction();
                     break;
-                case (MainMenu)SubConfigMenu.redefine:
+                case SubConfigMenu.redefine:
                     RedefineFunction();
                     break;
-                case (MainMenu)SubConfigMenu.displayClockConfig:
+                case SubConfigMenu.displayClockConfig:
                     DisplayClockConfigFunction();
                     break;
-                case (MainMenu)SubConfigMenu.reset:
+                case SubConfigMenu.reset:
                     ResetFunction();
                     break;
                 default:
                     throw new Exception("\n Ther is no option like this");
             }
         }
-        while (option != MainMenu.exit);
+        while (option != SubConfigMenu.exit);
     }
+    // Resets all data by clearing all DAL objects (volunteer, call, assignment) or throwing an exception if any is null.
     private static void ResetDataFunction()
     {
         if (s_dalConfig != null)
@@ -219,6 +259,7 @@ internal class Program
             s_dalVolunteer.DeleteAll();
         else throw new Exception("\n s_dalVolunteer is null");
     }
+    // Creates and adds a new Volunteer, Call, or Assignment object based on user input.
     private static void CreateFunction(string typeOf)
     {
         if (typeOf == "volunteers")
@@ -268,60 +309,57 @@ internal class Program
             string description = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(description))
                 throw new Exception("\n Description cannot be null or empty");
-
             Console.WriteLine("\n Enter address");
             string address = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(address))
                 throw new Exception("\n Address cannot be null or empty");
-
             Console.WriteLine("\n Enter Latitude");
             double latitude;
             if (!double.TryParse(Console.ReadLine(), out latitude))
                 throw new Exception("\n Invalid input for Latitude");
-
             Console.WriteLine("\n Enter Longitude");
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
                 throw new Exception("\n invalid input for Longitude");
-
             Call call = new Call(description, address, latitude, longitude);
             s_dalCall.Create(call);
         }
-        else if (typeOf == "assignments")
+        else if (typeOf == "Assignments")
         {
             Console.WriteLine("\n Enter volunteer id");
             string volunteerIdInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(volunteerIdInput))
                 throw new Exception("\n Volunteer id cannot be null or empty");
-
             int volunteerId;
             if (!int.TryParse(volunteerIdInput, out volunteerId))
-                throw new Exception("\n Volunteer id must be a valid number");
-
+                Console.WriteLine("\n Enter volunteer id");
+            Console.WriteLine("\n Enter call id");
+            string callIdInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(callIdInput))
+                throw new Exception("\n Call id cannot be null or empty");
+            int callId;
+            if (!int.TryParse(callIdInput, out callId))
+                throw new Exception("\n Call id must be a valid number");
             Console.WriteLine("\n Enter entry time (yyyy-MM-dd HH:mm)");
             string entryTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(entryTimeInput))
                 throw new Exception("\n Entry time cannot be null or empty");
-
             DateTime entryTime;
             if (!DateTime.TryParse(entryTimeInput, out entryTime))
                 throw new Exception("\n Invalid entry time format");
-
             Console.WriteLine("\n Enter end time (yyyy-MM-dd HH:mm)");
             string endTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(endTimeInput))
                 throw new Exception("\n End time cannot be null or empty");
-
             DateTime endTime;
             if (!DateTime.TryParse(endTimeInput, out endTime))
                 throw new Exception("\n Invalid end time format");
-
-            Assignment assignment = new Assignment(volunteerId, entryTime, endTime);
+            Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime);
             s_dalAssignment.Create(assignment);
         }
-
         else throw new Exception("\n Error");
     }
+    // Reads and displays a specific Volunteer, Call, or Assignment object by ID.
     private static void ReadFunction(string typeOf)
     {
         Console.WriteLine("Enter ID for display");
@@ -342,6 +380,7 @@ internal class Program
             else throw new Exception("s_dalAssignment is null");
         else throw new Exception("Error");
     }
+    // Reads and displays all Volunteers, Calls, or Assignments or indicates if no data exists.
     private static void ReadAllFunction(string typeOf)
     {
         IEnumerable<object> list;
@@ -354,7 +393,7 @@ internal class Program
             if (s_dalCall != null)
                 list = s_dalCall.ReadAll();
             else throw new Exception("s_dalCall is null");
-        else if (typeOf == "assignments")
+        else if (typeOf == "Assignments")
             if (s_dalAssignment != null)
                 list = s_dalAssignment.ReadAll();
             else throw new Exception("s_dalAssignment is null");
@@ -366,6 +405,7 @@ internal class Program
             foreach (var item in list)
                 Console.WriteLine(($"\n{typeOf} List:\n {item}"));
     }
+    // Updates an existing Volunteer, Call, or Assignment object based on user input.
     private static void UpdateFunction(string typeOf)
     {
         if (typeOf == "volunteers")
@@ -443,26 +483,29 @@ internal class Program
             Call call = new Call(description, address, latitude, longitude);
             s_dalCall.Update(call);
         }
-        else if (typeOf == "assignments")
+        else if (typeOf == "Assignments")
         {
             Console.WriteLine("\n Enter volunteer id");
             string volunteerIdInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(volunteerIdInput))
                 throw new Exception("\n Volunteer id cannot be null or empty");
-
             int volunteerId;
             if (!int.TryParse(volunteerIdInput, out volunteerId))
                 throw new Exception("\n Volunteer id must be a valid number");
-
+            Console.WriteLine("\n Enter call id");
+            string callIdInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(callIdInput))
+                throw new Exception("\n Call id cannot be null or empty");
+            int callId;
+            if (!int.TryParse(callIdInput, out callId))
+                throw new Exception("\n Call id must be a valid number");
             Console.WriteLine("\n Enter entry time (yyyy-MM-dd HH:mm)");
             string entryTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(entryTimeInput))
                 throw new Exception("\n Entry time cannot be null or empty");
-
             DateTime entryTime;
             if (!DateTime.TryParse(entryTimeInput, out entryTime))
                 throw new Exception("\n Invalid entry time format");
-
             Console.WriteLine("\n Enter end time (yyyy-MM-dd HH:mm)");
             string endTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(endTimeInput))
@@ -472,7 +515,7 @@ internal class Program
             if (!DateTime.TryParse(endTimeInput, out endTime))
                 throw new Exception("\n Invalid end time format");
 
-            Assignment assignment = new Assignment(volunteerId, entryTime, endTime);
+            Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime);
             s_dalAssignment.Update(assignment);
         }
         else throw new Exception("Error");
@@ -504,6 +547,7 @@ internal class Program
         else
             throw new Exception("\n Error");
     }
+    // Deletes all entities of a specified type.
     private static void DeleteAllFunction(string typeOf)
     {
         if (typeOf == "volunteers")
@@ -514,6 +558,7 @@ internal class Program
             s_dalAssignment.DeleteAll();
         else throw new Exception("\n Erroe");
     }
+    // Adjusts the system clock by the specified time unit.
     private static void changeTimeFunction(string typeOf)
     {
         if (s_dalConfig != null)
@@ -533,12 +578,14 @@ internal class Program
         else throw new Exception("s_dalConfig is null");
 
     }
+    // Displays the current system clock value.
     private static void DisplayClockSystemFunction()
     {
         if (s_dalConfig != null)
             Console.WriteLine($"The system clock is: {s_dalConfig.Clock}");
         else throw new Exception("s_dalConfig is null");
     }
+    // Redefines the attributes of a specific entity based on user input.
     private static void RedefineFunction()
     {
         Console.WriteLine("\n Enter type of config (volunteer, call, assignment):");
@@ -666,18 +713,21 @@ internal class Program
                 throw new Exception($"\n No such type of config: {typeOf}");
         }
     }
+    // Displays the configuration clock.
     private static void DisplayClockConfigFunction()
     {
         if (s_dalConfig != null)
             Console.WriteLine(s_dalConfig.Clock);
         else throw new Exception("\n s_dalConfig is null");
     }
+    // Resets the system configuration.
     private static void ResetFunction()
     {
         if (s_dalConfig != null)
             s_dalConfig.reset();
         else throw new Exception("\n s_dalConfig is null");
     }
+    // Retrieves an integer value from the user with validation.
     private static int GetIntFromScreen(string message)
     {
         Console.Write(message);

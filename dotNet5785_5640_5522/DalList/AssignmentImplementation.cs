@@ -3,14 +3,21 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
+using static DO.Enums;
 
 public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {
-        if (Read(item.Id) != null)
-            throw new Exception("Assignment with this ID already exists");
-        DataSource.AssignmentsList.Add(item);
+        Assignment newAssignment = new Assignment(
+            Config.NextAssignmentId,
+            item.VolunteerId,
+            item.CallId,
+            item.ArrivalTime,
+            item.EndTime,
+            item.EndStatus
+        );
+        DataSource.AssignmentsList.Add(newAssignment);
     }
     public void Delete(int id)
     {

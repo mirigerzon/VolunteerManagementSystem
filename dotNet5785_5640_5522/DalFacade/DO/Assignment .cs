@@ -13,15 +13,15 @@
 public record Assignment
 (
     int Id,
-    int CallId,
     int VolunteerId,
+    int CallId,
     DateTime? ArrivalTime,
     DateTime? EndTime,
     Enums.TerminationTypeEnum? EndStatus
 )
 {
-    public Assignment(int volunteerId, DateTime? arrivalTime, DateTime? endTime)
-         : this(0, 0, volunteerId, arrivalTime, endTime, null)
+    public Assignment(int volunteerId, int callId, DateTime? arrivalTime, DateTime? endTime)
+         : this(0, volunteerId, callId, arrivalTime, endTime, null)
     {
     }
 }
