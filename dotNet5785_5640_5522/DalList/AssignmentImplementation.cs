@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using static DO.Enums;
 
-public class AssignmentImplementation : IAssignment
+internal class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {

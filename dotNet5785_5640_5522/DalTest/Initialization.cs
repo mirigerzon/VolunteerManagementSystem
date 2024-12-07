@@ -4,10 +4,11 @@ using DO;
 using static DO.Enums;
 internal static class Initialization
 {
-    private static IVolunteer? s_dalVolunteer;
-    private static ICall? s_dalCall;
-    private static IAssignment? s_dalAssignment;
-    private static IConfig? s_dalConfig;
+    //private static IVolunteer? s_dalVolunteer; //stage 1
+    //private static ICall? s_dalCall; //stage 1
+    //private static IAssignment? s_dalAssignment; //stage 1
+    //private static IConfig? s_dalConfig; //stage 1
+    private static IDal? s_dal; //stage 2
     private static readonly Random s_rand = new();
 
     private static string[] FirstNames = {
@@ -168,7 +169,6 @@ internal static class Initialization
     "11 Oleander St, Mevaseret Zion",
     "95 Buttercup St, Even Yehuda"
 };
-
     //Creates a manager and multiple volunteers, adding them to the system if they don't already exist.
     private static void CreateVolunteer()
     {
@@ -191,9 +191,13 @@ internal static class Initialization
             (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
         );
         // Check if the manager ID already exists in the system, and add it to the data layer
-        Volunteer? checkManager = s_dalVolunteer?.Read(id);
+        //Volunteer? checkManager = s_dalVolunteer?.Read(id); //stage 1
+        Volunteer? checkManager = s_dal?.Volunteer.Read(id); //stage 2
+
         if (checkManager == null)
-            s_dalVolunteer?.Create(manager);
+            //s_dalVolunteer?.Create(manager);//stage 1
+            s_dal?.Volunteer.Create(manager);//stage 2
+
         // Create and add 10 volunteers
         for (int i = 0; i < 15; i++)
         {
@@ -215,9 +219,11 @@ internal static class Initialization
                 (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
             );
             // Check if the volunteer ID already exists in the system, and add it to the data layer
-            Volunteer? checkVolunteer = s_dalVolunteer?.Read(volId);
+            //Volunteer? checkVolunteer = s_dalVolunteer?.Read(volId); //stage 1
+            Volunteer? checkVolunteer = s_dal.Volunteer?.Read(volId); //stage 2
             if (checkVolunteer == null)
-                s_dalVolunteer.Create(volunteer);
+                //s_dalVolunteer.Create(volunteer); //stage 1
+                s_dal.Volunteer.Create(volunteer); //stage 2
         }
     }
     //Generates random calls and adds them to the system, ensuring no duplicates exist.
@@ -228,8 +234,11 @@ internal static class Initialization
 
         for (int i = 0; i < 50; i++)
         {
-            DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1);
-            int range = (s_dalConfig.Clock - startDate).Days;
+            //DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1); //stage 1
+            DateTime startDate = new DateTime(s_dal.Config.Clock.Year - 2, 1, 1); //stage 2
+
+            //int range = (s_dalConfig.Clock - startDate).Days; //stage 1
+            int range = (s_dal.Config.Clock - startDate).Days; //stage 2
             DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
             DateTime? randomMaxEndTime = (expiredCalls < 5 && s_rand.Next(0, 5) == 0)
                 ? null : (s_rand.Next(0, 2) == 0 ? null : randomStartTime.AddHours(s_rand.Next(1, 48)));
@@ -248,9 +257,11 @@ internal static class Initialization
             if (randomMaxEndTime == null && expiredCalls < 5)
                 expiredCalls++;
 
-            Call? checkCall = s_dalCall?.Read(call.Id);
+            //Call? checkCall = s_dalCall?.Read(call.Id); //stage 1
+            Call? checkCall = s_dal?.Call.Read(call.Id); //stage 2
             if (checkCall == null)
-                s_dalCall?.Create(call);
+                //s_dalCall?.Create(call); //stage 1  
+                s_dal?.Call.Create(call); //stage 1
             totalCalls++;
         }
     }
@@ -258,26 +269,40 @@ internal static class Initialization
     private static void CreateAssignment()
     {
         // Ensure that volunteers, calls, and assignment dependencies are initialized
-        if (s_dalVolunteer == null || s_dalCall == null || s_dalAssignment == null || s_dalConfig == null)
+        //if (s_dalVolunteer == null || s_dalCall == null || s_dalAssignment == null || s_dalConfig == null) // stage 1
+        if (s_dal.Volunteer == null || s_dal.Call == null || s_dal.Assignment == null || s_dal.Config == null) // stage 2
             throw new Exception("\n Dependencies not initialized.");
+
         // Fetch all existing volunteers and calls
-        var allVolunteers = s_dalVolunteer?.ReadAll().ToList();
-        var allCalls = s_dalCall?.ReadAll().ToList();
+        //var allVolunteers = s_dalVolunteer?.ReadAll().ToList(); //stage 1
+        var allVolunteers = s_dal?.Volunteer.ReadAll().ToList(); //stage 2
+
+        //var allCalls = s_dalCall?.ReadAll().ToList(); //stage 1
+        var allCalls = s_dal?.Call.ReadAll().ToList(); //stage 2
+
         // Ensure that volunteers and calls are available before proceeding
         if (allVolunteers == null || allCalls == null || !allVolunteers.Any() || !allCalls.Any())
             throw new Exception("\n Volunteers or Calls data is missing.");
+
         // Define a starting date two years prior to the current date
-        DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1);
+        //DateTime startDate = new DateTime(s_dalConfig.Clock.Year - 2, 1, 1); //stage 1
+        DateTime startDate = new DateTime(s_dal.Config.Clock.Year - 2, 1, 1); //stage 2
+
         // Ensure the range is positive before using it
-        int range = (s_dalConfig.Clock - startDate).Days;
+        //int range = (s_dalConfig.Clock - startDate).Days; //stage 1
+        int range = (s_dal.Config.Clock - startDate).Days; //stage 2
+
         if (range <= 0)
             throw new Exception("\n Invalid date range. The start date is later than the current date.");
+
         // Generate a random start time within the range
         DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
+
         // Generate a random end time (it could be null or between 1 and 180 minutes after the start time)
         DateTime? randomEndTime = s_rand.Next(0, 2) == 0 ?
             (DateTime?)null :
             randomStartTime.AddMinutes(s_rand.Next(1, 181));
+
         // Create 35 random assignments (at least 15 unassigned)
         for (int i = 0; i < 35; i++)
         {
@@ -293,25 +318,33 @@ internal static class Initialization
                 (Enums.TerminationTypeEnum)s_rand.Next(0, 4)
             );
 
-            Assignment? checkAssignment = s_dalAssignment?.Read(assignment.Id);
+            //Assignment? checkAssignment = s_dalAssignment?.Read(assignment.Id); //stage 1
+            Assignment? checkAssignment = s_dal?.Assignment.Read(assignment.Id); //stage 2
             if (checkAssignment == null)
             {
-                s_dalAssignment?.Create(assignment);
+                //s_dalAssignment?.Create(assignment); //srage 1
+                s_dal?.Assignment.Create(assignment); //srage 2
             }
         }
     }
+    
     //Initializes the system by resetting data and invoking CreateVolunteer, CreateCall, and CreateAssignment.
-    public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig)
+    //public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig) //stage 1
+    public static void Do(IDal dal) // stage  2
     {
-        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("\n DAL object can not be null!");
-        s_dalCall = dalCall ?? throw new NullReferenceException("\n DAL object can not be null!");
-        s_dalAssignment = dalAssignment ?? throw new NullReferenceException("\n DAL object can not be null!");
-        s_dalConfig = dalConfig ?? throw new NullReferenceException("\n DAL object can not be null!");
+        //s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("\n DAL object can not be null!"); //stage 1
+        //s_dalCall = dalCall ?? throw new NullReferenceException("\n DAL object can not be null!"); //stage 1
+        //s_dalAssignment = dalAssignment ?? throw new NullReferenceException("\n DAL object can not be null!"); //stage 1
+        //s_dalConfig = dalConfig ?? throw new NullReferenceException("\n DAL object can not be null!"); //stage 1
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
+
         Console.WriteLine("\n Reset Configuration values and List values...");
-        s_dalConfig.reset();
-        s_dalVolunteer.DeleteAll();
-        s_dalAssignment.DeleteAll();
-        s_dalCall.DeleteAll();
+        //s_dalConfig.reset(); //stage 1
+        //s_dalVolunteer.DeleteAll(); //stage 1
+        //s_dalAssignment.DeleteAll(); //stage 1
+        //s_dalCall.DeleteAll(); //stage 1
+        s_dal.ResetDB(); //stage 2
+
         CreateVolunteer();
         Console.WriteLine("\n Initializing volunteer list ...");
         CreateCall();
