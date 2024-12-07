@@ -168,6 +168,7 @@ internal static class Initialization
     "11 Oleander St, Mevaseret Zion",
     "95 Buttercup St, Even Yehuda"
 };
+
     //Creates a manager and multiple volunteers, adding them to the system if they don't already exist.
     private static void CreateVolunteer()
     {
