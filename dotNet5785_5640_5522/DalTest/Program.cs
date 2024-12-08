@@ -8,12 +8,7 @@ using Microsoft.VisualBasic.FileIO;
 namespace DalTest;
 internal class Program
 {
-    //internal static IVolunteer? s_dalVolunteer = new VolunteerImplementation(); //stage 1
-    //private static ICall? s_dalCall = new CallImplementation(); //stage 1
-    //private static IAssignment? s_dalAssignment = new AssignmentImplementation(); //stage 1
-    //private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
     static readonly IDal s_dal = new DalList(); //stage 2
-
     private enum MainMenu
     {
         exit,
@@ -102,7 +97,7 @@ internal class Program
                         ResetDataFunction();
                         break;
                     default:
-                        throw new Exception("\n Ther is no option like this");
+                        throw new DalInvalidException("\n Ther is no option like this");
                 }
             }
             while (option != MainMenu.exit);
@@ -145,7 +140,7 @@ internal class Program
                     DeleteAllFunction(typeOf);
                     break;
                 default:
-                    throw new Exception("\n Error");
+                    throw new DalInvalidException("\n There is no option like this");
             }
         }
         while (option != SubMenu.exit);
@@ -153,7 +148,6 @@ internal class Program
     // Initializes data by calling the `Initialization.Do` method with the appropriate data sources.
     private static void InitializingDataFunction()
     {
-        //Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig); // stage 1
         Initialization.Do(s_dal); // stage 2
     }
     // Displays all data of a specified type (volunteer, call, or assignment) by reading from corresponding data sources.
@@ -164,10 +158,8 @@ internal class Program
         switch (typeOf)
         {
             case "volunteer":
-                //if (s_dalVolunteer != null) // stage 1
                 if (s_dal.Volunteer != null) // stage 2
                 {
-                    //var volunteers = s_dalVolunteer.ReadAll(); //stage 1
                     var volunteers = s_dal.Volunteer.ReadAll(); //stage 2
                     foreach (var volunteer in volunteers)
                         Console.WriteLine(volunteer);
@@ -175,10 +167,8 @@ internal class Program
                 else throw new Exception("\n s_dalVolunteer is null");
                 break;
             case "call":
-                //if (s_dalCall != null) //stage 1
                 if (s_dal.Call != null) //stage 2
                 {
-                    //var calls = s_dalCall.ReadAll(); //stage 1
                     var calls = s_dal.Call.ReadAll(); //stage 2
                     foreach (var call in calls)
                         Console.WriteLine(call);
@@ -186,10 +176,8 @@ internal class Program
                 else throw new Exception("\n s_dalCall is null");
                 break;
             case "assignment":
-                //if (s_dalAssignment != null) //stage 1
                 if (s_dal.Assignment != null) //stage 2
                 {
-                    //var assignments = s_dalAssignment.ReadAll(); //stage 1
                     var assignments = s_dal.Assignment.ReadAll(); //stage 2
                     foreach (var assignment in assignments)
                         Console.WriteLine(assignment); 
@@ -197,7 +185,7 @@ internal class Program
                 else throw new Exception("\n s_dalAssignment is null");
                 break;
             default:
-                throw new Exception($"\n There is no type of config like {typeOf}");
+                throw new DalInvalidException($"\n There is no type of config like {typeOf}");
         }
     }
     // Handles the configuration submenu to manage time settings, display clock details, or reset configurations.
@@ -219,19 +207,19 @@ internal class Program
                     Console.WriteLine("\n Have a good day!");
                     break;
                 case SubConfigMenu.minute:
-                    changeTimeFunction("minute");
+                    ChangeTimeFunction("minute");
                     break;
                 case SubConfigMenu.hour:
-                    changeTimeFunction("hour");
+                    ChangeTimeFunction("hour");
                     break;
                 case SubConfigMenu.day:
-                    changeTimeFunction("day");
+                    ChangeTimeFunction("day");
                     break;
                 case SubConfigMenu.month:
-                    changeTimeFunction("month");
+                    ChangeTimeFunction("month");
                     break;
                 case SubConfigMenu.year:
-                    changeTimeFunction("year");
+                    ChangeTimeFunction("year");
                     break;
                 case SubConfigMenu.displayClockSystem:
                     DisplayClockSystemFunction();
@@ -246,7 +234,7 @@ internal class Program
                     ResetFunction();
                     break;
                 default:
-                    throw new Exception("\n Ther is no option like this");
+                    throw new DalInvalidException("\n Ther is no option like this");
             }
         }
         while (option != SubConfigMenu.exit);
@@ -254,29 +242,21 @@ internal class Program
     // Resets all data by clearing all DAL objects (volunteer, call, assignment) or throwing an exception if any is null.
     private static void ResetDataFunction()
     {
-        //if (s_dalConfig != null)  //stage 1
         if (s_dal.Config != null)  //stage 2
-            //s_dalConfig.reset(); //stage 1
             s_dal.Config.reset(); //stage 2
-        else throw new Exception("\n s_dalConfig is null");
+        else throw new DalDependencyNotInitializedException("\n s_dalConfig is null");
 
-        //if (s_dalAssignment != null) //stage 1
         if (s_dal.Assignment != null) //stage 2
-            //s_dalAssignment.DeleteAll(); //stage 1
             s_dal.Assignment.DeleteAll(); //stage 2
-        else throw new Exception("\n s_dalAssignment is null");
+        else throw new DalDependencyNotInitializedException("\n s_dalAssignment is null");
 
-        //if (s_dalCall != null) //stage 1
         if (s_dal.Call != null) //stage 2
-            //s_dalCall.DeleteAll(); //stage 1
             s_dal.Call.DeleteAll(); //stage 2
-        else throw new Exception("\n s_dalCall is null");
+        else throw new DalDependencyNotInitializedException("\n s_dalCall is null");
 
-        //if (s_dalVolunteer != null) //stage 1
         if (s_dal.Volunteer != null) //stage 2
-            //s_dalVolunteer.DeleteAll(); //stage 1
             s_dal.Volunteer.DeleteAll(); //stage 2
-        else throw new Exception("\n s_dalVolunteer is null");
+        else throw new DalDependencyNotInitializedException("\n s_dalVolunteer is null");
     }
     // Creates and adds a new Volunteer, Call, or Assignment object based on user input.
     private static void CreateFunction(string typeOf)
@@ -290,37 +270,36 @@ internal class Program
             Console.WriteLine("\n Enter first name");
             string firstName = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(firstName))
-                throw new Exception("\n First name cannot be null or empty");
+                throw new DalInvalidException("\n First name cannot be null or empty");
             Console.WriteLine("\n Enter last name");
             string lastName = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(lastName))
-                throw new Exception("\n Last name cannot be null or empty");
+                throw new DalInvalidException("\n Last name cannot be null or empty");
             Console.WriteLine("\n Enter phone number");
             string phoneNumber = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(phoneNumber))
-                throw new Exception("\n Phone number cannot be null or empty");
+                throw new DalInvalidException("\n Phone number cannot be null or empty");
             Console.WriteLine("\n Enter email address");
             string email = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(email))
-                throw new Exception("\n Email address cannot be null or empty");
+                throw new DalInvalidException("\n Email address cannot be null or empty");
             Console.WriteLine("\n Enter password");
             string password = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(password))
-                throw new Exception("\n Password cannot be null or empty");
+                throw new DalInvalidException("\n Password cannot be null or empty");
             Console.WriteLine("\n Enter address");
             string address = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(address))
-                throw new Exception("\n Address cannot be null or empty");
+                throw new DalInvalidException("\n Address cannot be null or empty");
             Console.WriteLine("\n Enter Latitude");
             double latitude;
             if (!double.TryParse(Console.ReadLine(), out latitude))
-                throw new Exception("\n Invalid input for Latitude");
+                throw new DalInvalidException("\n Invalid input for Latitude");
             Console.WriteLine("\n Enter Longitude");
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
-                throw new Exception("\n Invalid input for Longitude");
+                throw new DalInvalidException("\n Invalid input for Longitude");
             Volunteer volunteer = new Volunteer(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude);
-            //s_dalVolunteer.Create(volunteer); // stage 1
             s_dal.Volunteer.Create(volunteer); // stage 2
         }
         else if (typeOf == "calls")
@@ -328,21 +307,20 @@ internal class Program
             Console.WriteLine("\n Enter description");
             string description = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(description))
-                throw new Exception("\n Description cannot be null or empty");
+                throw new DalInvalidException("\n Description cannot be null or empty");
             Console.WriteLine("\n Enter address");
             string address = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(address))
-                throw new Exception("\n Address cannot be null or empty");
+                throw new DalInvalidException("\n Address cannot be null or empty");
             Console.WriteLine("\n Enter Latitude");
             double latitude;
             if (!double.TryParse(Console.ReadLine(), out latitude))
-                throw new Exception("\n Invalid input for Latitude");
+                throw new DalInvalidException("\n Invalid input for Latitude");
             Console.WriteLine("\n Enter Longitude");
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
-                throw new Exception("\n invalid input for Longitude");
+                throw new DalInvalidException("\n invalid input for Longitude");
             Call call = new Call(description, address, latitude, longitude);
-            //s_dalCall.Create(call); // stage 1
             s_dal.Call.Create(call); // stage 2
         }
         else if (typeOf == "Assignments")
@@ -350,36 +328,35 @@ internal class Program
             Console.WriteLine("\n Enter volunteer id");
             string volunteerIdInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(volunteerIdInput))
-                throw new Exception("\n Volunteer id cannot be null or empty");
+                throw new DalInvalidException("\n Volunteer id cannot be null or empty");
             int volunteerId;
             if (!int.TryParse(volunteerIdInput, out volunteerId))
                 Console.WriteLine("\n Enter volunteer id");
             Console.WriteLine("\n Enter call id");
             string callIdInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(callIdInput))
-                throw new Exception("\n Call id cannot be null or empty");
+                throw new DalInvalidException("\n Call id cannot be null or empty");
             int callId;
             if (!int.TryParse(callIdInput, out callId))
-                throw new Exception("\n Call id must be a valid number");
+                throw new DalInvalidException("\n Call id must be a valid number");
             Console.WriteLine("\n Enter entry time (yyyy-MM-dd HH:mm)");
             string entryTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(entryTimeInput))
-                throw new Exception("\n Entry time cannot be null or empty");
+                throw new DalInvalidException("\n Entry time cannot be null or empty");
             DateTime entryTime;
             if (!DateTime.TryParse(entryTimeInput, out entryTime))
-                throw new Exception("\n Invalid entry time format");
+                throw new DalInvalidException("\n Invalid entry time format");
             Console.WriteLine("\n Enter end time (yyyy-MM-dd HH:mm)");
             string endTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(endTimeInput))
-                throw new Exception("\n End time cannot be null or empty");
+                throw new DalInvalidException("\n End time cannot be null or empty");
             DateTime endTime;
             if (!DateTime.TryParse(endTimeInput, out endTime))
-                throw new Exception("\n Invalid end time format");
+                throw new DalInvalidException("\n Invalid end time format");
             Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime);
-            //s_dalAssignment.Create(assignment); // stage 1
             s_dal.Assignment.Create(assignment); // stage 2
         }
-        else throw new Exception("\n Error");
+        else throw new DalInvalidException("\n There is no option like this");
     }
     // Reads and displays a specific Volunteer, Call, or Assignment object by ID.
     private static void ReadFunction(string typeOf)
@@ -389,24 +366,18 @@ internal class Program
         while (!int.TryParse(Console.ReadLine(), out id))
             Console.WriteLine("\n Enter valid input");
         if (typeOf == "volunteers")
-            //if (s_dalVolunteer != null) // stage 1
             if (s_dal.Volunteer != null) // stage 2
-                //Console.WriteLine(s_dalVolunteer.Read(id)); // stage 1
                 Console.WriteLine(s_dal.Volunteer.Read(id)); // stage 2
-            else throw new Exception("s_dal.Volunteer is null");
+            else throw new DalDependencyNotInitializedException("s_dal.Volunteer is null");
         else if (typeOf == "calls")
-            //if (s_dalCall != null) // stage 1
             if (s_dal.Call != null) // stage 2
-                //Console.WriteLine(s_dalCall.Read(id)); // stage 1
                 Console.WriteLine(s_dal.Call.Read(id)); // stage 2
-            else throw new Exception("s_dal.Volunteer is null");
+            else throw new DalDependencyNotInitializedException("s_dal.Volunteer is null");
         else if (typeOf == "assingments")
-            //if (s_dalAssignment != null) // stage 1
             if (s_dal.Assignment != null) // stage 2
-                    //Console.WriteLine(s_dalAssignment.Read(id)); // stage 1
                     Console.WriteLine(s_dal.Assignment.Read(id)); // stage 2
-            else throw new Exception("s_dal.Assignment is null");
-        else throw new Exception("Error");
+            else throw new DalDependencyNotInitializedException("s_dal.Assignment is null");
+        else throw new DalInvalidException("\n There is no option like this");
     }
     // Reads and displays all Volunteers, Calls, or Assignments or indicates if no data exists.
     private static void ReadAllFunction(string typeOf)
@@ -414,27 +385,21 @@ internal class Program
         IEnumerable<object> list;
 
         if (typeOf == "volunteers")
-            //if (s_dalVolunteer != null) // stage 1
             if (s_dal.Volunteer != null) // stage 2
-                //list = s_dalVolunteer.ReadAll(); // stage 1
                 list = s_dal.Volunteer.ReadAll(); // stage 2
-            else throw new Exception("s_dal.Volunteer is null");
+            else throw new DalDependencyNotInitializedException("s_dal.Volunteer is null");
 
         else if (typeOf == "calls")
-            //if (s_dalCall != null) // stage 1
             if (s_dal.Call != null) // stage 2
-                //list = s_dalCall.ReadAll(); // stage 1
                 list = s_dal.Call.ReadAll(); // stage 2
-            else throw new Exception("s_dal.Call is null");
+            else throw new DalDependencyNotInitializedException("s_dal.Call is null");
 
         else if (typeOf == "Assignments")
-            //if (s_dalAssignment != null) // stage 1
             if (s_dal.Assignment != null) // stage 2
-                //list = s_dalAssignment.ReadAll(); // stage 1
                 list = s_dal.Assignment.ReadAll(); // stage 2
-            else throw new Exception("s_dal.Assignment is null");
+            else throw new DalDependencyNotInitializedException("s_dal.Assignment is null");
         else
-            throw new Exception("ERROR");
+            throw new DalInvalidException("\n There is no option like this");
         if (list == null || !list.Any())
             Console.WriteLine($"\n There are no {typeOf} for display");
         else
@@ -450,49 +415,39 @@ internal class Program
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
                 Console.WriteLine("\n Enter valid input");
-
             Console.WriteLine("\n Enter first name");
             string firstName = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(firstName))
-                throw new Exception("First name cannot be null or empty");
-
+                throw new DalInvalidException("First name cannot be null or empty");
             Console.WriteLine("\n Enter last name");
             string lastName = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(lastName))
-                throw new Exception("Last name cannot be null or empty");
-
+                throw new DalInvalidException("Last name cannot be null or empty");
             Console.WriteLine("\n Enter phoneNumber");
             string phoneNumber = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(phoneNumber))
-                throw new Exception("Phone number cannot be null or empty");
-
+                throw new DalInvalidException("Phone number cannot be null or empty");
             Console.WriteLine("\n Enter email address");
             string email = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(email))
-                throw new Exception("Email address cannot be null or empty");
-
+                throw new DalInvalidException("Email address cannot be null or empty");
             Console.WriteLine("\n Enter password");
             string password = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(password))
-                throw new Exception("Password cannot be null or empty");
-
+                throw new DalInvalidException("Password cannot be null or empty");
             Console.WriteLine("\n Enter address");
             string address = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(address))
-                throw new Exception("Address cannot be null or empty");
-
+                throw new DalInvalidException("Address cannot be null or empty");
             Console.WriteLine("\n Enter Latitude");
             double latitude;
             while (!double.TryParse(Console.ReadLine(), out latitude))
                 Console.WriteLine("\n Enter valid Latitude");
-
             Console.WriteLine("\n Enter Longitude");
             double longitude;
             while (!double.TryParse(Console.ReadLine(), out longitude))
                 Console.WriteLine("\n Enter valid Longitude");
-
             Volunteer volunteer = new Volunteer(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude);
-            //s_dalVolunteer.Update(volunteer); // stage 1
             s_dal.Volunteer.Update(volunteer); // stage 2
         }
         else if (typeOf == "calls")
@@ -500,25 +455,20 @@ internal class Program
             Console.WriteLine("\n Enter description");
             string description = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(description))
-                throw new Exception("Description cannot be null or empty");
-
+                throw new DalInvalidException("Description cannot be null or empty");
             Console.WriteLine("\n Enter address");
             string address = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(address))
-                throw new Exception("Address cannot be null or empty");
-
+                throw new DalInvalidException("Address cannot be null or empty");
             Console.WriteLine("\n Enter Latitude");
             double latitude;
             while (!double.TryParse(Console.ReadLine(), out latitude))
                 Console.WriteLine("\n Enter valid Latitude");
-
             Console.WriteLine("\n Enter Longitude");
             double longitude;
             while (!double.TryParse(Console.ReadLine(), out longitude))
                 Console.WriteLine("\n Enter valid Longitude");
-
             Call call = new Call(description, address, latitude, longitude);
-            //s_dalCall.Update(call); // stage 1
             s_dal.Call.Update(call); // stage 2
         }
         else if (typeOf == "Assignments")
@@ -526,38 +476,35 @@ internal class Program
             Console.WriteLine("\n Enter volunteer id");
             string volunteerIdInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(volunteerIdInput))
-                throw new Exception("\n Volunteer id cannot be null or empty");
+                throw new DalInvalidException("\n Volunteer id cannot be null or empty");
             int volunteerId;
             if (!int.TryParse(volunteerIdInput, out volunteerId))
-                throw new Exception("\n Volunteer id must be a valid number");
+                throw new DalInvalidException("\n Volunteer id must be a valid number");
             Console.WriteLine("\n Enter call id");
             string callIdInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(callIdInput))
-                throw new Exception("\n Call id cannot be null or empty");
+                throw new DalInvalidException("\n Call id cannot be null or empty");
             int callId;
             if (!int.TryParse(callIdInput, out callId))
-                throw new Exception("\n Call id must be a valid number");
+                throw new DalInvalidException("\n Call id must be a valid number");
             Console.WriteLine("\n Enter entry time (yyyy-MM-dd HH:mm)");
             string entryTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(entryTimeInput))
-                throw new Exception("\n Entry time cannot be null or empty");
+                throw new DalInvalidException("\n Entry time cannot be null or empty");
             DateTime entryTime;
             if (!DateTime.TryParse(entryTimeInput, out entryTime))
-                throw new Exception("\n Invalid entry time format");
+                throw new DalInvalidException("\n Invalid entry time format");
             Console.WriteLine("\n Enter end time (yyyy-MM-dd HH:mm)");
             string endTimeInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(endTimeInput))
-                throw new Exception("\n End time cannot be null or empty");
-
+                throw new DalInvalidException("\n End time cannot be null or empty");
             DateTime endTime;
             if (!DateTime.TryParse(endTimeInput, out endTime))
-                throw new Exception("\n Invalid end time format");
-
+                throw new DalInvalidException("\n Invalid end time format");
             Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime);
-            //s_dalAssignment.Update(assignment); // stage 1
             s_dal.Assignment.Update(assignment); // stage 2
         }
-        else throw new Exception("Error");
+        else throw new DalInvalidException("\n There is no option like this");
     }
     private static void DeleteFunction(string typeOf)
     {
@@ -572,73 +519,56 @@ internal class Program
         }
         while (string.IsNullOrWhiteSpace(input) || !int.TryParse(input, out id));
         if (typeOf == "volunteers")
-            //if (s_dalVolunteer != null) //stage 1
             if (s_dal.Volunteer != null) //stage 2
-                //s_dalVolunteer.Delete(id); //stage 1
                 s_dal.Volunteer.Delete(id); //stage 2
-            else throw new Exception("\n s_dal.Volunteer is null");
+            else throw new DalDependencyNotInitializedException("\n s_dal.Volunteer is null");
         else if (typeOf == "calls")
-            //if (s_dalCall != null) //stage 1
             if (s_dal.Call != null) //stage 2
-                //s_dalCall.Delete(id); //stage 1
                 s_dal.Call.Delete(id); //stage 2
-            else throw new Exception("\n s_dal.Call is null");
+            else throw new DalDependencyNotInitializedException("\n s_dal.Call is null");
         else if (typeOf == "assignments")
-            //if (s_dalAssignment != null) //stage 1
             if (s_dal.Assignment != null) //stage 2
-                //s_dalAssignment.Delete(id); //stage 1
                 s_dal.Assignment.Delete(id); //stage 2
-            else throw new Exception("\n s_dal.Assignment is null");
+            else throw new DalDependencyNotInitializedException("\n s_dal.Assignment is null");
         else
-            throw new Exception("\n Error");
+            throw new DalInvalidException("\n There is no option like this");
     }
     // Deletes all entities of a specified type.
     private static void DeleteAllFunction(string typeOf)
     {
         if (typeOf == "volunteers")
-            //s_dalVolunteer.DeleteAll(); //stage 1
             s_dal.Volunteer.DeleteAll(); //stage 2
         else if (typeOf == "calls")
-            //s_dalCall.DeleteAll(); // stage 1
             s_dal.Call.DeleteAll(); // stage 2
         else if (typeOf == "assignments")
-            //s_dalAssignment.DeleteAll(); //stage 1
             s_dal.Assignment.DeleteAll(); //stage 2
-        else throw new Exception("\n Erroe");
+        else throw new DalInvalidException("\n There is no option like this");
     }
     // Adjusts the system clock by the specified time unit.
-    private static void changeTimeFunction(string typeOf)
+    private static void ChangeTimeFunction(string typeOf)
     {
-        //if (s_dalConfig != null) // stage 1
         if (s_dal.Config != null) // stage 2
         {
             if (typeOf == "minute")
-                //s_dalConfig.Clock = s_dalConfig.Clock.AddMinutes(1); //stage 1
                 s_dal.Config.Clock = s_dal.Config.Clock.AddMinutes(1); //stage 2
             else if (typeOf == "hour")
-                //s_dalConfig.Clock = s_dalConfig.Clock.AddHours(1); //stage 1
                 s_dal.Config.Clock = s_dal.Config.Clock.AddHours(1); //stage 2
             else if (typeOf == "day")
-                //s_dalConfig.Clock = s_dalConfig.Clock.AddDays(1); //stage 1
                 s_dal.Config.Clock = s_dal.Config.Clock.AddDays(1); //stage 2
             else if (typeOf == "month")
-                //s_dalConfig.Clock = s_dalConfig.Clock.AddMonths(1); //stage 1
                 s_dal.Config.Clock = s_dal.Config.Clock.AddMonths(1); //stage 2
             else if (typeOf == "year")
-                //s_dalConfig.Clock = s_dalConfig.Clock.AddYears(1); //stage 1
                 s_dal.Config.Clock = s_dal.Config.Clock.AddYears(1); //stage 2
-            else throw new Exception("\n Error");
+            else throw new DalInvalidException("\n There is no option like this");
         }
-        else throw new Exception("s_dal.Config is null");
-
+        else throw new DalDependencyNotInitializedException("s_dal.Config is null");
     }
     // Displays the current system clock value.
     private static void DisplayClockSystemFunction()
     {
-        //if (s_dalConfig != null) //stage 1
         if (s_dal.Config != null) //stage 2
             Console.WriteLine($"The system clock is: {s_dal.Config.Clock}");
-        else throw new Exception("s_dal.Config is null");
+        else throw new DalDependencyNotInitializedException("s_dal.Config is null");
     }
     // Redefines the attributes of a specific entity based on user input.
     private static void RedefineFunction()
@@ -649,20 +579,15 @@ internal class Program
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
             Console.WriteLine("\n Enter valid input:");
-
         string result;
-
         switch (typeOf.ToLower())
         {
             case "volunteer":
                 Console.WriteLine("\n Enter field to change (first name, last name, address, phone number, email):");
                 string volunteerOption = Console.ReadLine()?.ToLower();
-
-                //var volunteerToChange = s_dalVolunteer.Read(id); // stage 1
                 var volunteerToChange = s_dal.Volunteer.Read(id); // stage 2
                 if (volunteerToChange == null)
-                    throw new Exception("\n Volunteer not found.");
-
+                    throw new DalDependencyNotInitializedException("\n Volunteer not found.");
                 switch (volunteerOption)
                 {
                     case "first name":
@@ -691,21 +616,17 @@ internal class Program
                         volunteerToChange = volunteerToChange with { Email = result };
                         break;
                     default:
-                        throw new Exception("\n Invalid input.");
+                        throw new DalInvalidException("\n Invalid input.");
                 }
-
-                //s_dalVolunteer.Update(volunteerToChange); // stage 1
                 s_dal.Volunteer.Update(volunteerToChange); // stage 2
                 Console.WriteLine("\n Volunteer updated successfully.");
                 break;
-
             case "call":
                 Console.WriteLine("\n Enter field to change (description, address):");
                 string callOption = Console.ReadLine()?.ToLower();
-                //var callToChange = s_dalCall.Read(id); // stage 1
                 var callToChange = s_dal.Call.Read(id); // stage 2
                 if (callToChange == null)
-                    throw new Exception("\n Call not found.");
+                    throw new DalDependencyNotInitializedException("\n Call not found.");
 
                 switch (callOption)
                 {
@@ -720,82 +641,71 @@ internal class Program
                         callToChange = callToChange with { CallerAddress = result };
                         break;
                     default:
-                        throw new Exception("\n Invalid input.");
+                        throw new DalInvalidException("\n Invalid input.");
                 }
 
-                //s_dalCall.Update(callToChange); // stage 1
                 s_dal.Call.Update(callToChange); // stage 2
                 Console.WriteLine("\n Call updated successfully.");
                 break;
-
             case "assignment":
                 Console.WriteLine("\n Enter field to change (volunteer id, entry time, end time):");
                 string assignmentOption = Console.ReadLine()?.ToLower();
-
-                //var assignmentToChange = s_dalAssignment.Read(id); // stage 1
                 var assignmentToChange = s_dal.Assignment.Read(id); // stage 2
                 if (assignmentToChange == null)
-                    throw new Exception("\n Call not found.");
-
+                    throw new DalDependencyNotInitializedException("\n Call not found.");
                 switch (assignmentOption)
                 {
                     case "volunteer id":
                         Console.Write("\n Enter Volunteer id: ");
                         result = Console.ReadLine();
                         if (!int.TryParse(result, out int volunteerId))
-                            throw new Exception("\n Invalid Volunteer id.");
+                            throw new DalInvalidException("\n Invalid Volunteer id.");
                         assignmentToChange = assignmentToChange with { VolunteerId = volunteerId };
                         break;
                     case "entry time":
                         Console.Write("\n Enter Entry time (yyyy-mm-dd hh:mm): ");
                         result = Console.ReadLine();
                         if (!DateTime.TryParse(result, out DateTime entryTime))
-                            throw new Exception("\n Invalid Entry time.");
+                            throw new DalInvalidException("\n Invalid Entry time.");
                         assignmentToChange = assignmentToChange with { ArrivalTime = entryTime };
                         break;
                     case "end time":
                         Console.Write("\n Enter End time (yyyy-mm-dd hh:mm): ");
                         result = Console.ReadLine();
                         if (!DateTime.TryParse(result, out DateTime endTime))
-                            throw new Exception("\n Invalid End time.");
+                            throw new DalInvalidException("\n Invalid End time.");
                         assignmentToChange = assignmentToChange with { EndTime = endTime };
                         break;
                     default:
-                        throw new Exception("\n Invalid input.");
+                        throw new DalInvalidException("\n Invalid input.");
                 }
-
-                //s_dalAssignment.Update(assignmentToChange); // stage 1
                 s_dal.Assignment.Update(assignmentToChange); // stage 2
                 Console.WriteLine("\n Assignment updated successfully.");
                 break;
-
             default:
-                throw new Exception($"\n No such type of config: {typeOf}");
+                throw new DalInvalidException($"\n No such type of config: {typeOf}");
         }
     }
     // Displays the configuration clock.
     private static void DisplayClockConfigFunction()
     {
-        //if (s_dalConfig != null) // stage 1
         if (s_dal.Config != null) // stage 2
             Console.WriteLine(s_dal.Config.Clock);
-        else throw new Exception("\n s_dal.Config is null");
+        else throw new DalDependencyNotInitializedException("\n s_dal.Config is null");
     }
     // Resets the system configuration.
     private static void ResetFunction()
     {
-        //if (s_dalConfig != null) // stage 1
         if (s_dal.Config != null) // stage 2
-            //s_dalConfig.reset(); // stage 1
             s_dal.Config.reset(); // stage 2
-        else throw new Exception("\n s_dal.Config is null");
+        else throw new DalDependencyNotInitializedException("\n s_dal.Config is null");
     }
     // Retrieves an integer value from the user with validation.
     private static int GetIntFromScreen(string message)
     {
         Console.Write(message);
         if (!int.TryParse(Console.ReadLine(), out int result))
-            throw new FormatException("\n Invalid input");
+            throw new DalInvalidException("\n Invalid input");
         return result;
     }
 }

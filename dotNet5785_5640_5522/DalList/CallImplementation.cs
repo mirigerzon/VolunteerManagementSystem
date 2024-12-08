@@ -17,40 +17,53 @@ internal class CallImplementation : ICall
             item.StartTime,
             item.MaxEndTime
         );
-        DataSource.CallsList.Add(newCall);
+        DataSource.Calls.Add(newCall);
     }
     public void Delete(int id)
     {
-        var callToRemove = DataSource.CallsList.Find(x => x.Id == id);
+        var callToRemove = DataSource.Calls.Find(x => x.Id == id);
         if (callToRemove != null)
-            DataSource.CallsList.Remove(callToRemove);
+            DataSource.Calls.Remove(callToRemove);
         else
-            throw new Exception("Call with this ID does not exist.");
+            throw new DalDoesNotExistException("Call with this ID does not exist.");
     }
     public void DeleteAll()
     {
-        DataSource.CallsList.Clear();
+        DataSource.Calls.Clear();
         Console.WriteLine("\n There are no calls in Call list");
     }
     public Call? Read(int id)
     {
-        if (DataSource.CallsList != null)
-            return DataSource.CallsList.Find(x => x.Id == id);
-        else throw new Exception($"\n Call with id {id} is undefined");
+        Call? call = DataSource.Calls.FirstOrDefault(item => item.Id == id);
+        if (call == null)
+            throw new DalDoesNotExistException($"Call with ID {id} does not exist.");
+        return call;
     }
-    public List<Call> ReadAll()
+    public Call? Read(Func<Call, bool> filter)
     {
-        return new List<Call>(DataSource.CallsList);
+        Call? call = DataSource.Calls.FirstOrDefault(filter);
+        if (call == null)
+            throw new DalDoesNotExistException("No call matches the provided filter.");
+        return call;
+    }
+    public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
+    {
+        IEnumerable<Call> results = filter != null
+            ? from item in DataSource.Calls where filter(item) select item
+            : DataSource.Calls;
+        if (!results.Any())
+            Console.WriteLine("No calls found matching the filter.");
+        return results;
     }
     public void Update(Call item)
     {
-        var existingCall = DataSource.CallsList.Find(x => x.Id == item.Id);
+        var existingCall = DataSource.Calls.Find(x => x.Id == item.Id);
         if (existingCall != null)
         {
             Delete(existingCall.Id);
-            DataSource.CallsList.Add(item);
+            DataSource.Calls.Add(item);
         }
         else
-            throw new Exception("Call with this ID does not exist.");
+            throw new DalDoesNotExistException("Call with this ID does not exist.");
     }
 }

@@ -2,7 +2,7 @@
 using DO;
 internal static class DataSource
 {
-    internal static List<Volunteer> VolunteersList{ get; } = new();
-    internal static List<Call> CallsList { get; } = new();
-    internal static List<Assignment> AssignmentsList { get; } = new();
+    internal static List<Volunteer> Volunteers{ get; } = new();
+    internal static List<Call> Calls { get; } = new();
+    internal static List<Assignment> Assignments { get; } = new();
 }

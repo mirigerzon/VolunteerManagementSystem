@@ -1,49 +1,61 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Linq;
 
 internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
         if (Read(item.Id) != null)
-            throw new Exception("\n volunteer with this ID already exists");
-        DataSource.VolunteersList.Add(item);
+            throw new DalAlreadyExistsException("\n Volunteer with this ID already exists");
+        DataSource.Volunteers.Add(item);
     }
     public void Delete(int id)
     {
-        var VolunteerToRemove = DataSource.VolunteersList.Find(x => x.Id == id);
+        var VolunteerToRemove = DataSource.Volunteers.Find(x => x.Id == id);
         if (VolunteerToRemove != null)
-            DataSource.VolunteersList.Remove(VolunteerToRemove);
+            DataSource.Volunteers.Remove(VolunteerToRemove);
         else
-            throw new Exception("\n Volunteer with this ID does not exist.");
+            throw new DalDoesNotExistException("\n Volunteer with this ID does not exist.");
     }
     public void DeleteAll()
     {
-        DataSource.VolunteersList.Clear();
+        DataSource.Volunteers.Clear();
         Console.WriteLine("\n There are no volunteers in Volunteer list");
     }
     public Volunteer? Read(int id)
     {
-        if (DataSource.VolunteersList != null)
-            return DataSource.VolunteersList.Find(x => x.Id == id);
-        else throw new Exception($"Volunteer with id {id} is undefined");
+        Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(item => item.Id == id);
+        if (volunteer == null)
+            throw new DalDoesNotExistException($"Volunteer with ID {id} does not exist.");
+        return volunteer;
     }
-    public List<Volunteer> ReadAll()
+    public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        if (DataSource.VolunteersList != null)
-            return new List<Volunteer>(DataSource.VolunteersList);
-        else throw new Exception("VolunteersList is empty");
+        Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(filter);
+        if (volunteer == null)
+            throw new DalDoesNotExistException("No volunteer matches the provided filter.");
+        return volunteer;
+    }
+    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
+    {
+        IEnumerable<Volunteer> results = filter != null
+            ? from item in DataSource.Volunteers where filter(item) select item
+            : DataSource.Volunteers;
+        if (!results.Any())
+            Console.WriteLine("No volunteers found matching the filter.");
+        return results;
     }
     public void Update(Volunteer item)
     {
-        var existingVolunteer = DataSource.VolunteersList.Find(x => x.Id == item.Id);
+        var existingVolunteer = DataSource.Volunteers.Find(x => x.Id == item.Id);
         if (existingVolunteer != null)
         {
             Delete(existingVolunteer.Id);
-            DataSource.VolunteersList.Add(item);
+            DataSource.Volunteers.Add(item);
         }
         else
-            throw new Exception("Volunteer with this ID does not exist.");
+            throw new DalDoesNotExistException("Volunteer with this ID does not exist.");
     }
 }

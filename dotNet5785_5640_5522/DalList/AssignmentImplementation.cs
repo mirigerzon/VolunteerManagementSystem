@@ -17,38 +17,53 @@ internal class AssignmentImplementation : IAssignment
             item.EndTime,
             item.EndStatus
         );
-        DataSource.AssignmentsList.Add(newAssignment);
+        DataSource.Assignments.Add(newAssignment);
     }
     public void Delete(int id)
     {
-        var AssignmentToRemove = DataSource.AssignmentsList.Find(x => x.Id == id);
+        var AssignmentToRemove = DataSource.Assignments.Find(x => x.Id == id);
         if (AssignmentToRemove != null)
-            DataSource.AssignmentsList.Remove(AssignmentToRemove);
+            DataSource.Assignments.Remove(AssignmentToRemove);
         else
-            throw new Exception("Assignment with this ID does not exist.");
+            throw new DalDoesNotExistException("Assignment with this ID does not exist.");
     }
     public void DeleteAll()
     {
-        DataSource.AssignmentsList.Clear();
+        DataSource.Assignments.Clear();
         Console.WriteLine("\n There are no assignments in Assignment list");
     }
     public Assignment? Read(int id)
     {
-        return DataSource.AssignmentsList.Find(x => x.Id == id);
+        Assignment? assignment = DataSource.Assignments.FirstOrDefault(item => item.Id == id);
+        if (assignment == null)
+            throw new DalDoesNotExistException($"Assignment with ID {id} does not exist.");
+        return assignment;
     }
-    public List<Assignment> ReadAll()
+    public Assignment? Read(Func<Assignment, bool> filter)
     {
-        return new List<Assignment>(DataSource.AssignmentsList);
+        Assignment? assignment = DataSource.Assignments.FirstOrDefault(filter);
+        if (assignment == null)
+            throw new DalDoesNotExistException("No assignment matches the provided filter.");
+        return assignment;
+    }
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
+    {
+        IEnumerable<Assignment> results = filter != null
+            ? from item in DataSource.Assignments where filter(item) select item
+            : DataSource.Assignments;
+        if (!results.Any())
+            Console.WriteLine("No assignments found matching the filter.");
+        return results;
     }
     public void Update(Assignment item)
     {
-        var existingAssignment = DataSource.AssignmentsList.Find(x => x.Id == item.Id);
+        var existingAssignment = DataSource.Assignments.Find(x => x.Id == item.Id);
         if (existingAssignment != null)
         {
             Delete(existingAssignment.Id);
-            DataSource.AssignmentsList.Add(item);
+            DataSource.Assignments.Add(item);
         }
         else
-            throw new Exception("Assignment with this ID does not exist.");
+            throw new DalDoesNotExistException("Assignment with this ID does not exist.");
     }
 }
