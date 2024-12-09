@@ -7,7 +7,8 @@ internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
-        if (Read(item.Id) != null)
+        Volunteer? volunteer = ReadToCreate(item.Id);
+        if (volunteer != null)
             throw new DalAlreadyExistsException("\n Volunteer with this ID already exists");
         DataSource.Volunteers.Add(item);
     }
@@ -29,6 +30,13 @@ internal class VolunteerImplementation : IVolunteer
     Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(item => item.Id == id);
         if (volunteer == null)
             throw new DalDoesNotExistException($"Volunteer with ID {id} does not exist.");
+        return volunteer;
+    }
+    public Volunteer? ReadToCreate(int id)
+    {
+        Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(item => item.Id == id);
+        if (volunteer == null)
+            return null;
         return volunteer;
     }
     public Volunteer? Read(Func<Volunteer, bool> filter)
