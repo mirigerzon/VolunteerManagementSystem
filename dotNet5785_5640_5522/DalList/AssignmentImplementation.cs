@@ -6,7 +6,7 @@ using System.Reflection.Metadata.Ecma335;
 using static DO.Enums;
 
 internal class AssignmentImplementation : IAssignment
-{
+{ 
     public void Create(Assignment item)
     {
         Assignment newAssignment = new Assignment(
@@ -37,6 +37,13 @@ internal class AssignmentImplementation : IAssignment
         Assignment? assignment = DataSource.Assignments.FirstOrDefault(item => item.Id == id);
         if (assignment == null)
             throw new DalDoesNotExistException($"Assignment with ID {id} does not exist.");
+        return assignment;
+    }
+    public Assignment? ReadToCreate(int id)
+    {
+        Assignment? assignment = DataSource.Assignments.FirstOrDefault(item => item.Id == id);
+        if (assignment == null)
+            return null;
         return assignment;
     }
     public Assignment? Read(Func<Assignment, bool> filter)

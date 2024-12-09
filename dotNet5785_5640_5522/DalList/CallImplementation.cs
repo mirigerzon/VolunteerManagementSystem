@@ -39,6 +39,13 @@ internal class CallImplementation : ICall
             throw new DalDoesNotExistException($"Call with ID {id} does not exist.");
         return call;
     }
+    public Call? ReadToCreate(int id)
+    {
+        Call? call = DataSource.Calls.FirstOrDefault(item => item.Id == id);
+        if (call == null)
+            return null;
+        return call;
+    }
     public Call? Read(Func<Call, bool> filter)
     {
         Call? call = DataSource.Calls.FirstOrDefault(filter);
