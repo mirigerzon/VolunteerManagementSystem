@@ -26,7 +26,7 @@ internal class VolunteerImplementation : IVolunteer
     }
     public Volunteer? Read(int id)
     {
-        Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(item => item.Id == id);
+    Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(item => item.Id == id);
         if (volunteer == null)
             throw new DalDoesNotExistException($"Volunteer with ID {id} does not exist.");
         return volunteer;
