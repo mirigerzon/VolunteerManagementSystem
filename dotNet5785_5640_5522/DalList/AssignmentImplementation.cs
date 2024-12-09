@@ -64,11 +64,18 @@ internal class AssignmentImplementation : IAssignment
     }
     public void Update(Assignment item)
     {
-        var existingAssignment = DataSource.Assignments.Find(x => x.Id == item.Id);
-        if (existingAssignment != null)
+        var existingAssignmentIndex = DataSource.Assignments.FindIndex(x => x.Id == item.Id);
+        if (existingAssignmentIndex != -1)
         {
-            Delete(existingAssignment.Id);
-            DataSource.Assignments.Add(item);
+            DataSource.Assignments[existingAssignmentIndex] = new Assignment(
+                item.VolunteerId,
+                item.CallId,
+                item.ArrivalTime,
+                item.EndTime
+            )
+            {
+                Id = item.Id
+            };
         }
         else
             throw new DalDoesNotExistException("Assignment with this ID does not exist.");

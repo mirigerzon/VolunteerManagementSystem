@@ -1,4 +1,5 @@
-﻿namespace DalTest;
+﻿
+namespace DalTest;
 using DalApi;
 using DO;
 using static DO.Enums;
@@ -187,7 +188,7 @@ internal static class Initialization
             (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
         );
         // Check if the manager ID already exists in the system, and add it to the data layer
-        Volunteer? checkManager = s_dal?.Volunteer.Read(id); //stage 2
+        Volunteer? checkManager = s_dal?.Volunteer.ReadToCreate(id); //stage 2
         if (checkManager == null)
             s_dal?.Volunteer.Create(manager);//stage 2
         // Create and add 10 volunteers
@@ -211,7 +212,7 @@ internal static class Initialization
                 (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
             );
             // Check if the volunteer ID already exists in the system, and add it to the data layer
-            Volunteer? checkVolunteer = s_dal.Volunteer?.Read(volId); //stage 2
+            Volunteer? checkVolunteer = s_dal?.Volunteer.ReadToCreate(volId);
             if (checkVolunteer == null)
                 s_dal.Volunteer.Create(volunteer); //stage 2
         }
@@ -240,7 +241,7 @@ internal static class Initialization
          );
             if (randomMaxEndTime == null && expiredCalls < 5)
                 expiredCalls++;
-            Call? checkCall = s_dal?.Call.Read(call.Id); //stage 2
+            Call? checkCall = s_dal?.Call.ReadToCreate(call.Id); //stage 2
             if (checkCall == null)
                 s_dal?.Call.Create(call); //stage 1
             totalCalls++;
@@ -283,7 +284,7 @@ internal static class Initialization
                 randomEndTime,
                 (Enums.TerminationTypeEnum)s_rand.Next(0, 4)
             );
-            Assignment? checkAssignment = s_dal?.Assignment.Read(assignment.Id); //stage 2
+            Assignment? checkAssignment = s_dal?.Assignment.ReadToCreate(assignment.Id); //stage 2
             if (checkAssignment == null)
                 s_dal?.Assignment.Create(assignment); //srage 2
         }

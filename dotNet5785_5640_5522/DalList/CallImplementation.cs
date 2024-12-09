@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Net;
 
 internal class CallImplementation : ICall
 {
@@ -64,11 +65,18 @@ internal class CallImplementation : ICall
     }
     public void Update(Call item)
     {
-        var existingCall = DataSource.Calls.Find(x => x.Id == item.Id);
-        if (existingCall != null)
+        var existingCall = DataSource.Assignments.FindIndex(x => x.Id == item.Id);
+        if (existingCall != -1)
         {
-            Delete(existingCall.Id);
-            DataSource.Calls.Add(item);
+            DataSource.Calls[existingCall] = new Call(
+                item.Description,
+                item.CallerAddress,
+                item.Latitude,
+                item.Longitude
+            )
+            {
+                Id = item.Id
+            };
         }
         else
             throw new DalDoesNotExistException("Call with this ID does not exist.");

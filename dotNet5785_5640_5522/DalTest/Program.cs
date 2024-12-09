@@ -5,6 +5,7 @@ using Dal;
 using DalApi;
 using DO;
 using Microsoft.VisualBasic.FileIO;
+using System.Net;
 namespace DalTest;
 internal class Program
 {
@@ -180,7 +181,7 @@ internal class Program
                 {
                     var assignments = s_dal.Assignment.ReadAll(); //stage 2
                     foreach (var assignment in assignments)
-                        Console.WriteLine(assignment); 
+                        Console.WriteLine(assignment);
                 }
                 else throw new Exception("\n s_dalAssignment is null");
                 break;
@@ -375,7 +376,7 @@ internal class Program
             else throw new DalDependencyNotInitializedException("s_dal.Volunteer is null");
         else if (typeOf == "assingments")
             if (s_dal.Assignment != null) // stage 2
-                    Console.WriteLine(s_dal.Assignment.Read(id)); // stage 2
+                Console.WriteLine(s_dal.Assignment.Read(id)); // stage 2
             else throw new DalDependencyNotInitializedException("s_dal.Assignment is null");
         else throw new DalInvalidException("\n There is no option like this");
     }
@@ -452,6 +453,10 @@ internal class Program
         }
         else if (typeOf == "calls")
         {
+            Console.WriteLine("\n Enter ID");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+                Console.WriteLine("\n Enter valid input");
             Console.WriteLine("\n Enter description");
             string description = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(description))
@@ -468,11 +473,18 @@ internal class Program
             double longitude;
             while (!double.TryParse(Console.ReadLine(), out longitude))
                 Console.WriteLine("\n Enter valid Longitude");
-            Call call = new Call(description, address, latitude, longitude);
-            s_dal.Call.Update(call); // stage 2
+            Call call = new Call(description, address, latitude, longitude)
+            {
+                Id = id
+            };
+            s_dal.Call.Update(call);
         }
         else if (typeOf == "Assignments")
         {
+            Console.WriteLine("\n Enter ID");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+                Console.WriteLine("\n Enter valid input");
             Console.WriteLine("\n Enter volunteer id");
             string volunteerIdInput = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(volunteerIdInput))
@@ -501,7 +513,10 @@ internal class Program
             DateTime endTime;
             if (!DateTime.TryParse(endTimeInput, out endTime))
                 throw new DalInvalidException("\n Invalid end time format");
-            Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime);
+            Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime)
+            {
+                Id = id
+            };
             s_dal.Assignment.Update(assignment); // stage 2
         }
         else throw new DalInvalidException("\n There is no option like this");
