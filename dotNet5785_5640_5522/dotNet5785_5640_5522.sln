@@ -18,6 +18,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{C105D080-E22E-4637-846F-82D560E38433}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{C0CC20A2-50B8-43DB-9FF3-1DF72D7D616A}"
+	ProjectSection(SolutionItems) = preProject
+		xml\Assignments.xml = xml\Assignments.xml
+		xml\Calls.xml = xml\Calls.xml
+		xml\data-config.xml = xml\data-config.xml
+		xml\Volunteers.xml = xml\Volunteers.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,9 +55,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C105D080-E22E-4637-846F-82D560E38433} = {971D334F-C883-4F23-A40A-6E2F17A75A88}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D86994B2-653E-4EFC-BFA0-0D4B21ACB6FC}
