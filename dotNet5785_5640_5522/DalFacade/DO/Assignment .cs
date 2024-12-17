@@ -24,4 +24,6 @@ public record Assignment
          : this(0, volunteerId, callId, arrivalTime, endTime, null)
     {
     }
+
+    public Assignment() : this(0, 0, 0, 0, null) { };
 }

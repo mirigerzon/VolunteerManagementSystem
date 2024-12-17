@@ -31,4 +31,5 @@ public record Call
         : this(0, null, description, callerAddress, latitude, longitude, null, null)
     {
     }
+    public Call() : this("", "", 0, 0);
 }
