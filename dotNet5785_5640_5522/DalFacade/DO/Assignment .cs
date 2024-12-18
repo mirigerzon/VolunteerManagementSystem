@@ -20,10 +20,9 @@ public record Assignment
     Enums.TerminationTypeEnum? EndStatus
 )
 {
-    public Assignment(int volunteerId, int callId, DateTime? arrivalTime, DateTime? endTime)
-         : this(0, volunteerId, callId, arrivalTime, endTime, null)
+    public Assignment(int id,int volunteerId, int callId, DateTime? arrivalTime, DateTime? endTime)
+         : this(id, volunteerId, callId, arrivalTime, endTime, null)
     {
     }
-
-    public Assignment() : this(0, 0, 0, 0, null) { };
+    public Assignment() : this(0, 0, 0, null, null, null) { }
 }

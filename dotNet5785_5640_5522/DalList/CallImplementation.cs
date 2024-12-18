@@ -18,6 +18,9 @@ internal class CallImplementation : ICall
             item.StartTime,
             item.MaxEndTime
         );
+        Call? call = DataSource.Calls.FirstOrDefault(x => x.Id == item.Id);
+        if (call != null)
+            throw new DalDoesNotExistException("Volunteer with this ID does exist.");
         DataSource.Calls.Add(newCall);
     }
     public void Delete(int id)
@@ -40,13 +43,13 @@ internal class CallImplementation : ICall
             throw new DalDoesNotExistException($"Call with ID {id} does not exist.");
         return call;
     }
-    public Call? ReadToCreate(int id)
-    {
-        Call? call = DataSource.Calls.FirstOrDefault(item => item.Id == id);
-        if (call == null)
-            return null;
-        return call;
-    }
+    //public Call? ReadToCreate(int id)
+    //{
+    //    Call? call = DataSource.Calls.FirstOrDefault(item => item.Id == id);
+    //    if (call == null)
+    //        return null;
+    //    return call;
+    //}
     public Call? Read(Func<Call, bool> filter)
     {
         Call? call = DataSource.Calls.FirstOrDefault(filter);
@@ -69,6 +72,7 @@ internal class CallImplementation : ICall
         if (existingCall != -1)
         {
             DataSource.Calls[existingCall] = new Call(
+                item.Id,
                 item.Description,
                 item.CallerAddress,
                 item.Latitude,

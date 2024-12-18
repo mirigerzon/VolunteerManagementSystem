@@ -1,6 +1,5 @@
 ﻿namespace Dal;
 using DalApi;
-using DalXml;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -42,10 +41,6 @@ internal class CallImplementation : ICall
         if (filter == null)
             return calls;
         return calls.Where(filter);
-    }
-    public Call? ReadToCreate(int id)
-    {
-        throw new NotImplementedException();
     }
     public void Update(Call item)
     {

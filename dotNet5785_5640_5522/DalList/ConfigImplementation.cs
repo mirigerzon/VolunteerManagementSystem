@@ -8,6 +8,16 @@ internal class ConfigImplementation : IConfig
         set => Config.Clock = value;
     }
 
+    public int GetNextAssignmentId()
+    {
+        return Config.NextAssignmentId;
+    }
+
+    public int GetNextCallId()
+    {
+        return Config.NextCallId;
+    }
+
     public void reset()
     {
         Config.Reset();

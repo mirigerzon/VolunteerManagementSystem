@@ -1,6 +1,5 @@
 ﻿namespace Dal;
 using DalApi;
-using DalXml;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -19,10 +18,10 @@ internal class VolunteerImplementation : IVolunteer
             Email = (string?)v.Element("Email") ?? "",
             Password = (string?)v.Element("Password") ?? "",
             Address = (string?)v.Element("Address") ?? "",
-            Longitude = (double?)v.Element("Longitude") ?? 0,
-            Latitude = (double?)v.Element("Latitude") ?? 0,
+            Longitude = v.ToDoubleNullable("Longitude") ?? 0,
+            Latitude = v.ToDoubleNullable("Latitude") ?? 0, 
             IsActive = (bool?)v.Element("IsActive") ?? false,
-            MaxOfDistance = (double?)v.Element("MaxOfDistance") ?? 0
+            MaxOfDistance = v.ToDoubleNullable("MaxOfDistance") ?? 0
         };
     }
     private static IEnumerable<XElement> CreateVolunteerElements(Volunteer volunteer)
@@ -81,10 +80,6 @@ internal class VolunteerImplementation : IVolunteer
             .Select(e => GetVolunteer(e));
 
         return filter == null ? volunteers : volunteers.Where(filter);
-    }
-    public Volunteer? ReadToCreate(int id)
-    {
-        throw new NotImplementedException();
     }
     public void Update(Volunteer volunteer)
     {

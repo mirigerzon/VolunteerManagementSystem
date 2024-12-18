@@ -115,7 +115,6 @@ static class XMLTools
     }
     #endregion
 
-
     #region ExtensionFuctions
     public static T? ToEnumNullable<T>(this XElement element, string name) where T : struct, Enum =>
         Enum.TryParse<T>((string?)element.Element(name), out var result) ? (T?)result : null;
@@ -126,5 +125,4 @@ static class XMLTools
     public static int? ToIntNullable(this XElement element, string name) =>
         int.TryParse((string?)element.Element(name), out var result) ? (int?)result : null;
     #endregion
-
 }

@@ -1,9 +1,11 @@
-﻿using Dal;
-
-namespace DalXml;
+﻿namespace Dal;
+using DalApi;
+using DO;
+using System;
+using System.Collections.Generic;
 static internal class Config
 {
-    internal const string s_data_config_xml = "data_config.xml";
+    internal const string s_data_config_xml = "data-config.xml";
     internal const string s_Assignments_xml = "Assignments.xml";
     internal const string s_Calls_xml = "Calls.xml";
     internal const string s_Volunteers_xml = "Volunteers.xml";
@@ -17,7 +19,6 @@ static internal class Config
         get => XMLTools.GetAndIncreaseConfigIntVal(s_data_config_xml, "NextCallId");
         private set => XMLTools.SetConfigIntVal(s_data_config_xml, "NextCallId", value);
     }
-
     internal static DateTime Clock
     {
         get => XMLTools.GetConfigDateVal(s_data_config_xml, "Clock");
@@ -28,11 +29,10 @@ static internal class Config
         get;
         set;
     }
-
     internal static void Reset()
     {
-        NextAssignmentId = 1;
-        NextCallId = 1;
+        NextAssignmentId = 0;
+        NextCallId = 0;
         Clock = DateTime.Now;
     }
 }

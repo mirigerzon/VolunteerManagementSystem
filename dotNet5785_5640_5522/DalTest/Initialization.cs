@@ -188,9 +188,9 @@ internal static class Initialization
             (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
         );
         // Check if the manager ID already exists in the system, and add it to the data layer
-        Volunteer? checkManager = s_dal?.Volunteer.ReadToCreate(id); //stage 2
-        if (checkManager == null)
-            s_dal?.Volunteer.Create(manager);//stage 2
+        //Volunteer? checkManager = s_dal?.Volunteer.ReadToCreate(id); //stage 2
+        //if (checkManager == null)
+        s_dal?.Volunteer.Create(manager);//stage 2
         // Create and add 10 volunteers
         for (int i = 0; i < 15; i++)
         {
@@ -212,9 +212,7 @@ internal static class Initialization
                 (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
             );
             // Check if the volunteer ID already exists in the system, and add it to the data layer
-            Volunteer? checkVolunteer = s_dal?.Volunteer.ReadToCreate(volId);
-            if (checkVolunteer == null)
-                s_dal.Volunteer.Create(volunteer); //stage 2
+            s_dal.Volunteer.Create(volunteer); //stage 2
         }
     }
     //Generates random calls and adds them to the system, ensuring no duplicates exist.
@@ -224,13 +222,13 @@ internal static class Initialization
         int totalCalls = 0;
         for (int i = 0; i < 50; i++)
         {
-            DateTime startDate = new DateTime(s_dal.Config.Clock.Year - 2, 1, 1); //stage 2
+            DateTime startDate = new(s_dal.Config.Clock.Year - 2, 1, 1); //stage 2
             int range = (s_dal.Config.Clock - startDate).Days; //stage 2
             DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
             DateTime? randomMaxEndTime = (expiredCalls < 5 && s_rand.Next(0, 5) == 0)
                 ? null : (s_rand.Next(0, 2) == 0 ? null : randomStartTime.AddHours(s_rand.Next(1, 48)));
             Call call = new Call(
-             0,
+             s_dal.Config.GetNextCallId(),
              (s_rand.Next(0, 4) == 0) ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
              Descriptions[i],
              CallerAddresses[i],
@@ -241,9 +239,7 @@ internal static class Initialization
          );
             if (randomMaxEndTime == null && expiredCalls < 5)
                 expiredCalls++;
-            Call? checkCall = s_dal?.Call.ReadToCreate(call.Id); //stage 2
-            if (checkCall == null)
-                s_dal?.Call.Create(call); //stage 1
+            s_dal?.Call.Create(call); //stage 1
             totalCalls++;
         }
     }
@@ -277,16 +273,14 @@ internal static class Initialization
             var call = allCalls[s_rand.Next(allCalls.Count)];
             Assignment assignment = new Assignment
             (
-                0,
+                s_dal.Config.GetNextAssignmentId(),
                 volunteer.Id,
                 call.Id,
                 randomStartTime,
                 randomEndTime,
                 (Enums.TerminationTypeEnum)s_rand.Next(0, 4)
             );
-            Assignment? checkAssignment = s_dal?.Assignment.ReadToCreate(assignment.Id); //stage 2
-            if (checkAssignment == null)
-                s_dal?.Assignment.Create(assignment); //srage 2
+            s_dal?.Assignment.Create(assignment); //srage 2
         }
     }
     //Initializes the system by resetting data and invoking CreateVolunteer, CreateCall, and CreateAssignment.
