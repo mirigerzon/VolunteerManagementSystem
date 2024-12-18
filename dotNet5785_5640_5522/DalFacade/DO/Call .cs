@@ -27,9 +27,9 @@ public record Call
         DateTime? MaxEndTime
     )
 {
-    public Call(string description, string callerAddress, double latitude, double longitude)
-        : this(0, null, description, callerAddress, latitude, longitude, null, null)
+    public Call(int id, string description, string callerAddress, double latitude, double longitude)
+        : this(id, null, description, callerAddress, latitude, longitude, null, null)
     {
     }
-    public Call() : this("", "", 0, 0);
+    public Call() : this(0, null, "", "", 0, 0, null, null) { }
 }

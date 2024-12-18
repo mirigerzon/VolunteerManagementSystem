@@ -17,6 +17,9 @@ internal class AssignmentImplementation : IAssignment
             item.EndTime,
             item.EndStatus
         );
+        Assignment? assignment = DataSource.Assignments.FirstOrDefault(x => x.Id == item.Id);
+        if (assignment == null)
+            throw new DalDoesNotExistException("No assignment matches the provided filter.");
         DataSource.Assignments.Add(newAssignment);
     }
     public void Delete(int id)
@@ -39,18 +42,11 @@ internal class AssignmentImplementation : IAssignment
             throw new DalDoesNotExistException($"Assignment with ID {id} does not exist.");
         return assignment;
     }
-    public Assignment? ReadToCreate(int id)
-    {
-        Assignment? assignment = DataSource.Assignments.FirstOrDefault(item => item.Id == id);
-        if (assignment == null)
-            return null;
-        return assignment;
-    }
     public Assignment? Read(Func<Assignment, bool> filter)
     {
         Assignment? assignment = DataSource.Assignments.FirstOrDefault(filter);
-        if (assignment == null)
-            throw new DalDoesNotExistException("No assignment matches the provided filter.");
+        //if (assignment == null)
+        //    throw new DalDoesNotExistException("No assignment matches the provided filter.");
         return assignment;
     }
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
@@ -68,6 +64,7 @@ internal class AssignmentImplementation : IAssignment
         if (existingAssignmentIndex != -1)
         {
             DataSource.Assignments[existingAssignmentIndex] = new Assignment(
+                item.Id,
                 item.VolunteerId,
                 item.CallId,
                 item.ArrivalTime,

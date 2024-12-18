@@ -10,6 +10,7 @@ namespace DalTest;
 internal class Program
 {
     static readonly IDal s_dal = new DalList(); //stage 2
+    //static readonly IDal s_dal = new DalXml(); //stage 3
     private enum MainMenu
     {
         exit,
@@ -321,7 +322,7 @@ internal class Program
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
                 throw new DalInvalidException("\n invalid input for Longitude");
-            Call call = new Call(description, address, latitude, longitude);
+            Call call = new Call(s_dal.Config.GetNextCallId() ,description, address, latitude, longitude);
             s_dal.Call.Create(call); // stage 2
         }
         else if (typeOf == "Assignments")
@@ -354,7 +355,7 @@ internal class Program
             DateTime endTime;
             if (!DateTime.TryParse(endTimeInput, out endTime))
                 throw new DalInvalidException("\n Invalid end time format");
-            Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime);
+            Assignment assignment = new Assignment(s_dal.Config.GetNextAssignmentId(),volunteerId, callId, entryTime, endTime);
             s_dal.Assignment.Create(assignment); // stage 2
         }
         else throw new DalInvalidException("\n There is no option like this");
@@ -374,7 +375,7 @@ internal class Program
             if (s_dal.Call != null) // stage 2
                 Console.WriteLine(s_dal.Call.Read(id)); // stage 2
             else throw new DalDependencyNotInitializedException("s_dal.Volunteer is null");
-        else if (typeOf == "assingments")
+        else if (typeOf == "Assignments")
             if (s_dal.Assignment != null) // stage 2
                 Console.WriteLine(s_dal.Assignment.Read(id)); // stage 2
             else throw new DalDependencyNotInitializedException("s_dal.Assignment is null");
@@ -473,7 +474,7 @@ internal class Program
             double longitude;
             while (!double.TryParse(Console.ReadLine(), out longitude))
                 Console.WriteLine("\n Enter valid Longitude");
-            Call call = new Call(description, address, latitude, longitude)
+            Call call = new Call(s_dal.Config.GetNextCallId(), description, address, latitude, longitude)
             {
                 Id = id
             };
@@ -513,7 +514,7 @@ internal class Program
             DateTime endTime;
             if (!DateTime.TryParse(endTimeInput, out endTime))
                 throw new DalInvalidException("\n Invalid end time format");
-            Assignment assignment = new Assignment(volunteerId, callId, entryTime, endTime)
+            Assignment assignment = new Assignment(s_dal.Config.GetNextAssignmentId(), volunteerId, callId, entryTime, endTime)
             {
                 Id = id
             };
@@ -541,7 +542,7 @@ internal class Program
             if (s_dal.Call != null) //stage 2
                 s_dal.Call.Delete(id); //stage 2
             else throw new DalDependencyNotInitializedException("\n s_dal.Call is null");
-        else if (typeOf == "assignments")
+        else if (typeOf == "Assignments")
             if (s_dal.Assignment != null) //stage 2
                 s_dal.Assignment.Delete(id); //stage 2
             else throw new DalDependencyNotInitializedException("\n s_dal.Assignment is null");

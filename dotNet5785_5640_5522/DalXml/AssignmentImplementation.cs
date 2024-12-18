@@ -1,9 +1,10 @@
 ﻿namespace Dal;
 using DalApi;
-using DalXml;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
+
 internal class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
@@ -41,10 +42,6 @@ internal class AssignmentImplementation : IAssignment
         if (filter == null)
             return assignments;
         return assignments.Where(filter);
-    }
-    public Assignment? ReadToCreate(int id)
-    {
-        throw new NotImplementedException();
     }
     public void Update(Assignment item)
     {
