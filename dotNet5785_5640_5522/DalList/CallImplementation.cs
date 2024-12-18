@@ -9,7 +9,7 @@ internal class CallImplementation : ICall
     public void Create(Call item)
     {
         Call newCall = new Call(
-            Config.NextCallId,
+            item.Id,
             item.Status,
             item.Description,
             item.CallerAddress,
