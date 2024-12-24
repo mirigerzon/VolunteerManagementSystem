@@ -1,2 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Assignment>
+    <Id>0</Id>
+    <VolunteerId>288695985</VolunteerId>
+    <CallId>8</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>1</Id>
+    <VolunteerId>373950584</VolunteerId>
+    <CallId>32</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>2</Id>
+    <VolunteerId>339418187</VolunteerId>
+    <CallId>32</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>3</Id>
+    <VolunteerId>242270698</VolunteerId>
+    <CallId>36</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>4</Id>
+    <VolunteerId>374770867</VolunteerId>
+    <CallId>17</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>5</Id>
+    <VolunteerId>378228464</VolunteerId>
+    <CallId>12</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>6</Id>
+    <VolunteerId>247417949</VolunteerId>
+    <CallId>19</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>7</Id>
+    <VolunteerId>253786693</VolunteerId>
+    <CallId>3</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>8</Id>
+    <VolunteerId>223306996</VolunteerId>
+    <CallId>11</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>9</Id>
+    <VolunteerId>339418187</VolunteerId>
+    <CallId>34</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>10</Id>
+    <VolunteerId>242270698</VolunteerId>
+    <CallId>37</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>11</Id>
+    <VolunteerId>223306996</VolunteerId>
+    <CallId>39</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>12</Id>
+    <VolunteerId>253786693</VolunteerId>
+    <CallId>1</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>13</Id>
+    <VolunteerId>223306996</VolunteerId>
+    <CallId>0</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>14</Id>
+    <VolunteerId>298830147</VolunteerId>
+    <CallId>25</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>15</Id>
+    <VolunteerId>298830147</VolunteerId>
+    <CallId>31</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>16</Id>
+    <VolunteerId>288695985</VolunteerId>
+    <CallId>48</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>17</Id>
+    <VolunteerId>253786693</VolunteerId>
+    <CallId>29</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>18</Id>
+    <VolunteerId>373950584</VolunteerId>
+    <CallId>30</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>19</Id>
+    <VolunteerId>209301738</VolunteerId>
+    <CallId>38</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>20</Id>
+    <VolunteerId>247417949</VolunteerId>
+    <CallId>24</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>21</Id>
+    <VolunteerId>334498571</VolunteerId>
+    <CallId>5</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>22</Id>
+    <VolunteerId>338604150</VolunteerId>
+    <CallId>27</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>23</Id>
+    <VolunteerId>373382764</VolunteerId>
+    <CallId>13</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>24</Id>
+    <VolunteerId>288695985</VolunteerId>
+    <CallId>19</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>25</Id>
+    <VolunteerId>334498571</VolunteerId>
+    <CallId>12</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>26</Id>
+    <VolunteerId>374770867</VolunteerId>
+    <CallId>0</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>27</Id>
+    <VolunteerId>339418187</VolunteerId>
+    <CallId>41</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>28</Id>
+    <VolunteerId>288695985</VolunteerId>
+    <CallId>42</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>29</Id>
+    <VolunteerId>247417949</VolunteerId>
+    <CallId>5</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>30</Id>
+    <VolunteerId>334498571</VolunteerId>
+    <CallId>11</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>31</Id>
+    <VolunteerId>247417949</VolunteerId>
+    <CallId>35</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>32</Id>
+    <VolunteerId>378228464</VolunteerId>
+    <CallId>6</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Expired</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>33</Id>
+    <VolunteerId>298830147</VolunteerId>
+    <CallId>6</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>SelfCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>34</Id>
+    <VolunteerId>288695985</VolunteerId>
+    <CallId>46</CallId>
+    <ArrivalTime>2023-01-18T00:00:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+</ArrayOfAssignment>

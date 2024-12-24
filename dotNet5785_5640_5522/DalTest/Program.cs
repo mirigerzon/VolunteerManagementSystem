@@ -9,8 +9,8 @@ using System.Net;
 namespace DalTest;
 internal class Program
 {
-    static readonly IDal s_dal = new DalList(); //stage 2
-    //static readonly IDal s_dal = new DalXml(); //stage 3
+    //static readonly IDal s_dal = new DalList(); //stage 2
+    static readonly IDal s_dal = new DalXml(); //stage 3
     private enum MainMenu
     {
         exit,
@@ -522,6 +522,7 @@ internal class Program
         }
         else throw new DalInvalidException("\n There is no option like this");
     }
+    // Delete an existing Volunteer, Call, or Assignment object based on user input.
     private static void DeleteFunction(string typeOf)
     {
         Console.WriteLine("\n Enter ID");

@@ -7,6 +7,7 @@ using System.Data.Common;
 
 internal class AssignmentImplementation : IAssignment
 {
+    // Implements the creation of a new assignment and saves it to XML storage.
     public void Create(Assignment item)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
@@ -15,6 +16,7 @@ internal class AssignmentImplementation : IAssignment
         Assignments.Add(item);
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_Assignments_xml);
     }
+    // Deletes an assignment by its ID from the XML storage.
     public void Delete(int id)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
@@ -22,20 +24,24 @@ internal class AssignmentImplementation : IAssignment
             throw new DalDoesNotExistException($"Assignment with ID={id} does Not exist");
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_Assignments_xml);
     }
+    // Deletes all assignments from the XML storage.
     public void DeleteAll()
     {
         XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_Assignments_xml);
     }
+    // Reads and retrieves a specific assignment by its ID from the XML storage.
     public Assignment? Read(int id)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
         return Assignments.FirstOrDefault(it => it.Id == id);
     }
+    // Reads and retrieves a specific assignment that matches the given filter condition.
     public Assignment? Read(Func<Assignment, bool> filter)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
         return Assignments.FirstOrDefault(filter);
     }
+    // Reads and retrieves all assignments or those matching the filter condition from the XML storage.
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
         List<Assignment> assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
@@ -43,6 +49,7 @@ internal class AssignmentImplementation : IAssignment
             return assignments;
         return assignments.Where(filter);
     }
+    // Updates an existing assignment by replacing it with the new version in XML storage.
     public void Update(Assignment item)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
