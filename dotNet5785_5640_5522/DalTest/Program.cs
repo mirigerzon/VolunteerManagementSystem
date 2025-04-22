@@ -6,11 +6,14 @@ using DalApi;
 using DO;
 using Microsoft.VisualBasic.FileIO;
 using System.Net;
+using System.Diagnostics;
 namespace DalTest;
 internal class Program
 {
     //static readonly IDal s_dal = new DalList(); //stage 2
-    static readonly IDal s_dal = new DalXml(); //stage 3
+    //static readonly IDal s_dal = new DalXml(); //stage 3
+    static readonly IDal s_dal = Factory.Get; //stage 4
+
     private enum MainMenu
     {
         exit,
@@ -150,7 +153,8 @@ internal class Program
     // Initializes data by calling the `Initialization.Do` method with the appropriate data sources.
     private static void InitializingDataFunction()
     {
-        Initialization.Do(s_dal); // stage 2
+        //Initialization.Do(s_dal); //stage 2
+        Initialization.Do(); //stage 4
     }
     // Displays all data of a specified type (volunteer, call, or assignment) by reading from corresponding data sources.
     private static void DisplayDataFunction()

@@ -1,5 +1,4 @@
-﻿
-namespace DalTest;
+﻿namespace DalTest;
 using DalApi;
 using DO;
 using static DO.Enums;
@@ -284,9 +283,11 @@ internal static class Initialization
         }
     }
     //Initializes the system by resetting data and invoking CreateVolunteer, CreateCall, and CreateAssignment.
-    public static void Do(IDal dal) // stage  2
+    //public static void Do(IDal dal) // stage  2
+    public static void Do() //stage 4
     {
-        s_dal = dal ?? throw new DalDependencyNotInitializedException("DAL object cannot be null!");
+        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
+        s_dal = DalApi.Factory.Get; //stage 4
         Console.WriteLine("\n Reset Configuration values and List values...");
         s_dal.ResetDB(); //stage 2
         CreateVolunteer();

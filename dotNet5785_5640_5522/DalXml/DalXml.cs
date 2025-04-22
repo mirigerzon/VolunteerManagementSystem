@@ -1,7 +1,11 @@
 ﻿namespace Dal;
 using DalApi;
-sealed public class DalXml : IDal
+using System.Diagnostics;
+
+sealed internal class DalXml : IDal
 {
+    public static IDal Instance { get; } = new DalXml();
+    private DalXml() { }
     // Provides access to call-related operations.
     public ICall Call { get; } = new CallImplementation();
     // Provides access to volunteer-related operations.
