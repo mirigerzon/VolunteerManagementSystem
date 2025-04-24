@@ -6,8 +6,7 @@ namespace DO;
 /// Volunteer Entity represents a volunteer with all its properties.
 /// </summary>
 /// <param name="Id">Unique personal ID of the volunteer.</param>
-/// <param name="FirstName">First name of the volunteer.</param>
-/// <param name="LastName">Last name of the volunteer.</param>
+/// <param name="FullName">Full name of the volunteer.</param>
 /// <param name="PhoneNumber">Phone number of the volunteer.</param>
 /// <param name="Email">Email address of the volunteer.</param>
 /// <param name="Password">Password of the volunteer (default null).</param>
@@ -20,8 +19,7 @@ namespace DO;
 public record Volunteer
 (
     int Id,
-    string FirstName,
-    string LastName,
+    string FullName,
     string PhoneNumber,
     string Email,
     string Password,
@@ -34,8 +32,9 @@ public record Volunteer
     Enums.TypeOfDistanceEnum? TypeOfDistance
 )
 {
-    public Volunteer(int id, string firstName, string lastName, string phoneNumber, string email, string password, string address, double latitude, double longitude)
-        : this(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude, null, true, null, null)
+
+    public Volunteer(int id, string fullName, string phoneNumber, string email, string password, string address, double latitude, double longitude)
+        : this(id, fullName, phoneNumber, email, password, address, latitude, longitude, null, true, null, null)
     { }
-    public Volunteer():this(0,"", "", "", "", "" , "", 0, 0) { }
+    public Volunteer():this(0,"", "", "", "" , "", 0, 0) { }
 }

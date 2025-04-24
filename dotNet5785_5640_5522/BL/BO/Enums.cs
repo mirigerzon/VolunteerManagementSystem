@@ -1,10 +1,19 @@
 ﻿namespace BO;
-public enum VolunteerRole
+public enum UserRole
 {
+    Admin,
     Volunteer,
-    Manager
+    Mentor,
+    Guest
 }
-public enum DistanceType
+public enum VolunteerSortField
+{
+    FullName,
+    Distance,
+    Role,
+    IsActive
+}
+public enum TypeOfDistance
 {
     Aerial,
     Walking,
@@ -22,19 +31,6 @@ public enum CallType
     Social,
     Transportation
 }
-public enum ClosureType
-{
-    Treated, 
-    Canceled,
-    Expired    
-}
-public enum AssignmentEndType
-{
-    Finished,
-    CanceledByVolunteer,
-    Expired,
-    ExpiredCanceledAutomatically
-}
 public enum CallStatus
 {
     Open,
@@ -43,4 +39,30 @@ public enum CallStatus
     Expired,
     OpenAtRisk,
     InTreatmentAtRisk
+}
+public enum ClosureType
+{
+    Treated,
+    Canceled,
+    Expired
+}
+public enum AssignmentEndType
+{
+    Finished,
+    CanceledByVolunteer,
+    Expired,
+    ExpiredCanceledAutomatically
+}
+public enum CallFieldFilter
+{
+    Status,
+    StartTime,
+    CallerAddress
+}
+public enum TimeUnit
+{
+    Minute,
+    Hour,
+    Day,
+    Month
 }

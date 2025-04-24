@@ -273,14 +273,10 @@ internal class Program
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
                 Console.WriteLine("\n Enter valid input");
-            Console.WriteLine("\n Enter first name");
-            string firstName = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(firstName))
-                throw new DalInvalidException("\n First name cannot be null or empty");
-            Console.WriteLine("\n Enter last name");
-            string lastName = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(lastName))
-                throw new DalInvalidException("\n Last name cannot be null or empty");
+            Console.WriteLine("\n Enter full name");
+                        string fullName = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new DalInvalidException("\n Full name cannot be null or empty");
             Console.WriteLine("\n Enter phone number");
             string phoneNumber = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(phoneNumber))
@@ -305,7 +301,7 @@ internal class Program
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
                 throw new DalInvalidException("\n Invalid input for Longitude");
-            Volunteer volunteer = new Volunteer(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude);
+            Volunteer volunteer = new Volunteer(id, fullName, phoneNumber, email, password, address, latitude, longitude);
             s_dal.Volunteer.Create(volunteer); // stage 2
         }
         else if (typeOf == "calls")
@@ -421,14 +417,10 @@ internal class Program
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
                 Console.WriteLine("\n Enter valid input");
-            Console.WriteLine("\n Enter first name");
-            string firstName = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(firstName))
-                throw new DalInvalidException("First name cannot be null or empty");
-            Console.WriteLine("\n Enter last name");
-            string lastName = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(lastName))
-                throw new DalInvalidException("Last name cannot be null or empty");
+            Console.WriteLine("\n Enter full name");
+            string fullName = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new DalInvalidException("Full name cannot be null or empty");
             Console.WriteLine("\n Enter phoneNumber");
             string phoneNumber = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(phoneNumber))
@@ -453,7 +445,7 @@ internal class Program
             double longitude;
             while (!double.TryParse(Console.ReadLine(), out longitude))
                 Console.WriteLine("\n Enter valid Longitude");
-            Volunteer volunteer = new Volunteer(id, firstName, lastName, phoneNumber, email, password, address, latitude, longitude);
+            Volunteer volunteer = new Volunteer(id, fullName, phoneNumber, email, password, address, latitude, longitude);
             s_dal.Volunteer.Update(volunteer); // stage 2
         }
         else if (typeOf == "calls")
@@ -604,35 +596,30 @@ internal class Program
         switch (typeOf.ToLower())
         {
             case "volunteer":
-                Console.WriteLine("\n Enter field to change (first name, last name, address, phone number, email):");
+                Console.WriteLine("\n Enter field to change (name, address, phone number, email):");
                 string volunteerOption = Console.ReadLine()?.ToLower();
                 var volunteerToChange = s_dal.Volunteer.Read(id); // stage 2
                 if (volunteerToChange == null)
                     throw new DalDependencyNotInitializedException("\n Volunteer not found.");
                 switch (volunteerOption)
                 {
-                    case "first name":
-                        Console.Write("\n Enter First Name: ");
+                    case "name":
+                        Console.Write("\n Enter full name: ");
                         result = Console.ReadLine();
-                        volunteerToChange = volunteerToChange with { FirstName = result };
-                        break;
-                    case "last name":
-                        Console.Write("\n Enter Last Name: ");
-                        result = Console.ReadLine();
-                        volunteerToChange = volunteerToChange with { LastName = result };
+                        volunteerToChange = volunteerToChange with { FullName = result };
                         break;
                     case "address":
-                        Console.Write("\n Enter Address: ");
+                        Console.Write("\n Enter address: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { Address = result };
                         break;
                     case "phone number":
-                        Console.Write("\n Enter Phone Number: ");
+                        Console.Write("\n Enter phone number: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { PhoneNumber = result };
                         break;
                     case "email":
-                        Console.Write("\n Enter Email: ");
+                        Console.Write("\n Enter email: ");
                         result = Console.ReadLine();
                         volunteerToChange = volunteerToChange with { Email = result };
                         break;

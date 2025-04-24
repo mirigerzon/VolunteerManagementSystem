@@ -32,13 +32,6 @@ internal class VolunteerImplementation : IVolunteer
             throw new DalDoesNotExistException($"Volunteer with ID {id} does not exist.");
         return volunteer;
     }
-    //public Volunteer? ReadToCreate(int id)
-    //{
-    //    Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(item => item.Id == id);
-    //    if (volunteer == null)
-    //        return null;
-    //    return volunteer;
-    //}
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
         Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(filter);

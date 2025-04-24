@@ -13,8 +13,7 @@ internal class VolunteerImplementation : IVolunteer
         return new DO.Volunteer()
         {
             Id = v.ToIntNullable("Id") ?? throw new FormatException("Invalid ID format"),
-            FirstName = (string?)v.Element("FirstName") ?? "",
-            LastName = (string?)v.Element("LastName") ?? "",
+            FullName = (string?)v.Element("FullName") ?? "",
             PhoneNumber = (string?)v.Element("PhoneNumber") ?? "",
             Email = (string?)v.Element("Email") ?? "",
             Password = (string?)v.Element("Password") ?? "",
@@ -29,8 +28,7 @@ internal class VolunteerImplementation : IVolunteer
     private static IEnumerable<XElement> CreateVolunteerElements(Volunteer volunteer)
     {
         yield return new XElement("Id", volunteer.Id);
-        yield return new XElement("FirstName", volunteer.FirstName);
-        yield return new XElement("LastName", volunteer.LastName);
+        yield return new XElement("FullName", volunteer.FullName);
         yield return new XElement("PhoneNumber", volunteer.PhoneNumber);
         yield return new XElement("Email", volunteer.Email);
         yield return new XElement("Password", volunteer.Password);

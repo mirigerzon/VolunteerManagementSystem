@@ -2,232 +2,232 @@
 <ArrayOfCall xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Call>
     <Id>0</Id>
-    <Status>New</Status>
+    <Status>InProgress</Status>
     <Description>Flat tire in need of assistance</Description>
     <CallerAddress>123 Elm St, Tel Aviv</CallerAddress>
-    <Latitude>30.389095363365808</Latitude>
-    <Longitude>35.12744957051742</Longitude>
-    <StartTime>2024-02-13T00:00:00</StartTime>
-    <MaxEndTime>2024-02-14T01:00:00</MaxEndTime>
+    <Latitude>30.291749045511633</Latitude>
+    <Longitude>34.77977682657236</Longitude>
+    <StartTime>2025-03-03T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>1</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Car battery drained - requires jump start</Description>
     <CallerAddress>456 Oak St, Haifa</CallerAddress>
-    <Latitude>32.05843372846822</Latitude>
-    <Longitude>34.61329513091113</Longitude>
-    <StartTime>2023-04-22T00:00:00</StartTime>
-    <MaxEndTime>2023-04-23T12:00:00</MaxEndTime>
+    <Latitude>31.486441056071072</Latitude>
+    <Longitude>34.31050927993963</Longitude>
+    <StartTime>2024-04-02T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>2</Id>
-    <Status>New</Status>
+    <Status>InProgress</Status>
     <Description>Locked car with keys inside</Description>
     <CallerAddress>789 Pine St, Jerusalem</CallerAddress>
-    <Latitude>31.52901855957148</Latitude>
-    <Longitude>34.72453283061112</Longitude>
-    <StartTime>2022-10-07T00:00:00</StartTime>
-    <MaxEndTime>2022-10-07T07:00:00</MaxEndTime>
+    <Latitude>31.414903431877537</Latitude>
+    <Longitude>35.060306928857855</Longitude>
+    <StartTime>2024-01-18T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>3</Id>
-    <Status>New</Status>
+    <Status>Resolved</Status>
     <Description>Car stuck in mud and needs towing</Description>
     <CallerAddress>321 Maple St, Eilat</CallerAddress>
-    <Latitude>29.718492860538994</Latitude>
-    <Longitude>34.34598557238543</Longitude>
-    <StartTime>2024-04-04T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>31.01622249075361</Latitude>
+    <Longitude>35.4264934557079</Longitude>
+    <StartTime>2025-04-14T00:00:00</StartTime>
+    <MaxEndTime>2025-04-15T17:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>4</Id>
     <Status>InProgress</Status>
     <Description>Baby stroller stuck in an elevator</Description>
     <CallerAddress>654 Birch St, Be'er Sheva</CallerAddress>
-    <Latitude>31.523693838941902</Latitude>
-    <Longitude>35.4189896263409</Longitude>
-    <StartTime>2023-09-25T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>31.62444744816988</Latitude>
+    <Longitude>34.82191760666626</Longitude>
+    <StartTime>2024-09-19T00:00:00</StartTime>
+    <MaxEndTime>2024-09-19T23:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>5</Id>
     <Status>Resolved</Status>
     <Description>Home door jammed - needs help to open</Description>
     <CallerAddress>987 Cedar St, Netanya</CallerAddress>
-    <Latitude>30.995911057798576</Latitude>
-    <Longitude>34.9763990715615</Longitude>
-    <StartTime>2024-09-14T00:00:00</StartTime>
-    <MaxEndTime>2024-09-15T14:00:00</MaxEndTime>
+    <Latitude>31.013659646437677</Latitude>
+    <Longitude>35.510358560212566</Longitude>
+    <StartTime>2025-04-04T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>6</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Electric bike with a dead battery</Description>
     <CallerAddress>234 Willow St, Ashdod</CallerAddress>
-    <Latitude>29.699180205984486</Latitude>
-    <Longitude>34.54486064622235</Longitude>
-    <StartTime>2023-11-27T00:00:00</StartTime>
-    <MaxEndTime>2023-11-27T17:00:00</MaxEndTime>
+    <Latitude>30.170302514153423</Latitude>
+    <Longitude>34.84233308270454</Longitude>
+    <StartTime>2023-05-13T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>7</Id>
-    <Status>Resolved</Status>
+    <Status>InProgress</Status>
     <Description>Elderly person needs help fetching medications</Description>
     <CallerAddress>567 Cherry St, Holon</CallerAddress>
-    <Latitude>30.631423816660863</Latitude>
-    <Longitude>34.53660002577637</Longitude>
-    <StartTime>2023-12-29T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>32.093437574297376</Latitude>
+    <Longitude>35.38787555179955</Longitude>
+    <StartTime>2024-05-12T00:00:00</StartTime>
+    <MaxEndTime>2024-05-13T11:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>8</Id>
     <Status>Resolved</Status>
     <Description>Family stranded on the road without fuel</Description>
     <CallerAddress>890 Ash St, Nazareth</CallerAddress>
-    <Latitude>30.53088416419323</Latitude>
-    <Longitude>35.63615119058673</Longitude>
-    <StartTime>2022-11-03T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>29.88524661282978</Latitude>
+    <Longitude>35.6560988192289</Longitude>
+    <StartTime>2023-02-26T00:00:00</StartTime>
+    <MaxEndTime>2023-02-26T13:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>9</Id>
-    <Status>New</Status>
+    <Status>Resolved</Status>
     <Description>Overheated car needs radiator water</Description>
     <CallerAddress>112 Walnut St, Petah Tikva</CallerAddress>
-    <Latitude>30.59686722026778</Latitude>
-    <Longitude>35.44758195056667</Longitude>
-    <StartTime>2024-10-25T00:00:00</StartTime>
-    <MaxEndTime>2024-10-26T22:00:00</MaxEndTime>
+    <Latitude>31.632393054550363</Latitude>
+    <Longitude>35.37028492630276</Longitude>
+    <StartTime>2024-07-30T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>10</Id>
-    <Status>New</Status>
+    <Status>Resolved</Status>
     <Description>Assistance with changing a heavy vehicle's tire</Description>
     <CallerAddress>98 Spruce St, Rishon LeZion</CallerAddress>
-    <Latitude>30.87821247252984</Latitude>
-    <Longitude>35.45482170914585</Longitude>
-    <StartTime>2024-01-28T00:00:00</StartTime>
+    <Latitude>30.802632119798016</Latitude>
+    <Longitude>34.323642928028015</Longitude>
+    <StartTime>2024-08-05T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>11</Id>
-    <Status>InProgress</Status>
+    <Status>Resolved</Status>
     <Description>Box locked without a key available</Description>
     <CallerAddress>77 Palm St, Kfar Saba</CallerAddress>
-    <Latitude>31.385515729183993</Latitude>
-    <Longitude>34.629642302321486</Longitude>
-    <StartTime>2024-12-10T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>31.474535472941824</Latitude>
+    <Longitude>34.435570641604656</Longitude>
+    <StartTime>2023-08-22T00:00:00</StartTime>
+    <MaxEndTime>2023-08-22T09:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>12</Id>
     <Status>New</Status>
     <Description>Help delivering food to the needy</Description>
     <CallerAddress>55 Redwood St, Bat Yam</CallerAddress>
-    <Latitude>30.13550616159539</Latitude>
-    <Longitude>34.90468769226824</Longitude>
-    <StartTime>2024-07-06T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>29.704010788357177</Latitude>
+    <Longitude>34.43458989463541</Longitude>
+    <StartTime>2023-12-09T00:00:00</StartTime>
+    <MaxEndTime>2023-12-10T08:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>13</Id>
-    <Status>New</Status>
+    <Status>Resolved</Status>
     <Description>Lost personal item in a public area</Description>
     <CallerAddress>22 Cypress St, Herzliya</CallerAddress>
-    <Latitude>29.889892897751242</Latitude>
-    <Longitude>34.73758433155335</Longitude>
-    <StartTime>2022-06-05T00:00:00</StartTime>
+    <Latitude>31.56932496483842</Latitude>
+    <Longitude>35.21619781793964</Longitude>
+    <StartTime>2024-06-16T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>14</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Shopping cart stuck in an elevator</Description>
     <CallerAddress>10 Acacia St, Modi'in</CallerAddress>
-    <Latitude>31.72549158471125</Latitude>
-    <Longitude>34.473516950655814</Longitude>
-    <StartTime>2022-07-26T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>30.560657536925483</Latitude>
+    <Longitude>35.49376329785307</Longitude>
+    <StartTime>2024-07-22T00:00:00</StartTime>
+    <MaxEndTime>2024-07-22T08:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>15</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Heavy equipment fell on the road</Description>
     <CallerAddress>88 Magnolia St, Nahariya</CallerAddress>
-    <Latitude>31.952708319914084</Latitude>
-    <Longitude>35.04854868875791</Longitude>
-    <StartTime>2024-01-29T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>31.750895124339632</Latitude>
+    <Longitude>35.529752028923184</Longitude>
+    <StartTime>2024-09-15T00:00:00</StartTime>
+    <MaxEndTime>2024-09-16T04:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>16</Id>
-    <Status>New</Status>
+    <Status>InProgress</Status>
     <Description>Child stuck with their hand in a railing</Description>
     <CallerAddress>66 Poplar St, Ra'anana</CallerAddress>
-    <Latitude>31.43389316480442</Latitude>
-    <Longitude>35.39075436257744</Longitude>
-    <StartTime>2024-03-17T00:00:00</StartTime>
-    <MaxEndTime>2024-03-18T16:00:00</MaxEndTime>
+    <Latitude>31.821822068037115</Latitude>
+    <Longitude>35.3500545369935</Longitude>
+    <StartTime>2023-08-23T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>17</Id>
-    <Status>New</Status>
+    <Status>InProgress</Status>
     <Description>Rescue of a baby locked inside a car</Description>
     <CallerAddress>44 Chestnut St, Hadera</CallerAddress>
-    <Latitude>30.89519743740342</Latitude>
-    <Longitude>35.4214384942299</Longitude>
-    <StartTime>2023-05-23T00:00:00</StartTime>
-    <MaxEndTime>2023-05-24T01:00:00</MaxEndTime>
+    <Latitude>32.047452094010346</Latitude>
+    <Longitude>34.3317752549389</Longitude>
+    <StartTime>2024-10-26T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>18</Id>
-    <Status>InProgress</Status>
+    <Status>Resolved</Status>
     <Description>Unloading vehicle carrying goods for charity</Description>
     <CallerAddress>33 Alder St, Acre</CallerAddress>
-    <Latitude>29.65238656941203</Latitude>
-    <Longitude>34.68403299989306</Longitude>
-    <StartTime>2024-09-13T00:00:00</StartTime>
-    <MaxEndTime>2024-09-14T11:00:00</MaxEndTime>
+    <Latitude>30.78864586447418</Latitude>
+    <Longitude>34.93238604627048</Longitude>
+    <StartTime>2023-10-02T00:00:00</StartTime>
+    <MaxEndTime>2023-10-03T18:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>19</Id>
     <Status>New</Status>
     <Description>Help with household tasks for the elderly</Description>
     <CallerAddress>111 Olive St, Safed</CallerAddress>
-    <Latitude>31.98366497636174</Latitude>
-    <Longitude>34.73855720409791</Longitude>
-    <StartTime>2022-04-18T00:00:00</StartTime>
-    <MaxEndTime>2022-04-19T03:00:00</MaxEndTime>
+    <Latitude>30.325760061049504</Latitude>
+    <Longitude>34.44809637967447</Longitude>
+    <StartTime>2024-07-21T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>20</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Car door handle broken and needs fixing</Description>
     <CallerAddress>12 Plum St, Ramat Gan</CallerAddress>
-    <Latitude>31.73819716405864</Latitude>
-    <Longitude>34.726830146941026</Longitude>
-    <StartTime>2023-11-18T00:00:00</StartTime>
+    <Latitude>30.410343287916184</Latitude>
+    <Longitude>34.37470302569933</Longitude>
+    <StartTime>2025-03-04T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>21</Id>
-    <Status>New</Status>
+    <Status>Resolved</Status>
     <Description>Motorcycle stranded due to mechanical failure</Description>
     <CallerAddress>34 Sycamore St, Beit Shemesh</CallerAddress>
-    <Latitude>29.887271596876737</Latitude>
-    <Longitude>34.629931903701895</Longitude>
-    <StartTime>2024-07-24T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>30.464416204022694</Latitude>
+    <Longitude>34.38817070445673</Longitude>
+    <StartTime>2023-10-09T00:00:00</StartTime>
+    <MaxEndTime>2023-10-09T16:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>22</Id>
-    <Status>New</Status>
+    <Status>InProgress</Status>
     <Description>Help securing loose loads on a truck</Description>
     <CallerAddress>67 Bamboo St, Lod</CallerAddress>
-    <Latitude>31.12767377536311</Latitude>
-    <Longitude>34.46292427034073</Longitude>
-    <StartTime>2022-08-25T00:00:00</StartTime>
+    <Latitude>30.482667028922464</Latitude>
+    <Longitude>35.651865769632984</Longitude>
+    <StartTime>2024-06-17T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
@@ -235,109 +235,109 @@
     <Status>New</Status>
     <Description>Bike chain stuck and needs repair</Description>
     <CallerAddress>99 Hazel St, Tiberias</CallerAddress>
-    <Latitude>29.907854631829295</Latitude>
-    <Longitude>34.90248067889001</Longitude>
-    <StartTime>2024-02-03T00:00:00</StartTime>
-    <MaxEndTime>2024-02-04T08:00:00</MaxEndTime>
+    <Latitude>30.922481124117418</Latitude>
+    <Longitude>34.803098078505286</Longitude>
+    <StartTime>2023-06-20T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>24</Id>
-    <Status>Resolved</Status>
+    <Status>InProgress</Status>
     <Description>Towing assistance for a stranded vehicle</Description>
     <CallerAddress>25 Maple Leaf St, Ariel</CallerAddress>
-    <Latitude>30.873361925211935</Latitude>
-    <Longitude>35.16862307681513</Longitude>
-    <StartTime>2022-10-28T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>30.64317253492058</Latitude>
+    <Longitude>35.6600612217705</Longitude>
+    <StartTime>2024-03-14T00:00:00</StartTime>
+    <MaxEndTime>2024-03-14T13:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>25</Id>
-    <Status>New</Status>
+    <Status>Resolved</Status>
     <Description>Providing blankets and water in cold weather</Description>
     <CallerAddress>53 Coral St, Giv'atayim</CallerAddress>
-    <Latitude>31.13563519707826</Latitude>
-    <Longitude>35.35401932556572</Longitude>
-    <StartTime>2023-12-07T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>31.710941768762922</Latitude>
+    <Longitude>34.31717092450119</Longitude>
+    <StartTime>2023-06-04T00:00:00</StartTime>
+    <MaxEndTime>2023-06-04T12:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>26</Id>
-    <Status>New</Status>
+    <Status>Resolved</Status>
     <Description>Car slid off the road in icy conditions</Description>
     <CallerAddress>72 Sage St, Karmiel</CallerAddress>
-    <Latitude>31.3501127151911</Latitude>
-    <Longitude>35.65107315843711</Longitude>
-    <StartTime>2023-02-21T00:00:00</StartTime>
-    <MaxEndTime>2023-02-22T05:00:00</MaxEndTime>
+    <Latitude>32.08247034390028</Latitude>
+    <Longitude>34.471414638865326</Longitude>
+    <StartTime>2024-11-30T00:00:00</StartTime>
+    <MaxEndTime>2024-11-30T01:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>27</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Elderly person locked out of their home</Description>
     <CallerAddress>14 Lilac St, Ma'ale Adumim</CallerAddress>
-    <Latitude>30.33084764957575</Latitude>
-    <Longitude>34.49875830332268</Longitude>
-    <StartTime>2022-07-28T00:00:00</StartTime>
-    <MaxEndTime>2022-07-29T18:00:00</MaxEndTime>
+    <Latitude>29.882588131691584</Latitude>
+    <Longitude>34.90110444974827</Longitude>
+    <StartTime>2023-11-29T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>28</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Help carrying groceries to an upper floor</Description>
     <CallerAddress>39 Myrtle St, Yavne</CallerAddress>
-    <Latitude>30.605386640987998</Latitude>
-    <Longitude>35.52142244163181</Longitude>
-    <StartTime>2024-10-02T00:00:00</StartTime>
-    <MaxEndTime>2024-10-03T02:00:00</MaxEndTime>
+    <Latitude>30.723412651585363</Latitude>
+    <Longitude>35.17614572155275</Longitude>
+    <StartTime>2023-04-30T00:00:00</StartTime>
+    <MaxEndTime>2023-04-30T12:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>29</Id>
-    <Status>Resolved</Status>
+    <Status>InProgress</Status>
     <Description>Assisting a family with moving furniture</Description>
     <CallerAddress>81 Juniper St, Sderot</CallerAddress>
-    <Latitude>29.933946209567885</Latitude>
-    <Longitude>35.29198969271882</Longitude>
-    <StartTime>2024-05-07T00:00:00</StartTime>
-    <MaxEndTime>2024-05-08T20:00:00</MaxEndTime>
+    <Latitude>31.4213623315158</Latitude>
+    <Longitude>34.53706386223767</Longitude>
+    <StartTime>2024-09-21T00:00:00</StartTime>
+    <MaxEndTime>2024-09-21T20:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>30</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Rescue of a vehicle stranded in flooding</Description>
     <CallerAddress>18 Aspen St, Dimona</CallerAddress>
-    <Latitude>30.756050212710374</Latitude>
-    <Longitude>35.305003633045494</Longitude>
-    <StartTime>2023-12-22T00:00:00</StartTime>
+    <Latitude>29.87220844572813</Latitude>
+    <Longitude>34.712349545844816</Longitude>
+    <StartTime>2023-07-12T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>31</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Temporary shelter setup for displaced families</Description>
     <CallerAddress>76 Hawthorn St, Migdal HaEmek</CallerAddress>
-    <Latitude>30.398835868786588</Latitude>
-    <Longitude>34.324450325612766</Longitude>
-    <StartTime>2022-03-21T00:00:00</StartTime>
-    <MaxEndTime>2022-03-22T08:00:00</MaxEndTime>
+    <Latitude>29.999003650740423</Latitude>
+    <Longitude>35.55588942904297</Longitude>
+    <StartTime>2023-02-03T00:00:00</StartTime>
+    <MaxEndTime>2023-02-04T21:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>32</Id>
     <Status>Resolved</Status>
     <Description>Help removing a stuck shopping cart wheel</Description>
     <CallerAddress>45 Eucalyptus St, Kiryat Gat</CallerAddress>
-    <Latitude>31.977562881394853</Latitude>
-    <Longitude>35.013506074422544</Longitude>
-    <StartTime>2022-01-27T00:00:00</StartTime>
+    <Latitude>31.654986452936154</Latitude>
+    <Longitude>35.09313980178943</Longitude>
+    <StartTime>2024-12-10T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>33</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Baby’s crib jammed and needs fixing</Description>
     <CallerAddress>29 Pinecone St, Afula</CallerAddress>
-    <Latitude>31.246585745408062</Latitude>
-    <Longitude>35.6695086222687</Longitude>
-    <StartTime>2024-01-12T00:00:00</StartTime>
+    <Latitude>30.73060042975628</Latitude>
+    <Longitude>35.13530911380941</Longitude>
+    <StartTime>2023-01-31T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
@@ -345,59 +345,59 @@
     <Status>New</Status>
     <Description>Repair of a malfunctioning wheelchair ramp</Description>
     <CallerAddress>31 Ivy St, Kiryat Malakhi</CallerAddress>
-    <Latitude>31.674293200558353</Latitude>
-    <Longitude>34.699814110324574</Longitude>
-    <StartTime>2024-08-07T00:00:00</StartTime>
+    <Latitude>29.51722873854453</Latitude>
+    <Longitude>35.585666353172336</Longitude>
+    <StartTime>2023-07-22T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>35</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Opening a safe box with a lost key</Description>
     <CallerAddress>20 Fir St, Rosh HaAyin</CallerAddress>
-    <Latitude>30.078509025305163</Latitude>
-    <Longitude>34.775431360061724</Longitude>
-    <StartTime>2022-05-03T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>30.37636557489448</Latitude>
+    <Longitude>34.427490780654736</Longitude>
+    <StartTime>2023-11-22T00:00:00</StartTime>
+    <MaxEndTime>2023-11-23T16:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>36</Id>
     <Status>New</Status>
     <Description>Repairing a punctured bicycle tire</Description>
     <CallerAddress>59 Lavender St, Ashkelon</CallerAddress>
-    <Latitude>29.53646615059562</Latitude>
-    <Longitude>34.72039103641006</Longitude>
-    <StartTime>2023-02-20T00:00:00</StartTime>
-    <MaxEndTime>2023-02-21T01:00:00</MaxEndTime>
+    <Latitude>29.56613838958951</Latitude>
+    <Longitude>35.28467193554167</Longitude>
+    <StartTime>2023-06-11T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>37</Id>
     <Status>New</Status>
     <Description>Rescue of a pet locked inside a vehicle</Description>
     <CallerAddress>93 Marigold St, Qiryat Shemona</CallerAddress>
-    <Latitude>31.96500191632652</Latitude>
-    <Longitude>34.34979275189137</Longitude>
-    <StartTime>2024-03-08T00:00:00</StartTime>
-    <MaxEndTime>2024-03-08T01:00:00</MaxEndTime>
+    <Latitude>31.998412615924295</Latitude>
+    <Longitude>35.3817357014854</Longitude>
+    <StartTime>2023-05-20T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>38</Id>
     <Status>New</Status>
     <Description>Providing first aid to an injured cyclist</Description>
     <CallerAddress>17 Sagebrush St, Yehud</CallerAddress>
-    <Latitude>31.227535090622535</Latitude>
-    <Longitude>34.6776689000876</Longitude>
-    <StartTime>2022-07-04T00:00:00</StartTime>
+    <Latitude>31.244201407702306</Latitude>
+    <Longitude>34.43703394690256</Longitude>
+    <StartTime>2023-02-27T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>39</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Removing debris blocking a small roadway</Description>
     <CallerAddress>36 Daffodil St, Or Akiva</CallerAddress>
-    <Latitude>31.27737700987817</Latitude>
-    <Longitude>35.3801687013017</Longitude>
-    <StartTime>2023-12-02T00:00:00</StartTime>
+    <Latitude>31.187351813873786</Latitude>
+    <Longitude>34.82666189222837</Longitude>
+    <StartTime>2024-09-26T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
@@ -405,69 +405,69 @@
     <Status>New</Status>
     <Description>Helping push a car stuck in sand</Description>
     <CallerAddress>84 Camellia St, Nesher</CallerAddress>
-    <Latitude>31.00400611884002</Latitude>
-    <Longitude>35.43694816720442</Longitude>
-    <StartTime>2023-09-02T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>30.189256782409608</Latitude>
+    <Longitude>34.39160766344617</Longitude>
+    <StartTime>2023-10-04T00:00:00</StartTime>
+    <MaxEndTime>2023-10-04T05:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>41</Id>
-    <Status>InProgress</Status>
+    <Status>Resolved</Status>
     <Description>Clearing branches obstructing a pathway</Description>
     <CallerAddress>50 Fern St, Betar Illit</CallerAddress>
-    <Latitude>31.74247013321003</Latitude>
-    <Longitude>35.03060394468952</Longitude>
-    <StartTime>2022-05-06T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>31.38160352934298</Latitude>
+    <Longitude>35.53583998343295</Longitude>
+    <StartTime>2023-08-05T00:00:00</StartTime>
+    <MaxEndTime>2023-08-05T10:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>42</Id>
     <Status>Resolved</Status>
     <Description>Providing fuel to a stranded motorist</Description>
     <CallerAddress>41 Amaranth St, Bnei Brak</CallerAddress>
-    <Latitude>30.912430974784346</Latitude>
-    <Longitude>34.9902716743903</Longitude>
-    <StartTime>2023-05-01T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
+    <Latitude>29.856804122026524</Latitude>
+    <Longitude>34.77212039190108</Longitude>
+    <StartTime>2024-10-01T00:00:00</StartTime>
+    <MaxEndTime>2024-10-02T17:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>43</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Carrying heavy packages for an elderly individual</Description>
     <CallerAddress>26 Daisy St, Kiryat Arba</CallerAddress>
-    <Latitude>29.760501635861672</Latitude>
-    <Longitude>35.39314657410731</Longitude>
-    <StartTime>2024-03-28T00:00:00</StartTime>
-    <MaxEndTime>2024-03-28T08:00:00</MaxEndTime>
+    <Latitude>29.535375837649745</Latitude>
+    <Longitude>34.52353046243446</Longitude>
+    <StartTime>2023-04-13T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>44</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Organizing and delivering donated clothing</Description>
     <CallerAddress>15 Carnation St, Efrat</CallerAddress>
-    <Latitude>29.906509385764576</Latitude>
-    <Longitude>35.10816599572509</Longitude>
-    <StartTime>2022-01-26T00:00:00</StartTime>
-    <MaxEndTime>2022-01-26T09:00:00</MaxEndTime>
+    <Latitude>30.483069803622087</Latitude>
+    <Longitude>35.128525186947314</Longitude>
+    <StartTime>2024-10-08T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>45</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Unblocking a door locked from the inside</Description>
     <CallerAddress>63 Bluebell St, Zikhron Ya'akov</CallerAddress>
-    <Latitude>29.814131925979257</Latitude>
-    <Longitude>35.552030551626565</Longitude>
-    <StartTime>2022-08-21T00:00:00</StartTime>
-    <MaxEndTime>2022-08-22T13:00:00</MaxEndTime>
+    <Latitude>31.659298655082633</Latitude>
+    <Longitude>34.33950311543091</Longitude>
+    <StartTime>2024-02-21T00:00:00</StartTime>
+    <MaxEndTime>2024-02-21T23:00:00</MaxEndTime>
   </Call>
   <Call>
     <Id>46</Id>
-    <Status>Resolved</Status>
+    <Status>New</Status>
     <Description>Clearing water from a flooded basement</Description>
     <CallerAddress>19 Gardenia St, Gan Yavne</CallerAddress>
-    <Latitude>31.882920300115412</Latitude>
-    <Longitude>35.32385134145701</Longitude>
-    <StartTime>2023-09-28T00:00:00</StartTime>
+    <Latitude>32.047860245308634</Latitude>
+    <Longitude>34.9324957151156</Longitude>
+    <StartTime>2023-09-15T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
@@ -475,29 +475,29 @@
     <Status>New</Status>
     <Description>Child stuck in a swing at the park</Description>
     <CallerAddress>78 Gladiolus St, Ofakim</CallerAddress>
-    <Latitude>30.2311877558571</Latitude>
-    <Longitude>34.80076978065465</Longitude>
-    <StartTime>2024-05-04T00:00:00</StartTime>
-    <MaxEndTime>2024-05-05T00:00:00</MaxEndTime>
+    <Latitude>29.74632471957467</Latitude>
+    <Longitude>35.34212577628977</Longitude>
+    <StartTime>2023-10-03T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>48</Id>
     <Status>Resolved</Status>
     <Description>Fixing a broken stair railing at home</Description>
     <CallerAddress>11 Oleander St, Mevaseret Zion</CallerAddress>
-    <Latitude>29.934021510807302</Latitude>
-    <Longitude>35.23281384822413</Longitude>
-    <StartTime>2023-01-20T00:00:00</StartTime>
-    <MaxEndTime>2023-01-21T10:00:00</MaxEndTime>
+    <Latitude>31.54459917820072</Latitude>
+    <Longitude>35.19543762873542</Longitude>
+    <StartTime>2023-07-16T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
   </Call>
   <Call>
     <Id>49</Id>
-    <Status>InProgress</Status>
+    <Status>New</Status>
     <Description>Providing support to a stranded hitchhiker</Description>
     <CallerAddress>95 Buttercup St, Even Yehuda</CallerAddress>
-    <Latitude>31.443774090317163</Latitude>
-    <Longitude>35.52196479799798</Longitude>
-    <StartTime>2023-09-04T00:00:00</StartTime>
+    <Latitude>30.450658190097606</Latitude>
+    <Longitude>35.3905198368454</Longitude>
+    <StartTime>2023-09-30T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
 </ArrayOfCall>
