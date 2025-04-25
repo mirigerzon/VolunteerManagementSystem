@@ -222,6 +222,7 @@ internal static class Initialization
             Call call = new Call(
              s_dal.Config.GetNextCallId(),
              (s_rand.Next(0, 4) == 0) ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
+             (s_rand.Next(0, 4) == 0) ? CallTypeEnum.Medical : (CallTypeEnum)s_rand.Next(0, 3),
              Descriptions[i],
              CallerAddresses[i],
              s_rand.NextDouble() * (32.2 - 29.5) + 29.5,
