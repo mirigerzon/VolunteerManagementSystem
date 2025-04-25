@@ -8,7 +8,7 @@ public class Call
     public string? CallerAddress { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
-    public DateTime StartTime { get; set; }
+    public DateTime? StartTime { get; set; }
     public DateTime? MaxEndTime { get; set; }
     public CallStatus Status { get; set; }
     public List<CallAssignInList>? Assignments { get; set; }

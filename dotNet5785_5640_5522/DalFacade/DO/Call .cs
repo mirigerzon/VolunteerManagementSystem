@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Net;
 using System.Net.NetworkInformation;
 
@@ -18,7 +19,8 @@ namespace DO;
 public record Call
     (
         int Id,
-        Enums.CallStatusEnum? Status,
+        Enums.CallStatusEnum Status,
+        Enums.CallTypeEnum Type,
         string Description,
         string CallerAddress,
         double Latitude,
@@ -27,9 +29,9 @@ public record Call
         DateTime? MaxEndTime
     )
 {
-    public Call(int id, string description, string callerAddress, double latitude, double longitude)
-        : this(id, null, description, callerAddress, latitude, longitude, null, null)
+    public Call(int id, Enums.CallTypeEnum type, string description, string callerAddress, double latitude, double longitude)
+        : this(id, Enums.CallStatusEnum.New, Enums.CallTypeEnum.Medical, description, callerAddress, latitude, longitude, null, null)
     {
     }
-    public Call() : this(0, null, "", "", 0, 0, null, null) { }
+    public Call() : this(0, Enums.CallStatusEnum.New, Enums.CallTypeEnum.Medical, "", "", 0, 0, null, null) { }
 }

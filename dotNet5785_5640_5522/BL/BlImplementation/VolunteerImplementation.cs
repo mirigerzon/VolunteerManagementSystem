@@ -7,12 +7,6 @@ namespace BlImplementation;
 public class VolunteerImplementation : BlApi.IVolunteer
 {       
     private readonly IDal _dal = DalApi.Factory.Get;
-    //public VolunteerImplementation(IDal dal)
-    //{
-    //    _dal = dal;
-    //}
-
-    //Login: Authenticate volunteer.
     public UserRole Login(string username, string password)
     {
         try
@@ -33,10 +27,8 @@ public class VolunteerImplementation : BlApi.IVolunteer
     public IEnumerable<BO.VolunteerInList> GetVolunteers(bool? isActive = null, VolunteerSortField? sortBy = null)
     {
         var volunteers = _dal.Volunteer.ReadAll();
-        // Filter by activity status
         if (isActive.HasValue)
             volunteers = volunteers.Where(v => v.IsActive == isActive.Value).ToList();
-        // Sort if specified
         try
         {
             if (sortBy.HasValue)
@@ -139,7 +131,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
         }
     }
 
-    // 5. RemoveVolunteer: Deactivate volunteer.
+    //RemoveVolunteer: Deactivate volunteer.
     public void RemoveVolunteer(int id)
     {
         try
@@ -158,7 +150,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
         }
     }
 
-    // 6. AddVolunteer: Add a new volunteer.
+    //AddVolunteer: Add a new volunteer.
     public void AddVolunteer(BO.Volunteer volunteer)
     {
         try

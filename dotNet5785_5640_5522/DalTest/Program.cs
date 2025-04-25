@@ -306,6 +306,15 @@ internal class Program
         }
         else if (typeOf == "calls")
         {
+            Console.WriteLine("\nEnter Type - 0 for Medical, 1 for Technical, 2 for Social, 3 for Transportation");
+            string input = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(input))
+                throw new DalInvalidException("\nType cannot be null or empty");
+            if (!int.TryParse(input, out int typeNumber))
+                throw new DalInvalidException("\nInput must be a number");
+            if (!Enum.IsDefined(typeof(Enums.CallTypeEnum), typeNumber))
+                throw new DalInvalidException("\nInvalid type entered");
+            Enums.CallTypeEnum type = (Enums.CallTypeEnum)typeNumber;
             Console.WriteLine("\n Enter description");
             string description = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(description))
@@ -322,7 +331,7 @@ internal class Program
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
                 throw new DalInvalidException("\n invalid input for Longitude");
-            Call call = new Call(s_dal.Config.GetNextCallId() ,description, address, latitude, longitude);
+            Call call = new Call(s_dal.Config.GetNextCallId() , type, description, address, latitude, longitude);
             s_dal.Call.Create(call); // stage 2
         }
         else if (typeOf == "Assignments")
@@ -454,6 +463,15 @@ internal class Program
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
                 Console.WriteLine("\n Enter valid input");
+            Console.WriteLine("\nEnter Type - 0 for Medical, 1 for Technical, 2 for Social, 3 for Transportation");
+            string input = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(input))
+                throw new DalInvalidException("\nType cannot be null or empty");
+            if (!int.TryParse(input, out int typeNumber))
+                throw new DalInvalidException("\nInput must be a number");
+            if (!Enum.IsDefined(typeof(Enums.CallTypeEnum), typeNumber))
+                throw new DalInvalidException("\nInvalid type entered");
+            Enums.CallTypeEnum type = (Enums.CallTypeEnum)typeNumber;
             Console.WriteLine("\n Enter description");
             string description = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(description))
@@ -470,7 +488,7 @@ internal class Program
             double longitude;
             while (!double.TryParse(Console.ReadLine(), out longitude))
                 Console.WriteLine("\n Enter valid Longitude");
-            Call call = new Call(s_dal.Config.GetNextCallId(), description, address, latitude, longitude)
+            Call call = new Call(s_dal.Config.GetNextCallId(),type, description, address, latitude, longitude)
             {
                 Id = id
             };

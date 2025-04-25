@@ -7,6 +7,11 @@ internal class ConfigImplementation : IConfig
         get => Config.Clock;
         set => Config.Clock = value;
     }
+    public TimeSpan RiskRange
+    {
+        get => Config.RiskRange + TimeSpan.FromHours(1);
+        set => Config.RiskRange = value;
+    }
 
     public int GetNextAssignmentId()
     {

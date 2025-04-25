@@ -6,12 +6,7 @@ internal static class Initialization
 {
     private static IDal? s_dal; //stage 2
     private static readonly Random s_rand = new();
-    private static string[] FirstNames = {
-    "Michael", "Sarah", "David", "Emma", "Daniel",
-    "Sophia", "James", "Olivia", "John", "Mia",
-    "Ethan", "Isabella", "Noah", "Liam", "Ava"
-};
-    private static string[] LastNames = {
+    private static string[] FullNames = {
     "Smith", "Johnson", "Williams", "Brown", "Jones",
     "Garcia", "Miller", "Davis", "Martinez", "Hernandez",
     "Clark", "Lopez", "Taylor", "Lee", "Anderson"
@@ -173,8 +168,7 @@ internal static class Initialization
         Volunteer manager = new Volunteer
         (
             id,
-            "Admin",
-            "Manager",
+            "Admin Manager",
             "0521112222",
             "admin.manager@example.com",
             "AdminPass123!",
@@ -197,8 +191,7 @@ internal static class Initialization
             Volunteer volunteer = new Volunteer
             (
                 volId,
-                FirstNames[i],
-                LastNames[i],
+                FullNames[i],
                 PhoneNumbers[i],
                 Emails[i],
                 Passwords[i],
@@ -229,6 +222,7 @@ internal static class Initialization
             Call call = new Call(
              s_dal.Config.GetNextCallId(),
              (s_rand.Next(0, 4) == 0) ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
+             (s_rand.Next(0, 4) == 0) ? CallTypeEnum.Medical : (CallTypeEnum)s_rand.Next(0, 3),
              Descriptions[i],
              CallerAddresses[i],
              s_rand.NextDouble() * (32.2 - 29.5) + 29.5,

@@ -14,9 +14,18 @@ public static class Enums
     }
     public enum CallStatusEnum
     {
-        New,
+        Open,
         InProgress,
-        Resolved
+        Resolved, 
+        Closed,
+        Expired
+    }
+    public enum CallTypeEnum
+    {
+        Medical,
+        Technical,
+        Social,
+        Transportation
     }
     public enum TerminationTypeEnum
     {

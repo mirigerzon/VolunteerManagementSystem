@@ -22,7 +22,7 @@ public interface ICall
     void CloseExpiredCalls();
     IEnumerable<BO.CallInList> GetCallsList(CallFieldFilter? filterBy = null, object? filterValue = null, CallFieldFilter? sortBy = null);
     BO.Call Read(int id);
-    void Update(BO.Call call);
+    void UpdateCall(BO.Call call);
     void Delete(int id);
     void Create(BO.Call call);
     IEnumerable<BO.ClosedCallInList> GetClosedCallsForVolunteer(int volunteerId, BO.CallStatus? statusFilter = null, BO.CallSortField? sortBy = null);
