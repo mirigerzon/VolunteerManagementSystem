@@ -19,79 +19,84 @@ internal static class CallManager
             _ => call.Id
         };
     }
-    public static List<CallInList> GetCallsList()
-    {
-        var calls = s_dal.Call.ReadAll();
-        List<CallInList> callInList = calls.Select(call => new CallInList
-        {
-            Id = findAssignment(call.Id),
-            CallId = call.Id,
-            CallType = (CallType)call.Type,
-            StartTime = call.StartTime,
-            TimeLeft = call.MaxEndTime - s_dal.Config.Clock,
-            LastVolunteerName = getLastVolunteerName(call.Id),
-            TreatmentDuration = getTreatmentDuration(call.Id),
-            Status = (CallStatus)call.Status,
-        }).ToList();
-
-        return callInList;
-    }
     private static int findAssignment(int callId)
     {
         var a = s_dal.Assignment.Read(callId);
         return a.VolunteerId;
     }
-    private static string getLastVolunteerName(int Id)
-    {
 
-    }
-    private static bool getTreatmentDuration(int Id)
-    {
-        DO.Call doCall = s_dal.Call.Read(Id);
-        BO.Call boCall = ConvertBoToDo(doCall);
-        if (doCall.Status = "closed")
-        {
-            TimeSpan treatmentDuration = doCall.MaxEndTime - doCall.Ti;
-        }
-    }
-    //public static void ValidateCallAndUpdateVolunteer(BO.Call call)
+    #region GetCallInList
+    //public static List<CallInList> GetCallsList()
     //{
-    //    if (call.StartTime.HasValue && call.MaxEndTime.HasValue)
+    //    var calls = s_dal.Call.ReadAll();
+    //    List<CallInList> callInList = calls.Select(call => new CallInList
     //    {
-    //        if (call.MaxEndTime <= call.StartTime)
-    //            throw new ArgumentException("MaxEndTime must be greater than StartTime.");
-    //    }
-    //    else
+    //        Id = findAssignment(call.Id),
+    //        CallId = call.Id,
+    //        CallType = (CallType)call.Type,
+    //        StartTime = call.StartTime,
+    //        TimeLeft = call.MaxEndTime - s_dal.Config.Clock,
+    //        LastVolunteerName = getLastVolunteerName(call.Id),
+    //        TreatmentDuration = getTreatmentDuration(call.Id),
+    //        Status = (CallStatus)call.Status,
+    //    }).ToList();
+
+    //    return callInList;
+    //}
+    //private static string getLastVolunteerName(int Id)
+    //{
+
+    //}
+
+    //private static bool getTreatmentDuration(int Id)
+    //{
+    //    DO.Call doCall = s_dal.Call.Read(Id);
+    //    BO.Call boCall = ConvertBoToDo(doCall);
+    //    if (doCall.Status = "closed")
     //    {
-    //        throw new ArgumentException("StartTime and MaxEndTime must have values.");
-    //    }
-    //    if (string.IsNullOrWhiteSpace(call.CallerAddress))
-    //        throw new ArgumentException("Caller address must not be empty.");
-    //    if (!IsValidCoordinate(call.Latitude, call.Longitude))
-    //        throw new ArgumentException("Invalid coordinates: latitude and longitude must be within real-world range.");
-    //    var volunteer = s_dal.Volunteer
-    //        .ReadAll()
-    //        .FirstOrDefault(v => v.Address == call.CallerAddress);
-    //    if (volunteer != null)
-    //    {
-    //        var updatedVolunteer = new DO.Volunteer
-    //        {
-    //            Id = volunteer.Id,
-    //            FullName = volunteer.FullName,
-    //            PhoneNumber = volunteer.PhoneNumber,
-    //            Email = volunteer.Email,
-    //            Password = volunteer.Password,
-    //            Address = volunteer.Address,
-    //            Latitude = call.Latitude,
-    //            Longitude = call.Longitude,
-    //            Role = volunteer.Role,
-    //            IsActive = volunteer.IsActive,
-    //            MaxOfDistance = volunteer.MaxOfDistance,
-    //            TypeOfDistance = volunteer.TypeOfDistance
-    //        };
-    //        s_dal.Volunteer.Update(updatedVolunteer);
+    //        TimeSpan treatmentDuration = doCall.MaxEndTime - doCall.Ti;
     //    }
     //}
+    #endregion
+
+    public static void ValidateCallAndUpdateVolunteer(BO.Call call)
+    {
+        if (call.StartTime.HasValue && call.MaxEndTime.HasValue)
+        {
+            if (call.MaxEndTime <= call.StartTime)
+                throw new ArgumentException("MaxEndTime must be greater than StartTime.");
+        }
+        else
+        {
+            throw new ArgumentException("StartTime and MaxEndTime must have values.");
+        }
+        if (string.IsNullOrWhiteSpace(call.CallerAddress))
+            throw new ArgumentException("Caller address must not be empty.");
+        if (!IsValidCoordinate(call.Latitude, call.Longitude))
+            throw new ArgumentException("Invalid coordinates: latitude and longitude must be within real-world range.");
+        var volunteer = s_dal.Volunteer
+            .ReadAll()
+            .FirstOrDefault(v => v.Address == call.CallerAddress);
+        if (volunteer != null)
+        {
+            var updatedVolunteer = new DO.Volunteer
+            {
+                Id = volunteer.Id,
+                FullName = volunteer.FullName,
+                PhoneNumber = volunteer.PhoneNumber,
+                Email = volunteer.Email,
+                Password = volunteer.Password,
+                Address = volunteer.Address,
+                Latitude = call.Latitude,
+                Longitude = call.Longitude,
+                Role = volunteer.Role,
+                IsActive = volunteer.IsActive,
+                MaxOfDistance = volunteer.MaxOfDistance,
+                TypeOfDistance = volunteer.TypeOfDistance
+            };
+            s_dal.Volunteer.Update(updatedVolunteer);
+        }
+    }
     public static string IsValid(BO.Call call)
     {
         if (!IsValidId(call.Id))
@@ -187,5 +192,35 @@ internal static class CallManager
             ClosedAt = assignment.EndTime,
             ClosureType = (ClosureType?)assignment.EndStatus
         };
+    }
+    public static double CalculateDistance(double? VLongitude, double? VLatitude, double? CLongitude, double? CLatitude)
+    {
+        // רדיוס כדור הארץ בקילומטרים
+        const double EarthRadius = 6371;
+        // בדיקת תקינות קואורדינטות המתנדב
+        if (VLongitude == null || VLatitude == null)
+        {
+            throw new Exception("Volunteer latitude or longitude cannot be null.");
+        }
+        if (CLongitude == null || CLatitude == null)
+        {
+            throw new Exception("Call latitude or longitude cannot be null.");
+        }
+        double lat1 = DegreesToRadians(VLatitude.Value);
+        double lon1 = DegreesToRadians(VLongitude.Value);
+        double lat2 = DegreesToRadians(CLatitude.Value);
+        double lon2 = DegreesToRadians(CLongitude.Value);
+        double dLat = lat2 - lat1;
+        double dLon = lon2 - lon1;
+        double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                   Math.Cos(lat1) * Math.Cos(lat2) *
+                   Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+        double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+        double distance = EarthRadius * c;
+        return distance;
+    }
+    private static double DegreesToRadians(double degrees)
+    {
+        return degrees * (Math.PI / 180);
     }
 }

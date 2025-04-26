@@ -31,6 +31,7 @@ public static class Enums
     public enum TerminationTypeEnum
     {
         Treated,
+        SelfCanceled,
         Canceled,
         Expired
     }

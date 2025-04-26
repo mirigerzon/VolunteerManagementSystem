@@ -21,9 +21,13 @@ public interface ICall
     int[] GetCallStatusCounts();
     void CloseExpiredCalls();
     IEnumerable<BO.CallInList> GetCallsList(CallFieldFilter? filterBy = null, object? filterValue = null, CallFieldFilter? sortBy = null);
-    BO.Call Read(int id);
+    BO.CallAssignInList GetCallDetails(int callId);
     void UpdateCall(BO.Call call);
-    void Delete(int id);
+    void DeleteCall(int id);
     void CreateCall(BO.Call call);
-    IEnumerable<BO.ClosedCallInList> GetClosedCallsForVolunteer(int volunteerId, BO.CallStatus? statusFilter = null, BO.CallSortField? sortBy = null);
+    List<ClosedCallInList> GetClosedCallsOfVolunteer(int volunteerId, CallType? filterByType = null, ClosureType? sortByClosureType = null);
+    List<OpenCallInList> GetOpenCallsForVolunteer(int volunteerId, CallType? filterByType = null, OpenCallSortField? sortByField = null);
+    void UpdateEndTreatment(int id, int assignmentId);
+    void CancelAssignmentTreatment(int volunteerId, int assignmentId);
+    void RequestAssignmentTreatment(int voluneetId, int callId);
 }
