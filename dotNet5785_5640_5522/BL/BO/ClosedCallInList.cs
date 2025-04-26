@@ -14,10 +14,10 @@
 public class ClosedCallInList
 {
     public int Id { get; init; }
-    public CallType CallType { get; set; } // Enum assumed to be defined elsewhere
+    public CallType CallType { get; set; } 
     public string Address { get; set; }
-    public DateTime OpenedAt { get; init; }
-    public DateTime AssignedAt { get; init; }
+    public DateTime? OpenedAt { get; init; }
+    public DateTime? AssignedAt { get; init; }
     public DateTime? ClosedAt { get; init; }
-    public ClosureType? ClosureType { get; init; } // Enum assumed to be defined elsewhere
+    public ClosureType? ClosureType { get; init; } 
 }

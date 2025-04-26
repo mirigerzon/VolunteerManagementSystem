@@ -18,7 +18,8 @@ public static class Enums
         InProgress,
         Resolved, 
         Closed,
-        Expired
+        Expired,
+        Aborted
     }
     public enum CallTypeEnum
     {
@@ -30,8 +31,7 @@ public static class Enums
     public enum TerminationTypeEnum
     {
         Treated,
-        SelfCancelled,
-        ManagerCancelled,
+        Canceled,
         Expired
     }
 }

@@ -24,6 +24,6 @@ public interface ICall
     BO.Call Read(int id);
     void UpdateCall(BO.Call call);
     void Delete(int id);
-    void Create(BO.Call call);
+    void CreateCall(BO.Call call);
     IEnumerable<BO.ClosedCallInList> GetClosedCallsForVolunteer(int volunteerId, BO.CallStatus? statusFilter = null, BO.CallSortField? sortBy = null);
 }

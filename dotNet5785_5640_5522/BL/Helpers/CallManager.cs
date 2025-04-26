@@ -2,6 +2,8 @@
 using BO;
 using DalApi;
 using DO;
+using System.Text.Json;
+using static DO.Enums;
 
 namespace Helpers;
 internal static class CallManager
@@ -34,14 +36,6 @@ internal static class CallManager
 
         return callInList;
     }
-    //public static BO.Call ConvertBoToDo(DO.Call doCall)
-    //{
-    //    return new BO.Call
-    //    {
-    //        Id = doCall.Id,
-    //        Type = (CallType)doCall.Type
-    //    };
-    //}
     private static int findAssignment(int callId)
     {
         var a = s_dal.Assignment.Read(callId);
@@ -149,28 +143,49 @@ internal static class CallManager
         return latitude >= -90 && latitude <= 90 &&
                longitude >= -180 && longitude <= 180;
     }
-    public static DO.Volunteer ConvertBoToDo(BO.Volunteer boVolunteer)
+    private static readonly HttpClient client = new HttpClient();
+    private static readonly string apiKey = "680b754174669296818770btm636896";
+    public static (double Latitude, double Longitude) GetLatitudLongitute(string address)
     {
+        try
+        {
+            string url = $"https://us1.locationiq.com/v1/search?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
 
-        var volunteer1 = s_dal.Volunteer
-            .ReadAll()
-            .FirstOrDefault(v => v.Address == call.CallerAddress);
-            if (volunteer1 != null)
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = response.Content.ReadAsStringAsync().Result;
+
+            JsonDocument jsonDoc = JsonDocument.Parse(responseBody);
+
+            if (jsonDoc.RootElement.GetArrayLength() > 0)
             {
-                return new DO.Volunteer
-                {
-                    Id = boVolunteer.Id,
-                    FullName = boVolunteer.FullName,
-                    PhoneNumber = boVolunteer.PhoneNumber,
-                    Email = boVolunteer.Email,
-                    Password = boVolunteer.Password,
-                    Address = boVolunteer.Address,
-                    Latitude = call.Latitude,
-                    Longitude = Call.Longitude,
-                    Role = (DO.Enums.RoleEnum)boVolunteer.Role,
-                    IsActive = boVolunteer.IsActive,
-                    MaxOfDistance = boVolunteer.MaxDistance,
-                    TypeOfDistance = (DO.Enums.TypeOfDistanceEnum)boVolunteer.TypeOfDistance
-                };
+                var firstResult = jsonDoc.RootElement[0];
+                double lat = firstResult.GetProperty("lat").GetDouble();
+                double lon = firstResult.GetProperty("lon").GetDouble();
+                return (Latitude: lat, Longitude: lon);
             }
+
+            throw new Exception("No results found.");
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
+    }
+    public static ClosedCallInList ConvertToClosedCallInList(DO.Call call)
+    {
+        var assignment = s_dal.Assignment.Read(call.Id);
+        return new ClosedCallInList
+        {
+            Id = call.Id,
+            CallType = (CallType)call.Type,
+            Address = call.CallerAddress,
+            OpenedAt = call.StartTime,
+            AssignedAt = assignment.ArrivalTime,
+            ClosedAt = assignment.EndTime,
+            ClosureType = (ClosureType?)assignment.EndStatus
+        };
+    }
+}

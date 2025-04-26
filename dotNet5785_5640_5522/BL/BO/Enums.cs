@@ -46,6 +46,13 @@ public enum ClosureType
     Canceled,
     Expired
 }
+public enum OpenCallSortField
+{
+    Id,
+    OpeningTime,
+    MaxFinishTime,
+    DistanceFromVolunteer
+}
 public enum AssignmentEndType
 {
     Finished,
