@@ -1,10 +1,8 @@
 ﻿namespace BO;
 public enum UserRole
 {
-    Admin,
-    Volunteer,
-    Mentor,
-    Guest
+    Manager,
+    Volunteer
 }
 public enum VolunteerSortField
 {
@@ -62,14 +60,20 @@ public enum AssignmentEndType
 }
 public enum CallFieldFilter
 {
+    Id,
+    Type,
+    Description,
+    CallerAddress,
     Status,
     StartTime,
-    CallerAddress
+    MaxEndTime
 }
+
 public enum TimeUnit
 {
-    Minute,
-    Hour,
+    Year,
+    Month,
     Day,
-    Month
+    Hour,
+    Minute
 }

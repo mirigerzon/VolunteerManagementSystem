@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using DO;
+using Helpers;
 namespace BO;
 public class CallAssignInList
 {
@@ -7,5 +8,17 @@ public class CallAssignInList
     public DateTime? StartTreatmentTime { get; set; }
     public DateTime? EndTreatmentTime { get; set; }
     public AssignmentEndType? EndType { get; set; }
-    public override string ToString() => this.ToStringProperty();
+    //public override string ToString()
+    //{
+    //    return $"VolunteerId: {VolunteerId}, Name: {VolunteerName}, StartTime: {StartTreatmentTime}, EndTime: {EndTreatmentTime}, EndType: {EndType}";
+    //}
+    public override string ToString()
+    {
+        return
+            $" VolunteerId: {VolunteerId} \n " +
+            $"VolunteerName: {VolunteerName}\n " +
+            $"StartTime: {StartTreatmentTime}\n " +
+            $"EndTime: {EndTreatmentTime}\n " +
+            $"EndType: {EndType} \n";
+    }
 }

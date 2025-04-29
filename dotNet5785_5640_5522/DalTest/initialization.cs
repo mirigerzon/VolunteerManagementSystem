@@ -2,7 +2,7 @@
 using DalApi;
 using DO;
 using static DO.Enums;
-internal static class Initialization
+public static class Initialization
 {
     private static IDal? s_dal; //stage 2
     private static readonly Random s_rand = new();
@@ -175,7 +175,7 @@ internal static class Initialization
             "Head Office, Tel Aviv-Jafo",
             32.085299,
             34.781769,
-            Enums.RoleEnum.Mentor,
+            Enums.RoleEnum.Manager,
             true,
             (s_rand.NextDouble() * (50 - 5) + 5),
             (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)

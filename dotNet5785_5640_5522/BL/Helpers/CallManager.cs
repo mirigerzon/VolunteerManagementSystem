@@ -1,7 +1,7 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using DalApi;
 using DO;
+using System.Net;
 using System.Text.Json;
 using static DO.Enums;
 
@@ -24,41 +24,6 @@ internal static class CallManager
         var a = s_dal.Assignment.Read(callId);
         return a.VolunteerId;
     }
-
-    #region GetCallInList
-    //public static List<CallInList> GetCallsList()
-    //{
-    //    var calls = s_dal.Call.ReadAll();
-    //    List<CallInList> callInList = calls.Select(call => new CallInList
-    //    {
-    //        Id = findAssignment(call.Id),
-    //        CallId = call.Id,
-    //        CallType = (CallType)call.Type,
-    //        StartTime = call.StartTime,
-    //        TimeLeft = call.MaxEndTime - s_dal.Config.Clock,
-    //        LastVolunteerName = getLastVolunteerName(call.Id),
-    //        TreatmentDuration = getTreatmentDuration(call.Id),
-    //        Status = (CallStatus)call.Status,
-    //    }).ToList();
-
-    //    return callInList;
-    //}
-    //private static string getLastVolunteerName(int Id)
-    //{
-
-    //}
-
-    //private static bool getTreatmentDuration(int Id)
-    //{
-    //    DO.Call doCall = s_dal.Call.Read(Id);
-    //    BO.Call boCall = ConvertBoToDo(doCall);
-    //    if (doCall.Status = "closed")
-    //    {
-    //        TimeSpan treatmentDuration = doCall.MaxEndTime - doCall.Ti;
-    //    }
-    //}
-    #endregion
-
     public static void ValidateCallAndUpdateVolunteer(BO.Call call)
     {
         if (call.StartTime.HasValue && call.MaxEndTime.HasValue)
@@ -99,17 +64,11 @@ internal static class CallManager
     }
     public static string IsValid(BO.Call call)
     {
-        if (!IsValidId(call.Id))
-            return "Id";
-
         if (string.IsNullOrWhiteSpace(call.Description))
             return "Description";
 
         if (string.IsNullOrWhiteSpace(call.CallerAddress))
             return "CallerAddress";
-
-        if (call.StartTime == null)
-            return "StartTime";
 
         if (call.MaxEndTime == null)
             return "MaxEndTime";
@@ -125,58 +84,41 @@ internal static class CallManager
 
         return "true";
     }
-    public static bool IsValidId(int id)
-    {
-        string idString = id.ToString().PadLeft(9, '0');
-        if (idString.Length != 9)
-            return false;
-
-        int sum = 0;
-        for (int i = 0; i < 9; i++)
-        {
-            int digit = idString[i] - '0';
-            int multiplied = digit * ((i % 2) + 1);
-            if (multiplied > 9)
-                multiplied -= 9;
-            sum += multiplied;
-        }
-
-        return sum % 10 == 0;
-    }
     private static bool IsValidCoordinate(double? latitude, double? longitude)
     {
         return latitude >= -90 && latitude <= 90 &&
                longitude >= -180 && longitude <= 180;
     }
-    private static readonly HttpClient client = new HttpClient();
-    private static readonly string apiKey = "680b754174669296818770btm636896";
-    public static (double Latitude, double Longitude) GetLatitudLongitute(string address)
+    public static double[] GetCoordinates(string address)
     {
-        try
+        string apiKey = "680b754174669296818770btm636896";
+        string url = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}&api_key={apiKey}";
+
+        using (HttpClient client = new HttpClient())
         {
-            string url = $"https://us1.locationiq.com/v1/search?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
-
-            HttpResponseMessage response = client.GetAsync(url).Result;
-            response.EnsureSuccessStatusCode();
-
-            string responseBody = response.Content.ReadAsStringAsync().Result;
-
-            JsonDocument jsonDoc = JsonDocument.Parse(responseBody);
-
-            if (jsonDoc.RootElement.GetArrayLength() > 0)
+            var response = client.GetAsync(url).Result;
+            if (!response.IsSuccessStatusCode)
             {
-                var firstResult = jsonDoc.RootElement[0];
-                double lat = firstResult.GetProperty("lat").GetDouble();
-                double lon = firstResult.GetProperty("lon").GetDouble();
-                return (Latitude: lat, Longitude: lon);
+                Console.WriteLine("Failed to get response.");
+                return [];
             }
+            var json = response.Content.ReadAsStringAsync().Result;
+            var doc = JsonDocument.Parse(json);
+            var results = doc.RootElement;
+            if (results.GetArrayLength() > 0)
+            {
+                var firstResult = results[0];
+                double lat = double.Parse(firstResult.GetProperty("lat").GetString());
+                double lon = double.Parse(firstResult.GetProperty("lon").GetString());
 
-            throw new Exception("No results found.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
-            throw;
+                Console.WriteLine($"Latitude: {lat}, Longitude: {lon}");
+                return new double[] { lat, lon };
+            }
+            else
+            {
+                Console.WriteLine("No results found.");
+            }
+            return [];
         }
     }
     public static ClosedCallInList ConvertToClosedCallInList(DO.Call call)
@@ -195,9 +137,7 @@ internal static class CallManager
     }
     public static double CalculateDistance(double? VLongitude, double? VLatitude, double? CLongitude, double? CLatitude)
     {
-        // רדיוס כדור הארץ בקילומטרים
         const double EarthRadius = 6371;
-        // בדיקת תקינות קואורדינטות המתנדב
         if (VLongitude == null || VLatitude == null)
         {
             throw new Exception("Volunteer latitude or longitude cannot be null.");
@@ -222,5 +162,58 @@ internal static class CallManager
     private static double DegreesToRadians(double degrees)
     {
         return degrees * (Math.PI / 180);
+    }
+    public static BO.Call ConvertDoToBo(DO.Call call)
+    {
+        return new BO.Call
+        {
+            Id = call.Id,
+            Type = (CallType)call.Type,
+            Description = call.Description,
+            CallerAddress = call.CallerAddress,
+            Latitude = call.Latitude,
+            Longitude = call.Longitude,
+            StartTime = call.StartTime,
+            MaxEndTime = call.MaxEndTime,
+            Status = (CallStatus)call.Status,
+        };
+    }
+    public static DO.Call ConvertBoToDo(BO.Call call)
+    {
+        return new DO.Call
+        {
+            Id = call.Id,
+            Type = (Enums.CallTypeEnum)call.Type,
+            Description = call.Description,
+            CallerAddress = call.CallerAddress,
+            Latitude = GetCoordinates(call.CallerAddress)[0],
+            Longitude = GetCoordinates(call.CallerAddress)[1],
+            StartTime = call.StartTime,
+            MaxEndTime = call.MaxEndTime,
+            Status = (Enums.CallStatusEnum)call.Status,
+        };
+    }
+    public static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
+    {
+        var allCalls = s_dal.Call.ReadAll();
+        foreach (var call in allCalls)
+        {
+            if (call.Status == CallStatusEnum.Open && call.MaxEndTime != null)
+            {
+                if (newClock > call.MaxEndTime)
+                {
+                    s_dal.Call.Update(new DO.Call
+                    {
+                        Id = call.Id,
+                        Type = call.Type,
+                        Description = call.Description,
+                        CallerAddress = call.CallerAddress,
+                        StartTime = call.StartTime,
+                        MaxEndTime = call.MaxEndTime,
+                        Status = CallStatusEnum.Expired
+                    });
+                }
+            }
+        }
     }
 }

@@ -33,8 +33,8 @@ public record Volunteer
 )
 {
 
-    public Volunteer(int id, string fullName, string phoneNumber, string email, string password, string address, double latitude, double longitude)
-        : this(id, fullName, phoneNumber, email, password, address, latitude, longitude, null, true, null, null)
+    public Volunteer(int id, string fullName, string phoneNumber, string email, string password, string address, double latitude, double? longitude,double maxOfDistance)
+        : this(id, fullName, phoneNumber, email, password, address, latitude, longitude, Enums.RoleEnum.Volunteer, true, maxOfDistance, Enums.TypeOfDistanceEnum.Driving)
     { }
-    public Volunteer():this(0,"", "", "", "" , "", 0, 0) { }
+    public Volunteer():this(0,"", "", "", "" , "",0, 0, 0) { }
 }

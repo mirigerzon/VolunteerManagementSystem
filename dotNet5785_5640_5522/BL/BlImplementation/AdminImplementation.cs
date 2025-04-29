@@ -9,7 +9,6 @@ namespace BlImplementation;
 internal class AdminImplementation : IAdmin
 {
     private readonly IDal _dal = DalApi.Factory.Get;
-
     public DateTime GetSystemClock()
     {
         try
@@ -25,7 +24,6 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while retrieving system clock.", ex);
         }
     }
-
     public void AdvanceSystemClock(TimeUnit unit)
     {
         try
@@ -50,7 +48,6 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Failed to advance system clock.", ex);
         }
     }
-
     public TimeSpan GetRiskTimeSpan()
     {
         try
@@ -66,7 +63,6 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while retrieving risk time span.", ex);
         }
     }
-
     public void SetRiskTimeSpan(TimeSpan timeSpan)
     {
         try
@@ -82,7 +78,6 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while setting risk time span.", ex);
         }
     }
-
     public void ResetDatabase()
     {
         try
@@ -103,8 +98,9 @@ internal class AdminImplementation : IAdmin
     {
         try
         {
-            _dal.ResetDB();
+            _dal.ResetDB();    
             ClockManager.UpdateClock(ClockManager.Now);
+            DalTest.Initialization.Do();  
         }
         catch (DO.DalXMLFileLoadCreateException ex)
         {
@@ -115,4 +111,5 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while initializing the database.", ex);
         }
     }
+
 }

@@ -23,4 +23,4 @@ public static class Factory
             throw new DalConfigException($"Class {dal.Class} is not a singleton or wrong property name for Instance");
             }
         }
-    }
+    }

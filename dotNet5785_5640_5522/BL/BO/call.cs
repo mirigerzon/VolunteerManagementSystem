@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using DO;
+using Helpers;
 namespace BO;
 public class Call
 {
@@ -12,6 +13,14 @@ public class Call
     public DateTime? MaxEndTime { get; set; }
     public CallStatus Status { get; set; }
     public List<CallAssignInList>? Assignments { get; set; }
-    public override string ToString() => this.ToStringProperty();
-
+    public override string ToString()
+    {
+        return $"\n ------------------------------- \n " +
+            $"Id: {Id} \n " +
+            $"Description: {Description}\n " +
+            $"StartTime: {StartTime}\n " +
+            $"Status: {Status}\n " +
+            $"Assignment - \n{string.Join("\n", Assignments ?? new())}\n " +
+            $" ------------------------------- \n";
+    }
 }

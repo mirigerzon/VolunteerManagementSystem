@@ -3,17 +3,18 @@ public static class Enums
 {
     public enum RoleEnum
     {
-        Mentor,
+        Manager,
         Volunteer
     }
     public enum TypeOfDistanceEnum
     {
-        AerialDistance,
-        WalkingDistance,
-        DrivingDistance
+        Aerial,
+        Walking,
+        Driving
     }
     public enum CallStatusEnum
     {
+        New,
         Open,
         InProgress,
         Resolved, 
@@ -31,8 +32,8 @@ public static class Enums
     public enum TerminationTypeEnum
     {
         Treated,
-        SelfCanceled,
-        Canceled,
+        SelfCancelled,
+        ManagerCancelled,
         Expired
     }
 }
