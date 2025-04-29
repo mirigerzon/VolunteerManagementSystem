@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <Id>298053533</Id>
+    <Id>372105451</Id>
     <FullName>Admin Manager</FullName>
     <PhoneNumber>0521112222</PhoneNumber>
     <Email>admin.manager@example.com</Email>
@@ -9,11 +9,12 @@
     <Address>Head Office, Tel Aviv-Jafo</Address>
     <Longitude>34.781769</Longitude>
     <Latitude>32.085299</Latitude>
+    <Role>Manager</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>46.065852024057754</MaxOfDistance>
+    <MaxOfDistance>14.683619729164807</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>214341965</Id>
+    <Id>338649197</Id>
     <FullName>Smith</FullName>
     <PhoneNumber>0501234567</PhoneNumber>
     <Email>michael.smith@example.com</Email>
@@ -21,11 +22,12 @@
     <Address>123 Rothschild Blvd, Tel Aviv</Address>
     <Longitude>34.7818</Longitude>
     <Latitude>32.0853</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>33.92952804786906</MaxOfDistance>
+    <MaxOfDistance>45.64617007529921</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>219202696</Id>
+    <Id>348436236</Id>
     <FullName>Johnson</FullName>
     <PhoneNumber>0509876543</PhoneNumber>
     <Email>sarah.johnson@example.com</Email>
@@ -33,23 +35,12 @@
     <Address>456 Allenby St, Tel Aviv</Address>
     <Longitude>34.7821</Longitude>
     <Latitude>32.0855</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>6.51281342227426</MaxOfDistance>
+    <MaxOfDistance>24.825868460929396</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>243895131</Id>
-    <FullName>Williams</FullName>
-    <PhoneNumber>0543216789</PhoneNumber>
-    <Email>david.williams@example.com</Email>
-    <Password>MyPass789!</Password>
-    <Address>789 Ben Yehuda St, Tel Aviv</Address>
-    <Longitude>34.7823</Longitude>
-    <Latitude>32.0854</Latitude>
-    <IsActive>true</IsActive>
-    <MaxOfDistance>5.330493529297663</MaxOfDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>314135319</Id>
+    <Id>216504745</Id>
     <FullName>Brown</FullName>
     <PhoneNumber>0526547890</PhoneNumber>
     <Email>emma.brown@example.com</Email>
@@ -57,11 +48,12 @@
     <Address>321 Dizengoff St, Tel Aviv</Address>
     <Longitude>34.7825</Longitude>
     <Latitude>32.0852</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>40.159190875699316</MaxOfDistance>
+    <MaxOfDistance>24.07192844897033</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>355064100</Id>
+    <Id>362009464</Id>
     <FullName>Jones</FullName>
     <PhoneNumber>0534567890</PhoneNumber>
     <Email>daniel.jones@example.com</Email>
@@ -69,11 +61,12 @@
     <Address>654 Florentin St, Tel Aviv</Address>
     <Longitude>34.7819</Longitude>
     <Latitude>32.0856</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>39.12286380769404</MaxOfDistance>
+    <MaxOfDistance>36.09512256616914</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>322388670</Id>
+    <Id>246367151</Id>
     <FullName>Garcia</FullName>
     <PhoneNumber>0501112233</PhoneNumber>
     <Email>sophia.garcia@example.com</Email>
@@ -81,11 +74,12 @@
     <Address>987 Arlozorov St, Tel Aviv</Address>
     <Longitude>34.7816</Longitude>
     <Latitude>32.0853</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>29.394061676034926</MaxOfDistance>
+    <MaxOfDistance>14.863961263514373</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>343200391</Id>
+    <Id>251596226</Id>
     <FullName>Miller</FullName>
     <PhoneNumber>0512345678</PhoneNumber>
     <Email>james.miller@example.com</Email>
@@ -93,11 +87,12 @@
     <Address>234 HaYarkon St, Tel Aviv</Address>
     <Longitude>34.782</Longitude>
     <Latitude>32.0855</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>9.582726059880919</MaxOfDistance>
+    <MaxOfDistance>46.75301762370456</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>310332912</Id>
+    <Id>212451057</Id>
     <FullName>Davis</FullName>
     <PhoneNumber>0545678901</PhoneNumber>
     <Email>olivia.davis@example.com</Email>
@@ -105,11 +100,12 @@
     <Address>567 Jabotinsky St, Tel Aviv</Address>
     <Longitude>34.7822</Longitude>
     <Latitude>32.0854</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>24.865215370523924</MaxOfDistance>
+    <MaxOfDistance>31.49986889307514</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>317716914</Id>
+    <Id>303491987</Id>
     <FullName>Martinez</FullName>
     <PhoneNumber>0527890123</PhoneNumber>
     <Email>john.martinez@example.com</Email>
@@ -117,11 +113,12 @@
     <Address>890 Basel St, Tel Aviv</Address>
     <Longitude>34.7817</Longitude>
     <Latitude>32.0852</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>47.45075221402582</MaxOfDistance>
+    <MaxOfDistance>32.385724812062975</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>321083735</Id>
+    <Id>274262118</Id>
     <FullName>Hernandez</FullName>
     <PhoneNumber>0506789012</PhoneNumber>
     <Email>mia.hernandez@example.com</Email>
@@ -129,11 +126,12 @@
     <Address>112 Herzl St, Tel Aviv</Address>
     <Longitude>34.7824</Longitude>
     <Latitude>32.0856</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>9.814469656392024</MaxOfDistance>
+    <MaxOfDistance>19.44752030651243</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>388418323</Id>
+    <Id>269899887</Id>
     <FullName>Clark</FullName>
     <PhoneNumber>0523334444</PhoneNumber>
     <Email>ethan.clark@example.com</Email>
@@ -141,11 +139,12 @@
     <Address>210 Bograshov St, Tel Aviv</Address>
     <Longitude>34.7815</Longitude>
     <Latitude>32.0853</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>41.775133074912965</MaxOfDistance>
+    <MaxOfDistance>12.162026511052735</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>219790896</Id>
+    <Id>281987891</Id>
     <FullName>Lopez</FullName>
     <PhoneNumber>0532221111</PhoneNumber>
     <Email>isabella.lopez@example.com</Email>
@@ -153,11 +152,12 @@
     <Address>341 Lilienblum St, Tel Aviv</Address>
     <Longitude>34.7818</Longitude>
     <Latitude>32.0855</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>33.6939879640033</MaxOfDistance>
+    <MaxOfDistance>13.542732021570764</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>214207109</Id>
+    <Id>284601447</Id>
     <FullName>Taylor</FullName>
     <PhoneNumber>0545556666</PhoneNumber>
     <Email>noah.taylor@example.com</Email>
@@ -165,11 +165,12 @@
     <Address>672 Ibn Gabirol St, Tel Aviv</Address>
     <Longitude>34.7821</Longitude>
     <Latitude>32.0854</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>25.506776168872126</MaxOfDistance>
+    <MaxOfDistance>22.22667277427327</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>382671664</Id>
+    <Id>359177346</Id>
     <FullName>Lee</FullName>
     <PhoneNumber>0507778888</PhoneNumber>
     <Email>liam.lee@example.com</Email>
@@ -177,11 +178,12 @@
     <Address>893 Sheinkin St, Tel Aviv</Address>
     <Longitude>34.7816</Longitude>
     <Latitude>32.0852</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>16.264982823108127</MaxOfDistance>
+    <MaxOfDistance>39.811253678910596</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>349707660</Id>
+    <Id>324385435</Id>
     <FullName>Anderson</FullName>
     <PhoneNumber>0519990000</PhoneNumber>
     <Email>ava.anderson@example.com</Email>
@@ -189,7 +191,21 @@
     <Address>114 Yehuda Halevi St, Tel Aviv</Address>
     <Longitude>34.7819</Longitude>
     <Latitude>32.0856</Latitude>
+    <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>48.642359274193964</MaxOfDistance>
+    <MaxOfDistance>42.971531743546535</MaxOfDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>328115522</Id>
+    <FullName>Avi</FullName>
+    <PhoneNumber>0583210118</PhoneNumber>
+    <Email>avi@gmail.com</Email>
+    <Password>115522</Password>
+    <Address>Head Office, Tel Aviv-Jafo</Address>
+    <Longitude>1</Longitude>
+    <Latitude>1</Latitude>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <MaxOfDistance>12.356</MaxOfDistance>
   </Volunteer>
 </ArrayOfVolunteer>

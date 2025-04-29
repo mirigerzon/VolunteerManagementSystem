@@ -1,5 +1,4 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using DalApi;
 using DO;
 using System.Text.Json;
@@ -24,41 +23,6 @@ internal static class CallManager
         var a = s_dal.Assignment.Read(callId);
         return a.VolunteerId;
     }
-
-    #region GetCallInList
-    //public static List<CallInList> GetCallsList()
-    //{
-    //    var calls = s_dal.Call.ReadAll();
-    //    List<CallInList> callInList = calls.Select(call => new CallInList
-    //    {
-    //        Id = findAssignment(call.Id),
-    //        CallId = call.Id,
-    //        CallType = (CallType)call.Type,
-    //        StartTime = call.StartTime,
-    //        TimeLeft = call.MaxEndTime - s_dal.Config.Clock,
-    //        LastVolunteerName = getLastVolunteerName(call.Id),
-    //        TreatmentDuration = getTreatmentDuration(call.Id),
-    //        Status = (CallStatus)call.Status,
-    //    }).ToList();
-
-    //    return callInList;
-    //}
-    //private static string getLastVolunteerName(int Id)
-    //{
-
-    //}
-
-    //private static bool getTreatmentDuration(int Id)
-    //{
-    //    DO.Call doCall = s_dal.Call.Read(Id);
-    //    BO.Call boCall = ConvertBoToDo(doCall);
-    //    if (doCall.Status = "closed")
-    //    {
-    //        TimeSpan treatmentDuration = doCall.MaxEndTime - doCall.Ti;
-    //    }
-    //}
-    #endregion
-
     public static void ValidateCallAndUpdateVolunteer(BO.Call call)
     {
         if (call.StartTime.HasValue && call.MaxEndTime.HasValue)
@@ -222,5 +186,39 @@ internal static class CallManager
     private static double DegreesToRadians(double degrees)
     {
         return degrees * (Math.PI / 180);
+    }
+    public static BO.Call ConvertDoToBo(DO.Call call)
+    {
+        return new BO.Call
+        {
+            Id = call.Id,
+            Type = (CallType)call.Type,
+            Description = call.Description,
+            CallerAddress = call.CallerAddress,
+            Latitude = call.Latitude,
+            Longitude = call.Longitude,
+            StartTime = call.StartTime,
+            MaxEndTime = call.MaxEndTime,
+            Status = (CallStatus)call.Status,
+        };
+    }
+    public static DO.Call ConvertBoToDo(BO.Call call)
+    {
+        return new DO.Call
+        {
+            Id = call.Id,
+            Type = (Enums.CallTypeEnum)call.Type,
+            Description = call.Description,
+            CallerAddress = call.CallerAddress,
+            Latitude = GetLatitudLongitute(call.CallerAddress).Latitude,
+            Longitude = GetLatitudLongitute(call.CallerAddress).Longitude,
+            StartTime = call.StartTime,
+            MaxEndTime = call.MaxEndTime,
+            Status = (Enums.CallStatusEnum)call.Status,
+        };
+    }
+    internal static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
+    {
+        throw new NotImplementedException();
     }
 }

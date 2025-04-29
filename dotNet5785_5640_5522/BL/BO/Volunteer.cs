@@ -30,12 +30,23 @@ public class Volunteer
     public string? Address { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
-    public DO.Enums.RoleEnum Role { get; set; }
+    public  UserRole Role { get; set; }
     public bool IsActive { get; set; }
     public double? MaxDistance { get; set; }
-    public TypeOfDistance TypeOfDistance { get; set; }
+    public TypeOfDistance? TypeOfDistance { get; set; }
     public int TotalHandledCalls { get; init; }
     public int TotalCanceledCalls { get; init; }
     public int ExpiredCallsCount { get; init; }
     public CallInProgress? CurrentCall { get; init; }
+    public override string ToString()
+    {
+        return $"\n ------------------------------- \n " +
+            $"Id: {Id} \n" +
+            $" Name: {FullName}\n " +
+            $"Address: {Address}\n " +
+            $"Role: {Role}\n " +
+            $"Phone: {PhoneNumber}\n " +
+            $"Email: {Email} \n" +
+            $"------------------------------- \n";
+    }
 }

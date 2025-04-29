@@ -19,7 +19,7 @@ internal class VolunteerImplementation : IVolunteer
             Password = (string?)v.Element("Password") ?? "",
             Address = (string?)v.Element("Address") ?? "",
             Longitude = v.ToDoubleNullable("Longitude") ?? 0,
-            Latitude = v.ToDoubleNullable("Latitude") ?? 0, 
+            Latitude = v.ToDoubleNullable("Latitude") ?? 0,
             IsActive = (bool?)v.Element("IsActive") ?? false,
             MaxOfDistance = v.ToDoubleNullable("MaxOfDistance") ?? 0
         };
@@ -35,6 +35,7 @@ internal class VolunteerImplementation : IVolunteer
         yield return new XElement("Address", volunteer.Address);
         yield return new XElement("Longitude", volunteer.Longitude);
         yield return new XElement("Latitude", volunteer.Latitude);
+        yield return new XElement("Role", volunteer.Role);
         yield return new XElement("IsActive", volunteer.IsActive);
         yield return new XElement("MaxOfDistance", volunteer.MaxOfDistance);
     }
@@ -83,7 +84,8 @@ internal class VolunteerImplementation : IVolunteer
     {
         XElement volunteersRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
         var volunteers = volunteersRootElem.Elements()
-            .Select(e => GetVolunteer(e));
+        .Select(e => GetVolunteer(e))
+        .ToList();
 
         return filter == null ? volunteers : volunteers.Where(filter);
     }

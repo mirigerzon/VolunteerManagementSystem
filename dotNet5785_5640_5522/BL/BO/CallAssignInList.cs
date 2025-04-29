@@ -7,5 +7,8 @@ public class CallAssignInList
     public DateTime? StartTreatmentTime { get; set; }
     public DateTime? EndTreatmentTime { get; set; }
     public AssignmentEndType? EndType { get; set; }
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString()
+    {
+        return $"VolunteerId: {VolunteerId}, Name: {VolunteerName}, StartTime: {StartTreatmentTime}, EndTime: {EndTreatmentTime}, EndType: {EndType}";
+    }
 }

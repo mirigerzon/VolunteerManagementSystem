@@ -21,7 +21,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Login failed", ex);
         }
     }
-    public IEnumerable<BO.VolunteerInList> GetVolunteers(bool? isActive = null, VolunteerSortField? sortBy = null)
+    public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, VolunteerSortField? sortBy = null)
     {
         var volunteers = _dal.Volunteer.ReadAll();
         if (isActive.HasValue)
@@ -66,9 +66,9 @@ public class VolunteerImplementation : BlApi.IVolunteer
             TotalHandledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Treated),
             TotalCanceledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.SelfCancelled),
             ExpiredCallsCount = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Expired)
-        });
+        }).ToList();
     }
-    public BO.Volunteer GetVolunteer(int id)
+    public BO.Volunteer Read(int id)
     {
         try
         {
@@ -85,7 +85,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
                 Address = volunteer.Address,
                 Latitude = volunteer.Latitude,
                 Longitude = volunteer.Longitude,
-                Role = (DO.Enums.RoleEnum)volunteer.Role,
+                Role = (UserRole)volunteer.Role,
                 IsActive = volunteer.IsActive,
                 MaxDistance = volunteer.MaxOfDistance,
                 TypeOfDistance = (TypeOfDistance)volunteer.TypeOfDistance,
@@ -97,21 +97,22 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Error retrieving volunteer.", ex);
         }
     }
-    public void UpdateVolunteer(int id, BO.Volunteer volunteer)
+    public void Update(int id, BO.Volunteer volunteer)
     {
         try
         {
             var dalVolunteer = _dal.Volunteer.Read(volunteer.Id);
             if (dalVolunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
-            if (dalVolunteer.Id == volunteer.Id || dalVolunteer.Role == DO.Enums.RoleEnum.Mentor)
+            if (dalVolunteer.Id == volunteer.Id || dalVolunteer.Role == DO.Enums.RoleEnum.Manager)
             {
-                if (dalVolunteer.Role != volunteer.Role && dalVolunteer.Role != DO.Enums.RoleEnum.Mentor)
+                if ((UserRole)dalVolunteer.Role != volunteer.Role && (UserRole)dalVolunteer.Role != UserRole.Manager)
                     throw new BlInvalidException("Volunteer cannot change roles!");
                 string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
                 if (checkValues == "true")
                 {
                     var volunteerToUpdate = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
+                    _dal.Volunteer.Delete(id);
                     _dal.Volunteer.Create(volunteerToUpdate);
                 }
                 else
@@ -123,7 +124,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Error updating volunteer.", ex);
         }
     }
-    public void RemoveVolunteer(int id)
+    public void Delete(int id)
     {
         try
         {
@@ -140,18 +141,19 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Error deactivating volunteer.", ex);
         }
     }
-    public void AddVolunteer(BO.Volunteer volunteer)
+    public void Create(BO.Volunteer volunteer)
     {
         try
         {
             string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
             if (checkValues == "true")
+                if (true)
             {
                 var newVolunteer = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
                 _dal.Volunteer.Create(newVolunteer);
             }
             else
-                throw new BlInvalidException(checkValues + " - this field is not valid");
+                throw new BlInvalidException("checkValues" + " - this field is not valid");
         }
         catch (DO.DalAlreadyExistsException ex)
         {

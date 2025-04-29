@@ -12,6 +12,8 @@ public class Call
     public DateTime? MaxEndTime { get; set; }
     public CallStatus Status { get; set; }
     public List<CallAssignInList>? Assignments { get; set; }
-    public override string ToString() => this.ToStringProperty();
-
+    public override string ToString()
+    {
+        return $"Id: {Id}, Description: {Description}, StartTime: {StartTime}, Status: {Status}";
+    }
 }

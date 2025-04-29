@@ -8,8 +8,11 @@ internal class ConfigImplementation : IConfig
         get => Config.Clock;
         set => Config.Clock = value;
     }
-    public TimeSpan RiskRange { get; set; }
-
+    public TimeSpan RiskRange
+    {
+        get => Config.RiskRange + TimeSpan.FromHours(1);
+        set => Config.RiskRange = value;
+    }
     // Retrieves and increments the next available Assignment ID from the configuration.
     public int GetNextAssignmentId()
     {

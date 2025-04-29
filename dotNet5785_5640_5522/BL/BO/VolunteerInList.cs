@@ -1,4 +1,7 @@
-﻿namespace BO;
+﻿using System.Data;
+using System.Net;
+
+namespace BO;
 
 /// <summary>
 /// Business object representing a volunteer as shown in the volunteer list view.
@@ -19,4 +22,8 @@ public class VolunteerInList
     public int TotalCanceledCalls { get; init; }
     public int ExpiredCallsCount { get; init; }
     public int? CurrentCallId { get; init; }
+    public override string ToString()
+    {
+        return $"Id: {Id}, Name: {FullName}, isActive: {IsActive},TotalHandledCalls: {TotalHandledCalls}, TotalCanceledCalls: {TotalCanceledCalls}, ExpiredCallsCount: {ExpiredCallsCount}";
+    }
 }

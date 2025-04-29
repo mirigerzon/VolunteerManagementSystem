@@ -301,7 +301,11 @@ internal class Program
             double longitude;
             if (!double.TryParse(Console.ReadLine(), out longitude))
                 throw new DalInvalidException("\n Invalid input for Longitude");
-            Volunteer volunteer = new Volunteer(id, fullName, phoneNumber, email, password, address, latitude, longitude);
+            Console.WriteLine("\n Enter maxOfDistance (km)");
+            double maxOfDistance;
+            if (!double.TryParse(Console.ReadLine(), out maxOfDistance))
+                throw new DalInvalidException("\n Invalid input for maxOfDistance");
+            Volunteer volunteer = new Volunteer(id, fullName, phoneNumber, email, password, address, latitude, longitude, maxOfDistance);
             s_dal.Volunteer.Create(volunteer); // stage 2
         }
         else if (typeOf == "calls")
@@ -454,7 +458,11 @@ internal class Program
             double longitude;
             while (!double.TryParse(Console.ReadLine(), out longitude))
                 Console.WriteLine("\n Enter valid Longitude");
-            Volunteer volunteer = new Volunteer(id, fullName, phoneNumber, email, password, address, latitude, longitude);
+            Console.WriteLine("\n Enter maxOfDistance (km)");
+            double maxOfDistance;
+            if (!double.TryParse(Console.ReadLine(), out maxOfDistance))
+                throw new DalInvalidException("\n Invalid input for maxOfDistance");
+            Volunteer volunteer = new Volunteer(id, fullName, phoneNumber, email, password, address, latitude, longitude, maxOfDistance);
             s_dal.Volunteer.Update(volunteer); // stage 2
         }
         else if (typeOf == "calls")
