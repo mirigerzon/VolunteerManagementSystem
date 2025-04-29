@@ -218,8 +218,8 @@ internal class CallImplementation : BlApi.ICall
             throw new BlInvalidException($"Field '{validationResult}' is invalid.");
         try
         {
-            double? latitude = 1; //Helpers.CallManager.GetLatitudLongitute(call.CallerAddress).Latitude;
-            double? longitude = 1; //Helpers.CallManager.GetLatitudLongitute(call.CallerAddress).Longitude;
+            double? latitude= Helpers.CallManager.GetCoordinates(call.CallerAddress)[0];
+            double? longitude= Helpers.CallManager.GetCoordinates(call.CallerAddress)[1];
 
             DO.Call newCall = new DO.Call
             {
