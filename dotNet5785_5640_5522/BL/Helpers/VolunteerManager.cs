@@ -12,12 +12,14 @@ namespace Helpers;
 internal static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+    // Returns the total number of assignments for a volunteer with a given end status
     public static int TotalCallsByEndStatus(int id, DO.Enums.TerminationTypeEnum status)
     {
         var result = s_dal.Assignment.ReadAll()
             .Where(a => a.VolunteerId == id && a.EndStatus == status);
         return result.Count();
     }
+    // Validates the volunteer's data and returns the name of the first invalid field or "true"
     public static string IsValid(BO.Volunteer volunteer)
     {
         if (!IsValidId(volunteer.Id))
@@ -38,6 +40,7 @@ internal static class VolunteerManager
             return "MaxDistance";
         return "true";
     }
+    // Validates an Israeli ID number using the checksum algorithm
     public static bool IsValidId(int volunteerId)
     {
         string id = volunteerId.ToString();
@@ -58,15 +61,18 @@ internal static class VolunteerManager
 
         return sum % 10 == 0;
     }
+    // Validates a phone number with a minimum of 7 and maximum of 15 digits
     private static bool IsValidPhoneNumber(string phoneNumber)
     {
         return Regex.IsMatch(phoneNumber, @"^\d{7,15}$"); // מינימום 7 ספרות, מקסימום 15
     }
+    // Validates that the email address is in a proper format
     private static bool IsValidEmail(string email)
     {
         return Regex.IsMatch(email,
             @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase);
     }
+    // Converts a business object (BO) volunteer to a data object (DO) volunteer
     public static DO.Volunteer ConvertBoToDo(BO.Volunteer boVolunteer)
     {
         return new DO.Volunteer
@@ -85,10 +91,12 @@ internal static class VolunteerManager
             TypeOfDistance = (DO.Enums.TypeOfDistanceEnum)boVolunteer.TypeOfDistance
         };
     }
+    // Placeholder for periodic updates related to volunteer assignments
     public static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
     {
         var allVolunteers = s_dal.Volunteer.ReadAll();
     }
+    // Gets geographic coordinates (latitude and longitude) for a given address using an external API
     public static double[] GetCoordinates(string address)
     {
         string apiKey = "680b754174669296818770btm636896";
@@ -110,8 +118,6 @@ internal static class VolunteerManager
                 var firstResult = results[0];
                 double lat = double.Parse(firstResult.GetProperty("lat").GetString());
                 double lon = double.Parse(firstResult.GetProperty("lon").GetString());
-
-                Console.WriteLine($"Latitude: {lat}, Longitude: {lon}");
                 return new double[] { lat, lon };
             }
             else

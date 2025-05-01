@@ -6,6 +6,7 @@ namespace BlImplementation;
 public class VolunteerImplementation : BlApi.IVolunteer
 {
     private readonly IDal _dal = DalApi.Factory.Get;
+    // Logs in the volunteer by verifying their credentials and returns their user role
     public UserRole Login(string username, string password)
     {
         try
@@ -21,6 +22,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Login failed", ex);
         }
     }
+    // Retrieves all volunteers, with optional filtering and sorting by specified fields
     public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, VolunteerSortField? sortBy = null)
     {
         var volunteers = _dal.Volunteer.ReadAll();
@@ -68,6 +70,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
             ExpiredCallsCount = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Expired)
         }).ToList();
     }
+    // Retrieves a specific volunteer by their ID
     public BO.Volunteer Read(int id)
     {
         try
@@ -97,6 +100,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Error retrieving volunteer.", ex);
         }
     }
+    // Updates an existing volunteer's information
     public void Update(int id, BO.Volunteer volunteer)
     {
         try
@@ -124,6 +128,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Error updating volunteer.", ex);
         }
     }
+    // Deletes a volunteer by their ID
     public void Delete(int id)
     {
         try
@@ -131,8 +136,6 @@ public class VolunteerImplementation : BlApi.IVolunteer
             var volunteer = _dal.Volunteer.Read(id);
             if (volunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
-            if (!volunteer.IsActive || Helpers.VolunteerManager.TotalCallsByEndStatus(volunteer.Id, DO.Enums.TerminationTypeEnum.Treated) == 0)
-                throw new BlInvalidException("You cannot delete this volunteer");
             else
                 _dal.Volunteer.Delete(volunteer.Id);
         }
@@ -141,6 +144,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Error deactivating volunteer.", ex);
         }
     }
+    // Creates a new volunteer and adds them to the database
     public void Create(BO.Volunteer volunteer)
     {
         try

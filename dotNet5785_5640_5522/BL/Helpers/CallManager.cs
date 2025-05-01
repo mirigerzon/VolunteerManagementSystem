@@ -9,6 +9,7 @@ namespace Helpers;
 internal static class CallManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+    /// Returns a specific field value from a Call object based on the provided filter.
     public static object GetFieldValue(BO.Call call, CallFieldFilter field)
     {
         return field switch
@@ -19,11 +20,7 @@ internal static class CallManager
             _ => call.Id
         };
     }
-    private static int findAssignment(int callId)
-    {
-        var a = s_dal.Assignment.Read(callId);
-        return a.VolunteerId;
-    }
+    /// Validates a call and updates the coordinates of the volunteer at the same address.
     public static void ValidateCallAndUpdateVolunteer(BO.Call call)
     {
         if (call.StartTime.HasValue && call.MaxEndTime.HasValue)
@@ -62,6 +59,7 @@ internal static class CallManager
             s_dal.Volunteer.Update(updatedVolunteer);
         }
     }
+    /// Performs validation on a Call object and returns the name of the first invalid field, or "true" if valid.
     public static string IsValid(BO.Call call)
     {
         if (string.IsNullOrWhiteSpace(call.Description))
@@ -84,11 +82,13 @@ internal static class CallManager
 
         return "true";
     }
+    /// Checks if the given latitude and longitude are within valid geographic bounds.
     private static bool IsValidCoordinate(double? latitude, double? longitude)
     {
         return latitude >= -90 && latitude <= 90 &&
                longitude >= -180 && longitude <= 180;
     }
+    /// Retrieves geographic coordinates (latitude and longitude) for a given address using a geocoding API.
     public static double[] GetCoordinates(string address)
     {
         string apiKey = "680b754174669296818770btm636896";
@@ -110,8 +110,6 @@ internal static class CallManager
                 var firstResult = results[0];
                 double lat = double.Parse(firstResult.GetProperty("lat").GetString());
                 double lon = double.Parse(firstResult.GetProperty("lon").GetString());
-
-                Console.WriteLine($"Latitude: {lat}, Longitude: {lon}");
                 return new double[] { lat, lon };
             }
             else
@@ -121,6 +119,7 @@ internal static class CallManager
             return [];
         }
     }
+    /// Converts a DO.Call object into a ClosedCallInList business object for closed call listings.
     public static ClosedCallInList ConvertToClosedCallInList(DO.Call call)
     {
         var assignment = s_dal.Assignment.Read(call.Id);
@@ -135,6 +134,7 @@ internal static class CallManager
             ClosureType = (ClosureType?)assignment.EndStatus
         };
     }
+    /// Calculates the distance in kilometers between a volunteer and a call based on their coordinates.
     public static double CalculateDistance(double? VLongitude, double? VLatitude, double? CLongitude, double? CLatitude)
     {
         const double EarthRadius = 6371;
@@ -159,10 +159,12 @@ internal static class CallManager
         double distance = EarthRadius * c;
         return distance;
     }
+    /// Converts degrees to radians.
     private static double DegreesToRadians(double degrees)
     {
         return degrees * (Math.PI / 180);
     }
+    /// Converts a DO.Call object to a BO.Call object.
     public static BO.Call ConvertDoToBo(DO.Call call)
     {
         return new BO.Call
@@ -178,6 +180,7 @@ internal static class CallManager
             Status = (CallStatus)call.Status,
         };
     }
+    /// Converts a BO.Call object to a DO.Call object, including coordinate lookup based on address.
     public static DO.Call ConvertBoToDo(BO.Call call)
     {
         return new DO.Call
@@ -193,6 +196,7 @@ internal static class CallManager
             Status = (Enums.CallStatusEnum)call.Status,
         };
     }
+    /// Updates the status of all open calls whose MaxEndTime has passed to "Expired".
     public static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
     {
         var allCalls = s_dal.Call.ReadAll();

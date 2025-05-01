@@ -11,7 +11,7 @@ namespace BlTest
     class Program
     {
         static readonly IBl s_bl = Factory.Get();
-
+        // Entry point of the program with main menu navigation.
         static void Main(string[] args)
         {
             while (true)
@@ -43,6 +43,7 @@ namespace BlTest
                 }
             }
         }
+        // Displays the volunteer operations menu and handles user choices.
         private static void VolunteerMenu()
         {
             while (true)
@@ -91,6 +92,7 @@ namespace BlTest
                 }
             }
         }
+        // Displays the call operations menu and handles user choices.
         private static void CallMenu()
         {
             while (true)
@@ -139,6 +141,7 @@ namespace BlTest
                 }
             }
         }
+        // Displays the admin operations menu and handles user choices.
         private static void AdminMenu()
         {
             while (true)
@@ -195,6 +198,7 @@ namespace BlTest
                 }
             }
         }
+        // Prompts the user to enter volunteer details and adds the volunteer.
         private static void AddVolunteer()
         {
             Console.Write("Enter Volunteer Id: ");
@@ -234,6 +238,7 @@ namespace BlTest
             s_bl.Volunteer.Create(volunteer);
             Console.WriteLine("Volunteer added successfully.");
         }
+        // Prompts for a volunteer ID and displays the volunteer's details.
         private static void GetVolunteer()
         {
             Console.Write("Enter Volunteer Id: ");
@@ -246,6 +251,7 @@ namespace BlTest
             var volunteer = s_bl.Volunteer.Read(id);
             Console.WriteLine(volunteer.ToString());
         }
+        // Prompts for a volunteer ID, updates the volunteer's information.
         private static void UpdateVolunteer()
         {
             Console.Write("Enter Volunteer Id to Update: ");
@@ -306,6 +312,7 @@ namespace BlTest
             s_bl.Volunteer.Update(id, volunteerToUpdate);
             Console.WriteLine("Volunteer updated successfully.");
         }
+        // Prompts for a volunteer ID and removes the volunteer.
         private static void RemoveVolunteer()
         {
             Console.Write("Enter Volunteer Id to Remove: ");
@@ -317,6 +324,7 @@ namespace BlTest
             s_bl.Volunteer.Delete(id);
             Console.WriteLine("Volunteer removed successfully.");
         }
+        // Prompts the user to enter call details and adds a new call.
         private static void AddCall()
         {
             Console.WriteLine("\nEnter Type - 0 for Medical, 1 for Technical, 2 for Social, 3 for Transportation");
@@ -354,6 +362,7 @@ namespace BlTest
             s_bl.Call.Create(call);
             Console.WriteLine("Call added successfully.");
         }
+        // Retrieves and displays a call's information by ID.
         private static void GetCall()
         {
             Console.Write("Enter Call Id: ");
@@ -366,6 +375,7 @@ namespace BlTest
             var call = s_bl.Call.GetCallDetails(id);
             Console.WriteLine(call);
         }
+        // Updates an existing call's information.
         private static void UpdateCall()
         {
             Console.Write("Enter Call Id to Update: ");
@@ -421,6 +431,7 @@ namespace BlTest
             });
             Console.WriteLine("Call updated successfully.");
         }
+        // Removes a call from the system by ID.
         private static void RemoveCall()
         {
             Console.Write("Enter Call Id to Remove: ");

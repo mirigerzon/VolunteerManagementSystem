@@ -2,13 +2,13 @@
 using BlApi;
 using BO;
 using Helpers;
-using DalTest;
 
 namespace BlImplementation;
 
 internal class AdminImplementation : IAdmin
 {
     private readonly IDal _dal = DalApi.Factory.Get;
+    // Retrieves the current system clock time from the database
     public DateTime GetSystemClock()
     {
         try
@@ -24,6 +24,7 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while retrieving system clock.", ex);
         }
     }
+    // Advances the system clock by a specified time unit (minute, hour, or day)
     public void AdvanceSystemClock(TimeUnit unit)
     {
         try
@@ -48,6 +49,7 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Failed to advance system clock.", ex);
         }
     }
+    // Retrieves the current configured risk time span from the database
     public TimeSpan GetRiskTimeSpan()
     {
         try
@@ -63,6 +65,7 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while retrieving risk time span.", ex);
         }
     }
+    // Sets a new value for the risk time span in the database
     public void SetRiskTimeSpan(TimeSpan timeSpan)
     {
         try
@@ -78,6 +81,7 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while setting risk time span.", ex);
         }
     }
+    // Resets the database and updates the system clock to the current time
     public void ResetDatabase()
     {
         try
@@ -94,6 +98,7 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while resetting the database.", ex);
         }
     }
+    // Re-initializes the database with test data and resets the system clock
     public void InitializeDatabase()
     {
         try
@@ -111,5 +116,4 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Unexpected error while initializing the database.", ex);
         }
     }
-
 }
