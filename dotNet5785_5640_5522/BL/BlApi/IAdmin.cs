@@ -13,7 +13,7 @@ namespace BlApi;
 /// - ResetDatabase: resets configuration and clears all entities.
 /// - InitializeDatabase: resets and then populates the database with initial data.
 /// </summary>
-public interface IAdmin
+public interface IAdmin : IObservable
 {
     DateTime GetSystemClock();
     void AdvanceSystemClock(TimeUnit unit);
@@ -21,4 +21,8 @@ public interface IAdmin
     void SetRiskTimeSpan(TimeSpan timeSpan);
     void ResetDatabase();
     void InitializeDatabase();
+    void AddConfigObserver(Action configObserver);
+    void RemoveConfigObserver(Action configObserver);
+    void AddClockObserver(Action clockObserver);
+    void RemoveClockObserver(Action clockObserver);
 }

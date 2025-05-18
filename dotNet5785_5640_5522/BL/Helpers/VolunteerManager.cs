@@ -12,6 +12,7 @@ namespace Helpers;
 internal static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+    internal static ObserverManager Observers = new(); //stage 5
     // Returns the total number of assignments for a volunteer with a given end status
     public static int TotalCallsByEndStatus(int id, DO.Enums.TerminationTypeEnum status)
     {
@@ -92,9 +93,18 @@ internal static class VolunteerManager
         };
     }
     // Placeholder for periodic updates related to volunteer assignments
-    public static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
+    public static void PeriodicVolunteersUpdates(DateTime oldClock, DateTime newClock)
     {
         var allVolunteers = s_dal.Volunteer.ReadAll();
+        bool volunteerUpdated = false;
+        foreach (var volunteer in allVolunteers)
+        {
+            volunteerUpdated = true;
+            Observers.NotifyItemUpdated(volunteer.Id);
+        }
+        bool yearChanged = oldClock.Year != newClock.Year;
+        if (yearChanged || volunteerUpdated)
+            Observers.NotifyListUpdated(); 
     }
     // Gets geographic coordinates (latitude and longitude) for a given address using an external API
     public static double[] GetCoordinates(string address)

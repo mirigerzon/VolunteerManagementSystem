@@ -30,7 +30,7 @@ public class Volunteer
     public string? Address { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
-    public  UserRole Role { get; set; }
+    public UserRole Role { get; set; }
     public bool IsActive { get; set; }
     public double? MaxDistance { get; set; }
     public TypeOfDistance? TypeOfDistance { get; set; }

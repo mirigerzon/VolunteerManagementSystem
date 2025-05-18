@@ -1,6 +1,7 @@
 ﻿using BO;
 using DalApi;
 using BlApi;
+using Helpers;
 
 namespace BlImplementation;
 public class VolunteerImplementation : BlApi.IVolunteer
@@ -118,6 +119,8 @@ public class VolunteerImplementation : BlApi.IVolunteer
                     var volunteerToUpdate = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
                     _dal.Volunteer.Delete(id);
                     _dal.Volunteer.Create(volunteerToUpdate);
+                    VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
+                    VolunteerManager.Observers.NotifyItemUpdated(id);         // STAGE 5 - ADDED
                 }
                 else
                     throw new BlInvalidException(checkValues + " - this field is not valid");
@@ -137,7 +140,10 @@ public class VolunteerImplementation : BlApi.IVolunteer
             if (volunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
             else
+            {
                 _dal.Volunteer.Delete(volunteer.Id);
+                VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
+            }
         }
         catch (Exception ex)
         {
@@ -152,12 +158,13 @@ public class VolunteerImplementation : BlApi.IVolunteer
             string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
             if (checkValues == "true")
                 if (true)
-            {
-                var newVolunteer = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
-                _dal.Volunteer.Create(newVolunteer);
-            }
-            else
-                throw new BlInvalidException("checkValues" + " - this field is not valid");
+                {
+                    var newVolunteer = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
+                    _dal.Volunteer.Create(newVolunteer);
+                    VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
+                }
+                else
+                    throw new BlInvalidException("checkValues" + " - this field is not valid");
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -168,4 +175,12 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Error adding volunteer.", ex);
         }
     }
+    public void AddObserver(Action listObserver) =>
+    VolunteerManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+    VolunteerManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+    VolunteerManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+    VolunteerManager.Observers.RemoveObserver(id, observer); //stage 5
 }

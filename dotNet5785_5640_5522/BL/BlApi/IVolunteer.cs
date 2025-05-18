@@ -14,7 +14,7 @@ namespace BlApi;
 /// - AddVolunteer: add a new volunteer.
 /// - RemoveVolunteer: deactivate volunteer.
 /// </summary>
-public interface IVolunteer
+public interface IVolunteer : IObservable
 {
     UserRole Login(string username, string password);
     IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, VolunteerSortField? sortBy = null);

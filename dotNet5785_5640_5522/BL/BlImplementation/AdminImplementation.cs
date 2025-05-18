@@ -32,13 +32,16 @@ internal class AdminImplementation : IAdmin
             switch (unit)
             {
                 case TimeUnit.Minute:
-                    ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
+                    AdminManager.UpdateClock(AdminManager.Now.AddMinutes(1));
                     break;
                 case TimeUnit.Hour:
-                    ClockManager.UpdateClock(ClockManager.Now.AddHours(1));
+                    AdminManager.UpdateClock(AdminManager.Now.AddHours(1));
                     break;
                 case TimeUnit.Day:
-                    ClockManager.UpdateClock(ClockManager.Now.AddDays(1));
+                    AdminManager.UpdateClock(AdminManager.Now.AddDays(1));
+                    break;
+                case TimeUnit.Year:
+                    AdminManager.UpdateClock(AdminManager.Now.AddYears(1));
                     break;
                 default:
                     throw new BlInvalidException($"Unsupported time unit: {unit}");
@@ -54,7 +57,7 @@ internal class AdminImplementation : IAdmin
     {
         try
         {
-            return _dal.Config.RiskRange;
+            return AdminManager.RiskRange;
         }
         catch (DO.DalXMLFileLoadCreateException ex)
         {
@@ -70,7 +73,7 @@ internal class AdminImplementation : IAdmin
     {
         try
         {
-            _dal.Config.RiskRange = timeSpan;
+            AdminManager.RiskRange = timeSpan;
         }
         catch (DO.DalXMLFileLoadCreateException ex)
         {
@@ -84,36 +87,30 @@ internal class AdminImplementation : IAdmin
     // Resets the database and updates the system clock to the current time
     public void ResetDatabase()
     {
-        try
-        {
-            ClockManager.UpdateClock(ClockManager.Now);
-            _dal.ResetDB();
-        }
-        catch (DO.DalXMLFileLoadCreateException ex)
-        {
-            throw new BlXMLFileLoadCreateException("Failed to reset the database.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new BlInvalidException("Unexpected error while resetting the database.", ex);
-        }
+        AdminManager.ResetDB();
+        AdminManager.Observers.NotifyListUpdated(); //stage 5
     }
     // Re-initializes the database with test data and resets the system clock
     public void InitializeDatabase()
     {
-        try
-        {
-            _dal.ResetDB();    
-            ClockManager.UpdateClock(ClockManager.Now);
-            DalTest.Initialization.Do();  
-        }
-        catch (DO.DalXMLFileLoadCreateException ex)
-        {
-            throw new BlXMLFileLoadCreateException("Failed to initialize the database.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new BlInvalidException("Unexpected error while initializing the database.", ex);
-        }
+        AdminManager.InitializeDB();
+        AdminManager.Observers.NotifyListUpdated(); //stage 5
     }
+    public void AddClockObserver(Action clockObserver) =>
+    AdminManager.ClockUpdatedObservers += clockObserver;
+    public void RemoveClockObserver(Action clockObserver) =>
+    AdminManager.ClockUpdatedObservers -= clockObserver;
+    public void AddConfigObserver(Action configObserver) =>
+    AdminManager.ConfigUpdatedObservers += configObserver;
+    public void RemoveConfigObserver(Action configObserver) =>
+    AdminManager.ConfigUpdatedObservers -= configObserver;
+
+    public void AddObserver(Action listObserver) =>
+    AdminManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+    AdminManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+    AdminManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+    AdminManager.Observers.RemoveObserver(id, observer); //stage 5
 }

@@ -9,6 +9,7 @@ namespace Helpers;
 internal static class CallManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+    internal static ObserverManager Observers = new(); //stage 5
     /// Returns a specific field value from a Call object based on the provided filter.
     public static object GetFieldValue(BO.Call call, CallFieldFilter field)
     {
@@ -57,6 +58,7 @@ internal static class CallManager
                 TypeOfDistance = volunteer.TypeOfDistance
             };
             s_dal.Volunteer.Update(updatedVolunteer);
+            Observers.NotifyItemUpdated(volunteer.Id);
         }
     }
     /// Performs validation on a Call object and returns the name of the first invalid field, or "true" if valid.
@@ -216,8 +218,13 @@ internal static class CallManager
                         MaxEndTime = call.MaxEndTime,
                         Status = CallStatusEnum.Expired
                     });
+                    Observers.NotifyItemUpdated(call.Id);
                 }
             }
+        }
+        if (oldClock.Year != newClock.Year)
+        {
+            Observers.NotifyListUpdated();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using BO;
 using System.Collections.Generic;
+using Helpers;
 
 namespace BlApi;
 
@@ -16,7 +17,7 @@ namespace BlApi;
 /// - Create: adds a new call.
 /// - GetClosedCallsForVolunteer: returns closed calls handled by a specific volunteer, with optional filters and sorting.
 /// </summary>
-public interface ICall
+public interface ICall : IObservable
 {
     int[] GetCallStatusCounts();
     void CloseExpiredCalls();

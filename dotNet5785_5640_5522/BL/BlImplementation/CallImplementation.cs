@@ -212,6 +212,7 @@ internal class CallImplementation : BlApi.ICall
             if (hasAssignment)
                 throw new BlInvalidException("Cannot delete a call that was assigned to a volunteer.");
             _dal.Call.Delete(callId);
+            CallManager.Observers.NotifyListUpdated(); //stage 5
         }
         catch (Exception ex)
         {
@@ -241,6 +242,7 @@ internal class CallImplementation : BlApi.ICall
                 Status = DO.Enums.CallStatusEnum.New
             };
             _dal.Call.Create(newCall);
+            CallManager.Observers.NotifyListUpdated();
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -320,7 +322,7 @@ internal class CallImplementation : BlApi.ICall
             }
             else
             {
-                openCalls = openCalls.OrderBy(call => call.Id);
+                openCalls = openCalls.OrderBy(call => call.Id); //stage 5
             }
             return openCalls.ToList();
         }
@@ -354,6 +356,8 @@ internal class CallImplementation : BlApi.ICall
                 EndStatus = TerminationTypeEnum.Treated
             };
             _dal.Assignment.Update(assignmentToUpdate);
+            CallManager.Observers.NotifyListUpdated(); //stage 5
+            CallManager.Observers.NotifyItemUpdated(call.Id); //stage 5
         }
         catch (Exception ex)
         {
@@ -431,4 +435,14 @@ internal class CallImplementation : BlApi.ICall
             throw new BlDoesNotExistException("Call read did not succeeded /n", ex);
         }
     }
+    #region Stage 5
+    public void AddObserver(Action listObserver) =>
+    CallManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+    CallManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+    CallManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+    CallManager.Observers.RemoveObserver(id, observer); //stage 5
+    #endregion Stage 5
 }

@@ -1,4 +1,6 @@
-﻿namespace BlApi;
+﻿using Helpers;
+
+namespace BlApi;
 public interface IBl
 {
     IAdmin Admin { get; }
