@@ -38,11 +38,8 @@ public class VolunteerImplementation : BlApi.IVolunteer
                     case VolunteerSortField.FullName:
                         volunteers = volunteers.OrderBy(v => v.FullName).ToList();
                         break;
-                    case VolunteerSortField.Distance:
-                        volunteers = volunteers.OrderBy(v => v.MaxOfDistance).ToList();
-                        break;
-                    case VolunteerSortField.Role:
-                        volunteers = volunteers.OrderBy(v => v.Role).ToList();
+                    case VolunteerSortField.Id:
+                        volunteers = volunteers.OrderBy(v => v.Id).ToList();
                         break;
                     case VolunteerSortField.IsActive:
                         volunteers = volunteers.OrderBy(v => v.IsActive).ToList();

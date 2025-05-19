@@ -6,9 +6,8 @@ public enum UserRole
 }
 public enum VolunteerSortField
 {
+    Id,
     FullName,
-    Distance,
-    Role,
     IsActive
 }
 public enum TypeOfDistance

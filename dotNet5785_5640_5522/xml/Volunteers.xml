@@ -79,19 +79,6 @@
     <MaxOfDistance>9.461334683924768</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>252909626</Id>
-    <FullName>Garcia</FullName>
-    <PhoneNumber>0501112233</PhoneNumber>
-    <Email>sophia.garcia@example.com</Email>
-    <Password>QuickFox3!</Password>
-    <Address>987 Arlozorov St, Tel Aviv</Address>
-    <Longitude>34.7816</Longitude>
-    <Latitude>32.0853</Latitude>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <MaxOfDistance>10.717641964295705</MaxOfDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>307459157</Id>
     <FullName>Miller</FullName>
     <PhoneNumber>0512345678</PhoneNumber>
@@ -207,5 +194,18 @@
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <MaxOfDistance>16.464478645781917</MaxOfDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>252909626</Id>
+    <FullName>i dont know</FullName>
+    <PhoneNumber>0501112233</PhoneNumber>
+    <Email>sophia.garcia@example.com</Email>
+    <Password>QuickFox3!</Password>
+    <Address>1600 Amphitheatre Parkway, Mountain View, CA</Address>
+    <Longitude>-122.084614</Longitude>
+    <Latitude>37.4217636</Latitude>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <MaxOfDistance>10.717641964295705</MaxOfDistance>
   </Volunteer>
 </ArrayOfVolunteer>
