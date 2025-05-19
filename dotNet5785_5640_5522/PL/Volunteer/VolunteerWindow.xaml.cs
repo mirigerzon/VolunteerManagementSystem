@@ -8,6 +8,7 @@ namespace PL.Volunteer
     public partial class VolunteerDetailsWindow : Window, INotifyPropertyChanged
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public Array TypeOfDistanceValues => Enum.GetValues(typeof(BO.TypeOfDistance));
 
         public VolunteerDetailsWindow(BO.Volunteer volunteer)
         {
@@ -55,10 +56,11 @@ namespace PL.Volunteer
             }
         }
 
-        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                Volunteer.Password = passwordBox.Password;
                 if (ButtonText == "Add")
                 {
                     s_bl.Volunteer.Create(Volunteer);

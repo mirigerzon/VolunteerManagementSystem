@@ -22,10 +22,10 @@
 
             <!-- Buttons for advancing time -->
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Content="Advance Minute" Margin="2" Click="btnAdvanceMinute_Click"/>
-                <Button Content="Advance Hour" Margin="2" Click="btnAdvanceHour_Click"/>
-                <Button Content="Advance Day" Margin="2" Click="btnAdvanceDay_Click"/>
-                <Button Content="Advance Year" Margin="2" Click="btnAdvanceYear_Click"/>
+                <Button Content="Advance Minute" Margin="2" Click="BtnAdvanceMinute_Click"/>
+                <Button Content="Advance Hour" Margin="2" Click="BtnAdvanceHour_Click"/>
+                <Button Content="Advance Day" Margin="2" Click="BtnAdvanceDay_Click"/>
+                <Button Content="Advance Year" Margin="2" Click="BtnAdvanceYear_Click"/>
             </StackPanel>
         </Grid>
 
@@ -40,7 +40,7 @@
                 <Label Content="Risk range:" VerticalAlignment="Center"/>
                 <TextBlock x:Name="txtCurrentRiskRange" VerticalAlignment="Center" Margin="5,0" Foreground="DarkBlue"/>
                 <TextBox Width="100" Margin="5,0" x:Name="txtRiskRange"/>
-                <Button Content="Update" Margin="5,0" Click="btnUpdateRiskRange_Click"/>
+                <Button Content="Update" Margin="5,0" Click="BtnUpdateRiskRange_Click"/>
             </StackPanel>
 
         </Grid>
@@ -51,10 +51,10 @@
             <!-- כפתור לפתיחת מסך תצוגת הרשימה -->
             <Button Content="Handle Volunteers"
                     Width="150" Margin="10"
-                    Click="btnHandleVolunteers_Click"/>
+                    Click="BtnHandleVolunteers_Click"/>
 
-            <Button Content="Initialize DB" Width="150" Margin="10" Click="btnInitializeDB_Click"/>
-            <Button Content="Reset DB" Width="150" Margin="10" Click="btnResetDB_Click"/>
+            <Button Content="Initialize DB" Width="150" Margin="10" Click="BtnInitializeDB_Click"/>
+            <Button Content="Reset DB" Width="150" Margin="10" Click="BtnResetDB_Click"/>
         </StackPanel>
     </Grid>
 </Window>

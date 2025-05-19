@@ -66,7 +66,7 @@ internal static class VolunteerManager
     // Validates a phone number with a minimum of 7 and maximum of 15 digits
     private static bool IsValidPhoneNumber(string phoneNumber)
     {
-        return Regex.IsMatch(phoneNumber, @"^\d{7,15}$"); // מינימום 7 ספרות, מקסימום 15
+        return Regex.IsMatch(phoneNumber, @"^\d{7,15}$"); 
     }
     // Validates that the email address is in a proper format
     private static bool IsValidEmail(string email)

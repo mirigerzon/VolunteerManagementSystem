@@ -50,27 +50,27 @@ namespace PL
         {
             CurrentTime = s_bl.Admin.GetSystemClock();
         }
-        private void btnAdvanceMinute_Click(object sender, RoutedEventArgs e)
+        private void BtnAdvanceMinute_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Minute);
             RefreshCurrentTime();
         }
-        private void btnAdvanceHour_Click(object sender, RoutedEventArgs e)
+        private void BtnAdvanceHour_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Hour);
             RefreshCurrentTime();
         }
-        private void btnAdvanceDay_Click(object sender, RoutedEventArgs e)
+        private void BtnAdvanceDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Day);
             RefreshCurrentTime();
         }
-        private void btnAdvanceYear_Click(object sender, RoutedEventArgs e)
+        private void BtnAdvanceYear_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Year);
             RefreshCurrentTime();
         }
-        private void btnInitializeDB_Click(object sender, RoutedEventArgs e)
+        private void BtnInitializeDB_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
                 "Are you sure you want to initialize the database? This may overwrite existing data.",
@@ -96,7 +96,7 @@ namespace PL
                 }
             }
         }
-        private void btnResetDB_Click(object sender, RoutedEventArgs e)
+        private void BtnResetDB_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
                 "Are you sure you want to reset the database? All data will be cleared.",
@@ -122,7 +122,7 @@ namespace PL
                 }
             }
         }
-        private void btnUpdateRiskRange_Click(object sender, RoutedEventArgs e)
+        private void BtnUpdateRiskRange_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace PL
             else
                 return $"{span.Minutes}m";
         }
-        private void btnHandleVolunteers_Click(object sender, RoutedEventArgs e)
+        private void BtnHandleVolunteers_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerListWindow().Show();
         }
