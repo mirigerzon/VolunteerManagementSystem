@@ -1,12 +1,15 @@
-﻿<Window x:Class="PL.Volunteer.VolunteerDetailsWindow"
+﻿<Window x:Class="PL.Volunteer.VolunteerDetailsWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:bo="clr-namespace:BO;assembly=BL"
+        xmlns:local="clr-namespace:PL.Converters"
         Title="Volunteer Details"
-        Height="600" Width="400"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        Height="650" Width="400">
+    <!-- הגדלתי קצת גובה -->
 
     <Window.Resources>
+        <local:AddUpdateToIsReadOnlyConverter x:Key="AddUpdateToIsReadOnlyConverter"/>
+        <local:AddUpdateToVisibilityConverter x:Key="AddUpdateToVisibilityConverter"/>
+
         <Style TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="120"/>
@@ -33,10 +36,14 @@
             <!-- Address -->
             <RowDefinition Height="Auto"/>
             <!-- MaxOfDistance -->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <!-- TypeOfDistance -->
+            <RowDefinition Height="Auto"/>
             <!-- IsActive -->
             <RowDefinition Height="Auto"/>
-            <!-- Spacer / Button -->
+            <!-- RegistrationDate -->
+            <RowDefinition Height="Auto"/>
+            <!-- Button -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -46,7 +53,8 @@
 
         <!-- Id -->
         <Label Grid.Row="0" Grid.Column="0" Content="Id:"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Volunteer.Id}" IsEnabled="False"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Volunteer.Id}" 
+                 IsReadOnly="{Binding ButtonText, Converter={StaticResource AddUpdateToIsReadOnlyConverter}}"/>
 
         <!-- Full Name -->
         <Label Grid.Row="1" Grid.Column="0" Content="Full Name:"/>
@@ -70,14 +78,28 @@
 
         <!-- Max Of Distance -->
         <Label Grid.Row="6" Grid.Column="0" Content="Max Of Distance (km):"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Volunteer.MaxOfDistance}"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Volunteer.MaxDistance}"/>
+
+        <!-- Type Of Distance -->
+        <Label Grid.Row="7" Grid.Column="0" Content="Type Of Distance:"/>
+        <ComboBox Grid.Row="7" Grid.Column="1" SelectedItem="{Binding Volunteer.TypeOfDistance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="Aerial"/>
+            <ComboBoxItem Content="Walking"/>
+            <ComboBoxItem Content="Driving"/>
+        </ComboBox>
 
         <!-- IsActive -->
-        <Label Grid.Row="7" Grid.Column="0" Content="Is Active:"/>
-        <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Volunteer.IsActive}"/>
+        <Label Grid.Row="8" Grid.Column="0" Content="Is Active:" Margin="5,0,5,0" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Volunteer.IsActive}" Margin="5,5,-5,31" Grid.RowSpan="2"/>
+
+        <!-- RegistrationDate - רק במצב Update -->
+        <Label Grid.Row="9" Grid.Column="0" Content="Registration Date:" 
+               Visibility="{Binding ButtonText, Converter={StaticResource AddUpdateToVisibilityConverter}}"/>
+        <DatePicker Grid.Row="9" Grid.Column="1" SelectedDate="{Binding Volunteer.RegistrationDate}" IsEnabled="False"
+                    Visibility="{Binding ButtonText, Converter={StaticResource AddUpdateToVisibilityConverter}}"/>
 
         <!-- Button -->
-        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+        <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
                 Height="40" Width="100" HorizontalAlignment="Center"
                 Content="{Binding ButtonText}"
                 Click="btnAddUpdate_Click"/>

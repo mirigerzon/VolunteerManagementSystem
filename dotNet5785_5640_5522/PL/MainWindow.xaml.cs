@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using BlApi;
 using PL.Volunteer;
@@ -11,7 +12,6 @@ namespace PL
         static readonly IBl s_bl = Factory.Get();
 
         private readonly DispatcherTimer _timer;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +27,6 @@ namespace PL
 
             RefreshCurrentTime();
         }
-
         private void Timer_Tick(object? sender, EventArgs e)
         {
             try
@@ -40,45 +39,37 @@ namespace PL
                 Console.WriteLine("Failed to advance system clock automatically: " + ex.Message);
             }
         }
-
         public DateTime CurrentTime
         {
             get { return (DateTime)GetValue(CurrentTimeProperty); }
             set { SetValue(CurrentTimeProperty, value); }
         }
-
         public static readonly DependencyProperty CurrentTimeProperty =
             DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
-
         private void RefreshCurrentTime()
         {
             CurrentTime = s_bl.Admin.GetSystemClock();
         }
-
         private void btnAdvanceMinute_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Minute);
             RefreshCurrentTime();
         }
-
         private void btnAdvanceHour_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Hour);
             RefreshCurrentTime();
         }
-
         private void btnAdvanceDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Day);
             RefreshCurrentTime();
         }
-
         private void btnAdvanceYear_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.AdvanceSystemClock(BO.TimeUnit.Year);
             RefreshCurrentTime();
         }
-
         private void btnInitializeDB_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
@@ -89,6 +80,7 @@ namespace PL
 
             if (result == MessageBoxResult.Yes)
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 try
                 {
                     s_bl.Admin.InitializeDatabase();
@@ -98,9 +90,12 @@ namespace PL
                 {
                     MessageBox.Show("Failed to initialize DB: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                finally
+                {
+                    Mouse.OverrideCursor = null; // החזר את הסמן הרגיל
+                }
             }
         }
-
         private void btnResetDB_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
@@ -111,6 +106,7 @@ namespace PL
 
             if (result == MessageBoxResult.Yes)
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 try
                 {
                     s_bl.Admin.ResetDatabase();
@@ -120,10 +116,12 @@ namespace PL
                 {
                     MessageBox.Show("Failed to reset DB: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                finally
+                {
+                    Mouse.OverrideCursor = null;
+                }
             }
         }
-
-
         private void btnUpdateRiskRange_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -139,7 +137,6 @@ namespace PL
                 MessageBox.Show("Invalid time span format. Please enter in format hh:mm or mm", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void UpdateRiskRangeDisplay()
         {
             try
@@ -153,7 +150,6 @@ namespace PL
                 Console.WriteLine("Error loading risk time span: " + ex.Message);
             }
         }
-
         private string FormatRiskRange(TimeSpan span)
         {
             if (span.TotalHours >= 1)
@@ -161,7 +157,6 @@ namespace PL
             else
                 return $"{span.Minutes}m";
         }
-
         private void btnHandleVolunteers_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerListWindow().Show();

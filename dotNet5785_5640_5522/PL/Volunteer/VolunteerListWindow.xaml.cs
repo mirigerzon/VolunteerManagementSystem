@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using BO;
 
 namespace PL.Volunteer;
+
 public partial class VolunteerListWindow : Window, INotifyPropertyChanged
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -30,6 +33,7 @@ public partial class VolunteerListWindow : Window, INotifyPropertyChanged
         }
     }
     public List<bool?> IsActiveFilterOptions { get; }
+
     private bool? _selectedIsActiveFilter;
     public bool? SelectedIsActiveFilter
     {
@@ -58,6 +62,19 @@ public partial class VolunteerListWindow : Window, INotifyPropertyChanged
             }
         }
     }
+    private VolunteerInList? _selectedVolunteer;
+    public VolunteerInList? SelectedVolunteer
+    {
+        get => _selectedVolunteer;
+        set
+        {
+            if (_selectedVolunteer != value)
+            {
+                _selectedVolunteer = value;
+                OnPropertyChanged(nameof(SelectedVolunteer));
+            }
+        }
+    }
     private void LoadVolunteers()
     {
         VolunteerList = (SelectedSortField == VolunteerSortField.Id)
@@ -77,11 +94,11 @@ public partial class VolunteerListWindow : Window, INotifyPropertyChanged
     {
         s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
     }
-    private void EditVolunteer_Click(object sender, RoutedEventArgs e)
+    private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if ((sender as FrameworkElement)?.DataContext is VolunteerInList selected)
+        if (SelectedVolunteer != null)
         {
-            var fullVolunteer = s_bl.Volunteer.Read(selected.Id);
+            var fullVolunteer = s_bl.Volunteer.Read(SelectedVolunteer.Id);
             var win = new VolunteerDetailsWindow(fullVolunteer);
             win.ShowDialog();
             LoadVolunteers();
@@ -94,4 +111,32 @@ public partial class VolunteerListWindow : Window, INotifyPropertyChanged
         win.ShowDialog();
         LoadVolunteers();
     }
+    private void DeleteVolunteer_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Tag is int id)
+        {
+            var result = MessageBox.Show($"Are you sure you want to delete volunteer {id}?",
+                                         "Confirm Deletion",
+                                         MessageBoxButton.YesNo,
+                                         MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    s_bl.Volunteer.Delete(id);
+                    LoadVolunteers();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while trying to delete the volunteer:\n{ex.Message}",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
+            }
+        }
+    }
+
 }
+
