@@ -30,11 +30,12 @@ public record Volunteer
     bool IsActive,
     double? MaxOfDistance,
     Enums.TypeOfDistanceEnum? TypeOfDistance
+
 )
 {
 
-    public Volunteer(int id, string fullName, string phoneNumber, string email, string password, string address, double latitude, double? longitude,double maxOfDistance)
+    public Volunteer(int id, string fullName, string phoneNumber, string email, string password, string address, double latitude, double? longitude, double maxOfDistance)
         : this(id, fullName, phoneNumber, email, password, address, latitude, longitude, Enums.RoleEnum.Volunteer, true, maxOfDistance, Enums.TypeOfDistanceEnum.Driving)
     { }
-    public Volunteer():this(0,"", "", "", "" , "",0, 0, 0) { }
+    public Volunteer() : this(0, "", "", "", "", "", 0, 0, Enums.RoleEnum.Volunteer, true,0, Enums.TypeOfDistanceEnum.Driving) { }
 }

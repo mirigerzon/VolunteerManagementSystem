@@ -124,5 +124,8 @@ static class XMLTools
         double.TryParse((string?)element.Element(name), out var result) ? (double?)result : null;
     public static int? ToIntNullable(this XElement element, string name) =>
         int.TryParse((string?)element.Element(name), out var result) ? (int?)result : null;
+    public static TEnum? ToEnumNullable<TEnum>(this XElement element, string name, bool ignoreCase = false)
+    where TEnum : struct, Enum =>
+    Enum.TryParse<TEnum>((string?)element.Element(name), ignoreCase, out var result) ? (TEnum?)result : null;
     #endregion
 }

@@ -16,7 +16,7 @@ namespace BlApi;
 /// </summary>
 public interface IVolunteer : IObservable
 {
-    UserRole Login(string username, string password);
+    UserRole Login(int id, string password);
     IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, VolunteerSortField? sortBy = null);
     BO.Volunteer Read(int id);
     void Update(int id, Volunteer volunteer);

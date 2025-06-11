@@ -1,7 +1,7 @@
 ﻿namespace BO;
 public enum UserRole
 {
-    Manager,
+    Admin,
     Volunteer
 }
 public enum VolunteerSortField
@@ -23,6 +23,7 @@ public enum CallInProgressStatus
 }
 public enum CallType
 {
+    None,
     Medical,
     Technical,
     Social,

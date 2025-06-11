@@ -8,11 +8,11 @@ public class VolunteerImplementation : BlApi.IVolunteer
 {
     private readonly IDal _dal = DalApi.Factory.Get;
     // Logs in the volunteer by verifying their credentials and returns their user role
-    public UserRole Login(string username, string password)
+    public UserRole Login(int id, string password)
     {
         try
         {
-            var volunteer = _dal.Volunteer.ReadAll().FirstOrDefault(v => v.FullName == username && v.Password == password);
+            var volunteer = _dal.Volunteer.ReadAll().FirstOrDefault(v => v.Id == id && v.Password == password);
             if (volunteer == null)
                 throw new BlDoesNotExistException("Invalid credentials");
             UserRole role = (UserRole)volunteer.Role;
@@ -65,7 +65,8 @@ public class VolunteerImplementation : BlApi.IVolunteer
             IsActive = v.IsActive,
             TotalHandledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Treated),
             TotalCanceledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.SelfCancelled),
-            ExpiredCallsCount = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Expired)
+            ExpiredCallsCount = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Expired),
+            CallType = Helpers.VolunteerManager.CallTypeIfExist(v.Id)
         }).ToList();
     }
     // Retrieves a specific volunteer by their ID
@@ -90,7 +91,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
                 IsActive = volunteer.IsActive,
                 MaxDistance = volunteer.MaxOfDistance,
                 TypeOfDistance = (TypeOfDistance)volunteer.TypeOfDistance,
-                CurrentCall = null
+                CurrentCall = null,
             };
         }
         catch (Exception ex)
@@ -103,18 +104,18 @@ public class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
-            var dalVolunteer = _dal.Volunteer.Read(volunteer.Id);
+            var dalVolunteer = _dal.Volunteer.Read(id);
             if (dalVolunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
-            if (dalVolunteer.Id == volunteer.Id || dalVolunteer.Role == DO.Enums.RoleEnum.Manager)
+            if (dalVolunteer.Id == volunteer.Id || dalVolunteer.Role == DO.Enums.RoleEnum.Admin)
             {
-                if ((UserRole)dalVolunteer.Role != volunteer.Role && (UserRole)dalVolunteer.Role != UserRole.Manager)
+                if ((UserRole)dalVolunteer.Role != volunteer.Role && (UserRole)dalVolunteer.Role != UserRole.Admin)
                     throw new BlInvalidException("Volunteer cannot change roles!");
                 string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
                 if (checkValues == "true")
                 {
                     var volunteerToUpdate = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
-                    _dal.Volunteer.Delete(id);
+                    _dal.Volunteer.Delete(volunteer.Id);
                     _dal.Volunteer.Create(volunteerToUpdate);
                     VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
                     VolunteerManager.Observers.NotifyItemUpdated(id);         // STAGE 5 - ADDED

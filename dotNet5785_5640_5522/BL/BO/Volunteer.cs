@@ -47,6 +47,7 @@ public class Volunteer
             $"Role: {Role}\n " +
             $"Phone: {PhoneNumber}\n " +
             $"Email: {Email} \n" +
+            $"Current Call: {CurrentCall} \n" +
             $" ------------------------------- \n";
     }
 }

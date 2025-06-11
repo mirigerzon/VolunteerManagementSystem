@@ -3,7 +3,7 @@ public static class Enums
 {
     public enum RoleEnum
     {
-        Manager,
+        Admin,
         Volunteer
     }
     public enum TypeOfDistanceEnum
@@ -24,6 +24,7 @@ public static class Enums
     }
     public enum CallTypeEnum
     {
+        None,
         Medical,
         Technical,
         Social,

@@ -20,8 +20,9 @@ internal class VolunteerImplementation : IVolunteer
             Address = (string?)v.Element("Address") ?? "",
             Longitude = v.ToDoubleNullable("Longitude") ?? 0,
             Latitude = v.ToDoubleNullable("Latitude") ?? 0,
+            Role = v.ToEnumNullable<Enums.RoleEnum>("Role") ?? Enums.RoleEnum.Volunteer,
             IsActive = (bool?)v.Element("IsActive") ?? false,
-            MaxOfDistance = v.ToDoubleNullable("MaxOfDistance") ?? 0
+            MaxOfDistance = v.ToDoubleNullable("MaxOfDistance") ?? 0,
         };
     }
     // Creates a collection of XML elements representing a Volunteer.
@@ -86,7 +87,6 @@ internal class VolunteerImplementation : IVolunteer
         var volunteers = volunteersRootElem.Elements()
         .Select(e => GetVolunteer(e))
         .ToList();
-
         return filter == null ? volunteers : volunteers.Where(filter);
     }
     // Updates a Volunteer in the XML storage.

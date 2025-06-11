@@ -1,6 +1,7 @@
 ﻿using BO;
 using DalApi;
 using DO;
+using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -66,7 +67,7 @@ internal static class VolunteerManager
     // Validates a phone number with a minimum of 7 and maximum of 15 digits
     private static bool IsValidPhoneNumber(string phoneNumber)
     {
-        return Regex.IsMatch(phoneNumber, @"^\d{7,15}$"); 
+        return Regex.IsMatch(phoneNumber, @"^\d{7,15}$");
     }
     // Validates that the email address is in a proper format
     private static bool IsValidEmail(string email)
@@ -105,7 +106,7 @@ internal static class VolunteerManager
         }
         bool yearChanged = oldClock.Year != newClock.Year;
         if (yearChanged || volunteerUpdated)
-            Observers.NotifyListUpdated(); 
+            Observers.NotifyListUpdated();
     }
     // Gets geographic coordinates (latitude and longitude) for a given address using an external API
     public static double[] GetCoordinates(string address)
@@ -137,5 +138,21 @@ internal static class VolunteerManager
             }
             return [];
         }
+    }
+    public static BO.CallType CallTypeIfExist(int id)
+    {
+        var assignment = s_dal.Assignment.ReadAll()
+            .FirstOrDefault(a => a.VolunteerId == id && a.EndTime == null);
+        if (assignment == null || assignment.CallId == null)
+            return BO.CallType.None;
+        var callId = assignment.CallId;
+        if (callId != null)
+        {
+            var currrentCall = s_dal.Call.ReadAll()
+                .FirstOrDefault(c => c.Id == callId);
+            var result = currrentCall.Type;
+            return (BO.CallType)result;
+        }
+        return BO.CallType.None;
     }
 }

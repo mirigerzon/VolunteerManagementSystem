@@ -14,6 +14,7 @@ namespace BO;
 /// <param name="TotalCanceledCalls">Total number of calls the volunteer has canceled (status: 'Canceled').</param>
 /// <param name="ExpiredCallsCount">Total number of calls the volunteer let expire (status: 'Expired').</param>
 /// <param name="CurrentCallId">ID of the call currently being handled by the volunteer, if any.</param>
+/// <param name="CallType">Call tepy of the call currently being handled by the volunteer, if any.</param>
 public class VolunteerInList
 {
     public int Id { get; init; }
@@ -23,6 +24,7 @@ public class VolunteerInList
     public int TotalCanceledCalls { get; init; }
     public int ExpiredCallsCount { get; init; }
     public int? CurrentCallId { get; init; }
+    public CallType? CallType { get; init; }
     public override string ToString()
     {
         return $"\n ------------------------------- \n " +

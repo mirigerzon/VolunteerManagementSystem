@@ -373,11 +373,11 @@ internal class CallImplementation : BlApi.ICall
             var volunteer = _dal.Volunteer.Read(volunteerId);
             if (assignment == null)
                 throw new BlDoesNotExistException($"Assignment with ID {assignmentId} not found.");
-            if (assignment.VolunteerId != volunteerId || volunteer.Role != RoleEnum.Manager)
+            if (assignment.VolunteerId != volunteerId || volunteer.Role != RoleEnum.Admin)
                 throw new BlInvalidException("You do not have permission to perform this action.");
             if (assignment.EndTime != null && assignment.EndStatus != null)
                 throw new BlInvalidException($"Assignment {assignmentId} is not open or in progress, cannot cancel.");
-            var endStatusToUpdate = volunteer.Role == RoleEnum.Manager ? TerminationTypeEnum.ManagerCancelled : TerminationTypeEnum.SelfCancelled;
+            var endStatusToUpdate = volunteer.Role == RoleEnum.Admin ? TerminationTypeEnum.ManagerCancelled : TerminationTypeEnum.SelfCancelled;
             var assignmentToUpdate = new DO.Assignment
             {
                 Id = assignment.Id,
