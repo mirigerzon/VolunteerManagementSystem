@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Linq; // For Enum.GetValues
+using System.Linq;
 
 using BO;
 using BlApi;
@@ -44,7 +44,6 @@ public partial class CallDetailsWindow : Window, INotifyPropertyChanged
         {
             _isNewCall = value;
             OnPropertyChanged(nameof(IsNewCall));
-            // כש-IsNewCall משתנה, נעדכן גם את הטקסטים
             UpdateTexts();
         }
     }
@@ -56,9 +55,8 @@ public partial class CallDetailsWindow : Window, INotifyPropertyChanged
         {
             _call = value;
             OnPropertyChanged(nameof(Call));
-            // גם כשאובייקט ה-Call משתנה, חשוב לעדכן את IsNewCall ואת הטקסטים
-            IsNewCall = (_call.Id == 0); // קובע אם זה חדש לפי ID
-            UpdateTexts(); // קורא לעדכון טקסטים
+            IsNewCall = (_call.Id == 0); 
+            UpdateTexts();
         }
     }
     private void UpdateTexts()
@@ -69,7 +67,7 @@ public partial class CallDetailsWindow : Window, INotifyPropertyChanged
     public CallDetailsWindow(BO.Call call)
     {
         InitializeComponent();
-        Call = call; // זה יפעיל את ה-setter של Call ויעדכן את IsNewCall והטקסטים
+        Call = call;
         DataContext = this;
     }
     public CallDetailsWindow()
@@ -77,19 +75,18 @@ public partial class CallDetailsWindow : Window, INotifyPropertyChanged
         InitializeComponent();
         Call = new BO.Call
         {
-            Id = 0, // ID 0 מסמן קריאה חדשה
-            Status = BO.CallStatus.Open, // סטטוס התחלתי
+            Id = 0,
+            Status = BO.CallStatus.Open, 
             StartTime = DateTime.Now,
-            MaxEndTime = DateTime.Now.AddDays(1), // זמן סיום מקסימלי ברירת מחדל
+            MaxEndTime = DateTime.Now.AddDays(1),
         };
-        // ה-setter של Call כבר יגדיר את IsNewCall ו-UpdateTexts()
         DataContext = this;
     }
     private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            if (IsNewCall) // נבדוק את IsNewCall במקום Call.Id == 0
+            if (IsNewCall)
             {
                 s_bl.Call.Create(Call);
                 MessageBox.Show("קריאה חדשה נוספה בהצלחה!", "הוספה", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -99,24 +96,48 @@ public partial class CallDetailsWindow : Window, INotifyPropertyChanged
                 s_bl.Call.Update(Call);
                 MessageBox.Show("קריאה עודכנה בהצלחה!", "עדכון", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            this.DialogResult = true; // סימן להצלחה לחלון האב
+            this.DialogResult = true;
             this.Close();
         }
-        catch (BlApi.BlAlreadyExistsException ex) // שימוש ב-BlApi.BlAlreadyExistsException
+        catch (BO.BlAlreadyExistsException ex)
         {
             MessageBox.Show($"שגיאה: הקריאה כבר קיימת. {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        catch (BlApi ex) // שימוש ב-BlApi.BlInvalidInputException
-        {
-            MessageBox.Show($"שגיאה בקלט: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (BlApi.BlDoesNotExistException ex) // שימוש ב-BlApi.BlDoesNotExistException
+        catch (BO.BlDoesNotExistException ex)
         {
             MessageBox.Show($"שגיאה: הקריאה לא נמצאה לעדכון. {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        catch (BO.BlInvalidException ex)
+        {
+            MessageBox.Show($"שגיאה בקלט: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BlMissingDataException ex)
+        {
+            MessageBox.Show($"שגיאה: חסר מידע הכרחי. {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+        catch (BO.BlDependencyNotInitializedException ex)
+        {
+            MessageBox.Show($"שגיאה פנימית: תלות לא מאותחלת. {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BlXMLFileLoadCreateException ex)
+        {
+            MessageBox.Show($"שגיאה בקובץ XML: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BlNullPropertyException ex)
+        {
+            MessageBox.Show($"שגיאה פנימית: תכונה ריקה. {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BlInvalidDateRangeException ex)
+        {
+            MessageBox.Show($"שגיאה: טווח תאריכים שגוי. {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BlGeneralException ex)
+        {
+            MessageBox.Show($"שגיאה כללית: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
         catch (Exception ex)
         {
-            MessageBox.Show($"אירעה שגיאה: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"אירעה שגיאה בלתי צפויה: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
