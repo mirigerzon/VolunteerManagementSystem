@@ -29,31 +29,31 @@ public static class Initialization
     "BetterSafe8!", "UltraSecure9!", "StrongKey10!", "SafeHouse11!", "SecureDoor12!"
 };
     private static double[] VolunteerLongitudes = {
-    -0.127721, -0.127650, -0.127600, -77.036530, -73.985428,
-    -122.030333, 2.294481, 13.377704, 139.745433, 151.215297,
-    12.492231, -58.373161, -79.387057, 55.274376, -43.210487
+    34.7818, 34.7821, 34.7823, 34.7825, 34.7819,
+    34.7816, 34.7820, 34.7822, 34.7817, 34.7824,
+    34.7815, 34.7818, 34.7821, 34.7816, 34.7819
 };
     private static double[] VolunteerLatitudes = {
-    51.503368, 51.503000, 51.503100, 38.897676, 40.748817,
-    37.331741, 48.858370, 52.516275, 35.658581, -33.856784,
-    41.890210, -34.608318, 43.642566, 25.197197, -22.951916
+    32.0853, 32.0855, 32.0854, 32.0852, 32.0856,
+    32.0853, 32.0855, 32.0854, 32.0852, 32.0856,
+    32.0853, 32.0855, 32.0854, 32.0852, 32.0856
 };
     private static string[] VolunteerAddresses = {
-    "10 Downing Street, London, UK",
-    "11 Downing Street, London, UK",
-    "12 Downing Street, London, UK",
-    "1600 Pennsylvania Ave NW, Washington DC, USA",
-    "350 Fifth Avenue, New York, NY, USA",
-    "1 Infinite Loop, Cupertino, CA, USA",
-    "Eiffel Tower, Paris, France",
-    "Brandenburg Gate, Berlin, Germany",
-    "Tokyo Tower, Tokyo, Japan",
-    "Sydney Opera House, Sydney, Australia",
-    "Colosseum, Rome, Italy",
-    "Plaza de Mayo, Buenos Aires, Argentina",
-    "CN Tower, Toronto, Canada",
-    "Burj Khalifa, Dubai, UAE",
-    "Christ the Redeemer, Rio de Janeiro, Brazil"
+    "123 Rothschild Blvd, Tel Aviv",
+    "456 Allenby St, Tel Aviv",
+    "789 Ben Yehuda St, Tel Aviv",
+    "321 Dizengoff St, Tel Aviv",
+    "654 Florentin St, Tel Aviv",
+    "987 Arlozorov St, Tel Aviv",
+    "234 HaYarkon St, Tel Aviv",
+    "567 Jabotinsky St, Tel Aviv",
+    "890 Basel St, Tel Aviv",
+    "112 Herzl St, Tel Aviv",
+    "210 Bograshov St, Tel Aviv",
+    "341 Lilienblum St, Tel Aviv",
+    "672 Ibn Gabirol St, Tel Aviv",
+    "893 Sheinkin St, Tel Aviv",
+    "114 Yehuda Halevi St, Tel Aviv"
 };
     private static string[] Descriptions = {
     "Flat tire in need of assistance",
