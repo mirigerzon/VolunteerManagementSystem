@@ -61,14 +61,12 @@ public partial class Login : Window
 
                     _isAdminCurrentlyLoggedIn = true;
                     ShowAdminSelectionScreen(volunteer);
-                    //this.Hide();
                 }
                 else
                 {
                     VolunteerSelfWindow volunteerSelfWindow = new VolunteerSelfWindow(volunteer);
                     volunteerSelfWindow.Closed += (s, args) => OpenLoginWindow();
                     volunteerSelfWindow.Show();
-                    //this.Hide();
                 }
             }
             else
