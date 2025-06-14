@@ -1,14 +1,17 @@
-﻿<Window x:Class="PL.Volunteer.VolunteersListWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:bo="clr-namespace:BO;assembly=BL"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:converters="clr-namespace:PL.Converters"
-        Title="רשימת מתנדבים"
-        Height="600" Width="1050"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Loaded="Window_Loaded"
-        Closed="Window_Closed">
+﻿<Window x:Class="PL.Volunteer.VolunteersListWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:bo="clr-namespace:BO;assembly=BL" 
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        xmlns:converters="clr-namespace:PL.Converters" 
+        Title="ניהול מתנדבים" 
+        Height="700" 
+        Width="1200" 
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        Loaded="Window_Loaded" 
+        Closed="Window_Closed"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8F9FA">
 
     <Window.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="VolunteerSortFieldCollectionKey">
@@ -18,49 +21,281 @@
         </ObjectDataProvider>
 
         <converters:NullableBooleanConverter x:Key="NullableBooleanConverter"/>
-        <Style TargetType="Button">
-            <Setter Property="FontWeight" Value="Bold"/>
+
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#4A90E2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="20,10"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#357ABD"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2E6DA4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Primary Action Button -->
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="Background" Value="#28A745"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="30,12"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#218838"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern ComboBox Style -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#DDD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <Grid>
+                                <ToggleButton Name="ToggleButton" 
+                                            Background="Transparent" 
+                                            BorderThickness="0" 
+                                            Focusable="False" 
+                                            IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                            ClickMode="Press">
+                                    <Path Name="Arrow" 
+                                          Fill="#666" 
+                                          HorizontalAlignment="Right" 
+                                          VerticalAlignment="Center" 
+                                          Margin="0,0,10,0"
+                                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                </ToggleButton>
+                                <ContentPresenter Name="ContentSite" 
+                                                IsHitTestVisible="False" 
+                                                Content="{TemplateBinding SelectionBoxItem}" 
+                                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                                Margin="{TemplateBinding Padding}" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Left"/>
+                                <Popup Name="Popup" 
+                                       Placement="Bottom" 
+                                       IsOpen="{TemplateBinding IsDropDownOpen}" 
+                                       AllowsTransparency="True" 
+                                       Focusable="False" 
+                                       PopupAnimation="Slide">
+                                    <Border Background="White" 
+                                            BorderBrush="#DDD" 
+                                            BorderThickness="1" 
+                                            CornerRadius="6" 
+                                            MaxHeight="200">
+                                        <ScrollViewer>
+                                            <StackPanel IsItemsHost="True"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern DataGrid Style -->
+        <Style x:Key="ModernDataGrid" TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E1E5E9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#F1F3F4"/>
+            <Setter Property="RowHeight" Value="45"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="AlternatingRowBackground" Value="#F8F9FA"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
+
+        <!-- DataGrid Header Style -->
+        <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#495057"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="#6C757D"/>
+        </Style>
+
+        <!-- DataGrid Cell Style -->
+        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#E3F2FD"/>
+                    <Setter Property="Foreground" Value="#1976D2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Filter Card Style -->
+        <Style x:Key="FilterCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E1E5E9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="20,20,20,10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000000" 
+                                    Opacity="0.1" 
+                                    ShadowDepth="2" 
+                                    BlurRadius="8"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Title Style -->
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#212529"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <!-- Label Style -->
+        <Style x:Key="ModernLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="#495057"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
         </Style>
     </Window.Resources>
 
-    <DockPanel>
-        <StackPanel Orientation="Horizontal" Margin="10" DockPanel.Dock="Top">
-            <Label Content="מיין לפי:" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerSortFieldCollectionKey}}"
-                      SelectedValue="{Binding SelectedSortField}" Width="150" Margin="5,0"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <Label Content="סנן לפי פעיל:" VerticalAlignment="Center" Margin="20,0,0,0"/>
-            <ComboBox ItemsSource="{Binding IsActiveFilterOptions}" Width="100"
-                      SelectedItem="{Binding SelectedIsActiveFilter}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource NullableBooleanConverter}}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E1E5E9" BorderThickness="0,0,0,1">
+            <StackPanel Margin="30,20">
+                <TextBlock Text="ניהול מתנדבים" Style="{StaticResource TitleStyle}"/>
+                <TextBlock Text="ניהול וצפייה במאגר המתנדבים" 
+                          FontSize="16" 
+                          Foreground="#6C757D"/>
+            </StackPanel>
+        </Border>
 
-        <DataGrid ItemsSource="{Binding VolunteerList}"
-                  SelectedItem="{Binding SelectedVolunteer}"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  MouseDoubleClick="DataGrid_MouseDoubleClick"
-                  Margin="10">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ת.ז" Binding="{Binding Id}" Width="Auto"/>
-                <DataGridTextColumn Header="שם מלא" Binding="{Binding FullName}" Width="*"/>
-                <DataGridTextColumn Header="קריאות שטופלו" Binding="{Binding TotalHandledCalls}"/>
-                <DataGridTextColumn Header="קריאות שבוטלו" Binding="{Binding TotalCanceledCalls}"/>
-                <DataGridTextColumn Header="פג תוקף" Binding="{Binding ExpiredCallsCount}"/>
-                <DataGridTextColumn Header="קריאה נוכחית" Binding="{Binding CurrentCallId}"/>
-                <DataGridTextColumn Header="סוג קריאה" Binding="{Binding CallType}"/>
-                <DataGridCheckBoxColumn Header="פעיל" Binding="{Binding IsActive}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <!-- Filters -->
+        <Border Grid.Row="1" Style="{StaticResource FilterCard}">
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
+                    <Label Content="מיין לפי:" Style="{StaticResource ModernLabel}"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerSortFieldCollectionKey}}" 
+                             SelectedValue="{Binding SelectedSortField}" 
+                             Width="180" 
+                             Style="{StaticResource ModernComboBox}"/>
+                </StackPanel>
 
-        <Button Content="הוסף מתנדב" Width="150" Height="40" Margin="10"
-                HorizontalAlignment="Center" Click="AddVolunteer_Click" DockPanel.Dock="Bottom"/>
-    </DockPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="סנן לפי פעיל:" Style="{StaticResource ModernLabel}"/>
+                    <ComboBox ItemsSource="{Binding IsActiveFilterOptions}" 
+                             Width="120" 
+                             SelectedItem="{Binding SelectedIsActiveFilter}"
+                             Style="{StaticResource ModernComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource NullableBooleanConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </WrapPanel>
+        </Border>
+
+        <!-- Data Grid -->
+        <Border Grid.Row="2" 
+                Background="White" 
+                BorderBrush="#E1E5E9" 
+                BorderThickness="1" 
+                CornerRadius="12" 
+                Margin="20,10,20,20">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" 
+                                Opacity="0.08" 
+                                ShadowDepth="3" 
+                                BlurRadius="12"/>
+            </Border.Effect>
+
+            <DataGrid ItemsSource="{Binding VolunteerList}" 
+                     SelectedItem="{Binding SelectedVolunteer}" 
+                     AutoGenerateColumns="False" 
+                     IsReadOnly="True" 
+                     MouseDoubleClick="DataGrid_MouseDoubleClick" 
+                     Style="{StaticResource ModernDataGrid}"
+                     ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                     CellStyle="{StaticResource DataGridCellStyle}"
+                     Margin="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ת.ז" Binding="{Binding Id}" Width="100" MinWidth="80"/>
+                    <DataGridTextColumn Header="שם מלא" Binding="{Binding FullName}" Width="2*" MinWidth="150"/>
+                    <DataGridTextColumn Header="קריאות שטופלו" Binding="{Binding TotalHandledCalls}" Width="Auto" MinWidth="100"/>
+                    <DataGridTextColumn Header="קריאות שבוטלו" Binding="{Binding TotalCanceledCalls}" Width="Auto" MinWidth="100"/>
+                    <DataGridTextColumn Header="פג תוקף" Binding="{Binding ExpiredCallsCount}" Width="Auto" MinWidth="80"/>
+                    <DataGridTextColumn Header="קריאה נוכחית" Binding="{Binding CurrentCallId}" Width="Auto" MinWidth="100"/>
+                    <DataGridTextColumn Header="סוג קריאה" Binding="{Binding CallType}" Width="*" MinWidth="120"/>
+                    <DataGridCheckBoxColumn Header="פעיל" Binding="{Binding IsActive}" Width="70"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Action Button -->
+        <Border Grid.Row="3" Background="#F8F9FA" Padding="20">
+            <Button Content="הוסף מתנדב חדש" 
+                   Style="{StaticResource PrimaryButton}"
+                   HorizontalAlignment="Center" 
+                   Click="AddVolunteer_Click">
+                <Button.Effect>
+                    <DropShadowEffect Color="#000000" 
+                                    Opacity="0.15" 
+                                    ShadowDepth="2" 
+                                    BlurRadius="6"/>
+                </Button.Effect>
+            </Button>
+        </Border>
+    </Grid>
 </Window>

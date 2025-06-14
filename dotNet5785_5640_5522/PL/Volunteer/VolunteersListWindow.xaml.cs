@@ -23,6 +23,8 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
         DataContext = this;
     }
     public event PropertyChangedEventHandler PropertyChanged;
+    public Array Roles => Enum.GetValues(typeof(DO.Enums.RoleEnum));
+
     private void OnPropertyChanged(string propName) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     private IEnumerable<VolunteerInList> _volunteerList;
@@ -137,33 +139,5 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
                             "Add Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    //    private void DeleteVolunteer_Click(object sender, RoutedEventArgs e)
-    //    {
-    //        if (e.Source is FrameworkElement element && element.DataContext is VolunteerInList volunteer)
-    //        {
-    //            int id = volunteer.Id;
 
-    //            var result = MessageBox.Show($"Are you sure you want to delete volunteer {id}?",
-    //                                         "Confirm Deletion",
-    //                                         MessageBoxButton.YesNo,
-    //                                         MessageBoxImage.Warning);
-
-    //            if (result == MessageBoxResult.Yes)
-    //            {
-    //                try
-    //                {
-    //                    s_bl.Volunteer.Delete(id);
-    //                    LoadVolunteers();
-    //                }
-    //                catch
-    //                {
-    //                    MessageBox.Show("An error occurred while trying to delete the volunteer.",
-    //                                    "Delete Error",
-    //                                    MessageBoxButton.OK,
-    //                                    MessageBoxImage.Error);
-    //                }
-    //            }
-    //        }
-    //    //}
-    //}
 }

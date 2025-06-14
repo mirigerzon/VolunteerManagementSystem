@@ -49,7 +49,7 @@ public partial class Login : Window
             BO.UserRole? authenticatedVolunteer = s_bl.Volunteer.Login(id, password);
             if (authenticatedVolunteer != null)
             {
-                BO.Volunteer volunteer = s_bl.Volunteer.Read(id); // שורה חדשה: שולף את כל פרטי המשתמש
+                BO.Volunteer volunteer = s_bl.Volunteer.Read(id);
 
                 if (authenticatedVolunteer == UserRole.Admin)
                 {
@@ -60,14 +60,14 @@ public partial class Login : Window
                     }
 
                     _isAdminCurrentlyLoggedIn = true;
-                    ShowAdminSelectionScreen(volunteer); // מעביר את האובייקט המלא
+                    ShowAdminSelectionScreen(volunteer);
                     this.Hide();
                 }
                 else
                 {
-                    VolunteersListWindow volunteerListWindow = new VolunteersListWindow(volunteer); // מעביר את המתנדב
-                    volunteerListWindow.Closed += (s, args) => OpenLoginWindow();
-                    volunteerListWindow.Show();
+                    VolunteerSelfWindow volunteerSelfWindow = new VolunteerSelfWindow(volunteer);
+                    volunteerSelfWindow.Closed += (s, args) => OpenLoginWindow();
+                    volunteerSelfWindow.Show();
                     this.Hide();
                 }
             }
@@ -106,12 +106,12 @@ public partial class Login : Window
             new Button { Content = "Go to Volunteer List", Margin = new Thickness(0,5,0,5), Padding = new Thickness(10, 5, 10, 5) }
             .With(b => b.Click += (s, e) =>
             {
-                VolunteersListWindow volunteerListWindow = new VolunteersListWindow(admin);
-                volunteerListWindow.Closed += (ws, we) => {
+                VolunteerSelfWindow volunteerSelfWindow = new VolunteerSelfWindow(admin);
+                volunteerSelfWindow.Closed += (ws, we) => {
                     _isAdminCurrentlyLoggedIn = false;
                     OpenLoginWindow();
                 };
-                volunteerListWindow.Show();
+                volunteerSelfWindow.Show();
                 adminSelectionWindow.Close();
             }),
             new Button { Content = "Go to Admin Management", Margin = new Thickness(0,5,0,5), Padding = new Thickness(10, 5, 10, 5) }

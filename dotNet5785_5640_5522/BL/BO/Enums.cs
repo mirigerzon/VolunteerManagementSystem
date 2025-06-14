@@ -31,13 +31,14 @@ public enum CallType
 }
 public enum CallStatus
 {
-    Open,
-    InTreatment,
-    Closed,
-    Expired,
-    OpenAtRisk,
-    InTreatmentAtRisk
+    Open,               // 0
+    InTreatment,        // 1
+    Closed,             // 2
+    Expired,            // 3
+    OpenAtRisk,         // 4
+    InTreatmentAtRisk   // 5
 }
+
 public enum ClosureType
 {
     Treated,

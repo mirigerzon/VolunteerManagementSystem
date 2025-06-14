@@ -3,61 +3,320 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:bo="clr-namespace:BO;assembly=BL"
         xmlns:converters="clr-namespace:PL.Converters"
-        Title="Call Details"
-        Height="600"
-        Width="450">
+        Title="פרטי קריאה"
+        Height="700"
+        Width="500"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8F9FA">
+
     <Window.Resources>
         <converters:StatusToIsEditableConverter x:Key="StatusToIsEditableConverter"/>
         <converters:StatusToIsMaxEndTimeEditableConverter x:Key="StatusToIsMaxEndTimeEditableConverter"/>
         <converters:StatusToIsUpdatableConverter x:Key="StatusToIsUpdatableConverter"/>
         <converters:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter"/>
+
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="24"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#E0E0E0" BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernLabel" TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="#2D3436"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDD"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                        Focusable="false"
+                                        HorizontalScrollBarVisibility="Hidden"
+                                        VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="#F5F6FA"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#E1E5E9"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#74B9FF"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#0984E3"/>
+                                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDD"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                        Grid.Column="2"
+                                        Focusable="false"
+                                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ClickMode="Press"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="Border"
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="8">
+                                            <Path x:Name="Arrow"
+                                                  Fill="#636E72"
+                                                  HorizontalAlignment="Right"
+                                                  Margin="0,0,12,0"
+                                                  VerticalAlignment="Center"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="BorderBrush" TargetName="Border" Value="#74B9FF"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite"
+                                            IsHitTestVisible="False"
+                                            Content="{TemplateBinding SelectionBoxItem}"
+                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                            Margin="12,0,30,0"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"/>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="White"
+                                            BorderThickness="1"
+                                            BorderBrush="#DDD"
+                                            CornerRadius="8">
+                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDD"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+        <Style x:Key="ModernListBox" TargetType="ListBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDD"/>
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ScrollViewer Focusable="false">
+                                <StackPanel IsItemsHost="True"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#0984E3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#74B9FF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#0068C7"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="#BDC3C7"/>
+                                <Setter Property="Foreground" Value="#7F8C8D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#2D3436"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
     </Window.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="24">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Form -->
-        <StackPanel VerticalAlignment="Top">
-            <Label Content="Id:" Margin="0,0,0,5"/>
-            <TextBox Text="{Binding Call.Id}" IsReadOnly="True" Margin="0,0,0,10"/>
+        <TextBlock Grid.Row="0" 
+                   Text="{Binding HeaderText}" 
+                   Style="{StaticResource SectionHeader}"/>
 
-            <Label Content="Type:" Margin="0,0,0,5"/>
-            <ComboBox ItemsSource="{Binding CallTypes}" SelectedItem="{Binding Call.Type}"
-                      IsEnabled="{Binding Call.Status, Converter={StaticResource StatusToIsEditableConverter}}" Margin="0,0,0,10"/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="מידע בסיסי" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="#636E72" 
+                               Margin="0,0,0,16"/>
 
-            <Label Content="Description:" Margin="0,0,0,5"/>
-            <TextBox Text="{Binding Call.Description}"
-                     IsReadOnly="{Binding Call.Status, Converter={StaticResource StatusToIsEditableConverter}, ConverterParameter=Invert}"
-                     Margin="0,0,0,10"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-            <Label Content="Caller Address:" Margin="0,0,0,5"/>
-            <TextBox Text="{Binding Call.CallerAddress}"
-                     IsReadOnly="{Binding Call.Status, Converter={StaticResource StatusToIsEditableConverter}, ConverterParameter=Invert}"
-                     Margin="0,0,0,10"/>
+                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <Label Content="מזהה:" Style="{StaticResource ModernLabel}"/>
+                            <TextBox Text="{Binding Call.Id}" 
+                                     IsReadOnly="True"  Visibility="{Binding IsNewCall, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Style="{StaticResource ModernTextBox}"/>
 
-            <Label Content="Start Time:" Margin="0,0,0,5"/>
-            <TextBox Text="{Binding Call.StartTime}" IsReadOnly="True" Margin="0,0,0,10"/>
+                            <Label Content="סוג קריאה:" Style="{StaticResource ModernLabel}"/>
+                            <ComboBox ItemsSource="{Binding CallTypes}" 
+                                      SelectedItem="{Binding Call.Type}" 
+                                      IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernComboBox}"/>
 
-            <Label Content="Max End Time:" Margin="0,0,0,5"/>
-            <DatePicker SelectedDate="{Binding Call.MaxEndTime}"
-                        IsEnabled="{Binding Call.Status, Converter={StaticResource StatusToIsMaxEndTimeEditableConverter}}"
-                        Margin="0,0,0,10"/>
+                            <Label Content="זמן התחלה:" Style="{StaticResource ModernLabel}"/>
+                            <TextBox Text="{Binding Call.StartTime, StringFormat='dd/MM/yyyy HH:mm'}" 
+                                     IsReadOnly="True" 
+                                     Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
 
-            <Label Content="Status:" Margin="0,0,0,5"/>
-            <TextBox Text="{Binding Call.Status}" IsReadOnly="True" Margin="0,0,0,10"/>
+                        <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                            <Label Content="סטטוס:" Style="{StaticResource ModernLabel}"/>
+                            <TextBox Text="{Binding Call.Status}" 
+                                     IsReadOnly="True" 
+                                     Visibility="{Binding IsNewCall, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Style="{StaticResource ModernTextBox}"/>
 
-            <Label Content="Assignments:" Margin="0,0,0,5"/>
-            <ListBox ItemsSource="{Binding Call.Assignments}" DisplayMemberPath="Display"
-                     Visibility="{Binding Call.Assignments.Count, Converter={StaticResource StatusToVisibilityConverter}}"
-                     Margin="0,0,0,10"/>
-        </StackPanel>
+                            <Label Content="זמן סיום מקסימלי:" Style="{StaticResource ModernLabel}"/>
+                            <DatePicker SelectedDate="{Binding Call.MaxEndTime}" 
+                                        IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernDatePicker}"/>
+                        </StackPanel>
+                    </Grid>
 
-        <!-- Save/Update -->
-        <Button Grid.Row="1" Content="{Binding ButtonText}" Width="120" Height="35" HorizontalAlignment="Center" Margin="10"
-                IsEnabled="{Binding Call.Status, Converter={StaticResource StatusToIsUpdatableConverter}}"
-                Click="BtnAddOrUpdate_Click"/>
+                    <Label Content="תיאור:" Style="{StaticResource ModernLabel}" Margin="0,16,0,8"/>
+                    <TextBox Text="{Binding Call.Description}" 
+                             IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernTextBox}"
+                             MinHeight="80"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"/>
+
+                    <Label Content="כתובת המתקשר:" Style="{StaticResource ModernLabel}"/>
+                    <TextBox Text="{Binding Call.CallerAddress}" 
+                             IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernTextBox}"/>
+
+                    <Label Content="הקצאות:" 
+                           Style="{StaticResource ModernLabel}" 
+                           Visibility="{Binding IsNewCall, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                    <ListBox ItemsSource="{Binding Call.Assignments}" 
+                             DisplayMemberPath="Display" 
+                             Style="{StaticResource ModernListBox}"
+                             MaxHeight="120"
+                             Visibility="{Binding IsNewCall, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+
+        <Button Grid.Row="2" 
+                Content="{Binding ButtonText}" 
+                Style="{StaticResource PrimaryButton}"
+                HorizontalAlignment="Center" 
+                Margin="0,16,0,0"
+                MinWidth="150"
+                IsEnabled="True" Click="BtnAddOrUpdate_Click"/>
     </Grid>
 </Window>

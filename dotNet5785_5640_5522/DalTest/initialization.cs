@@ -167,15 +167,15 @@ public static class Initialization
         int id = s_rand.Next(200000000, 400000000);
         Volunteer manager = new Volunteer
         (
-            id,
+            328115522,
             "Admin Manager",
             "0521112222",
             "admin.manager@example.com",
-            "AdminPass123!",
+            "1166",
             "Head Office, Tel Aviv-Jafo",
             32.085299,
             34.781769,
-            Enums.RoleEnum.Manager,
+            Enums.RoleEnum.Admin,
             true,
             (s_rand.NextDouble() * (50 - 5) + 5),
             (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)

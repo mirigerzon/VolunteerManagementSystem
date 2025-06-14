@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using BlApi;
+using BO;
 using PL.Volunteer;
 
 namespace PL;
@@ -24,8 +26,8 @@ public partial class AdminMainWindow : Window
         InitializeComponent();
         UpdateRiskRangeDisplay();
         CurrentTime = s_bl.Admin.GetSystemClock();
+        UpdateStatusCounts();
         _currentUser = currentUser;
-
         _timer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMinutes(1)
@@ -215,4 +217,22 @@ public partial class AdminMainWindow : Window
         _timer.Stop();
         this.Close();
     }
+    private void UpdateStatusCounts()
+    {
+        var counts = s_bl.Call.GetCallStatusCounts();
+
+        int safe(int index) => index < counts.Length ? counts[index] : 0;
+
+        int newCount = safe((int)CallStatus.Open) + safe((int)CallStatus.OpenAtRisk);
+        int activeCount = safe((int)CallStatus.InTreatment) + safe((int)CallStatus.InTreatmentAtRisk);
+        int closedCount = safe((int)CallStatus.Closed) + safe((int)CallStatus.Expired);
+        int total = newCount + activeCount + closedCount;
+
+        AllButton.Content = $"הכול ({total})";
+        NewButton.Content = $"חדשות ({newCount})";
+        ActiveButton.Content = $"פעילות ({activeCount})";
+        ClosedButton.Content = $"סגורות ({closedCount})";
+    }
+
+
 }

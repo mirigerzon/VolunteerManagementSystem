@@ -18,17 +18,24 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             var calls = _dal.Call.ReadAll();
-            return calls
-                .GroupBy(c => (int)c.Status)
-                .ToDictionary(g => g.Key, g => g.Count())
-                .Select(kvp => kvp.Value)
-                .ToArray();
+
+            int maxStatus = calls.Any() ? calls.Max(c => (int)c.Status) : 0;
+            int[] result = new int[maxStatus + 1];
+
+            var grouped = calls.GroupBy(c => (int)c.Status);
+            foreach (var group in grouped)
+            {
+                result[group.Key] = group.Count();
+            }
+
+            return result;
         }
         catch (DO.DalXMLFileLoadCreateException ex)
         {
             throw new BlXMLFileLoadCreateException("Failed to get call status counts", ex);
         }
     }
+
     //This method identifies expired calls (calls whose maximum end time has passed) and updates them to reflect their expiration. It also creates or updates assignments for those expired calls.
     public void CloseExpiredCalls()
     {
@@ -227,8 +234,8 @@ internal class CallImplementation : BlApi.ICall
             throw new BlInvalidException($"Field '{validationResult}' is invalid.");
         try
         {
-            double? latitude= Helpers.CallManager.GetCoordinates(call.CallerAddress)[0];
-            double? longitude= Helpers.CallManager.GetCoordinates(call.CallerAddress)[1];
+            double? latitude = Helpers.CallManager.GetCoordinates(call.CallerAddress)[0];
+            double? longitude = Helpers.CallManager.GetCoordinates(call.CallerAddress)[1];
 
             DO.Call newCall = new DO.Call
             {

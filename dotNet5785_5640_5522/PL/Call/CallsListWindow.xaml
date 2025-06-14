@@ -4,12 +4,14 @@
         xmlns:bo="clr-namespace:BO;assembly=BL"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:PL.Converters"
-        Title="Calls List"
-        Height="650"
-        Width="1200"
+        Title="רשימת קריאות | Calls Management"
+        Height="700" 
+        Width="1300"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Loaded="Window_Loaded"
-        Closed="Window_Closed">
+        Closed="Window_Closed"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8F9FA">
 
     <Window.Resources>
         <ObjectDataProvider x:Key="CallSortFieldCollectionKey" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
@@ -36,115 +38,415 @@
         <converters:IsStatusAssignedConverter x:Key="IsStatusAssignedConverter"/>
         <converters:StatusToBackgroundConverter x:Key="StatusToBackgroundConverter"/>
 
-        <Style TargetType="Button">
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="8,4"/>
+        <!-- Modern Color Palette -->
+        <SolidColorBrush x:Key="PrimaryBlue" Color="#2563EB"/>
+        <SolidColorBrush x:Key="PrimaryBlueHover" Color="#1D4ED8"/>
+        <SolidColorBrush x:Key="DangerRed" Color="#DC2626"/>
+        <SolidColorBrush x:Key="DangerRedHover" Color="#B91C1C"/>
+        <SolidColorBrush x:Key="WarningOrange" Color="#EA580C"/>
+        <SolidColorBrush x:Key="WarningOrangeHover" Color="#C2410C"/>
+        <SolidColorBrush x:Key="SurfaceWhite" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderGray" Color="#E5E7EB"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#111827"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#6B7280"/>
+        <SolidColorBrush x:Key="BackgroundGray" Color="#F9FAFB"/>
+
+        <!-- Modern Button Styles -->
+        <Style x:Key="ModernPrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBlue}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryBlueHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#1E40AF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <Style x:Key="DataGridActionButton" TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Padding" Value="6,2"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="12"/>
+        <!-- Filter ComboBox Style -->
+        <Style x:Key="FilterComboBox" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Background" Value="{StaticResource SurfaceWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderGray}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton" 
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Grid.Column="2" 
+                                        Focusable="false"
+                                        IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                        ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="6">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="20"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Path x:Name="Arrow"
+                                                      Grid.Column="1"
+                                                      Fill="{StaticResource TextSecondary}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite"
+                                            IsHitTestVisible="False" 
+                                            Content="{TemplateBinding SelectionBoxItem}"
+                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                            Margin="12,8"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"/>
+                            <Popup Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True" 
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="{StaticResource SurfaceWhite}"
+                                            BorderThickness="1"
+                                            BorderBrush="{StaticResource BorderGray}"
+                                            CornerRadius="6"
+                                            Effect="{DynamicResource DropShadowEffect}"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+
+        <!-- DataGrid Action Button Styles -->
+        <Style x:Key="DeleteButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource DangerRed}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource DangerRedHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CancelButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource WarningOrange}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource WarningOrangeHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern Label Style -->
+        <Style x:Key="FilterLabel" TargetType="Label">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Drop Shadow Effect -->
+        <DropShadowEffect x:Key="DropShadowEffect" Color="Black" Direction="270" ShadowDepth="2" Opacity="0.1" BlurRadius="8"/>
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource SurfaceWhite}" BorderBrush="{StaticResource BorderGray}" BorderThickness="0,0,0,1">
+            <Grid Margin="24,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="ניהול קריאות" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimary}"/>
+                    <TextBlock Text="צפייה וניהול של כל הקריאות במערכת" FontSize="14" Foreground="{StaticResource TextSecondary}" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="#EBF8FF" CornerRadius="8" Padding="12,6" Margin="0,0,8,0">
+                        <TextBlock Text="{Binding CallList.Count, StringFormat='סה״כ: {0} קריאות'}" 
+                                   FontWeight="Medium" 
+                                   FontSize="13" 
+                                   Foreground="{StaticResource PrimaryBlue}"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
         <!-- Filters -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
-            <Label Content="Sort by:" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource CallSortFieldCollectionKey}}"
-                      SelectedValue="{Binding SelectedSortField}" Width="130"/>
+        <Border Grid.Row="1" Background="{StaticResource BackgroundGray}" BorderBrush="{StaticResource BorderGray}" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Margin="24,16" FlowDirection="RightToLeft">
 
-            <Label Content="Active:" Margin="20,0,0,0" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding IsActiveFilterOptions}" SelectedItem="{Binding SelectedIsActiveFilter}" Width="100">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource NullableBooleanConverter}}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                    <Label Content="מיון לפי:" Style="{StaticResource FilterLabel}"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource CallSortFieldCollectionKey}}"
+                              SelectedValue="{Binding SelectedSortField}"
+                              Width="140"
+                              Style="{StaticResource FilterComboBox}"/>
+                </StackPanel>
 
-            <Label Content="Status:" Margin="20,0,0,0" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding CallStatusOptions}" SelectedItem="{Binding SelectedCallStatusFilter}" Width="150">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource NullableEnumConverter}}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                    <Label Content="פעיל:" Style="{StaticResource FilterLabel}"/>
+                    <ComboBox ItemsSource="{Binding IsActiveFilterOptions}"
+                              SelectedItem="{Binding SelectedIsActiveFilter}"
+                              Width="100"
+                              Style="{StaticResource FilterComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource NullableBooleanConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
 
-            <Label Content="Type:" Margin="20,0,0,0" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding CallTypeOptions}" SelectedItem="{Binding SelectedCallTypeFilter}" Width="150">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource NullableEnumConverter}}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                    <Label Content="סטטוס:" Style="{StaticResource FilterLabel}"/>
+                    <ComboBox ItemsSource="{Binding CallStatusOptions}"
+                              SelectedItem="{Binding SelectedCallStatusFilter}"
+                              Width="150"
+                              Style="{StaticResource FilterComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource NullableEnumConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
 
-        <!-- DataGrid -->
-        <DataGrid Grid.Row="1" Margin="10"
-                  ItemsSource="{Binding CallList}"
-                  SelectedItem="{Binding SelectedCall}"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  MouseDoubleClick="DataGrid_MouseDoubleClick"
-                  RowHeight="30">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="80"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding CallStatus}" Width="100">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="Background" Value="{Binding CallStatus, Converter={StaticResource StatusToBackgroundConverter}}"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Binding="{Binding CallType}" Width="100"/>
-                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="140"/>
-                <DataGridTextColumn Header="Time Left" Binding="{Binding TimeLeft, StringFormat=\{0:mm\\:ss\}}" Width="100"/>
-                <DataGridTextColumn Header="Last Volunteer" Binding="{Binding LastVolunteerName}" Width="150"/>
-                <DataGridTextColumn Header="Treatment Time" Binding="{Binding TreatmentDuration}" Width="120"/>
-                <DataGridTextColumn Header="Total Assignments" Binding="{Binding TotalAssignments}" Width="80"/>
-                <DataGridTextColumn Header="Raw Status" Binding="{Binding Status}" Width="100"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="סוג:" Style="{StaticResource FilterLabel}"/>
+                    <ComboBox ItemsSource="{Binding CallTypeOptions}"
+                              SelectedItem="{Binding SelectedCallTypeFilter}"
+                              Width="150"
+                              Style="{StaticResource FilterComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource NullableEnumConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
 
-                <DataGridTemplateColumn Header="Delete" Width="80">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Delete" Click="DeleteCall_Click" Style="{StaticResource DataGridActionButton}">
-                                <Button.Visibility>
-                                    <MultiBinding Converter="{StaticResource CanDeleteCallConverter}">
-                                        <Binding Path="CallStatus"/>
-                                        <Binding Path="TotalAssignments"/>
-                                    </MultiBinding>
-                                </Button.Visibility>
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+            </StackPanel>
+        </Border>
 
-                <DataGridTemplateColumn Header="Cancel" Width="90">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Cancel" Click="CancelAssignment_Click" Style="{StaticResource DataGridActionButton}"
-                                    CommandParameter="{Binding}"
-                                    Visibility="{Binding CallStatus, Converter={StaticResource IsStatusAssignedConverter}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <!-- DataGrid Container -->
+        <Border Grid.Row="2" Background="{StaticResource SurfaceWhite}" Margin="24,16,24,0" CornerRadius="12" Effect="{StaticResource DropShadowEffect}">
+            <DataGrid ItemsSource="{Binding CallList}"
+                      SelectedItem="{Binding SelectedCall}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      MouseDoubleClick="DataGrid_MouseDoubleClick"
+                      RowHeight="44"
+                      GridLinesVisibility="None"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Margin="1">
 
-        <!-- Add Call -->
-        <Button Grid.Row="2" Content="Add New Call" Height="40" Width="180"
-                HorizontalAlignment="Center" Margin="10" Click="AddCall_Click"/>
+                <DataGrid.Resources>
+                    <!-- DataGrid Header Style -->
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#F8FAFC"/>
+                        <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="Padding" Value="16,12"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource BorderGray}"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+
+                    <!-- DataGrid Row Style -->
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F8FAFC"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#EBF8FF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <!-- DataGrid Cell Style -->
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Padding" Value="12,0"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Background="{TemplateBinding Background}" 
+                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="מזהה" Binding="{Binding Id}" Width="80"/>
+
+                    <DataGridTextColumn Header="סטטוס" Binding="{Binding CallStatus}" Width="120">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <Setter Property="Background" Value="{Binding CallStatus, Converter={StaticResource StatusToBackgroundConverter}}"/>
+                                <Setter Property="FontWeight" Value="Medium"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="סוג" Binding="{Binding CallType}" Width="100"/>
+                    <DataGridTextColumn Header="זמן התחלה" Binding="{Binding StartTime, StringFormat='{}{0:HH:mm dd/MM}'}" Width="120"/>
+                    <DataGridTextColumn Header="זמן נותר" Binding="{Binding TimeLeft, StringFormat=\{0:mm\\:ss\}}" Width="100"/>
+                    <DataGridTextColumn Header="מתנדב אחרון" Binding="{Binding LastVolunteerName}" Width="150"/>
+                    <DataGridTextColumn Header="זמן טיפול" Binding="{Binding TreatmentDuration}" Width="100"/>
+                    <DataGridTextColumn Header="סה״כ הקצאות" Binding="{Binding TotalAssignments}" Width="90"/>
+
+                    <DataGridTemplateColumn Header="פעולות" Width="180" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="מחק" 
+                                            Click="DeleteCall_Click" 
+                                            Style="{StaticResource DeleteButton}">
+                                        <Button.Visibility>
+                                            <MultiBinding Converter="{StaticResource CanDeleteCallConverter}">
+                                                <Binding Path="CallStatus"/>
+                                                <Binding Path="TotalAssignments"/>
+                                            </MultiBinding>
+                                        </Button.Visibility>
+                                    </Button>
+
+                                    <Button Content="בטל הקצאה" 
+                                            Click="CancelAssignment_Click" 
+                                            Style="{StaticResource CancelButton}"
+                                            CommandParameter="{Binding}" 
+                                            Margin="4,0,0,0"
+                                            Visibility="{Binding CallStatus, Converter={StaticResource IsStatusAssignedConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Footer with Add Button -->
+        <Border Grid.Row="3" Background="{StaticResource SurfaceWhite}" BorderBrush="{StaticResource BorderGray}" BorderThickness="0,1,0,0" Margin="0,16,0,0">
+            <Grid Margin="24,16">
+                <Button Content="הוסף קריאה חדשה" 
+                        Click="AddCall_Click"
+                        Style="{StaticResource ModernPrimaryButton}"
+                        HorizontalAlignment="Left"
+                        Width="180"
+                        Height="48"/>
+            </Grid>
+        </Border>
+
     </Grid>
 </Window>

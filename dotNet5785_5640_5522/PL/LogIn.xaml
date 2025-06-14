@@ -1,37 +1,185 @@
 ﻿<Window x:Class="PL.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="התחברות למערכת" Height="320" Width="420"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Border Background="#f7f7f7" Padding="20">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        Title="התחברות למערכת" Height="550" Width="520"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None">
 
-            <TextBlock Text="התחברות למערכת" FontSize="20" FontWeight="Bold"
-                       Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+    <Window.Resources>
+        <!-- גרדיאנט כחול עדין -->
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E3F2FD" Offset="0"/>
+            <GradientStop Color="#BBDEFB" Offset="1"/>
+        </LinearGradientBrush>
 
-            <Label Content="תעודת זהות:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,10"/>
-            <TextBox x:Name="IdTextBox" Grid.Row="1" Grid.Column="1" Height="30" Margin="0,0,0,10"
-                     PreviewTextInput="IdTextBox_PreviewTextInput"/>
+        <!-- צל עדין -->
+        <DropShadowEffect x:Key="SoftShadow" ShadowDepth="8" BlurRadius="20" 
+                         Opacity="0.15" Direction="270" Color="Black"/>
 
-            <Label Content="סיסמה:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,10"/>
-            <PasswordBox x:Name="PasswordBox" Grid.Row="2" Grid.Column="1" Height="30" Margin="0,0,0,10"/>
+        <!-- עיצוב TextBox -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        VerticalAlignment="Center" 
+                                        Padding="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-            <Button Content="התחבר" Grid.Row="3" Grid.ColumnSpan="2" Height="35" Margin="0,10,0,0"
-                    Background="#007ACC" Foreground="White" FontWeight="Bold" Click="LoginButton_Click"/>
+        <!-- עיצוב PasswordBox -->
+        <Style x:Key="ModernPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" 
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        VerticalAlignment="Center" 
+                                        Padding="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-            <TextBlock x:Name="StatusTextBlock" Grid.Row="4" Grid.ColumnSpan="2" Foreground="Red"
-                       TextWrapping="Wrap" Margin="0,15,0,0" TextAlignment="Center"/>
-        </Grid>
+        <!-- עיצוב Label -->
+        <Style x:Key="ModernLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="#424242"/>
+            <Setter Property="Margin" Value="0,15,0,5"/>
+        </Style>
+
+        <!-- עיצוב כפתור -->
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0,25,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                               CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1976D2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#1565C0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- רקע עם גרדיאנט -->
+    <Border Background="{StaticResource BackgroundGradient}">
+        <!-- חלון ראשי עם צל -->
+        <Border Background="White" CornerRadius="20" Effect="{StaticResource SoftShadow}"
+                Margin="40" Padding="50">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- אייקון ראשי -->
+                <Ellipse Grid.Row="0" Width="80" Height="80" 
+                        Fill="#2196F3" Margin="0,0,0,20" 
+                        HorizontalAlignment="Center">
+                    <Ellipse.Effect>
+                        <DropShadowEffect ShadowDepth="4" BlurRadius="12" 
+                                        Opacity="0.2" Direction="270" Color="#2196F3"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+
+                <!-- טקסט מעל האייקון -->
+                <TextBlock Grid.Row="0" Text="👤" FontSize="36" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center" 
+                          Foreground="White" Margin="0,0,0,20"/>
+
+                <!-- כותרת -->
+                <TextBlock Grid.Row="1" Text="התחברות למערכת" 
+                          FontSize="28" FontWeight="Light" 
+                          HorizontalAlignment="Center" 
+                          Foreground="#212121" Margin="0,0,0,30"/>
+
+                <!-- שדה תעודת זהות -->
+                <Label Grid.Row="2" Content="תעודת זהות:" 
+                      Style="{StaticResource ModernLabel}"/>
+                <TextBox Grid.Row="3" x:Name="IdTextBox" 
+                        Style="{StaticResource ModernTextBox}"
+                        PreviewTextInput="IdTextBox_PreviewTextInput"/>
+
+                <!-- שדה סיסמה -->
+                <Label Grid.Row="4" Content="סיסמה:" 
+                      Style="{StaticResource ModernLabel}"/>
+                <PasswordBox Grid.Row="5" x:Name="PasswordBox" 
+                            Style="{StaticResource ModernPasswordBox}"/>
+
+                <!-- כפתור התחברות -->
+                <Button Grid.Row="6" Content="התחבר" 
+                       Style="{StaticResource ModernButton}"
+                       Click="LoginButton_Click"/>
+
+                <!-- הודעת שגיאה -->
+                <TextBlock Grid.Row="7" x:Name="StatusTextBlock" 
+                          Foreground="#F44336" TextWrapping="Wrap" 
+                          Margin="0,20,0,0" TextAlignment="Center"
+                          FontSize="13" VerticalAlignment="Top"/>
+            </Grid>
+        </Border>
     </Border>
 </Window>
