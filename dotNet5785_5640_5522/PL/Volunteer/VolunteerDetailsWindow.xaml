@@ -216,7 +216,7 @@
                                  Style="{StaticResource ModernTextBox}"/>
 
                         <Label Content="סיסמה:" Style="{StaticResource ModernLabel}"/>
-                        <PasswordBox x:Name="passwordBox" Style="{StaticResource ModernPasswordBox}"/>
+                        <PasswordBox x:Name="passwordBox" Style="{StaticResource ModernPasswordBox}" IsEnabled="{Binding IsNewVolunteer}"/>
 
                         <Label Content="מייל:" Style="{StaticResource ModernLabel}"/>
                         <TextBox Text="{Binding Volunteer.Email, UpdateSourceTrigger=PropertyChanged}" 

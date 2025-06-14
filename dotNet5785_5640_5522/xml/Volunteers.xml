@@ -14,19 +14,6 @@
     <MaxOfDistance>29.59577600409367</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>243215421</Id>
-    <FullName>Johnson</FullName>
-    <PhoneNumber>0509876543</PhoneNumber>
-    <Email>sarah.johnson@example.com</Email>
-    <Password>Secure456!</Password>
-    <Address>456 Allenby St, Tel Aviv</Address>
-    <Longitude>34.7821</Longitude>
-    <Latitude>32.0855</Latitude>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <MaxOfDistance>45.74264543798886</MaxOfDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>336969004</Id>
     <FullName>Williams</FullName>
     <PhoneNumber>0543216789</PhoneNumber>
@@ -131,19 +118,6 @@
     <MaxOfDistance>34.9790268591028</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>203851485</Id>
-    <FullName>Clark</FullName>
-    <PhoneNumber>0523334444</PhoneNumber>
-    <Email>ethan.clark@example.com</Email>
-    <Password>BetterSafe8!</Password>
-    <Address>210 Bograshov St, Tel Aviv</Address>
-    <Longitude>34.7815</Longitude>
-    <Latitude>32.0853</Latitude>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <MaxOfDistance>34.197264019690024</MaxOfDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>302892243</Id>
     <FullName>Lopez</FullName>
     <PhoneNumber>0532221111</PhoneNumber>
@@ -194,6 +168,19 @@
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <MaxOfDistance>21.187455726162526</MaxOfDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>243215421</Id>
+    <FullName>Johnson</FullName>
+    <PhoneNumber>0509876543</PhoneNumber>
+    <Email>sarah.johnson@example.com</Email>
+    <Password>1166</Password>
+    <Address>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</Address>
+    <Longitude>-122.084614</Longitude>
+    <Latitude>37.4217636</Latitude>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <MaxOfDistance>45.74264543798886</MaxOfDistance>
   </Volunteer>
   <Volunteer>
     <Id>328265640</Id>

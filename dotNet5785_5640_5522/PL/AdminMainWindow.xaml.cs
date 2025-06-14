@@ -233,6 +233,8 @@ public partial class AdminMainWindow : Window
         ActiveButton.Content = $"פעילות ({activeCount})";
         ClosedButton.Content = $"סגורות ({closedCount})";
     }
-
-
+    private void ResetSystemClock(object sender, RoutedEventArgs e)
+    {
+        
+    }
 }

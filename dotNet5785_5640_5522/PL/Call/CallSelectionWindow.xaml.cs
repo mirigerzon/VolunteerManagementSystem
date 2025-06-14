@@ -1,6 +1,7 @@
 ﻿// CallSelectionWindow.xaml.cs
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,14 +14,24 @@ namespace PL.Volunteer
         private readonly BlApi.IBl bl = BlApi.Factory.Get();
         public event PropertyChangedEventHandler PropertyChanged;
         public BO.Volunteer Volunteer { get; set; }
-        public IEnumerable<OpenCallInList> OpenCalls { get; set; }
-        public OpenCallInList SelectedCall { get; set; }
+        public ObservableCollection<OpenCallInList> OpenCalls { get; set; }
+        private OpenCallInList selectedCall;
+        public OpenCallInList SelectedCall
+        {
+            get => selectedCall;
+            set
+            {
+                selectedCall = value;
+                OnPropertyChanged(nameof(SelectedCall));
+                OnPropertyChanged(nameof(Description));
+            }
+        }
         public string Description => SelectedCall?.Description;
 
         public CallSelectionWindow(BO.Volunteer volunteer)
         {
             Volunteer = volunteer;
-            OpenCalls = bl.Call.GetOpenCallsForVolunteer(volunteer.Id);
+            OpenCalls = new ObservableCollection<OpenCallInList>(bl.Call.GetOpenCallsForVolunteer(volunteer.Id));
             InitializeComponent();
             DataContext = this;
         }
@@ -53,10 +64,31 @@ namespace PL.Volunteer
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         private void CallsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            OnPropertyChanged(nameof(SelectedCall));
+            OnPropertyChanged(nameof(Description));
         }
         private void ChooseCall_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (sender is Button button && button.DataContext is OpenCallInList clickedCall)
+                {
+                    SelectedCall = clickedCall;
+                }
+                if (SelectedCall == null)
+                {
+                    MessageBox.Show("יש לבחור קריאה מתוך הרשימה", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                bl.Call.RequestAssignmentTreatment(Volunteer.Id, SelectedCall.Id);
+                MessageBox.Show("הקריאה הוקצתה בהצלחה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
     }

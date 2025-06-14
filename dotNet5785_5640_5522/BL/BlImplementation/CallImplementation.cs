@@ -300,8 +300,9 @@ internal class CallImplementation : BlApi.ICall
             var volunteer = _dal.Volunteer.Read(volunteerId);
             var openCalls = _dal.Call.ReadAll()
                 .Where(call =>
-                    call.Status == DO.Enums.CallStatusEnum.Open ||
-                    call.Status == DO.Enums.CallStatusEnum.Aborted)
+                    (call.Status == DO.Enums.CallStatusEnum.Open ||
+                    call.Status == DO.Enums.CallStatusEnum.Aborted) &&
+                    call.MaxEndTime > _dal.Config.Clock)
                 .Select(call => new OpenCallInList
                 {
                     Id = call.Id,
@@ -410,9 +411,9 @@ internal class CallImplementation : BlApi.ICall
             var existingAssignment = _dal.Assignment.ReadAll()
                 .Where(a => a.CallId == callId)
                 .ToList();
-            if (existingAssignment != null || call.Status == CallStatusEnum.InProgress || call.MaxEndTime < _dal.Config.Clock)
+            if (call.MaxEndTime < _dal.Config.Clock)
             {
-                throw new BlInvalidException($"Call {callId} already has an expired or in-progress assignment.");
+                throw new BlInvalidException($"Call {callId} already has an expired.");
             }
             var assignmentToAdd = new DO.Assignment
             {

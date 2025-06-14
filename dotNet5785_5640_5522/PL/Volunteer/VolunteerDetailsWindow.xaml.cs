@@ -66,7 +66,8 @@ public partial class VolunteerDetailsWindow : Window, INotifyPropertyChanged
     {
         try
         {
-            Volunteer.Password = passwordBox.Password;
+            if (passwordBox.Password != "")
+                Volunteer.Password = passwordBox.Password;
             if (ButtonText == "Add")
             {
                 s_bl.Volunteer.Create(Volunteer);

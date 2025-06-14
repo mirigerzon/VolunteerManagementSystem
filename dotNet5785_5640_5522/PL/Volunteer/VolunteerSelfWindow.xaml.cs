@@ -61,14 +61,13 @@ namespace PL.Volunteer
         public VolunteerSelfWindow(BO.Volunteer volunteer)
         {
             Volunteer = volunteer;
-
             try
             {
-                var activeAssignments = bl.Call.GetOpenCallsForVolunteer(Volunteer.Id);
-                if (activeAssignments != null && activeAssignments.Count > 0)
+                var activeAssignments = volunteer.CurrentCall;
+                if (activeAssignments != null)
                 {
-                    ActiveAssignment = activeAssignments[0];
-                    ActiveCall = bl.Call.Read(ActiveAssignment.Id);
+
+                    ActiveCall = bl.Call.Read(activeAssignments.CallId);
                 }
             }
             catch (Exception ex)

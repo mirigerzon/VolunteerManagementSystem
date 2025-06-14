@@ -20,7 +20,7 @@
         <!-- רשימת קריאות -->
         <ListView Grid.Row="1" Grid.Column="0" 
                   ItemsSource="{Binding OpenCalls}" 
-                  SelectedItem="{Binding SelectedCall}" 
+                  SelectedItem="{Binding SelectedCall,Mode=TwoWay}" 
                   SelectionChanged="CallsList_SelectionChanged">
             <ListView.View>
                 <GridView>

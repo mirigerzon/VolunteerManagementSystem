@@ -257,18 +257,21 @@
                             </Border>
 
                             <WrapPanel HorizontalAlignment="Center">
-                                <Button Content="+ דקה" Style="{StaticResource SecondaryButton}"
+                                <Button Content="דקה +" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
                                        Click="BtnAdvanceMinute_Click"/>
-                                <Button Content="+ שעה" Style="{StaticResource SecondaryButton}"
+                                <Button Content="שעה +" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
                                        Click="BtnAdvanceHour_Click"/>
-                                <Button Content="+ יום" Style="{StaticResource SecondaryButton}"
+                                <Button Content="יום +" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
                                        Click="BtnAdvanceDay_Click"/>
-                                <Button Content="+ שנה" Style="{StaticResource SecondaryButton}"
+                                <Button Content="שנה +" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
                                        Click="BtnAdvanceYear_Click"/>
+                                <Button Content="איפוס" Style="{StaticResource SecondaryButton}"
+                                       FontSize="16" Height="45" Padding="25,10"
+                                       Click="ResetSystemClock"/>
                             </WrapPanel>
                         </StackPanel>
                     </GroupBox>
