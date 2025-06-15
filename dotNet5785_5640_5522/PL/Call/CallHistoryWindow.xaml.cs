@@ -17,7 +17,7 @@ namespace PL.Volunteer
             get => _closedCalls;
             set { _closedCalls = value; OnPropertyChanged(nameof(ClosedCalls)); }
         }
-
+            
         public CallHistoryWindow(BO.Volunteer volunteer)
         {
             Volunteer = volunteer;

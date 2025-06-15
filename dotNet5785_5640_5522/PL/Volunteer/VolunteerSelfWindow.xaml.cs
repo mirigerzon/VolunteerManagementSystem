@@ -118,7 +118,6 @@ namespace PL.Volunteer
             {
                 bl.Call.CancelAssignmentTreatment(Volunteer.Id, ActiveAssignment.Id);
                 MessageBox.Show("הטיפול בקריאה בוטל", "ביטול טיפול", MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
             }
             catch (Exception ex)
             {

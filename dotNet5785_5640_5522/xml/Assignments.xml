@@ -288,4 +288,20 @@
     <EndTime>2025-06-15T05:12:48</EndTime>
     <EndStatus>Treated</EndStatus>
   </Assignment>
+  <Assignment>
+    <Id>36</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>9</CallId>
+    <ArrivalTime>2025-06-15T05:12:48</ArrivalTime>
+    <EndTime>2025-06-15T05:12:48</EndTime>
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>37</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>5</CallId>
+    <ArrivalTime>2025-06-15T05:12:48</ArrivalTime>
+    <EndTime>2025-06-15T05:12:48</EndTime>
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
 </ArrayOfAssignment>

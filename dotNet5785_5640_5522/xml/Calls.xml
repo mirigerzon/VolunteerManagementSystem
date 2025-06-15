@@ -89,17 +89,6 @@
     <MaxEndTime>2023-10-29T05:00:00</MaxEndTime>
   </Call>
   <Call>
-    <Id>9</Id>
-    <Status>New</Status>
-    <Type>None</Type>
-    <Description>Overheated car needs radiator water</Description>
-    <CallerAddress>112 Walnut St, Petah Tikva</CallerAddress>
-    <Latitude>30.86055974509123</Latitude>
-    <Longitude>34.518279184868526</Longitude>
-    <StartTime>2024-04-07T00:00:00</StartTime>
-    <MaxEndTime xsi:nil="true" />
-  </Call>
-  <Call>
     <Id>10</Id>
     <Status>New</Status>
     <Type>Technical</Type>
@@ -548,6 +537,17 @@
     <Latitude>30.62248650211221</Latitude>
     <Longitude>35.57090631738714</Longitude>
     <StartTime>2023-06-11T00:00:00</StartTime>
+    <MaxEndTime xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>9</Id>
+    <Status>Resolved</Status>
+    <Type>None</Type>
+    <Description>Overheated car needs radiator water</Description>
+    <CallerAddress>112 Walnut St, Petah Tikva</CallerAddress>
+    <Latitude>30.86055974509123</Latitude>
+    <Longitude>34.518279184868526</Longitude>
+    <StartTime>2024-04-07T00:00:00</StartTime>
     <MaxEndTime xsi:nil="true" />
   </Call>
 </ArrayOfCall>
