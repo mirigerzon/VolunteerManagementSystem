@@ -265,34 +265,41 @@ internal class CallImplementation : BlApi.ICall
     {
         try
         {
-            var allClosedCalls = _dal.Call.ReadAll()
-                .Where(call =>
-                    call.Status == DO.Enums.CallStatusEnum.Closed &&
-                    _dal.Assignment.Read(call.Id).VolunteerId == volunteerId)
-                .Select(call => Helpers.CallManager.ConvertToClosedCallInList(call));
+            var volunteerAssignments = _dal.Assignment.ReadAll()
+                .Where(a => a.VolunteerId == volunteerId && a.EndTime != null)
+                .ToList();
+            var closedCalls = volunteerAssignments.Select(a =>
+            {
+                var call = _dal.Call.Read(a.CallId);
+                return new ClosedCallInList
+                {
+                    Id = call.Id,
+                    CallType = (CallType)call.Type,
+                    Address = call.CallerAddress,
+                    OpenedAt = call.StartTime,
+                    AssignedAt = a.ArrivalTime,
+                    ClosedAt = a.EndTime,
+                    ClosureType = a.EndStatus.HasValue
+                        ? Enum.TryParse<ClosureType>(a.EndStatus.ToString(), out var ct) ? ct : null
+                        : null
+                };
+            });
             if (filterByType.HasValue)
             {
-                allClosedCalls = allClosedCalls
-                    .Where(call => call.CallType == filterByType.Value);
+                closedCalls = closedCalls.Where(c => c.CallType == filterByType.Value);
             }
-            if (sortByClosureType.HasValue)
-            {
-                allClosedCalls = allClosedCalls
-                    .OrderBy(call => call.ClosureType.HasValue ? call.ClosureType.Value : ClosureType.Treated);
-            }
-            else
-            {
-                allClosedCalls = allClosedCalls
-                    .OrderBy(call => call.Id);
-            }
-            return allClosedCalls.ToList();
+            closedCalls = sortByClosureType.HasValue
+                ? closedCalls.OrderBy(c => c.ClosureType ?? ClosureType.Treated)
+                : closedCalls.OrderBy(c => c.Id);
+
+            return closedCalls.ToList();
         }
         catch (Exception ex)
         {
             throw new BlInvalidException("Failed to get closed calls of volunteer.", ex);
         }
     }
-    //This method provides a list of open or aborted calls for a volunteer, with sorting by various fields like opening time, max finish time, and distance from the volunteer.
+
     public List<OpenCallInList> GetOpenCallsForVolunteer(int volunteerId, CallType? filterByType = null, OpenCallSortField? sortByField = null)
     {
         try
@@ -300,9 +307,11 @@ internal class CallImplementation : BlApi.ICall
             var volunteer = _dal.Volunteer.Read(volunteerId);
             var openCalls = _dal.Call.ReadAll()
                 .Where(call =>
+                    // רק קריאות שעדיין לא הוקצו
                     (call.Status == DO.Enums.CallStatusEnum.Open ||
-                    call.Status == DO.Enums.CallStatusEnum.Aborted) &&
-                    call.MaxEndTime > _dal.Config.Clock)
+                     call.Status == DO.Enums.CallStatusEnum.New ||
+                     call.Status == DO.Enums.CallStatusEnum.Aborted) &&
+                    (call.MaxEndTime == null || call.MaxEndTime > _dal.Config.Clock))
                 .Select(call => new OpenCallInList
                 {
                     Id = call.Id,
@@ -313,10 +322,12 @@ internal class CallImplementation : BlApi.ICall
                     MaxFinishTime = call.MaxEndTime,
                     DistanceFromVolunteer = Helpers.CallManager.CalculateDistance(volunteer.Longitude, volunteer.Latitude, call.Longitude, call.Latitude)
                 });
+
             if (filterByType.HasValue)
             {
                 openCalls = openCalls.Where(call => call.CallType == filterByType.Value);
             }
+
             if (sortByField.HasValue)
             {
                 openCalls = sortByField.Value switch
@@ -330,8 +341,9 @@ internal class CallImplementation : BlApi.ICall
             }
             else
             {
-                openCalls = openCalls.OrderBy(call => call.Id); //stage 5
+                openCalls = openCalls.OrderBy(call => call.Id);
             }
+
             return openCalls.ToList();
         }
         catch (Exception ex)
@@ -339,7 +351,6 @@ internal class CallImplementation : BlApi.ICall
             throw new BlInvalidException("Failed to get open calls for volunteer.", ex);
         }
     }
-    //This method updates the end treatment status for an assignment, marking it as "treated" once the volunteer finishes their treatment.
     public void UpdateEndTreatment(int id, int assignmentId)
     {
         try
@@ -347,13 +358,17 @@ internal class CallImplementation : BlApi.ICall
             var assignment = _dal.Assignment.Read(assignmentId);
             if (assignment == null)
                 throw new BlDoesNotExistException($"Assignment with ID {assignmentId} not found.");
+
             var call = _dal.Call.Read(assignment.CallId);
             if (call == null)
                 throw new BlDoesNotExistException($"Call with ID {assignment.CallId} not found.");
+
             if (assignment.VolunteerId != id)
                 throw new BlInvalidException($"Assignment {assignmentId} does not belong to volunteer {id}.");
+
             if (assignment.EndTime != null && assignment.EndStatus != null)
                 throw new BlInvalidException($"Assignment {assignmentId} has already been finished.");
+
             var assignmentToUpdate = new DO.Assignment
             {
                 Id = assignment.Id,
@@ -364,14 +379,20 @@ internal class CallImplementation : BlApi.ICall
                 EndStatus = TerminationTypeEnum.Treated
             };
             _dal.Assignment.Update(assignmentToUpdate);
-            CallManager.Observers.NotifyListUpdated(); //stage 5
-            CallManager.Observers.NotifyItemUpdated(call.Id); //stage 5
+
+            var updatedCall = call with { Status = DO.Enums.CallStatusEnum.Resolved }; // או כל סטטוס שמתאים
+            _dal.Call.Update(updatedCall);
+
+            // עדכון תצוגה
+            CallManager.Observers.NotifyListUpdated(); // stage 5
+            CallManager.Observers.NotifyItemUpdated(call.Id); // stage 5
         }
         catch (Exception ex)
         {
             throw new BlInvalidException("Failed to update end treatment.", ex);
         }
     }
+
     //This method allows a volunteer (or manager) to cancel an assignment, marking it as canceled either by the volunteer or by the manager.
     public void CancelAssignmentTreatment(int volunteerId, int assignmentId)
     {
@@ -403,7 +424,7 @@ internal class CallImplementation : BlApi.ICall
         }
     }
     //This method handle the creation of an assignment for a volunteer to a service call. 
-    public void RequestAssignmentTreatment(int voluneetId, int callId)
+    public CallInProgress RequestAssignmentTreatment(int voluneetId, int callId)
     {
         try
         {
@@ -417,6 +438,7 @@ internal class CallImplementation : BlApi.ICall
             }
             var assignmentToAdd = new DO.Assignment
             {
+                Id = _dal.Config.GetNextAssignmentId(),
                 VolunteerId = voluneetId,
                 CallId = callId,
                 ArrivalTime = _dal.Config.Clock,
@@ -424,6 +446,13 @@ internal class CallImplementation : BlApi.ICall
                 EndStatus = null
             };
             _dal.Assignment.Create(assignmentToAdd);
+            return new BO.CallInProgress
+            {
+                Id = assignmentToAdd.Id,
+                CallId = assignmentToAdd.CallId,
+                StartTime = assignmentToAdd.ArrivalTime!.Value,
+                Status = CallInProgressStatus.InProgress
+            };
         }
         catch (Exception ex)
         {

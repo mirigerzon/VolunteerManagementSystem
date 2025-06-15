@@ -37,7 +37,7 @@ public class Volunteer
     public int TotalHandledCalls { get; init; }
     public int TotalCanceledCalls { get; init; }
     public int ExpiredCallsCount { get; init; }
-    public CallInProgress? CurrentCall { get; init; }
+    public CallInProgress? CurrentCall { get; set; }
     public override string ToString()
     {
         return $"\n ------------------------------- \n " +

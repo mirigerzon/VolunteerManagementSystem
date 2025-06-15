@@ -11,10 +11,36 @@
     <Latitude>32.085299</Latitude>
     <Role>Admin</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>29.59577600409367</MaxOfDistance>
+    <MaxOfDistance>39.61659613929115</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>336969004</Id>
+    <Id>213993627</Id>
+    <FullName>Smith</FullName>
+    <PhoneNumber>0501234567</PhoneNumber>
+    <Email>michael.smith@example.com</Email>
+    <Password>Pass123!</Password>
+    <Address>123 Rothschild Blvd, Tel Aviv</Address>
+    <Longitude>34.7818</Longitude>
+    <Latitude>32.0853</Latitude>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <MaxOfDistance>28.339645581652242</MaxOfDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>358249158</Id>
+    <FullName>Johnson</FullName>
+    <PhoneNumber>0509876543</PhoneNumber>
+    <Email>sarah.johnson@example.com</Email>
+    <Password>Secure456!</Password>
+    <Address>456 Allenby St, Tel Aviv</Address>
+    <Longitude>34.7821</Longitude>
+    <Latitude>32.0855</Latitude>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <MaxOfDistance>33.30782229016733</MaxOfDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>288211071</Id>
     <FullName>Williams</FullName>
     <PhoneNumber>0543216789</PhoneNumber>
     <Email>david.williams@example.com</Email>
@@ -24,10 +50,10 @@
     <Latitude>32.0854</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>25.0998786561813</MaxOfDistance>
+    <MaxOfDistance>34.27480045157739</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>384055734</Id>
+    <Id>270447077</Id>
     <FullName>Brown</FullName>
     <PhoneNumber>0526547890</PhoneNumber>
     <Email>emma.brown@example.com</Email>
@@ -37,10 +63,10 @@
     <Latitude>32.0852</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>40.29106206812317</MaxOfDistance>
+    <MaxOfDistance>20.738305287522852</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>253798272</Id>
+    <Id>371887676</Id>
     <FullName>Jones</FullName>
     <PhoneNumber>0534567890</PhoneNumber>
     <Email>daniel.jones@example.com</Email>
@@ -50,10 +76,10 @@
     <Latitude>32.0856</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>17.515131144083604</MaxOfDistance>
+    <MaxOfDistance>28.842753412751236</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>323218582</Id>
+    <Id>269085827</Id>
     <FullName>Garcia</FullName>
     <PhoneNumber>0501112233</PhoneNumber>
     <Email>sophia.garcia@example.com</Email>
@@ -63,10 +89,10 @@
     <Latitude>32.0853</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>48.83242082336512</MaxOfDistance>
+    <MaxOfDistance>15.13197382134146</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>359344415</Id>
+    <Id>339307422</Id>
     <FullName>Miller</FullName>
     <PhoneNumber>0512345678</PhoneNumber>
     <Email>james.miller@example.com</Email>
@@ -76,10 +102,10 @@
     <Latitude>32.0855</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>24.922949392424265</MaxOfDistance>
+    <MaxOfDistance>28.539015071371264</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>247165557</Id>
+    <Id>221106196</Id>
     <FullName>Davis</FullName>
     <PhoneNumber>0545678901</PhoneNumber>
     <Email>olivia.davis@example.com</Email>
@@ -89,10 +115,10 @@
     <Latitude>32.0854</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>38.934343147814495</MaxOfDistance>
+    <MaxOfDistance>31.121711795089865</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>390841949</Id>
+    <Id>259194717</Id>
     <FullName>Martinez</FullName>
     <PhoneNumber>0527890123</PhoneNumber>
     <Email>john.martinez@example.com</Email>
@@ -102,10 +128,10 @@
     <Latitude>32.0852</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>17.71789615590999</MaxOfDistance>
+    <MaxOfDistance>38.974013850170266</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>389855693</Id>
+    <Id>209592228</Id>
     <FullName>Hernandez</FullName>
     <PhoneNumber>0506789012</PhoneNumber>
     <Email>mia.hernandez@example.com</Email>
@@ -115,10 +141,23 @@
     <Latitude>32.0856</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>34.9790268591028</MaxOfDistance>
+    <MaxOfDistance>36.98751164316405</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>302892243</Id>
+    <Id>222081528</Id>
+    <FullName>Clark</FullName>
+    <PhoneNumber>0523334444</PhoneNumber>
+    <Email>ethan.clark@example.com</Email>
+    <Password>BetterSafe8!</Password>
+    <Address>210 Bograshov St, Tel Aviv</Address>
+    <Longitude>34.7815</Longitude>
+    <Latitude>32.0853</Latitude>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <MaxOfDistance>28.66270917014331</MaxOfDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>226339744</Id>
     <FullName>Lopez</FullName>
     <PhoneNumber>0532221111</PhoneNumber>
     <Email>isabella.lopez@example.com</Email>
@@ -128,10 +167,10 @@
     <Latitude>32.0855</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>9.664064554664273</MaxOfDistance>
+    <MaxOfDistance>5.142122813333809</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>307787507</Id>
+    <Id>202751148</Id>
     <FullName>Taylor</FullName>
     <PhoneNumber>0545556666</PhoneNumber>
     <Email>noah.taylor@example.com</Email>
@@ -141,10 +180,10 @@
     <Latitude>32.0854</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>41.61091833362374</MaxOfDistance>
+    <MaxOfDistance>16.22754749760178</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>339402588</Id>
+    <Id>220366972</Id>
     <FullName>Lee</FullName>
     <PhoneNumber>0507778888</PhoneNumber>
     <Email>liam.lee@example.com</Email>
@@ -154,10 +193,10 @@
     <Latitude>32.0852</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>12.59099093176842</MaxOfDistance>
+    <MaxOfDistance>19.061210684258988</MaxOfDistance>
   </Volunteer>
   <Volunteer>
-    <Id>292609928</Id>
+    <Id>268214138</Id>
     <FullName>Anderson</FullName>
     <PhoneNumber>0519990000</PhoneNumber>
     <Email>ava.anderson@example.com</Email>
@@ -167,32 +206,6 @@
     <Latitude>32.0856</Latitude>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <MaxOfDistance>21.187455726162526</MaxOfDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>243215421</Id>
-    <FullName>Johnson</FullName>
-    <PhoneNumber>0509876543</PhoneNumber>
-    <Email>sarah.johnson@example.com</Email>
-    <Password>1166</Password>
-    <Address>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</Address>
-    <Longitude>-122.084614</Longitude>
-    <Latitude>37.4217636</Latitude>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <MaxOfDistance>45.74264543798886</MaxOfDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>328265640</Id>
-    <FullName>מירי</FullName>
-    <PhoneNumber>0583286530</PhoneNumber>
-    <Email>a0583286530@gmail.com</Email>
-    <Password>1166</Password>
-    <Address>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</Address>
-    <Longitude>-122.084614</Longitude>
-    <Latitude>37.4217636</Latitude>
-    <Role>Admin</Role>
-    <IsActive>true</IsActive>
-    <MaxOfDistance>30000</MaxOfDistance>
+    <MaxOfDistance>9.233080547260824</MaxOfDistance>
   </Volunteer>
 </ArrayOfVolunteer>

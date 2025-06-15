@@ -17,6 +17,7 @@ public static class Enums
         New,
         Open,
         InProgress,
+        Treated,
         Resolved, 
         Closed,
         Expired,

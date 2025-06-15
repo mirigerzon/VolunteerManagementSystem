@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PL.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="התחברות למערכת" Height="550" Width="520"
+        Title="התחברות למערכת" Height="650" Width="520"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Background="Transparent" AllowsTransparency="True" WindowStyle="None">
 

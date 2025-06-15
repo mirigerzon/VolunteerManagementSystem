@@ -26,8 +26,8 @@ namespace PL.Volunteer
                 OnPropertyChanged(nameof(Description));
             }
         }
+        public CallInProgress SelectedAssignment { get; set; }
         public string Description => SelectedCall?.Description;
-
         public CallSelectionWindow(BO.Volunteer volunteer)
         {
             Volunteer = volunteer;
@@ -35,7 +35,6 @@ namespace PL.Volunteer
             InitializeComponent();
             DataContext = this;
         }
-
         private void Select_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -52,14 +51,12 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             OnPropertyChanged(nameof(SelectedCall));
             OnPropertyChanged(nameof(Description));
             // TODO: עדכון מפה
         }
-
         private void OnPropertyChanged(string name)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         private void CallsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -80,16 +77,16 @@ namespace PL.Volunteer
                     MessageBox.Show("יש לבחור קריאה מתוך הרשימה", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-
-                bl.Call.RequestAssignmentTreatment(Volunteer.Id, SelectedCall.Id);
-                MessageBox.Show("הקריאה הוקצתה בהצלחה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                var assignment = bl.Call.RequestAssignmentTreatment(Volunteer.Id, SelectedCall.Id);
+                SelectedAssignment = assignment;
+                this.DialogResult = true;
                 this.Close();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
     }
 }

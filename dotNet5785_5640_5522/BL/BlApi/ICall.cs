@@ -31,5 +31,5 @@ public interface ICall : IObservable
     List<OpenCallInList> GetOpenCallsForVolunteer(int volunteerId, CallType? filterByType = null, OpenCallSortField? sortByField = null);
     void UpdateEndTreatment(int id, int assignmentId);
     void CancelAssignmentTreatment(int volunteerId, int assignmentId);
-    void RequestAssignmentTreatment(int voluneetId, int callId);
+    CallInProgress RequestAssignmentTreatment(int voluneetId, int callId);
 }

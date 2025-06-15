@@ -2,6 +2,7 @@
 using DalApi;
 using BlApi;
 using Helpers;
+using DO;
 
 namespace BlImplementation;
 public class VolunteerImplementation : BlApi.IVolunteer
@@ -171,6 +172,20 @@ public class VolunteerImplementation : BlApi.IVolunteer
         catch (Exception ex)
         {
             throw new BlInvalidException("Error adding volunteer.", ex);
+        }
+    }
+    public IEnumerable<Assignment> GetAssignmentHistory(int volunteerId)
+    {
+        try
+        {
+            return _dal.Assignment
+                .ReadAll()
+                .Where(a => a.VolunteerId == volunteerId && a.EndTime != null)
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            throw new BlInvalidException("Failed to get volunteer's assignment history.", ex);
         }
     }
     public void AddObserver(Action listObserver) =>

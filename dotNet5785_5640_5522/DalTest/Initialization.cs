@@ -239,31 +239,42 @@ public static class Initialization
     //Creates random assignments linking volunteers to calls and adds them to the system.
     private static void CreateAssignment()
     {
-        // Ensure that volunteers, calls, and assignment dependencies are initialized
-        if (s_dal.Volunteer == null || s_dal.Call == null || s_dal.Assignment == null || s_dal.Config == null) // stage 2
+        if (s_dal.Volunteer == null || s_dal.Call == null || s_dal.Assignment == null || s_dal.Config == null)
             throw new DalDependencyNotInitializedException("\n Dependencies not initialized.");
-        // Fetch all existing volunteers and calls
-        var allVolunteers = s_dal?.Volunteer.ReadAll().ToList(); //stage 2
-        var allCalls = s_dal?.Call.ReadAll().ToList(); //stage 2
+
+        var allVolunteers = s_dal?.Volunteer.ReadAll().ToList();
+        var allCalls = s_dal?.Call.ReadAll().ToList();
+
         if (allVolunteers == null || allCalls == null || !allVolunteers.Any() || !allCalls.Any())
             throw new DalMissingDataException("\n Volunteers or Calls data is missing.");
-        // Define a starting date two years prior to the current date
-        DateTime startDate = new DateTime(s_dal.Config.Clock.Year - 2, 1, 1); //stage 2
-        // Ensure the range is positive before using it
-        int range = (s_dal.Config.Clock - startDate).Days; //stage 2
+
+        DateTime startDate = new DateTime(s_dal.Config.Clock.Year - 2, 1, 1);
+        int range = (s_dal.Config.Clock - startDate).Days;
         if (range <= 0)
             throw new DalInvalidException("\n Invalid date range. The start date is later than the current date.");
-        // Generate a random start time within the range
-        DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
-        // Generate a random end time (it could be null or between 1 and 180 minutes after the start time)
-        DateTime? randomEndTime = s_rand.Next(0, 2) == 0 ?
-            (DateTime?)null :
-            randomStartTime.AddMinutes(s_rand.Next(1, 181));
-        // Create 35 random assignments (at least 15 unassigned)
+
+        int activeAssignmentsCount = 15;
+
         for (int i = 0; i < 35; i++)
         {
             var volunteer = allVolunteers[s_rand.Next(allVolunteers.Count)];
             var call = allCalls[s_rand.Next(allCalls.Count)];
+
+            DateTime randomStartTime = startDate.AddDays(s_rand.Next(range));
+
+            DateTime? randomEndTime;
+            if (i < activeAssignmentsCount)
+            {
+                if (s_rand.Next(2) == 0)
+                    randomEndTime = null;
+                else
+                    randomEndTime = s_dal.Config.Clock.AddDays(s_rand.Next(1, 31));
+            }
+            else
+            {
+                randomEndTime = randomStartTime.AddMinutes(s_rand.Next(1, 181));
+            }
+
             Assignment assignment = new Assignment
             (
                 s_dal.Config.GetNextAssignmentId(),
@@ -273,7 +284,8 @@ public static class Initialization
                 randomEndTime,
                 (Enums.TerminationTypeEnum)s_rand.Next(0, 4)
             );
-            s_dal?.Assignment.Create(assignment); //srage 2
+
+            s_dal?.Assignment.Create(assignment);
         }
     }
     //Initializes the system by resetting data and invoking CreateVolunteer, CreateCall, and CreateAssignment.
