@@ -83,3 +83,13 @@ public class BlGeneralException : Exception
     public BlGeneralException(string message, Exception innerException)
         : base(message, innerException) { }
 }
+
+/// חריגה לוגית - פעולה לא זמינה זמנית (למשל בזמן סימולציה)
+[Serializable]
+public class BLTemporaryNotAvailableException : Exception
+{
+    public BLTemporaryNotAvailableException(string? message) : base(message) { }
+
+    public BLTemporaryNotAvailableException(string message, Exception innerException)
+        : base(message, innerException) { }
+}

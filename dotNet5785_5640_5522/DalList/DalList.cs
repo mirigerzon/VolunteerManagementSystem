@@ -8,7 +8,6 @@ sealed internal class DalList : IDal
     public IAssignment Assignment { get; } = new AssignmentImplementation();
     public ICall Call { get; } = new CallImplementation();
     public IConfig Config { get; } = new ConfigImplementation();    
-    //Reset all data base
     public void ResetDB()
     {
         Volunteer.DeleteAll();

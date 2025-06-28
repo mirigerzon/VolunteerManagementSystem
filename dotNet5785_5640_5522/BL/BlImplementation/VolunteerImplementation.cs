@@ -3,6 +3,7 @@ using DalApi;
 using BlApi;
 using Helpers;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
 public class VolunteerImplementation : BlApi.IVolunteer
@@ -13,11 +14,14 @@ public class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
-            var volunteer = _dal.Volunteer.ReadAll().FirstOrDefault(v => v.Id == id && v.Password == password);
-            if (volunteer == null)
-                throw new BlDoesNotExistException("Invalid credentials");
-            UserRole role = (UserRole)volunteer.Role;
-            return role;
+            lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+            {
+                var volunteer = _dal.Volunteer.ReadAll().FirstOrDefault(v => v.Id == id && v.Password == password);
+                if (volunteer == null)
+                    throw new BlDoesNotExistException("Invalid credentials");
+                UserRole role = (UserRole)volunteer.Role;
+                return role;
+            }
         }
         catch (Exception ex)
         {
@@ -27,9 +31,15 @@ public class VolunteerImplementation : BlApi.IVolunteer
     // Retrieves all volunteers, with optional filtering and sorting by specified fields
     public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, VolunteerSortField? sortBy = null)
     {
-        var volunteers = _dal.Volunteer.ReadAll();
+        List<DO.Volunteer> volunteers;
+        lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+        {
+            volunteers = _dal.Volunteer.ReadAll().ToList();
+        }
+
         if (isActive.HasValue)
             volunteers = volunteers.Where(v => v.IsActive == isActive.Value).ToList();
+
         try
         {
             if (sortBy.HasValue)
@@ -75,9 +85,15 @@ public class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
-            var volunteer = _dal.Volunteer.Read(id);
+            DO.Volunteer volunteer;
+            lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+            {
+                volunteer = _dal.Volunteer.Read(id);
+            }
+
             if (volunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
+
             return new BO.Volunteer
             {
                 Id = volunteer.Id,
@@ -105,21 +121,32 @@ public class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
-            var dalVolunteer = _dal.Volunteer.Read(id);
+            Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
+            DO.Volunteer dalVolunteer;
+            lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+            {
+                dalVolunteer = _dal.Volunteer.Read(id);
+            }
+
             if (dalVolunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
+
             if (dalVolunteer.Id == volunteer.Id || dalVolunteer.Role == DO.Enums.RoleEnum.Admin)
             {
                 if ((UserRole)dalVolunteer.Role != volunteer.Role && (UserRole)dalVolunteer.Role != UserRole.Admin)
                     throw new BlInvalidException("Volunteer cannot change roles!");
+
                 string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
                 if (checkValues == "true")
                 {
                     var volunteerToUpdate = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
-                    _dal.Volunteer.Delete(volunteer.Id);
-                    _dal.Volunteer.Create(volunteerToUpdate);
+                    lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+                    {
+                        _dal.Volunteer.Delete(volunteer.Id);
+                        _dal.Volunteer.Create(volunteerToUpdate);
+                    }
                     VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
-                    VolunteerManager.Observers.NotifyItemUpdated(id);         // STAGE 5 - ADDED
+                    VolunteerManager.Observers.NotifyItemUpdated(id);      // STAGE 5 - ADDED
                 }
                 else
                     throw new BlInvalidException(checkValues + " - this field is not valid");
@@ -135,14 +162,19 @@ public class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
-            var volunteer = _dal.Volunteer.Read(id);
-            if (volunteer == null)
-                throw new BlDoesNotExistException("Volunteer not found");
-            else
+            Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
+
+            DO.Volunteer volunteer;
+            lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
             {
+                volunteer = _dal.Volunteer.Read(id);
+                if (volunteer == null)
+                    throw new BlDoesNotExistException("Volunteer not found");
+
                 _dal.Volunteer.Delete(volunteer.Id);
-                VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
             }
+
+            VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
         }
         catch (Exception ex)
         {
@@ -154,16 +186,20 @@ public class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
+            Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
             string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
             if (checkValues == "true")
-                if (true)
+            {
+                var newVolunteer = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
+                lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
                 {
-                    var newVolunteer = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
                     _dal.Volunteer.Create(newVolunteer);
-                    VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
                 }
-                else
-                    throw new BlInvalidException("checkValues" + " - this field is not valid");
+
+                VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
+            }
+            else
+                throw new BlInvalidException("checkValues" + " - this field is not valid");
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -178,10 +214,15 @@ public class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
-            return _dal.Assignment
-                .ReadAll()
-                .Where(a => a.VolunteerId == volunteerId && a.EndTime != null)
-                .ToList();
+            List<Assignment> assignments;
+            lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+            {
+                assignments = _dal.Assignment
+                    .ReadAll()
+                    .Where(a => a.VolunteerId == volunteerId && a.EndTime != null)
+                    .ToList();
+            }
+            return assignments;
         }
         catch (Exception ex)
         {
