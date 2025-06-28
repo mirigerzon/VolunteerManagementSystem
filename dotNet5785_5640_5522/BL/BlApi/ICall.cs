@@ -23,7 +23,7 @@ public interface ICall : IObservable
     void CloseExpiredCalls();
     IEnumerable<BO.CallInList> GetCallsList(CallFieldFilter? filterBy = null, object? filterValue = null, CallFieldFilter? sortBy = null);
     BO.Call GetCallDetails(int callId);
-    void Update(BO.Call call);
+    Task Update(BO.Call call);
     void Delete(int id);
     void Create(BO.Call call);
     BO.Call Read(int id);

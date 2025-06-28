@@ -23,8 +23,8 @@ public record Call
         Enums.CallTypeEnum Type,
         string Description,
         string CallerAddress,
-        double Latitude,
-        double Longitude,
+        double? Latitude,
+        double? Longitude,
         DateTime? StartTime,
         DateTime? MaxEndTime
     )

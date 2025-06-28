@@ -20,6 +20,6 @@ public interface IVolunteer : IObservable
     IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, VolunteerSortField? sortBy = null);
     BO.Volunteer Read(int id);
     void Update(int id, Volunteer volunteer);
-    void Create(Volunteer volunteer);
+    Task Create(Volunteer volunteer);
     void Delete(int id);
 }

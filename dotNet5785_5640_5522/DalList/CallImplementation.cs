@@ -78,8 +78,8 @@ internal class CallImplementation : ICall
                 item.Type,
                 item.Description,
                 item.CallerAddress,
-                item.Latitude,
-                item.Longitude
+                item.Latitude ?? 0.0,
+                item.Longitude ?? 0.0
             )
             {
                 Id = item.Id

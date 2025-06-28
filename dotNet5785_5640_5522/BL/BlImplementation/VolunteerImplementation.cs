@@ -1,10 +1,7 @@
 ﻿using BO;
 using DalApi;
-using BlApi;
-using Helpers;
 using DO;
-using System.Runtime.CompilerServices;
-
+using Helpers;
 namespace BlImplementation;
 public class VolunteerImplementation : BlApi.IVolunteer
 {
@@ -123,33 +120,42 @@ public class VolunteerImplementation : BlApi.IVolunteer
         {
             Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
             DO.Volunteer dalVolunteer;
-            lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+
+            lock (Helpers.AdminManager.BlMutex)
             {
                 dalVolunteer = _dal.Volunteer.Read(id);
             }
-
             if (dalVolunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
-
             if (dalVolunteer.Id == volunteer.Id || dalVolunteer.Role == DO.Enums.RoleEnum.Admin)
             {
                 if ((UserRole)dalVolunteer.Role != volunteer.Role && (UserRole)dalVolunteer.Role != UserRole.Admin)
                     throw new BlInvalidException("Volunteer cannot change roles!");
-
                 string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
-                if (checkValues == "true")
-                {
-                    var volunteerToUpdate = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
-                    lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
-                    {
-                        _dal.Volunteer.Delete(volunteer.Id);
-                        _dal.Volunteer.Create(volunteerToUpdate);
-                    }
-                    VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
-                    VolunteerManager.Observers.NotifyItemUpdated(id);      // STAGE 5 - ADDED
-                }
-                else
+                if (checkValues != "true")
                     throw new BlInvalidException(checkValues + " - this field is not valid");
+                DO.Volunteer volunteerWithoutCoords = new DO.Volunteer
+                {
+                    Id = volunteer.Id,
+                    FullName = volunteer.FullName,
+                    PhoneNumber = volunteer.PhoneNumber,
+                    Email = volunteer.Email,
+                    Password = volunteer.Password,
+                    Address = volunteer.Address,
+                    Latitude = null,
+                    Longitude = null,
+                    Role = (DO.Enums.RoleEnum)volunteer.Role,
+                    IsActive = volunteer.IsActive,
+                    MaxOfDistance = volunteer.MaxDistance,
+                    TypeOfDistance = (DO.Enums.TypeOfDistanceEnum)volunteer.TypeOfDistance
+                };
+                lock (Helpers.AdminManager.BlMutex)
+                {
+                    _dal.Volunteer.Update(volunteerWithoutCoords);
+                }
+                VolunteerManager.Observers.NotifyListUpdated();
+                VolunteerManager.Observers.NotifyItemUpdated(id);
+                _ = Helpers.VolunteerManager.UpdateCoordinatesForVolunteerAddressAsync(volunteerWithoutCoords);
             }
         }
         catch (Exception ex)
@@ -182,24 +188,20 @@ public class VolunteerImplementation : BlApi.IVolunteer
         }
     }
     // Creates a new volunteer and adds them to the database
-    public void Create(BO.Volunteer volunteer)
+    public async Task Create(BO.Volunteer volunteer)
     {
         try
         {
-            Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
+            Helpers.AdminManager.ThrowOnSimulatorIsRunning(); // STAGE 7
             string checkValues = Helpers.VolunteerManager.IsValid(volunteer);
-            if (checkValues == "true")
+            if (checkValues != "true")
+                throw new BlInvalidException($"{checkValues} - this field is not valid");
+            var newVolunteer = await Helpers.VolunteerManager.ConvertBoToDoAsync(volunteer);
+            lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
             {
-                var newVolunteer = Helpers.VolunteerManager.ConvertBoToDo(volunteer);
-                lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
-                {
-                    _dal.Volunteer.Create(newVolunteer);
-                }
-
-                VolunteerManager.Observers.NotifyListUpdated();        // STAGE 5 - ADDED
+                _dal.Volunteer.Create(newVolunteer);
             }
-            else
-                throw new BlInvalidException("checkValues" + " - this field is not valid");
+            VolunteerManager.Observers.NotifyListUpdated(); // STAGE 5
         }
         catch (DO.DalAlreadyExistsException ex)
         {
