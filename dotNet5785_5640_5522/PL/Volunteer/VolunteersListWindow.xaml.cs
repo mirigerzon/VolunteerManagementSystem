@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading; // Required for DispatcherOperation
 using BO;
 
 namespace PL.Volunteer;
@@ -12,6 +13,7 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     private readonly BO.Volunteer _currentUser;
+
     public VolunteersListWindow(BO.Volunteer currentUser)
     {
         InitializeComponent();
@@ -22,11 +24,13 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
         SelectedSortField = VolunteerSortField.Id;
         DataContext = this;
     }
+
     public event PropertyChangedEventHandler PropertyChanged;
     public Array Roles => Enum.GetValues(typeof(DO.Enums.RoleEnum));
 
     private void OnPropertyChanged(string propName) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+
     private IEnumerable<VolunteerInList> _volunteerList;
     public IEnumerable<VolunteerInList> VolunteerList
     {
@@ -37,6 +41,7 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
             OnPropertyChanged(nameof(VolunteerList));
         }
     }
+
     public List<bool?> IsActiveFilterOptions { get; }
 
     private bool? _selectedIsActiveFilter;
@@ -82,6 +87,7 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
             }
         }
     }
+
     private void LoadVolunteers()
     {
         try
@@ -96,16 +102,32 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
                             "Loading Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    private void VolunteerListObserver() => LoadVolunteers();
+
+    // Step 7: Private field to track the active observer operation
+    private volatile DispatcherOperation? _observerOperation = null;
+
+    private void VolunteerListObserver()
+    {
+        if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+        {
+            _observerOperation = Dispatcher.BeginInvoke(new Action(() =>
+            {
+                LoadVolunteers();
+            }));
+        }
+    }
+
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         s_bl.Volunteer.AddObserver(VolunteerListObserver);
         LoadVolunteers();
     }
+
     private void Window_Closed(object sender, EventArgs e)
     {
         s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
     }
+
     private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (SelectedVolunteer != null)
@@ -124,6 +146,7 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
             }
         }
     }
+
     private void AddVolunteer_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -139,5 +162,4 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
                             "Add Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-
 }

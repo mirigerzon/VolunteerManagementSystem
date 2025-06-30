@@ -1,8 +1,8 @@
-﻿<!-- מסך פרטי מתנדב עם עיצוב מתקדם -->
+﻿<!-- Volunteer Details Window with Advanced Design -->
 <Window x:Class="PL.Volunteer.VolunteerDetailsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="פרטי מתנדב" 
+        Title="Volunteer Details" 
         Height="600" 
         Width="450" 
         WindowStartupLocation="CenterScreen"
@@ -10,7 +10,7 @@
         ResizeMode="CanResize">
 
     <Window.Resources>
-        <!-- עיצוב כללי -->
+        <!-- General Design -->
         <Style x:Key="ModernCard" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="CornerRadius" Value="8"/>
@@ -191,66 +191,66 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- כותרת -->
+                <!-- Header -->
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                     <TextBlock Text="👤" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <TextBlock Text="פרטי מתנדב" FontSize="24" FontWeight="Bold" 
+                    <TextBlock Text="Volunteer Details" FontSize="24" FontWeight="Bold" 
                               Foreground="#2C3E50" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <!-- טופס -->
+                <!-- Form -->
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <Label Content="תעודת זהות:" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="ID Number:" Style="{StaticResource ModernLabel}"/>
                         <TextBox Text="{Binding Volunteer.Id}" 
                              IsEnabled="{Binding IsNewVolunteer}" 
                              Style="{StaticResource ModernTextBox}" 
                              Background="#F5F5F5"/>
 
-                        <Label Content="שם:" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="Full Name:" Style="{StaticResource ModernLabel}"/>
                         <TextBox Text="{Binding Volunteer.FullName, UpdateSourceTrigger=PropertyChanged}" 
                             Style="{StaticResource ModernTextBox}"/>
 
-                        <Label Content="מספר טלפון:" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="Phone Number:" Style="{StaticResource ModernLabel}"/>
                         <TextBox Text="{Binding Volunteer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" 
                                  Style="{StaticResource ModernTextBox}"/>
 
-                        <Label Content="סיסמה:" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="Password:" Style="{StaticResource ModernLabel}"/>
                         <PasswordBox x:Name="passwordBox" Style="{StaticResource ModernPasswordBox}" IsEnabled="{Binding IsNewVolunteer}"/>
 
-                        <Label Content="מייל:" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="Email:" Style="{StaticResource ModernLabel}"/>
                         <TextBox Text="{Binding Volunteer.Email, UpdateSourceTrigger=PropertyChanged}" 
                             Style="{StaticResource ModernTextBox}"/>
 
-                        <Label Content="כתובת:" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="Address:" Style="{StaticResource ModernLabel}"/>
                         <TextBox Text="{Binding Volunteer.Address, UpdateSourceTrigger=PropertyChanged}" 
                             Style="{StaticResource ModernTextBox}"/>
-                        
-                        <Label Content="תפקיד:" Style="{StaticResource ModernLabel}"/>
+
+                        <Label Content="Role:" Style="{StaticResource ModernLabel}"/>
                         <ComboBox x:Name="RoleComboBox" 
                              ItemsSource="{Binding Roles}" SelectedItem="{Binding Volunteer.Role, Mode=TwoWay}" />
 
-                        <Label Content="מרחק מקסימאלי(קמ):" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="Max Distance (km):" Style="{StaticResource ModernLabel}"/>
                         <TextBox Text="{Binding Volunteer.MaxDistance, UpdateSourceTrigger=PropertyChanged}" 
                             Style="{StaticResource ModernTextBox}"/>
 
-                        <Label Content="סוג מרחק:" Style="{StaticResource ModernLabel}"/>
+                        <Label Content="Distance Type:" Style="{StaticResource ModernLabel}"/>
                         <ComboBox x:Name="TypeOfDistanceComboBox"
                              ItemsSource="{Binding TypeOfDistanceValues}" SelectedItem="{Binding Volunteer.TypeOfDistance, Mode=TwoWay}" />
 
 
                         <CheckBox IsChecked="{Binding Volunteer.IsActive}" 
-                              Content="מתנדב פעיל" 
-                              Style="{StaticResource ModernCheckBox}"/>     
+                              Content="Active Volunteer" 
+                              Style="{StaticResource ModernCheckBox}"/>
 
                     </StackPanel>
                 </ScrollViewer>
 
-                <!-- כפתורים -->
+                <!-- Buttons -->
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
                     <Button Content="{Binding ButtonText}" Width="100" Click="BtnAddUpdate_Click" Style="{StaticResource PrimaryButton}"/>
-                    <Button Content="מחק" Width="100" Click="DeleteButton_Click" Style="{StaticResource DangerButton}"/>
-                    <Button Content="ביטול" Width="100" Click="CancelButton_Click" Style="{StaticResource SecondaryButton}"/>
+                    <Button Content="Delete" Width="100" Click="DeleteButton_Click" Style="{StaticResource DangerButton}"/>
+                    <Button Content="Cancel" Width="100" Click="CancelButton_Click" Style="{StaticResource SecondaryButton}"/>
                 </StackPanel>
             </Grid>
         </Border>

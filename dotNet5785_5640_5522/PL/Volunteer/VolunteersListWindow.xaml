@@ -4,7 +4,7 @@
         xmlns:bo="clr-namespace:BO;assembly=BL" 
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         xmlns:converters="clr-namespace:PL.Converters" 
-        Title="ניהול מתנדבים" 
+        Title="Volunteer Management" 
         Height="700" 
         Width="1200" 
         DataContext="{Binding RelativeSource={RelativeSource Self}}" 
@@ -213,8 +213,8 @@
         <!-- Header -->
         <Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E1E5E9" BorderThickness="0,0,0,1">
             <StackPanel Margin="30,20">
-                <TextBlock Text="ניהול מתנדבים" Style="{StaticResource TitleStyle}"/>
-                <TextBlock Text="ניהול וצפייה במאגר המתנדבים" 
+                <TextBlock Text="Volunteer Management" Style="{StaticResource TitleStyle}"/>
+                <TextBlock Text="Manage and view volunteer database" 
                           FontSize="16" 
                           Foreground="#6C757D"/>
             </StackPanel>
@@ -224,7 +224,7 @@
         <Border Grid.Row="1" Style="{StaticResource FilterCard}">
             <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
-                    <Label Content="מיין לפי:" Style="{StaticResource ModernLabel}"/>
+                    <Label Content="Sort by:" Style="{StaticResource ModernLabel}"/>
                     <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerSortFieldCollectionKey}}" 
                              SelectedValue="{Binding SelectedSortField}" 
                              Width="180" 
@@ -232,7 +232,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="סנן לפי פעיל:" Style="{StaticResource ModernLabel}"/>
+                    <Label Content="Filter by Active:" Style="{StaticResource ModernLabel}"/>
                     <ComboBox ItemsSource="{Binding IsActiveFilterOptions}" 
                              Width="120" 
                              SelectedItem="{Binding SelectedIsActiveFilter}"
@@ -271,21 +271,21 @@
                      CellStyle="{StaticResource DataGridCellStyle}"
                      Margin="1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ת.ז" Binding="{Binding Id}" Width="100" MinWidth="80"/>
-                    <DataGridTextColumn Header="שם מלא" Binding="{Binding FullName}" Width="2*" MinWidth="150"/>
-                    <DataGridTextColumn Header="קריאות שטופלו" Binding="{Binding TotalHandledCalls}" Width="Auto" MinWidth="100"/>
-                    <DataGridTextColumn Header="קריאות שבוטלו" Binding="{Binding TotalCanceledCalls}" Width="Auto" MinWidth="100"/>
-                    <DataGridTextColumn Header="פג תוקף" Binding="{Binding ExpiredCallsCount}" Width="Auto" MinWidth="80"/>
-                    <DataGridTextColumn Header="קריאה נוכחית" Binding="{Binding CurrentCallId}" Width="Auto" MinWidth="100"/>
-                    <DataGridTextColumn Header="סוג קריאה" Binding="{Binding CallType}" Width="*" MinWidth="120"/>
-                    <DataGridCheckBoxColumn Header="פעיל" Binding="{Binding IsActive}" Width="70"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="100" MinWidth="80"/>
+                    <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" Width="2*" MinWidth="150"/>
+                    <DataGridTextColumn Header="Handled Calls" Binding="{Binding TotalHandledCalls}" Width="Auto" MinWidth="100"/>
+                    <DataGridTextColumn Header="Canceled Calls" Binding="{Binding TotalCanceledCalls}" Width="Auto" MinWidth="100"/>
+                    <DataGridTextColumn Header="Expired" Binding="{Binding ExpiredCallsCount}" Width="Auto" MinWidth="80"/>
+                    <DataGridTextColumn Header="Current Call" Binding="{Binding CurrentCallId}" Width="Auto" MinWidth="100"/>
+                    <DataGridTextColumn Header="Call Type" Binding="{Binding CallType}" Width="*" MinWidth="120"/>
+                    <DataGridCheckBoxColumn Header="Active" Binding="{Binding IsActive}" Width="70"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
 
         <!-- Action Button -->
         <Border Grid.Row="3" Background="#F8F9FA" Padding="20">
-            <Button Content="הוסף מתנדב חדש" 
+            <Button Content="Add New Volunteer" 
                    Style="{StaticResource PrimaryButton}"
                    HorizontalAlignment="Center" 
                    Click="AddVolunteer_Click">

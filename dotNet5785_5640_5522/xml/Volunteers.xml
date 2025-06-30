@@ -7,8 +7,8 @@
     <Email>admin.manager@example.com</Email>
     <Password>1166</Password>
     <Address>Head Office, Tel Aviv-Jafo</Address>
-    <Longitude>34.781769</Longitude>
-    <Latitude>32.085299</Latitude>
+    <Longitude />
+    <Latitude />
     <Role>Admin</Role>
     <IsActive>true</IsActive>
     <MaxOfDistance>39.61659613929115</MaxOfDistance>
@@ -171,13 +171,13 @@
   </Volunteer>
   <Volunteer>
     <Id>202751148</Id>
-    <FullName>Taylor</FullName>
+    <FullName>TAMMAR</FullName>
     <PhoneNumber>0545556666</PhoneNumber>
     <Email>noah.taylor@example.com</Email>
     <Password>StrongKey10!</Password>
     <Address>672 Ibn Gabirol St, Tel Aviv</Address>
-    <Longitude>34.7821</Longitude>
-    <Latitude>32.0854</Latitude>
+    <Longitude />
+    <Latitude />
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <MaxOfDistance>16.22754749760178</MaxOfDistance>
@@ -207,5 +207,18 @@
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <MaxOfDistance>9.233080547260824</MaxOfDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>0</Id>
+    <FullName>מירי</FullName>
+    <PhoneNumber>0583286530</PhoneNumber>
+    <Email>A0583286530@gmail.com</Email>
+    <Password>1166</Password>
+    <Address>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</Address>
+    <Longitude>-122.084614</Longitude>
+    <Latitude>37.4217636</Latitude>
+    <Role>Admin</Role>
+    <IsActive>true</IsActive>
+    <MaxOfDistance>2</MaxOfDistance>
   </Volunteer>
 </ArrayOfVolunteer>

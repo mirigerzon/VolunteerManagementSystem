@@ -4,7 +4,7 @@
         xmlns:bo="clr-namespace:BO;assembly=BL"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:PL.Converters"
-        Title="רשימת קריאות | Calls Management"
+        Title="Calls List | Calls Management"
         Height="700" 
         Width="1300"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -245,13 +245,13 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Vertical">
-                    <TextBlock Text="ניהול קריאות" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimary}"/>
-                    <TextBlock Text="צפייה וניהול של כל הקריאות במערכת" FontSize="14" Foreground="{StaticResource TextSecondary}" Margin="0,4,0,0"/>
+                    <TextBlock Text="Calls Management" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimary}"/>
+                    <TextBlock Text="View and manage all calls in the system" FontSize="14" Foreground="{StaticResource TextSecondary}" Margin="0,4,0,0"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                     <Border Background="#EBF8FF" CornerRadius="8" Padding="12,6" Margin="0,0,8,0">
-                        <TextBlock Text="{Binding CallList.Count, StringFormat='סה״כ: {0} קריאות'}" 
+                        <TextBlock Text="{Binding CallList.Count, StringFormat='Total: {0} calls'}" 
                                    FontWeight="Medium" 
                                    FontSize="13" 
                                    Foreground="{StaticResource PrimaryBlue}"/>
@@ -262,10 +262,10 @@
 
         <!-- Filters -->
         <Border Grid.Row="1" Background="{StaticResource BackgroundGray}" BorderBrush="{StaticResource BorderGray}" BorderThickness="0,0,0,1">
-            <StackPanel Orientation="Horizontal" Margin="24,16" FlowDirection="RightToLeft">
+            <StackPanel Orientation="Horizontal" Margin="24,16" FlowDirection="LeftToRight">
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                    <Label Content="מיון לפי:" Style="{StaticResource FilterLabel}"/>
+                    <Label Content="Sort by:" Style="{StaticResource FilterLabel}"/>
                     <ComboBox ItemsSource="{Binding Source={StaticResource CallSortFieldCollectionKey}}"
                               SelectedValue="{Binding SelectedSortField}"
                               Width="140"
@@ -273,7 +273,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                    <Label Content="פעיל:" Style="{StaticResource FilterLabel}"/>
+                    <Label Content="Active:" Style="{StaticResource FilterLabel}"/>
                     <ComboBox ItemsSource="{Binding IsActiveFilterOptions}"
                               SelectedItem="{Binding SelectedIsActiveFilter}"
                               Width="100"
@@ -287,7 +287,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                    <Label Content="סטטוס:" Style="{StaticResource FilterLabel}"/>
+                    <Label Content="Status:" Style="{StaticResource FilterLabel}"/>
                     <ComboBox ItemsSource="{Binding CallStatusOptions}"
                               SelectedItem="{Binding SelectedCallStatusFilter}"
                               Width="150"
@@ -301,7 +301,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="סוג:" Style="{StaticResource FilterLabel}"/>
+                    <Label Content="Type:" Style="{StaticResource FilterLabel}"/>
                     <ComboBox ItemsSource="{Binding CallTypeOptions}"
                               SelectedItem="{Binding SelectedCallTypeFilter}"
                               Width="150"
@@ -389,9 +389,9 @@
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="מזהה" Binding="{Binding Id}" Width="80"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="80"/>
 
-                    <DataGridTextColumn Header="סטטוס" Binding="{Binding CallStatus}" Width="120">
+                    <DataGridTextColumn Header="Status" Binding="{Binding CallStatus}" Width="120">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
                                 <Setter Property="Background" Value="{Binding CallStatus, Converter={StaticResource StatusToBackgroundConverter}}"/>
@@ -400,18 +400,18 @@
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="סוג" Binding="{Binding CallType}" Width="100"/>
-                    <DataGridTextColumn Header="זמן התחלה" Binding="{Binding StartTime, StringFormat='{}{0:HH:mm dd/MM}'}" Width="120"/>
-                    <DataGridTextColumn Header="זמן נותר" Binding="{Binding TimeLeft, StringFormat=\{0:mm\\:ss\}}" Width="100"/>
-                    <DataGridTextColumn Header="מתנדב אחרון" Binding="{Binding LastVolunteerName}" Width="150"/>
-                    <DataGridTextColumn Header="זמן טיפול" Binding="{Binding TreatmentDuration}" Width="100"/>
-                    <DataGridTextColumn Header="סה״כ הקצאות" Binding="{Binding TotalAssignments}" Width="90"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding CallType}" Width="100"/>
+                    <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime, StringFormat='{}{0:HH:mm dd/MM}'}" Width="120"/>
+                    <DataGridTextColumn Header="Time Left" Binding="{Binding TimeLeft, StringFormat=\{0:mm\\:ss\}}" Width="100"/>
+                    <DataGridTextColumn Header="Last Volunteer" Binding="{Binding LastVolunteerName}" Width="150"/>
+                    <DataGridTextColumn Header="Treatment Duration" Binding="{Binding TreatmentDuration}" Width="130"/>
+                    <DataGridTextColumn Header="Total Assignments" Binding="{Binding TotalAssignments}" Width="120"/>
 
-                    <DataGridTemplateColumn Header="פעולות" Width="180" CanUserSort="False">
+                    <DataGridTemplateColumn Header="Actions" Width="180" CanUserSort="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Content="מחק" 
+                                    <Button Content="Delete" 
                                             Click="DeleteCall_Click" 
                                             Style="{StaticResource DeleteButton}">
                                         <Button.Visibility>
@@ -422,7 +422,7 @@
                                         </Button.Visibility>
                                     </Button>
 
-                                    <Button Content="בטל הקצאה" 
+                                    <Button Content="Cancel Assignment" 
                                             Click="CancelAssignment_Click" 
                                             Style="{StaticResource CancelButton}"
                                             CommandParameter="{Binding}" 
@@ -439,7 +439,7 @@
         <!-- Footer with Add Button -->
         <Border Grid.Row="3" Background="{StaticResource SurfaceWhite}" BorderBrush="{StaticResource BorderGray}" BorderThickness="0,1,0,0" Margin="0,16,0,0">
             <Grid Margin="24,16">
-                <Button Content="הוסף קריאה חדשה" 
+                <Button Content="Add New Call" 
                         Click="AddCall_Click"
                         Style="{StaticResource ModernPrimaryButton}"
                         HorizontalAlignment="Left"

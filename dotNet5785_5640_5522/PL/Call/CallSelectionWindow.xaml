@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PL.Volunteer.CallSelectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="בחירת קריאה לטיפול" Height="600" Width="900"
+        Title="Select Call for Treatment" Height="600" Width="900"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -12,42 +12,38 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- כותרת -->
-        <TextBlock Grid.ColumnSpan="2" Text="בחירת קריאה לטיפול" FontSize="22" FontWeight="Bold"
+        <!-- Title -->
+        <TextBlock Grid.ColumnSpan="2" Text="Select Call for Treatment" FontSize="22" FontWeight="Bold"
                    HorizontalAlignment="Center" Margin="0,0,0,10"/>
-
-        <!-- רשימת קריאות -->
+        <!-- Calls List -->
         <ListView Grid.Row="1" Grid.Column="0" 
                   ItemsSource="{Binding OpenCalls}" 
                   SelectedItem="{Binding SelectedCall,Mode=TwoWay}" 
                   SelectionChanged="CallsList_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="מספר מזהה" DisplayMemberBinding="{Binding Id}" Width="100"/>
-                    <GridViewColumn Header="סוג" DisplayMemberBinding="{Binding Type}" Width="100"/>
-                    <GridViewColumn Header="כתובת" DisplayMemberBinding="{Binding Address}" Width="150"/>
-                    <GridViewColumn Header="מרחק" DisplayMemberBinding="{Binding Distance}" Width="80"/>
-                    <GridViewColumn Header="בחר" Width="80">
+                    <GridViewColumn Header="ID Number" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" Width="100"/>
+                    <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" Width="150"/>
+                    <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance}" Width="80"/>
+                    <GridViewColumn Header="Select" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="בחר" Click="ChooseCall_Click"/>
+                                <Button Content="Select" Click="ChooseCall_Click"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-
-        <!-- תיאור ומפה -->
+        <!-- Description and Map -->
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">
-            <GroupBox Header="תיאור מילולי">
+            <GroupBox Header="Verbal Description">
                 <TextBlock Text="{Binding SelectedCall.Description}" TextWrapping="Wrap" Padding="5" Height="100"/>
             </GroupBox>
-
-            <GroupBox Header="מפה">
+            <GroupBox Header="Map">
                 <Border Height="300" Background="LightGray">
-                    <TextBlock Text="כאן תוצג מפה" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Map will be displayed here" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </GroupBox>
         </StackPanel>

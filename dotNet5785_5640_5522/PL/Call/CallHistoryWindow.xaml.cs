@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Threading;
 using BO;
 
 namespace PL.Volunteer
@@ -17,13 +18,26 @@ namespace PL.Volunteer
             get => _closedCalls;
             set { _closedCalls = value; OnPropertyChanged(nameof(ClosedCalls)); }
         }
-            
+
+        private volatile DispatcherOperation? _observerOperation = null;
+
         public CallHistoryWindow(BO.Volunteer volunteer)
         {
             Volunteer = volunteer;
             ClosedCalls = bl.Call.GetClosedCallsOfVolunteer(volunteer.Id);
             InitializeComponent();
             DataContext = this;
+        }
+
+        public void RefreshClosedCalls()
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+            {
+                _observerOperation = Dispatcher.BeginInvoke(new System.Action(() =>
+                {
+                    ClosedCalls = bl.Call.GetClosedCallsOfVolunteer(Volunteer.Id);
+                }));
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e) => Close();

@@ -96,12 +96,12 @@ public partial class Login : Window
         {
             new TextBlock
             {
-                Text = $"שלום, מנהל {admin.Id}!",
+                Text = $"Hello, Admin {admin.Id}!",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(0,0,0,20),
                 FontWeight = FontWeights.Bold
             },
-            new Button { Content = "מסך מתנדב", Margin = new Thickness(0,5,0,5), Padding = new Thickness(10, 5, 10, 5) }
+            new Button { Content = "Volunteer Screen", Margin = new Thickness(0,5,0,5), Padding = new Thickness(10, 5, 10, 5) }
             .With(b => b.Click += (s, e) =>
             {
                 VolunteerSelfWindow volunteerSelfWindow = new VolunteerSelfWindow(admin);
@@ -112,7 +112,7 @@ public partial class Login : Window
                 volunteerSelfWindow.Show();
                 adminSelectionWindow.Close();
             }),
-            new Button { Content = "מסך מנהל", Margin = new Thickness(0,5,0,5), Padding = new Thickness(10, 5, 10, 5) }
+            new Button { Content = "Admin Screen", Margin = new Thickness(0,5,0,5), Padding = new Thickness(10, 5, 10, 5) }
             .With(b => b.Click += (s, e) =>
             {
                 AdminMainWindow adminScreen = new AdminMainWindow(admin);

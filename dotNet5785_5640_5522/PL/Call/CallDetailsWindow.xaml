@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:bo="clr-namespace:BO;assembly=BL"
         xmlns:converters="clr-namespace:PL.Converters"
-        Title="פרטי קריאה"
+        Title="Call Details"
         Height="700"
         Width="500"
         ResizeMode="CanResize"
@@ -247,7 +247,7 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Border Style="{StaticResource CardStyle}">
                 <StackPanel>
-                    <TextBlock Text="מידע בסיסי" 
+                    <TextBlock Text="Basic Information" 
                                FontSize="16" 
                                FontWeight="SemiBold" 
                                Foreground="#636E72" 
@@ -260,34 +260,34 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" Margin="0,0,12,0">
-                            <Label Content="מזהה:" Style="{StaticResource ModernLabel}"/>
+                            <Label Content="ID:" Style="{StaticResource ModernLabel}"/>
                             <TextBox Text="{Binding Call.Id}" 
                                      IsReadOnly="True"  Visibility="{Binding IsNewCall, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Style="{StaticResource ModernTextBox}"/>
 
-                            <Label Content="סוג קריאה:" Style="{StaticResource ModernLabel}"/>
+                            <Label Content="Call Type:" Style="{StaticResource ModernLabel}"/>
                             <ComboBox ItemsSource="{Binding CallTypes}" 
                                       SelectedItem="{Binding Call.Type}" 
                                       IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernComboBox}"/>
 
-                            <Label Content="זמן התחלה:" Style="{StaticResource ModernLabel}"/>
+                            <Label Content="Start Time:" Style="{StaticResource ModernLabel}"/>
                             <TextBox Text="{Binding Call.StartTime, StringFormat='dd/MM/yyyy HH:mm'}" 
                                      IsReadOnly="True" 
                                      Style="{StaticResource ModernTextBox}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="12,0,0,0">
-                            <Label Content="סטטוס:" Style="{StaticResource ModernLabel}"/>
+                            <Label Content="Status:" Style="{StaticResource ModernLabel}"/>
                             <TextBox Text="{Binding Call.Status}" 
                                      IsReadOnly="True" 
                                      Visibility="{Binding IsNewCall, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Style="{StaticResource ModernTextBox}"/>
 
-                            <Label Content="זמן סיום מקסימלי:" Style="{StaticResource ModernLabel}"/>
+                            <Label Content="Max End Time:" Style="{StaticResource ModernLabel}"/>
                             <DatePicker SelectedDate="{Binding Call.MaxEndTime}" 
                                         IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernDatePicker}"/>
                         </StackPanel>
                     </Grid>
 
-                    <Label Content="תיאור:" Style="{StaticResource ModernLabel}" Margin="0,16,0,8"/>
+                    <Label Content="Description:" Style="{StaticResource ModernLabel}" Margin="0,16,0,8"/>
                     <TextBox Text="{Binding Call.Description}" 
                              IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernTextBox}"
                              MinHeight="80"
@@ -295,11 +295,11 @@
                              AcceptsReturn="True"
                              VerticalScrollBarVisibility="Auto"/>
 
-                    <Label Content="כתובת המתקשר:" Style="{StaticResource ModernLabel}"/>
+                    <Label Content="Caller Address:" Style="{StaticResource ModernLabel}"/>
                     <TextBox Text="{Binding Call.CallerAddress}" 
                              IsEnabled="{Binding IsNewCall}" Style="{StaticResource ModernTextBox}"/>
 
-                    <Label Content="הקצאות:" 
+                    <Label Content="Assignments:" 
                            Style="{StaticResource ModernLabel}" 
                            Visibility="{Binding IsNewCall, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
                     <ListBox ItemsSource="{Binding Call.Assignments}" 

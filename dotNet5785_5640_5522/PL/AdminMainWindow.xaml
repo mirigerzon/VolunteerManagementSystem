@@ -2,13 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:PL.Converters"
-        Title="ניהול ראשי - מנהל"
+        Title="Main Management - Admin"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FA">
 
     <Window.Resources>
-        <!-- גרדיאנטים -->
+        <converters:BooleanToSimulatorTextConverter x:Key="SimulatorTextConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <converters:BooleanNegationConverter x:Key="BoolNegate"/>
+
+        <!-- Gradients -->
         <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#1E88E5" Offset="0"/>
             <GradientStop Color="#1976D2" Offset="1"/>
@@ -19,14 +23,14 @@
             <GradientStop Color="#FAFBFC" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- צללים -->
+        <!-- Shadows -->
         <DropShadowEffect x:Key="CardShadow" ShadowDepth="4" BlurRadius="16" 
                          Opacity="0.12" Direction="270" Color="Black"/>
 
         <DropShadowEffect x:Key="ButtonShadow" ShadowDepth="2" BlurRadius="8" 
                          Opacity="0.15" Direction="270" Color="Black"/>
 
-        <!-- עיצובי כפתורים -->
+        <!-- Button Styles -->
         <Style x:Key="PrimaryButton" TargetType="Button">
             <Setter Property="Background" Value="#2196F3"/>
             <Setter Property="Foreground" Value="White"/>
@@ -120,7 +124,7 @@
             </Setter>
         </Style>
 
-        <!-- עיצוב קבוצות -->
+        <!-- GroupBox Style -->
         <Style x:Key="ModernGroupBox" TargetType="GroupBox">
             <Setter Property="Background" Value="{StaticResource CardGradient}"/>
             <Setter Property="BorderBrush" Value="#E0E7EE"/>
@@ -141,7 +145,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <!-- כותרת הקבוצה -->
+                                <!-- Group Header -->
                                 <Border Grid.Row="0" Background="#F8F9FB" 
                                        CornerRadius="8,8,0,0" Margin="-1,-1,-1,0"
                                        Padding="16,12">
@@ -151,7 +155,7 @@
                                                     TextElement.Foreground="#1A202C"/>
                                 </Border>
 
-                                <!-- תוכן הקבוצה -->
+                                <!-- Group Content -->
                                 <ContentPresenter Grid.Row="1" 
                                                 Margin="{TemplateBinding Padding}"/>
                             </Grid>
@@ -161,7 +165,7 @@
             </Setter>
         </Style>
 
-        <!-- עיצוב TextBox -->
+        <!-- TextBox Style -->
         <Style x:Key="ModernTextBox" TargetType="TextBox">
             <Setter Property="Height" Value="40"/>
             <Setter Property="Padding" Value="12,8"/>
@@ -198,7 +202,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- כותרת עליונה -->
+        <!-- Top Header -->
         <Border Grid.Row="0" Background="{StaticResource HeaderGradient}" 
                Padding="50,25">
             <Grid>
@@ -213,21 +217,21 @@
                               VerticalAlignment="Center" HorizontalAlignment="Center" 
                               Margin="-60,0,30,0"/>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="מערכת ניהול מתנדבים" FontSize="32" 
+                        <TextBlock Text="Volunteer Management System" FontSize="32" 
                                   FontWeight="Light" Foreground="White"/>
-                        <TextBlock Text="פאנל ניהול ראשי" FontSize="16" 
+                        <TextBlock Text="Main Management Panel" FontSize="16" 
                                   Foreground="#E3F2FD" Opacity="0.9"/>
                     </StackPanel>
                 </StackPanel>
 
-                <Button Grid.Column="1" Content="התנתק" 
+                <Button Grid.Column="1" Content="Logout" 
                        Style="{StaticResource SecondaryButton}"
                        FontSize="16" Height="45" Padding="25,10"
                        Click="Logout_Click"/>
             </Grid>
         </Border>
 
-        <!-- תוכן ראשי -->
+        <!-- Main Content -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" 
                      Margin="50,40,50,40">
             <Grid MaxWidth="1400">
@@ -236,11 +240,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- עמודה שמאלית -->
+                <!-- Left Column -->
                 <StackPanel Grid.Column="0" Margin="0,0,25,0">
 
-                    <!-- ניהול שעון מערכת -->
-                    <GroupBox Header="ניהול שעון מערכת" Style="{StaticResource ModernGroupBox}">
+                    <!-- System Clock Management -->
+                    <GroupBox Header="System Clock Management" Style="{StaticResource ModernGroupBox}">
                         <StackPanel>
                             <Border Background="#FFF3E0" CornerRadius="12" Padding="20,16" 
                                    Margin="0,0,0,20">
@@ -249,7 +253,7 @@
                                               Margin="0,0,15,0"/>
                                     <TextBlock FontSize="18" FontWeight="Medium" 
                                               VerticalAlignment="Center">
-                                        <Run Text="שעה נוכחית: " Foreground="#E65100"/>
+                                        <Run Text="Current Time: " Foreground="#E65100"/>
                                         <Run Text="{Binding CurrentTime, StringFormat='dd/MM/yyyy HH:mm'}" 
                                              Foreground="#BF360C" FontWeight="SemiBold"/>
                                     </TextBlock>
@@ -257,97 +261,119 @@
                             </Border>
 
                             <WrapPanel HorizontalAlignment="Center">
-                                <Button Content="דקה +" Style="{StaticResource SecondaryButton}"
+                                <Button Content="+ Minute" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
-                                       Click="BtnAdvanceMinute_Click"/>
-                                <Button Content="שעה +" Style="{StaticResource SecondaryButton}"
+                                       IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
+                                Click="BtnAdvanceMinute_Click"/>
+                                <Button Content="+ Hour" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
+                                       IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="BtnAdvanceHour_Click"/>
-                                <Button Content="יום +" Style="{StaticResource SecondaryButton}"
+                                <Button Content="+ Day" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
+                                       IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="BtnAdvanceDay_Click"/>
-                                <Button Content="שנה +" Style="{StaticResource SecondaryButton}"
+                                <Button Content="+ Year" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
+                                       IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="BtnAdvanceYear_Click"/>
-                                <Button Content="איפוס" Style="{StaticResource SecondaryButton}"
+                                <Button Content="Reset" Style="{StaticResource SecondaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
+                                       IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="ResetSystemClock"/>
                             </WrapPanel>
                         </StackPanel>
                     </GroupBox>
 
-                    <!-- ניהול טווח זמן סיכון -->
-                    <GroupBox Header="ניהול טווח זמן סיכון" Style="{StaticResource ModernGroupBox}">
+                    <!-- Risk Time Range Management -->
+                    <GroupBox Header="Risk Time Range Management" Style="{StaticResource ModernGroupBox}" Height="188">
                         <StackPanel>
                             <TextBlock Text="{Binding CurrentRiskRangeText}" FontSize="16" 
                                       Margin="0,0,0,20" Foreground="#424242"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label Content="טווח חדש (hh:mm):" VerticalAlignment="Center" 
+                                <Label Content="New Range (hh:mm):" VerticalAlignment="Center" 
                                       FontWeight="Medium" FontSize="16" Margin="0,0,15,0"/>
                                 <TextBox x:Name="txtRiskRange" Width="150" Height="45"
                                         Style="{StaticResource ModernTextBox}" FontSize="16"/>
-                                <Button Content="עדכן" Style="{StaticResource PrimaryButton}"
+                                <Button Content="Update" Style="{StaticResource PrimaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
                                        Click="BtnUpdateRiskRange_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Time Simulator" Margin="0,0,0,20">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,15">
+                                <Label Content="Change Rate - in seconds:" VerticalAlignment="Center"/>
+                                <TextBox Width="80"
+                                    Margin="10,0"
+                                    Text="{Binding Interval, UpdateSourceTrigger=PropertyChanged}"
+                                    IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}" Height="19"/>
+                                <Button Content="{Binding IsSimulatorRunning, Converter={StaticResource SimulatorTextConverter}}"
+                                   Width="200"
+                                   Height="19"
+                                   Click="BtnToggleSimulator_Click"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
 
                 </StackPanel>
 
-                <!-- עמודה ימנית -->
+                <!-- Right Column -->
                 <StackPanel Grid.Column="1" Margin="25,0,0,0">
 
-                    <!-- ניהול מסד נתונים -->
-                    <GroupBox Header="ניהול מסד נתונים" Style="{StaticResource ModernGroupBox}">
+                    <!-- Database Management -->
+                    <GroupBox Header="Database Management" Style="{StaticResource ModernGroupBox}">
                         <WrapPanel HorizontalAlignment="Center">
-                            <Button Content="🔄 אתחל עם נתוני דוגמה" 
+                            <Button Content="🔄 Initialize with Sample Data" 
                                    Style="{StaticResource PrimaryButton}"
                                    FontSize="16" Height="50" Padding="30,12"
+                                   IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                    Click="BtnInitializeDB_Click"/>
-                            <Button Content="🗑️ אפס נתונים" 
+                            <Button Content="🗑️ Reset Data" 
                                    Style="{StaticResource SecondaryButton}"
                                    FontSize="16" Height="50" Padding="30,12"
+                                   IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                    Click="BtnResetDB_Click"/>
                         </WrapPanel>
                     </GroupBox>
 
-                    <!-- ניהול ישויות מערכת -->
-                    <GroupBox Header="ניהול ישויות מערכת" Style="{StaticResource ModernGroupBox}">
+                    <!-- System Entities Management -->
+                    <GroupBox Header="System Entities Management" Style="{StaticResource ModernGroupBox}">
                         <WrapPanel HorizontalAlignment="Center">
-                            <Button Content="👥 ניהול מתנדבים" 
+                            <Button Content="👥 Manage Volunteers" 
                                    Style="{StaticResource PrimaryButton}"
                                    FontSize="16" Height="50" Padding="30,12"
                                    Click="BtnHandleVolunteers_Click"/>
-                            <Button Content="📞 ניהול קריאות" 
+                            <Button Content="📞 Manage Calls" 
                                    Style="{StaticResource PrimaryButton}"
                                    FontSize="16" Height="50" Padding="30,12"
                                    Click="BtnHandleCalls_Click"/>
                         </WrapPanel>
                     </GroupBox>
 
-                    <!-- סטטוסים של קריאות -->
-                    <GroupBox Header="סטטוסים של קריאות" Style="{StaticResource ModernGroupBox}">
+                    <!-- Call Status -->
+                    <GroupBox Header="Call Status" Style="{StaticResource ModernGroupBox}">
                         <StackPanel>
                             <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,20">
-                                <Button x:Name="AllButton" Content="הכול (0)" 
+                                <Button x:Name="AllButton" Content="All (0)" 
+                                       Style="{StaticResource StatusButton}" 
+                                       FontSize="15" Height="40" Padding="20,8"
+                                       IsEnabled="False" Click="AllButton_Click"/>
+                                <Button x:Name="NewButton" Content="New (0)" 
                                        Style="{StaticResource StatusButton}" 
                                        FontSize="15" Height="40" Padding="20,8"
                                        IsEnabled="False"/>
-                                <Button x:Name="NewButton" Content="חדשות (0)" 
+                                <Button x:Name="ActiveButton" Content="Active (0)" 
                                        Style="{StaticResource StatusButton}" 
                                        FontSize="15" Height="40" Padding="20,8"
                                        IsEnabled="False"/>
-                                <Button x:Name="ActiveButton" Content="פעילות (0)" 
-                                       Style="{StaticResource StatusButton}" 
-                                       FontSize="15" Height="40" Padding="20,8"
-                                       IsEnabled="False"/>
-                                <Button x:Name="ClosedButton" Content="סגורות (0)" 
+                                <Button x:Name="ClosedButton" Content="Closed (0)" 
                                        Style="{StaticResource StatusButton}" 
                                        FontSize="15" Height="40" Padding="20,8"
                                        IsEnabled="False"/>
                             </WrapPanel>
-                            <TextBlock Text="סטטיסטיקות יתעדכנו בהתאם למידע" 
+                            <TextBlock Text="Statistics will be updated accordingly to information" 
                                       FontStyle="Italic" FontSize="14" 
                                       Foreground="#9E9E9E" HorizontalAlignment="Center"/>
                         </StackPanel>

@@ -1,24 +1,22 @@
 ﻿<Window x:Class="PL.Volunteer.CallHistoryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="היסטוריית קריאות" Height="500" Width="700"
+        Title="Call History" Height="500" Width="700"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
         <DataGrid ItemsSource="{Binding ClosedCalls}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="מזהה קריאה" Binding="{Binding Id}" Width="*" />
-                <DataGridTextColumn Header="סוג קריאה" Binding="{Binding Type}" Width="*" />
-                <DataGridTextColumn Header="כתובת" Binding="{Binding Address}" Width="2*" />
-                <DataGridTextColumn Header="תאריך טיפול" Binding="{Binding HandleDate}" Width="*" />
-                <DataGridTextColumn Header="סטטוס סיום" Binding="{Binding CloseReason}" Width="*" />
+                <DataGridTextColumn Header="Call ID" Binding="{Binding Id}" Width="*" />
+                <DataGridTextColumn Header="Call Type" Binding="{Binding Type}" Width="*" />
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="2*" />
+                <DataGridTextColumn Header="Handle Date" Binding="{Binding HandleDate}" Width="*" />
+                <DataGridTextColumn Header="Close Status" Binding="{Binding CloseReason}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-
-        <Button Grid.Row="1" Content="סגור" Click="Close_Click" HorizontalAlignment="Center" Margin="0,10"/>
+        <Button Grid.Row="1" Content="Close" Click="Close_Click" HorizontalAlignment="Center" Margin="0,10"/>
     </Grid>
 </Window>

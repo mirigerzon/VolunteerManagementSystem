@@ -8,337 +8,275 @@ using System.Windows.Input;
 using BO;
 using DO;
 
-namespace PL.Call;
-
-public partial class CallsListWindow : Window, INotifyPropertyChanged
+namespace PL.Call
 {
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    private readonly BO.Volunteer _currentUser;
-    public CallsListWindow(BO.Volunteer currentUser)
+    public partial class CallsListWindow : Window, INotifyPropertyChanged
     {
-        InitializeComponent();
-        _currentUser = currentUser;
-        CallStatusOptions = Enum.GetValues(typeof(BO.CallStatus)).Cast<BO.CallStatus?>().ToList();
-        CallStatusOptions.Insert(0, null);
-        SelectedCallStatusFilter = null;
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        private readonly BO.Volunteer _currentUser;
 
-        CallTypeOptions = Enum.GetValues(typeof(BO.CallType)).Cast<BO.CallType?>().ToList();
-        CallTypeOptions.Insert(0, null);
-        SelectedCallTypeFilter = null;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 
-        SelectedSortField = CallFieldFilter.Id;
+        public CallsListWindow(BO.Volunteer currentUser)
+        {
+            InitializeComponent();
+            _currentUser = currentUser;
 
-        IsActiveFilterOptions = new List<bool?> { null, true, false };
-        SelectedIsActiveFilter = null;
-    }
+            CallStatusOptions = Enum.GetValues(typeof(BO.CallStatus)).Cast<BO.CallStatus?>().ToList();
+            CallStatusOptions.Insert(0, null);
+            SelectedCallStatusFilter = null;
 
-    public event PropertyChangedEventHandler PropertyChanged;
-    private void OnPropertyChanged(string propName) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-    private IEnumerable<CallInList> _callList;
-    public IEnumerable<CallInList> CallList
-    {
-        get => _callList;
-        set
-        {
-            _callList = value;
-            OnPropertyChanged(nameof(CallList));
+            CallTypeOptions = Enum.GetValues(typeof(BO.CallType)).Cast<BO.CallType?>().ToList();
+            CallTypeOptions.Insert(0, null);
+            SelectedCallTypeFilter = null;
+
+            IsActiveFilterOptions = new List<bool?> { null, true, false };
+            SelectedIsActiveFilter = null;
+
+            SelectedSortField = CallFieldFilter.Id;
         }
-    }
-    public List<bool?> IsActiveFilterOptions { get; }
-    private bool? _selectedIsActiveFilter;
-    public bool? SelectedIsActiveFilter
-    {
-        get => _selectedIsActiveFilter;
-        set
+
+        private IEnumerable<CallInList> _callList;
+        public IEnumerable<CallInList> CallList
         {
-            if (_selectedIsActiveFilter != value)
-            {
-                _selectedIsActiveFilter = value;
-                OnPropertyChanged(nameof(SelectedIsActiveFilter));
-                LoadCalls();
-            }
+            get => _callList;
+            set { _callList = value; OnPropertyChanged(nameof(CallList)); }
         }
-    }
-    public List<BO.CallStatus?> CallStatusOptions { get; }
-    private BO.CallStatus? _selectedCallStatusFilter;
-    public BO.CallStatus? SelectedCallStatusFilter
-    {
-        get => _selectedCallStatusFilter;
-        set
+
+        public List<bool?> IsActiveFilterOptions { get; }
+
+        private bool? _selectedIsActiveFilter;
+        public bool? SelectedIsActiveFilter
         {
-            if (_selectedCallStatusFilter != value)
+            get => _selectedIsActiveFilter;
+            set
             {
-                _selectedCallStatusFilter = value;
-                OnPropertyChanged(nameof(SelectedCallStatusFilter));
-                LoadCalls();
-            }
-        }
-    }
-    public List<BO.CallType?> CallTypeOptions { get; }
-    private BO.CallType? _selectedCallTypeFilter;
-    public BO.CallType? SelectedCallTypeFilter
-    {
-        get => _selectedCallTypeFilter;
-        set
-        {
-            if (_selectedCallTypeFilter != value)
-            {
-                _selectedCallTypeFilter = value;
-                OnPropertyChanged(nameof(SelectedCallTypeFilter));
-                LoadCalls();
-            }
-        }
-    }
-    private CallFieldFilter _selectedSortField = CallFieldFilter.Id;
-    public CallFieldFilter SelectedSortField
-    {
-        get => _selectedSortField;
-        set
-        {
-            if (_selectedSortField != value)
-            {
-                _selectedSortField = value;
-                OnPropertyChanged(nameof(SelectedSortField));
-                LoadCalls();
-            }
-        }
-    }
-    private CallInList? _selectedCall;
-    public CallInList? SelectedCall
-    {
-        get => _selectedCall;
-        set
-        {
-            if (_selectedCall != value)
-            {
-                _selectedCall = value;
-                OnPropertyChanged(nameof(SelectedCall));
-            }
-        }
-    }
-    private void LoadCalls()
-    {
-        try
-        {
-            IEnumerable<CallInList> allCalls = s_bl.Call.GetCallsList(null, null, _selectedSortField);
-            IEnumerable<CallInList> filteredCalls = allCalls;
-            if (_selectedIsActiveFilter.HasValue)
-            {
-                if (_selectedIsActiveFilter.Value)
+                if (_selectedIsActiveFilter != value)
                 {
-                    filteredCalls = filteredCalls.Where(call =>
-                        call.Status == CallStatus.Open ||
-                        call.Status == CallStatus.InTreatment ||
-                        call.Status == CallStatus.OpenAtRisk ||
-                        call.Status == CallStatus.InTreatmentAtRisk);
-                }
-                else
-                {
-                    filteredCalls = filteredCalls.Where(call =>
-                        call.Status == CallStatus.Closed ||
-                        call.Status == CallStatus.Expired);
+                    _selectedIsActiveFilter = value;
+                    OnPropertyChanged(nameof(SelectedIsActiveFilter));
+                    LoadCalls();
                 }
             }
+        }
 
-            if (_selectedCallStatusFilter.HasValue)
+        public List<BO.CallStatus?> CallStatusOptions { get; }
+
+        private BO.CallStatus? _selectedCallStatusFilter;
+        public BO.CallStatus? SelectedCallStatusFilter
+        {
+            get => _selectedCallStatusFilter;
+            set
             {
-                filteredCalls = filteredCalls.Where(call => call.Status == _selectedCallStatusFilter.Value);
+                if (_selectedCallStatusFilter != value)
+                {
+                    _selectedCallStatusFilter = value;
+                    OnPropertyChanged(nameof(SelectedCallStatusFilter));
+                    LoadCalls();
+                }
             }
+        }
 
-            if (_selectedCallTypeFilter.HasValue)
+        public List<BO.CallType?> CallTypeOptions { get; }
+
+        private BO.CallType? _selectedCallTypeFilter;
+        public BO.CallType? SelectedCallTypeFilter
+        {
+            get => _selectedCallTypeFilter;
+            set
             {
-                filteredCalls = filteredCalls.Where(call => call.CallType == _selectedCallTypeFilter.Value);
+                if (_selectedCallTypeFilter != value)
+                {
+                    _selectedCallTypeFilter = value;
+                    OnPropertyChanged(nameof(SelectedCallTypeFilter));
+                    LoadCalls();
+                }
             }
+        }
 
-            CallList = filteredCalls.ToList();
-        }
-        catch (BO.BlDependencyNotInitializedException ex)
+        private CallFieldFilter _selectedSortField;
+        public CallFieldFilter SelectedSortField
         {
-            MessageBox.Show($"Service dependency not initialized: {ex.Message}",
-                                 "Initialization Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            CallList = new List<CallInList>();
+            get => _selectedSortField;
+            set
+            {
+                if (_selectedSortField != value)
+                {
+                    _selectedSortField = value;
+                    OnPropertyChanged(nameof(SelectedSortField));
+                    LoadCalls();
+                }
+            }
         }
-        catch (BO.BlXMLFileLoadCreateException ex)
+
+        private CallInList? _selectedCall;
+        public CallInList? SelectedCall
         {
-            MessageBox.Show($"Failed to load or create data file: {ex.Message}",
-                                 "Data File Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            CallList = new List<CallInList>();
+            get => _selectedCall;
+            set
+            {
+                if (_selectedCall != value)
+                {
+                    _selectedCall = value;
+                    OnPropertyChanged(nameof(SelectedCall));
+                }
+            }
         }
-        catch (BO.BlGeneralException ex)
-        {
-            MessageBox.Show($"An unexpected business logic error occurred: {ex.Message}",
-                                 "Business Logic Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            CallList = new List<CallInList>();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"An unknown error occurred while loading the call list: {ex.Message}",
-                                 "Loading Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            CallList = new List<CallInList>();
-        }
-    }
-    private void CallListObserver() => LoadCalls();
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        s_bl.Call.AddObserver(CallListObserver);
-        LoadCalls();
-    }
-    private void Window_Closed(object sender, EventArgs e)
-    {
-        s_bl.Call.RemoveObserver(CallListObserver);
-    }
-    private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        // ישאר כפי שהוא, מכיוון שה-if (sender is DataGrid dg...) הוא חלק מ-DataBinding
-        // וקבלת ה-selectedCall דרך dg.SelectedItem נחשבת נכונה.
-        if (sender is DataGrid dg && dg.SelectedItem is CallInList selectedCall)
+
+        private void LoadCalls()
         {
             try
             {
-                var fullCall = s_bl.Call.Read(selectedCall.Id);
-                var win = new CallDetailsWindow(fullCall);
-                win.Closed += (s, args) => LoadCalls();
-                win.ShowDialog();
+                IEnumerable<CallInList> allCalls = s_bl.Call.GetCallsList(null, null, _selectedSortField);
+                IEnumerable<CallInList> filteredCalls = allCalls;
+
+                if (_selectedIsActiveFilter.HasValue)
+                {
+                    filteredCalls = _selectedIsActiveFilter.Value
+                        ? filteredCalls.Where(call => call.Status is CallStatus.Open or CallStatus.InTreatment or CallStatus.OpenAtRisk or CallStatus.InTreatmentAtRisk)
+                        : filteredCalls.Where(call => call.Status is CallStatus.Closed or CallStatus.Expired);
+                }
+
+                if (_selectedCallStatusFilter.HasValue)
+                    filteredCalls = filteredCalls.Where(call => call.Status == _selectedCallStatusFilter.Value);
+
+                if (_selectedCallTypeFilter.HasValue)
+                    filteredCalls = filteredCalls.Where(call => call.CallType == _selectedCallTypeFilter.Value);
+
+                CallList = filteredCalls.ToList();
             }
-            catch (BO.BlDoesNotExistException ex)
+            catch (BO.BlDependencyNotInitializedException ex)
             {
-                MessageBox.Show(ex.Message, "Call Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadCalls();
+                MessageBox.Show($"Dependency not initialized: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                CallList = new List<CallInList>();
+            }
+            catch (BO.BlXMLFileLoadCreateException ex)
+            {
+                MessageBox.Show($"XML file error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                CallList = new List<CallInList>();
             }
             catch (BO.BlGeneralException ex)
             {
-                MessageBox.Show($"An unexpected business logic error occurred: {ex.Message}",
-                                 "Business Logic Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"General logical error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                CallList = new List<CallInList>();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An unknown error occurred while opening the call details: {ex.Message}",
-                                 "View Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                CallList = new List<CallInList>();
             }
         }
-    }
-    private void AddCall_Click(object sender, RoutedEventArgs e)
-    {
-        try
+
+        private void CallListObserver() => LoadCalls();
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var newCall = new BO.Call();
-            var win = new CallDetailsWindow(newCall);
-            win.Closed += (s, args) => LoadCalls();
-            win.ShowDialog();
+            s_bl.Call.AddObserver(CallListObserver);
+            LoadCalls();
         }
-        catch (BO.BlAlreadyExistsException ex)
+
+        private void Window_Closed(object sender, EventArgs e)
         {
-            MessageBox.Show($"Cannot add call: {ex.Message}",
-                                 "Addition Error - Already Exists", MessageBoxButton.OK, MessageBoxImage.Error);
+            s_bl.Call.RemoveObserver(CallListObserver);
         }
-        catch (BO.BlInvalidException ex)
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show($"Invalid call data: {ex.Message}",
-                                 "Addition Error - Invalid Data", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (BO.BlMissingDataException ex)
-        {
-            MessageBox.Show($"Missing required data: {ex.Message}",
-                                 "Addition Error - Missing Data", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (BO.BlGeneralException ex)
-        {
-            MessageBox.Show($"An unexpected business logic error occurred: {ex.Message}",
-                                 "Business Logic Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"An unknown error occurred while trying to add a new call: {ex.Message}",
-                                 "Add Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-    private void DeleteCall_Click(object sender, RoutedEventArgs e)
-    {
-        // שינוי: שימוש ב-SelectedCall במקום גישה ל-sender.DataContext
-        if (SelectedCall != null)
-        {
-            var callToDelete = SelectedCall;
-            var result = MessageBox.Show($"Are you sure you want to delete call ID: {callToDelete.Id}?",
-                                         "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (sender is DataGrid dg && dg.SelectedItem is CallInList selectedCall)
             {
                 try
                 {
-                    s_bl.Call.Delete(callToDelete.Id);
-                    MessageBox.Show($"Call ID: {callToDelete.Id} deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    LoadCalls();
+                    var fullCall = s_bl.Call.Read(selectedCall.Id);
+                    var win = new CallDetailsWindow(fullCall);
+                    win.Closed += (s, args) => LoadCalls();
+                    win.ShowDialog();
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
-                    MessageBox.Show(ex.Message, "Deletion Error - Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(ex.Message, "Call Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
                     LoadCalls();
-                }
-                catch (BO.BlInvalidException ex)
-                {
-                    MessageBox.Show($"Cannot delete call: {ex.Message}", "Deletion Error - Invalid State", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                catch (BO.BlGeneralException ex)
-                {
-                    MessageBox.Show($"An unexpected business logic error occurred: {ex.Message}",
-                                         "Business Logic Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"An unknown error occurred during deletion: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error opening call details: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
-        else
-        {
-            MessageBox.Show("בבקשה בחר קריאה למחיקה.", "אין קריאה נבחרת", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-    }
-    private void CancelAssignment_Click(object sender, RoutedEventArgs e)
-    {
-        if (SelectedCall == null)
-        {
-            MessageBox.Show("בבקשה בחר קריאה לביטול הקצאה.", "אין קריאה נבחרת", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
 
-        int callIdToCancel = SelectedCall.Id;
-        int currentLoggedInVolunteerId = _currentUser.Id;
-
-        if (currentLoggedInVolunteerId == 0)
+        private void AddCall_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("שגיאה: לא ניתן לזהות את המתנדב המחובר.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        CancelAssignmentTreatment(callIdToCancel);
-    }
-    public void CancelAssignmentTreatment(int callId)
-    {
-        try
-        {
-            BO.Call? callObject = s_bl.Call.Read(callId);
-            var volunteers = s_bl.Volunteer.ReadAll()
-                 .Where(v => v.CurrentCallId == callObject?.Id);
-            BO.Volunteer? volunteer = null;
-            volunteers.ToList().ForEach(v =>
+            try
             {
-                volunteer = s_bl.Volunteer.Read(v.Id);
-            });
-            if (volunteer != null)
+                var newCall = new BO.Call();
+                var win = new CallDetailsWindow(newCall);
+                win.Closed += (s, args) => LoadCalls();
+                win.ShowDialog();
+            }
+            catch (Exception ex)
             {
-                var assignmentId = volunteer.CurrentCall.Id;
-                s_bl.Call.CancelAssignmentTreatment(_currentUser.Id, assignmentId);
-                MessageBox.Show($"Assignment ID: {assignmentId} cancelled successfully by volunteer {_currentUser.Id}.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadCalls();
+                MessageBox.Show($"Error creating new call: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteCall_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCall != null)
+            {
+                var result = MessageBox.Show($"Delete call number {SelectedCall.Id}?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        s_bl.Call.Delete(SelectedCall.Id);
+                        MessageBox.Show("Call deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadCalls();
+                    }
+                    catch (BO.BlDoesNotExistException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Not Found for Deletion", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadCalls();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Deletion error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
             else
-                MessageBox.Show($"There is no assignment for call: {callObject?.Id}");
-
+            {
+                MessageBox.Show("Select a call to delete.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
-        catch (Exception ex)
+
+        private void CancelAssignment_Click(object sender, RoutedEventArgs e)
         {
-            throw new BlInvalidException("Failed to cancel assignment treatment.", ex);
+            if (SelectedCall == null)
+            {
+                MessageBox.Show("Select a call to cancel assignment.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            try
+            {
+                var call = s_bl.Call.Read(SelectedCall.Id);
+                var volunteer = s_bl.Volunteer.ReadAll().FirstOrDefault(v => v.CurrentCallId == call.Id);
+                if (volunteer != null)
+                {
+                    s_bl.Call.CancelAssignmentTreatment(_currentUser.Id, call.Id);
+                    MessageBox.Show("Treatment cancelled successfully.", "Cancel Assignment", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadCalls();
+                }
+                else
+                {
+                    MessageBox.Show("No volunteer found handling this call.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error cancelling assignment: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

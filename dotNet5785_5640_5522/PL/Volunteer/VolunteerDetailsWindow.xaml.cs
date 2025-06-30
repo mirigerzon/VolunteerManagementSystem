@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using BO;
 using DO;
 
@@ -13,6 +14,9 @@ public partial class VolunteerDetailsWindow : Window, INotifyPropertyChanged
     private readonly BO.Volunteer _currentUser;
     public Array TypeOfDistanceValues => Enum.GetValues(typeof(BO.TypeOfDistance));
     public Array Roles => Enum.GetValues(typeof(DO.Enums.RoleEnum));
+
+    // DispatcherOperation field for storing the asynchronous operation in update
+    private volatile DispatcherOperation? _observerOperation = null;
 
     public VolunteerDetailsWindow(BO.Volunteer volunteer, BO.Volunteer currentUser)
     {
@@ -92,9 +96,16 @@ public partial class VolunteerDetailsWindow : Window, INotifyPropertyChanged
     {
         if (Volunteer?.Id != 0)
         {
-            int id = Volunteer.Id;
-            Volunteer = null;
-            Volunteer = s_bl.Volunteer.Read(id);
+            // Execute the update through the Dispatcher asynchronously and prevent overload on the Dispatcher
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+            {
+                _observerOperation = Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    int id = Volunteer.Id;
+                    Volunteer = null;
+                    Volunteer = s_bl.Volunteer.Read(id);
+                }));
+            }
         }
     }
 
