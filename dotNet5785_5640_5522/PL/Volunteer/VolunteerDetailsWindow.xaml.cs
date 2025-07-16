@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using BO;
-using DO;
 
 namespace PL.Volunteer;
 
@@ -13,7 +12,7 @@ public partial class VolunteerDetailsWindow : Window, INotifyPropertyChanged
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     private readonly BO.Volunteer _currentUser;
     public Array TypeOfDistanceValues => Enum.GetValues(typeof(BO.TypeOfDistance));
-    public Array Roles => Enum.GetValues(typeof(DO.Enums.RoleEnum));
+    public Array Roles => Enum.GetValues(typeof(BO.UserRole));
 
     // DispatcherOperation field for storing the asynchronous operation in update
     private volatile DispatcherOperation? _observerOperation = null;
