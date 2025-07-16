@@ -124,7 +124,6 @@ namespace PL.Call
                 }
             }
         }
-
         private void LoadCalls()
         {
             try
@@ -188,7 +187,7 @@ namespace PL.Call
             {
                 try
                 {
-                    var fullCall = s_bl.Call.Read(selectedCall.Id);
+                    var fullCall = s_bl.Call.Read(selectedCall.CallId);
                     var win = new CallDetailsWindow(fullCall);
                     win.Closed += (s, args) => LoadCalls();
                     win.ShowDialog();
@@ -229,7 +228,7 @@ namespace PL.Call
                 {
                     try
                     {
-                        s_bl.Call.Delete(SelectedCall.Id);
+                        s_bl.Call.Delete(SelectedCall.CallId);
                         MessageBox.Show("Call deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         LoadCalls();
                     }
@@ -260,12 +259,27 @@ namespace PL.Call
 
             try
             {
-                var call = s_bl.Call.Read(SelectedCall.Id);
+                
+                var call = s_bl.Call.Read(SelectedCall.CallId);
                 var volunteer = s_bl.Volunteer.ReadAll().FirstOrDefault(v => v.CurrentCallId == call.Id);
                 if (volunteer != null)
                 {
-                    s_bl.Call.CancelAssignmentTreatment(_currentUser.Id, call.Id);
+
+                    s_bl.Call.CancelAssignmentTreatment(_currentUser.Id, SelectedCall.Id);
+                    s_bl.Call.Update(new BO.Call
+                    {
+                        Id = call.Id,
+                        Type = call.Type,
+                        Description = call.Description,
+                        CallerAddress = call.CallerAddress,
+                        Latitude = call.Latitude,
+                        Longitude = call.Longitude,
+                        StartTime = call.StartTime,
+                        MaxEndTime = call.MaxEndTime,
+                        Status = BO.CallStatus.Open
+                    });
                     MessageBox.Show("Treatment cancelled successfully.", "Cancel Assignment", MessageBoxButton.OK, MessageBoxImage.Information);
+                    SelectedCall = null;
                     LoadCalls();
                 }
                 else

@@ -29,9 +29,12 @@ public class VolunteerImplementation : BlApi.IVolunteer
     public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, VolunteerSortField? sortBy = null)
     {
         List<DO.Volunteer> volunteers;
-        lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
+        List<DO.Assignment> assignments;
+
+        lock (Helpers.AdminManager.BlMutex)
         {
             volunteers = _dal.Volunteer.ReadAll().ToList();
+            assignments = _dal.Assignment.ReadAll().ToList();
         }
 
         if (isActive.HasValue)
@@ -66,17 +69,25 @@ public class VolunteerImplementation : BlApi.IVolunteer
             throw new BlInvalidException("Sorting failed.", ex);
         }
 
-        return volunteers.Select(v => new BO.VolunteerInList
+        return volunteers.Select(v =>
         {
-            Id = v.Id,
-            FullName = v.FullName,
-            IsActive = v.IsActive,
-            TotalHandledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Treated),
-            TotalCanceledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.SelfCancelled),
-            ExpiredCallsCount = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Expired),
-            CallType = Helpers.VolunteerManager.CallTypeIfExist(v.Id)
+            var openAssignment = assignments
+                .FirstOrDefault(a => a.VolunteerId == v.Id && a.EndTime == null);
+
+            return new BO.VolunteerInList
+            {
+                Id = v.Id,
+                FullName = v.FullName,
+                IsActive = v.IsActive,
+                TotalHandledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Treated),
+                TotalCanceledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.SelfCancelled),
+                ExpiredCallsCount = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Expired),
+                CallType = Helpers.VolunteerManager.CallTypeIfExist(v.Id),
+                CurrentCallId = openAssignment?.CallId
+            };
         }).ToList();
     }
+
     // Retrieves a specific volunteer by their ID
     public BO.Volunteer Read(int id)
     {

@@ -4,10 +4,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using BO;
+using DO;
 
 namespace PL.Volunteer
 {
-    public partial class VolunteerSelfWindow :  Window, INotifyPropertyChanged
+    public partial class VolunteerSelfWindow : Window, INotifyPropertyChanged
     {
         private readonly BlApi.IBl bl = BlApi.Factory.Get();
         public event PropertyChangedEventHandler PropertyChanged;
@@ -111,7 +112,23 @@ namespace PL.Volunteer
             try
             {
                 bl.Call.CancelAssignmentTreatment(Volunteer.Id, ActiveAssignment.Id);
+                bl.Call.Update(new BO.Call
+                {
+                    Id = ActiveCall.Id,
+                    Type = ActiveCall.Type,
+                    Description = ActiveCall.Description,
+                    CallerAddress = ActiveCall.CallerAddress,
+                    Latitude = ActiveCall.Latitude,
+                    Longitude = ActiveCall.Longitude,
+                    StartTime = ActiveCall.StartTime,
+                    MaxEndTime = ActiveCall.MaxEndTime,
+                    Status = BO.CallStatus.Open
+                });
                 MessageBox.Show("Call treatment cancelled", "Treatment Cancelled", MessageBoxButton.OK, MessageBoxImage.Information);
+                ActiveAssignment = null;
+                ActiveCall = null;
+                Volunteer = bl.Volunteer.Read(Volunteer.Id);
+                NotifyVolunteerChange();
             }
             catch (Exception ex)
             {

@@ -35,7 +35,7 @@ internal class AssignmentImplementation : IAssignment
     }
     // Reads and retrieves a specific assignment by its ID from the XML storage.
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public Assignment? Read(int id)
+    public Assignment? Read(int? id)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
         return Assignments.FirstOrDefault(it => it.Id == id);

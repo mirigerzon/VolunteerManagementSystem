@@ -35,7 +35,7 @@ internal class CallImplementation : ICall
     }
     // Reads and retrieves a specific call by its ID from the XML storage.
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public Call? Read(int id)
+    public Call? Read(int? id)
     {
         List<Call> calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
         return calls.FirstOrDefault(it => it.Id == id);

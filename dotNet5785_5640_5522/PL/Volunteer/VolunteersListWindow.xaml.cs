@@ -87,7 +87,6 @@ public partial class VolunteersListWindow : Window, INotifyPropertyChanged
             }
         }
     }
-
     private void LoadVolunteers()
     {
         try

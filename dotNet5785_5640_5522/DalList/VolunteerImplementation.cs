@@ -30,7 +30,7 @@ internal class VolunteerImplementation : IVolunteer
         Console.WriteLine("\n There are no volunteers in Volunteer list");
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public Volunteer? Read(int id)
+    public Volunteer? Read(int? id)
     {
         Volunteer? volunteer = DataSource.Volunteers.FirstOrDefault(item => item.Id == id);
         if (volunteer == null)

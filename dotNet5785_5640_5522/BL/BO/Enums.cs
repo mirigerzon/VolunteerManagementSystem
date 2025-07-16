@@ -38,11 +38,11 @@ public enum CallStatus
     OpenAtRisk,         // 4
     InTreatmentAtRisk   // 5
 }
-
-public enum ClosureType
+public enum TerminationTypeEnum
 {
     Treated,
-    Canceled,
+    SelfCancelled,
+    ManagerCancelled,
     Expired
 }
 public enum OpenCallSortField

@@ -389,7 +389,7 @@
                 </DataGrid.Resources>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="80"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding CallId}" Width="80"/>
 
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120">
                         <DataGridTextColumn.CellStyle>

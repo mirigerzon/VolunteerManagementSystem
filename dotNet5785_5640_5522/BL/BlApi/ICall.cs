@@ -27,9 +27,9 @@ public interface ICall : IObservable
     void Delete(int id);
     void Create(BO.Call call);
     BO.Call Read(int id);
-    List<ClosedCallInList> GetClosedCallsOfVolunteer(int volunteerId, CallType? filterByType = null, ClosureType? sortByClosureType = null);
+    List<ClosedCallInList> GetClosedCallsOfVolunteer(int volunteerId, CallType? filterByType = null, TerminationTypeEnum? sortByClosureType = null);
     List<OpenCallInList> GetOpenCallsForVolunteer(int volunteerId, CallType? filterByType = null, OpenCallSortField? sortByField = null);
     void UpdateEndTreatment(int id, int assignmentId);
-    void CancelAssignmentTreatment(int volunteerId, int assignmentId);
+    void CancelAssignmentTreatment(int volunteerId, int? assignmentId);
     CallInProgress RequestAssignmentTreatment(int voluneetId, int callId);
 }

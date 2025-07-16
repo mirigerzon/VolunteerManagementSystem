@@ -40,7 +40,7 @@ internal class AssignmentImplementation : IAssignment
         Console.WriteLine("\n There are no assignments in Assignment list");
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public Assignment? Read(int id)
+    public Assignment? Read(int? id)
     {
         Assignment? assignment = DataSource.Assignments.FirstOrDefault(item => item.Id == id);
         if (assignment == null)

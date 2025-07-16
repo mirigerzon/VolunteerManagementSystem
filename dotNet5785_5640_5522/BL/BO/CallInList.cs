@@ -14,7 +14,7 @@
 /// <param name="TotalAssignments">Total number of volunteers assigned to this call.</param>
 public class CallInList
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
     public int CallId { get; set; }
     public CallType CallType { get; set; }
     public DateTime? StartTime { get; set; }

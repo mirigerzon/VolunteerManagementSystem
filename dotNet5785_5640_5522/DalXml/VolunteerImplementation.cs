@@ -74,7 +74,7 @@ internal class VolunteerImplementation : IVolunteer
     }
     // Reads and retrieves a Volunteer by ID from the XML storage.
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public Volunteer? Read(int id)
+    public Volunteer? Read(int? id)
     {
         XElement volunteersRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
         XElement? volunteerElement = volunteersRootElem.Elements()

@@ -196,7 +196,7 @@ internal static class CallManager
                 OpenedAt = call.StartTime,
                 AssignedAt = assignment.ArrivalTime,
                 ClosedAt = assignment.EndTime,
-                ClosureType = (ClosureType?)assignment.EndStatus
+                ClosureType = (BO.TerminationTypeEnum?)assignment.EndStatus
             };
         }
     }

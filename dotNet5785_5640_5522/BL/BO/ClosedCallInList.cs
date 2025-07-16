@@ -19,5 +19,5 @@ public class ClosedCallInList
     public DateTime? OpenedAt { get; init; }
     public DateTime? AssignedAt { get; init; }
     public DateTime? ClosedAt { get; init; }
-    public ClosureType? ClosureType { get; init; } 
+    public TerminationTypeEnum? ClosureType { get; init; } 
 }

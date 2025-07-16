@@ -42,7 +42,7 @@ internal class CallImplementation : ICall
         Console.WriteLine("\n There are no calls in Call list");
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public Call? Read(int id)
+    public Call? Read(int? id)
     {
         Call? call = DataSource.Calls.FirstOrDefault(item => item.Id == id);
         if (call == null)

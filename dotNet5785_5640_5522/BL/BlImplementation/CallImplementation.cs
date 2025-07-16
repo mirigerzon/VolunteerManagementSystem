@@ -1,6 +1,5 @@
 ﻿using BO;
 using BlApi;
-using DO;
 using DalApi;
 using Helpers;
 using static DO.Enums;
@@ -63,7 +62,7 @@ internal class CallImplementation : BlApi.ICall
                             CallId = call.Id,
                             ArrivalTime = null,
                             EndTime = _dal.Config.Clock,
-                            EndStatus = Enums.TerminationTypeEnum.Expired
+                            EndStatus = (DO.Enums.TerminationTypeEnum)BO.TerminationTypeEnum.Expired
                         };
                         _dal.Assignment.Create(newAssignment);
                     }
@@ -103,20 +102,25 @@ internal class CallImplementation : BlApi.ICall
     public IEnumerable<CallInList> GetCallsList(CallFieldFilter? filterBy = null, object? filterValue = null, CallFieldFilter? sortBy = null)
     {
         List<BO.Call> calls;
-        lock (AdminManager.BlMutex) // 🔒 lock added
+        lock (AdminManager.BlMutex)
         {
             calls = _dal.Call.ReadAll().Select(Helpers.CallManager.ConvertDoToBo).ToList();
         }
 
         var callInLists = calls.Select(call =>
         {
+            var assignments = _dal.Assignment.ReadAll()
+            .Where(a => call.Id == a.CallId)
+            .ToList();
+            var assignment = assignments.FirstOrDefault();
+            int? assignmentId = assignment?.Id;
             var lastAssign = call.Assignments?
                 .OrderByDescending(a => a.EndTreatmentTime)
                 .FirstOrDefault();
 
             return new CallInList
             {
-                Id = call.Id,
+                Id = assignmentId,
                 CallId = call.Id,
                 CallType = call.Type,
                 StartTime = call.StartTime,
@@ -292,11 +296,11 @@ internal class CallImplementation : BlApi.ICall
         }
     }
     //This method retrieves a list of closed calls assigned to a specific volunteer, with optional filtering and sorting.
-    public List<ClosedCallInList> GetClosedCallsOfVolunteer(int volunteerId, CallType? filterByType = null, ClosureType? sortByClosureType = null)
+    public List<ClosedCallInList> GetClosedCallsOfVolunteer(int volunteerId, CallType? filterByType = null, BO.TerminationTypeEnum? sortByClosureType = null)
     {
         try
         {
-            lock (AdminManager.BlMutex) // 🔒 lock added
+            lock (AdminManager.BlMutex)
             {
                 var volunteerAssignments = _dal.Assignment.ReadAll()
                     .Where(a => a.VolunteerId == volunteerId && a.EndTime != null)
@@ -312,9 +316,7 @@ internal class CallImplementation : BlApi.ICall
                         OpenedAt = call.StartTime,
                         AssignedAt = a.ArrivalTime,
                         ClosedAt = a.EndTime,
-                        ClosureType = a.EndStatus.HasValue
-                            ? Enum.TryParse<ClosureType>(a.EndStatus.ToString(), out var ct) ? ct : null
-                            : null
+                        ClosureType = (BO.TerminationTypeEnum)a.EndStatus
                     };
                 });
                 if (filterByType.HasValue)
@@ -322,7 +324,7 @@ internal class CallImplementation : BlApi.ICall
                     closedCalls = closedCalls.Where(c => c.CallType == filterByType.Value);
                 }
                 closedCalls = sortByClosureType.HasValue
-                    ? closedCalls.OrderBy(c => c.ClosureType ?? ClosureType.Treated)
+                    ? closedCalls.OrderBy(c => c.ClosureType ?? BO.TerminationTypeEnum.Treated)
                     : closedCalls.OrderBy(c => c.Id);
 
                 return closedCalls.ToList();
@@ -389,7 +391,7 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
-            lock (AdminManager.BlMutex) 
+            lock (AdminManager.BlMutex)
             {
                 var assignment = _dal.Assignment.Read(assignmentId);
                 if (assignment == null)
@@ -412,14 +414,14 @@ internal class CallImplementation : BlApi.ICall
                     CallId = assignment.CallId,
                     ArrivalTime = assignment.ArrivalTime,
                     EndTime = _dal.Config.Clock,
-                    EndStatus = TerminationTypeEnum.Treated
+                    EndStatus = DO.Enums.TerminationTypeEnum.Treated
                 };
                 _dal.Assignment.Update(assignmentToUpdate);
 
                 var updatedCall = call with { Status = DO.Enums.CallStatusEnum.Closed };
                 _dal.Call.Update(updatedCall);
             }
-            CallManager.Observers.NotifyListUpdated(); 
+            CallManager.Observers.NotifyListUpdated();
             CallManager.Observers.NotifyItemUpdated(assignmentId);
         }
         catch (Exception ex)
@@ -428,22 +430,22 @@ internal class CallImplementation : BlApi.ICall
         }
     }
     //This method allows a volunteer (or manager) to cancel an assignment, marking it as canceled either by the volunteer or by the manager.
-    public void CancelAssignmentTreatment(int volunteerId, int assignmentId)
+    public void CancelAssignmentTreatment(int volunteerId, int? assignmentId)
     {
         try
         {
             Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
-            lock (AdminManager.BlMutex) // 🔒 lock added
+            lock (AdminManager.BlMutex)
             {
                 var assignment = _dal.Assignment.Read(assignmentId);
                 var volunteer = _dal.Volunteer.Read(volunteerId);
                 if (assignment == null)
                     throw new BlDoesNotExistException($"Assignment with ID {assignmentId} not found.");
-                if (assignment.VolunteerId != volunteerId || volunteer.Role != RoleEnum.Admin)
+                if (assignment.VolunteerId != volunteerId && volunteer.Role != RoleEnum.Admin)
                     throw new BlInvalidException("You do not have permission to perform this action.");
                 if (assignment.EndTime != null && assignment.EndStatus != null)
                     throw new BlInvalidException($"Assignment {assignmentId} is not open or in progress, cannot cancel.");
-                var endStatusToUpdate = volunteer.Role == RoleEnum.Admin ? TerminationTypeEnum.ManagerCancelled : TerminationTypeEnum.SelfCancelled;
+                var endStatusToUpdate = volunteer.Role == RoleEnum.Admin ? BO.TerminationTypeEnum.ManagerCancelled : BO.TerminationTypeEnum.SelfCancelled;
                 var assignmentToUpdate = new DO.Assignment
                 {
                     Id = assignment.Id,
@@ -451,7 +453,7 @@ internal class CallImplementation : BlApi.ICall
                     CallId = assignment.CallId,
                     ArrivalTime = assignment.ArrivalTime,
                     EndTime = _dal.Config.Clock,
-                    EndStatus = endStatusToUpdate
+                    EndStatus = (DO.Enums.TerminationTypeEnum)endStatusToUpdate
                 };
                 _dal.Assignment.Update(assignmentToUpdate);
             }
@@ -496,6 +498,22 @@ internal class CallImplementation : BlApi.ICall
                     StartTime = call.StartTime,
                     MaxEndTime = call.MaxEndTime
                 });
+               //var volunteer = _dal.Volunteer.Read(voluneetId);
+               // _dal.Volunteer.Update(new DO.Volunteer
+               // {
+               //     Id = volunteer.Id,
+               //     FullName = volunteer.FullName,
+               //     PhoneNumber = volunteer.PhoneNumber,
+               //     Email = volunteer.Email,
+               //     Password = volunteer.Password,
+               //     Address = volunteer.Address,
+               //     Latitude = volunteer?.Latitude,
+               //     Longitude = volunteer?.Longitude,
+               //     Role = volunteer.Role,
+               //     IsActive = volunteer != null,
+               //     MaxOfDistance = volunteer.MaxOfDistance,
+               //     TypeOfDistance = volunteer.TypeOfDistance
+               // });
                 return new BO.CallInProgress
                 {
                     Id = assignmentToAdd.Id,
