@@ -4,8 +4,32 @@
     <Id>0</Id>
     <VolunteerId>328115522</VolunteerId>
     <CallId>1</CallId>
-    <ArrivalTime>2025-07-16T22:50:11</ArrivalTime>
-    <EndTime>2025-07-16T22:50:11</EndTime>
+    <ArrivalTime>2025-07-16T23:20:20</ArrivalTime>
+    <EndTime>2025-07-16T23:20:20</EndTime>
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>1</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>2</CallId>
+    <ArrivalTime>2025-07-16T23:20:20</ArrivalTime>
+    <EndTime>2025-07-16T23:20:20</EndTime>
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>2</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>2</CallId>
+    <ArrivalTime>2025-07-16T23:20:20</ArrivalTime>
+    <EndTime>2025-07-16T23:20:20</EndTime>
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>3</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>3</CallId>
+    <ArrivalTime>2025-07-16T23:20:20</ArrivalTime>
+    <EndTime>2025-07-16T23:20:20</EndTime>
     <EndStatus>ManagerCancelled</EndStatus>
   </Assignment>
 </ArrayOfAssignment>

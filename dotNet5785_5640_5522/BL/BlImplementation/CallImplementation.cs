@@ -498,22 +498,6 @@ internal class CallImplementation : BlApi.ICall
                     StartTime = call.StartTime,
                     MaxEndTime = call.MaxEndTime
                 });
-               //var volunteer = _dal.Volunteer.Read(voluneetId);
-               // _dal.Volunteer.Update(new DO.Volunteer
-               // {
-               //     Id = volunteer.Id,
-               //     FullName = volunteer.FullName,
-               //     PhoneNumber = volunteer.PhoneNumber,
-               //     Email = volunteer.Email,
-               //     Password = volunteer.Password,
-               //     Address = volunteer.Address,
-               //     Latitude = volunteer?.Latitude,
-               //     Longitude = volunteer?.Longitude,
-               //     Role = volunteer.Role,
-               //     IsActive = volunteer != null,
-               //     MaxOfDistance = volunteer.MaxOfDistance,
-               //     TypeOfDistance = volunteer.TypeOfDistance
-               // });
                 return new BO.CallInProgress
                 {
                     Id = assignmentToAdd.Id,

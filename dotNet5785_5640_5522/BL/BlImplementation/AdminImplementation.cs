@@ -52,6 +52,25 @@ internal class AdminImplementation : IAdmin
             throw new BlInvalidException("Failed to advance system clock.", ex);
         }
     }
+    public void ResetSystemClock()
+    {
+        try
+        {
+            Helpers.AdminManager.ThrowOnSimulatorIsRunning(); 
+            lock (AdminManager.BlMutex) 
+            {
+                AdminManager.UpdateClock(DateTime.Now); 
+            }
+        }
+        catch (DO.DalXMLFileLoadCreateException ex)
+        {
+            throw new BlXMLFileLoadCreateException("Failed to reset system clock in the database.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new BlInvalidException("Unexpected error while resetting system clock.", ex);
+        }
+    }
     // Retrieves the current configured risk time span from the database
     public TimeSpan GetRiskTimeSpan()
     {

@@ -230,6 +230,20 @@ public partial class AdminMainWindow : Window
 
     private void ResetSystemClock(object sender, RoutedEventArgs e)
     {
+        if (MessageBox.Show("Reset system clock?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        {
+            try
+            {
+                s_bl.Admin.ResetSystemClock();
+                RefreshCurrentTime();
+                UpdateStatusCounts();
+                MessageBox.Show("System clock reset successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
     }
 
     protected override void OnClosed(EventArgs e)

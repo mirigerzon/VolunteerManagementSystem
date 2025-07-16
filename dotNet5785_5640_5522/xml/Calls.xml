@@ -3,68 +3,24 @@
   <Call>
     <Id>0</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>Technical</Type>
     <Description>Flat tire in parking lot needs assistance</Description>
     <CallerAddress>123 Main St, New York, NY 10001, USA</CallerAddress>
-    <Latitude>45.22423135397205</Latitude>
-    <Longitude>-117.82235638605425</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>2</Id>
-    <Status>Open</Status>
-    <Type>Social</Type>
-    <Description>Locked keys inside vehicle</Description>
-    <CallerAddress>789 Pine St, Chicago, IL 60601, USA</CallerAddress>
-    <Latitude>29.894282298471605</Latitude>
-    <Longitude>-92.38491795905884</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>3</Id>
-    <Status>Open</Status>
-    <Type>Technical</Type>
-    <Description>Car stuck in parking garage</Description>
-    <CallerAddress>321 Elm St, Houston, TX 77001, USA</CallerAddress>
-    <Latitude>38.9748452110882</Latitude>
-    <Longitude>-119.64695763730177</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>4</Id>
-    <Status>Open</Status>
-    <Type>Social</Type>
-    <Description>Elderly person needs help with groceries</Description>
-    <CallerAddress>654 Maple Ave, Phoenix, AZ 85001, USA</CallerAddress>
-    <Latitude>32.55278088797523</Latitude>
-    <Longitude>-117.92841974110864</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>5</Id>
-    <Status>Open</Status>
-    <Type>Medical</Type>
-    <Description>Wheelchair accessibility issue at building entrance</Description>
-    <CallerAddress>987 Cedar St, Philadelphia, PA 19101, USA</CallerAddress>
-    <Latitude>31.534556129923317</Latitude>
-    <Longitude>-101.94293634495303</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>26.104564532038932</Latitude>
+    <Longitude>-90.09006893744646</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>6</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>Social</Type>
     <Description>Electric scooter battery died</Description>
     <CallerAddress>234 Birch Ave, San Antonio, TX 78201, USA</CallerAddress>
-    <Latitude>26.95668313500957</Latitude>
-    <Longitude>-85.43090709089995</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>43.41849899696903</Latitude>
+    <Longitude>-101.63737555530848</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>7</Id>
@@ -72,54 +28,54 @@
     <Type>Medical</Type>
     <Description>Person needs help carrying heavy items upstairs</Description>
     <CallerAddress>567 Willow St, San Diego, CA 92101, USA</CallerAddress>
-    <Latitude>38.17537777445896</Latitude>
-    <Longitude>-73.8797741172908</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>40.87807935980385</Latitude>
+    <Longitude>-92.78432658209462</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>8</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>None</Type>
     <Description>Family stranded - car won't start</Description>
     <CallerAddress>890 Cherry Ave, Dallas, TX 75201, USA</CallerAddress>
-    <Latitude>34.02075184825862</Latitude>
-    <Longitude>-112.52970193022847</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>40.59915943527666</Latitude>
+    <Longitude>-98.57383377271101</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>9</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>None</Type>
     <Description>Need help changing tire on busy street</Description>
     <CallerAddress>112 Ash St, San Jose, CA 95101, USA</CallerAddress>
-    <Latitude>38.8478213759461</Latitude>
-    <Longitude>-102.273946496199</Longitude>
-    <StartTime>2025-07-15T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>33.11306912495757</Latitude>
+    <Longitude>-75.12616730229406</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>10</Id>
     <Status>Open</Status>
-    <Type>None</Type>
+    <Type>Social</Type>
     <Description>Medical emergency - person needs transport</Description>
     <CallerAddress>445 Spruce St, Austin, TX 78701, USA</CallerAddress>
-    <Latitude>27.32601923931875</Latitude>
-    <Longitude>-90.75051934283444</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>44.24545031839344</Latitude>
+    <Longitude>-82.2024597478333</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>11</Id>
     <Status>Open</Status>
-    <Type>None</Type>
+    <Type>Social</Type>
     <Description>Lost wallet in public area - help searching</Description>
     <CallerAddress>778 Palm Ave, Jacksonville, FL 32099, USA</CallerAddress>
-    <Latitude>38.73982439500397</Latitude>
-    <Longitude>-104.12395854374074</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>34.36570317629612</Latitude>
+    <Longitude>-95.48772030970679</Longitude>
+    <StartTime>2025-07-16T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>12</Id>
@@ -127,21 +83,21 @@
     <Type>Medical</Type>
     <Description>Food delivery for homeless shelter</Description>
     <CallerAddress>556 Redwood St, San Francisco, CA 94102, USA</CallerAddress>
-    <Latitude>25.73449507025765</Latitude>
-    <Longitude>-113.12983379891608</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>35.63563425663212</Latitude>
+    <Longitude>-94.7349853007741</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>13</Id>
     <Status>Open</Status>
-    <Type>Social</Type>
+    <Type>None</Type>
     <Description>Pet locked in car - urgent rescue needed</Description>
     <CallerAddress>223 Cypress Ave, Columbus, OH 43085, USA</CallerAddress>
-    <Latitude>47.613008282081914</Latitude>
-    <Longitude>-110.75089812771029</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>37.537696946498215</Latitude>
+    <Longitude>-68.23183185328153</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>14</Id>
@@ -149,65 +105,65 @@
     <Type>Technical</Type>
     <Description>Moving assistance for elderly neighbor</Description>
     <CallerAddress>101 Magnolia St, Charlotte, NC 28202, USA</CallerAddress>
-    <Latitude>39.54464331965448</Latitude>
-    <Longitude>-93.18854651954405</Longitude>
-    <StartTime>2025-07-15T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>40.54811167263012</Latitude>
+    <Longitude>-100.90222423498456</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>15</Id>
     <Status>Open</Status>
-    <Type>None</Type>
+    <Type>Medical</Type>
     <Description>Car overheated on highway</Description>
     <CallerAddress>667 Poplar Ave, Fort Worth, TX 76101, USA</CallerAddress>
-    <Latitude>43.77108739566337</Latitude>
-    <Longitude>-69.7814770503415</Longitude>
-    <StartTime>2025-07-15T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>42.807478318023605</Latitude>
+    <Longitude>-82.90464759483618</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>16</Id>
     <Status>Open</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Child separated from family at mall</Description>
     <CallerAddress>334 Chestnut St, Seattle, WA 98101, USA</CallerAddress>
-    <Latitude>37.39651387585697</Latitude>
-    <Longitude>-117.42077580023954</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>34.564944233328596</Latitude>
+    <Longitude>-98.02238332196511</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>17</Id>
     <Status>Open</Status>
-    <Type>None</Type>
+    <Type>Social</Type>
     <Description>Bike chain broken - need repair help</Description>
     <CallerAddress>889 Alder Ave, Denver, CO 80202, USA</CallerAddress>
-    <Latitude>36.92799429131746</Latitude>
-    <Longitude>-70.22259860457973</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>45.42062619311285</Latitude>
+    <Longitude>-114.03327495277938</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>18</Id>
     <Status>Open</Status>
-    <Type>Technical</Type>
+    <Type>Medical</Type>
     <Description>Delivery truck stuck in narrow alley</Description>
     <CallerAddress>111 Olive St, El Paso, TX 79901, USA</CallerAddress>
-    <Latitude>39.998887593186005</Latitude>
-    <Longitude>-101.07662954297236</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>36.065129312486135</Latitude>
+    <Longitude>-89.19398343377186</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>19</Id>
     <Status>Open</Status>
-    <Type>Technical</Type>
+    <Type>Medical</Type>
     <Description>Person fell and needs first aid</Description>
     <CallerAddress>222 Plum Ave, Detroit, MI 48201, USA</CallerAddress>
-    <Latitude>47.55144247746713</Latitude>
-    <Longitude>-84.21607581330102</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>37.91445032826621</Latitude>
+    <Longitude>-108.63355093739436</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>20</Id>
@@ -215,21 +171,21 @@
     <Type>Medical</Type>
     <Description>Broken wheelchair needs temporary fix</Description>
     <CallerAddress>555 Sycamore St, Boston, MA 02101, USA</CallerAddress>
-    <Latitude>31.43262073920632</Latitude>
-    <Longitude>-70.61082418579052</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>36.87500920736918</Latitude>
+    <Longitude>-78.74776192909808</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>21</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>None</Type>
     <Description>Lost tourist needs directions and help</Description>
     <CallerAddress>777 Bamboo Ave, Memphis, TN 38101, USA</CallerAddress>
-    <Latitude>39.679607884698314</Latitude>
-    <Longitude>-115.91693488908655</Longitude>
-    <StartTime>2025-07-15T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>39.9355263162645</Latitude>
+    <Longitude>-85.09741316370597</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>22</Id>
@@ -237,32 +193,32 @@
     <Type>Medical</Type>
     <Description>Flooded basement needs water removal</Description>
     <CallerAddress>999 Hazel St, Nashville, TN 37201, USA</CallerAddress>
-    <Latitude>34.9852711759621</Latitude>
-    <Longitude>-68.4775123576193</Longitude>
-    <StartTime>2025-07-15T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>37.88671344362408</Latitude>
+    <Longitude>-71.72651505628443</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>23</Id>
     <Status>Open</Status>
-    <Type>None</Type>
+    <Type>Medical</Type>
     <Description>Power outage - elderly person needs assistance</Description>
     <CallerAddress>333 Coral Ave, Portland, OR 97201, USA</CallerAddress>
-    <Latitude>41.82204594456083</Latitude>
-    <Longitude>-74.10628628240613</Longitude>
-    <StartTime>2025-07-15T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>28.21394230322359</Latitude>
+    <Longitude>-104.14851162075063</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>24</Id>
     <Status>Open</Status>
-    <Type>Social</Type>
+    <Type>None</Type>
     <Description>Stuck elevator with person inside</Description>
     <CallerAddress>666 Sage St, Oklahoma City, OK 73101, USA</CallerAddress>
-    <Latitude>33.140559608979956</Latitude>
-    <Longitude>-112.0677386664766</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>31.298719464017097</Latitude>
+    <Longitude>-121.10710783258693</Longitude>
+    <StartTime>2025-07-16T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>25</Id>
@@ -270,43 +226,43 @@
     <Type>Medical</Type>
     <Description>Ice storm - person needs help getting home</Description>
     <CallerAddress>444 Lilac Ave, Las Vegas, NV 89101, USA</CallerAddress>
-    <Latitude>32.51094200216353</Latitude>
-    <Longitude>-69.1943740538436</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>47.53339354040875</Latitude>
+    <Longitude>-113.92578468160988</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>26</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>None</Type>
     <Description>Flat tire on motorcycle</Description>
     <CallerAddress>888 Myrtle St, Louisville, KY 40202, USA</CallerAddress>
-    <Latitude>38.686051338388026</Latitude>
-    <Longitude>-77.99736766317264</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>35.310204570090406</Latitude>
+    <Longitude>-87.04583283107513</Longitude>
+    <StartTime>2025-07-16T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>27</Id>
     <Status>Open</Status>
-    <Type>None</Type>
+    <Type>Medical</Type>
     <Description>Person locked out of apartment</Description>
     <CallerAddress>147 Juniper Ave, Baltimore, MD 21201, USA</CallerAddress>
-    <Latitude>28.69407278382618</Latitude>
-    <Longitude>-76.00004264237626</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>34.336760405235154</Latitude>
+    <Longitude>-112.79267638538447</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>28</Id>
     <Status>Open</Status>
-    <Type>Technical</Type>
+    <Type>Medical</Type>
     <Description>Heavy furniture delivery assistance needed</Description>
     <CallerAddress>258 Aspen St, Milwaukee, WI 53201, USA</CallerAddress>
-    <Latitude>30.757034349695083</Latitude>
-    <Longitude>-98.38670093874521</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>43.52201157538968</Latitude>
+    <Longitude>-69.7002087353805</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>29</Id>
@@ -314,10 +270,10 @@
     <Type>Medical</Type>
     <Description>Car accident - need traffic direction help</Description>
     <CallerAddress>369 Hawthorn Ave, Albuquerque, NM 87101, USA</CallerAddress>
-    <Latitude>25.96311812996379</Latitude>
-    <Longitude>-101.91634900169763</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>48.26403781283369</Latitude>
+    <Longitude>-78.20323658213701</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>30</Id>
@@ -325,10 +281,10 @@
     <Type>Medical</Type>
     <Description>Diabetic person needs emergency glucose</Description>
     <CallerAddress>741 Eucalyptus St, Tucson, AZ 85701, USA</CallerAddress>
-    <Latitude>38.67511773095451</Latitude>
-    <Longitude>-117.60685600742394</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>40.5322707530871</Latitude>
+    <Longitude>-90.34960144004421</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>31</Id>
@@ -336,54 +292,54 @@
     <Type>Medical</Type>
     <Description>Phone died - need to contact family urgently</Description>
     <CallerAddress>852 Pinecone Ave, Fresno, CA 93701, USA</CallerAddress>
-    <Latitude>38.62053084808766</Latitude>
-    <Longitude>-72.95093079643871</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>44.08453620104686</Latitude>
+    <Longitude>-102.17613206525647</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>32</Id>
     <Status>Open</Status>
-    <Type>None</Type>
+    <Type>Medical</Type>
     <Description>Slippery sidewalk - person fell</Description>
     <CallerAddress>963 Ivy St, Sacramento, CA 95814, USA</CallerAddress>
-    <Latitude>39.63576239888229</Latitude>
-    <Longitude>-124.8934579119062</Longitude>
-    <StartTime>2025-07-16T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>44.122961735211774</Latitude>
+    <Longitude>-76.08584109889821</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>33</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>Social</Type>
     <Description>Car window broken - need temporary cover</Description>
     <CallerAddress>159 Fir Ave, Long Beach, CA 90801, USA</CallerAddress>
-    <Latitude>34.676252065565265</Latitude>
-    <Longitude>-101.34178179860413</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>35.655217331817674</Latitude>
+    <Longitude>-66.68358250010078</Longitude>
+    <StartTime>2025-07-16T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>34</Id>
     <Status>Open</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Lost prescription medication</Description>
     <CallerAddress>357 Lavender St, Kansas City, MO 64108, USA</CallerAddress>
-    <Latitude>26.60409472357576</Latitude>
-    <Longitude>-94.58849544828338</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>43.434198260356645</Latitude>
+    <Longitude>-99.58982819583511</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>35</Id>
     <Status>Open</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Severe allergic reaction - need EpiPen</Description>
     <CallerAddress>468 Marigold Ave, Mesa, AZ 85201, USA</CallerAddress>
-    <Latitude>27.38487951752286</Latitude>
-    <Longitude>-120.11831602700278</Longitude>
-    <StartTime>2025-07-14T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>42.56297341169897</Latitude>
+    <Longitude>-112.10626483367784</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>36</Id>
@@ -391,10 +347,10 @@
     <Type>None</Type>
     <Description>Confused elderly person needs help getting home</Description>
     <CallerAddress>579 Sagebrush St, Virginia Beach, VA 23451, USA</CallerAddress>
-    <Latitude>42.53602884486132</Latitude>
-    <Longitude>-85.59043467697711</Longitude>
-    <StartTime>2025-07-15T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>43.816415749359145</Latitude>
+    <Longitude>-123.09102432560992</Longitude>
+    <StartTime>2025-07-13T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>37</Id>
@@ -402,54 +358,54 @@
     <Type>Technical</Type>
     <Description>Broken crutch needs temporary replacement</Description>
     <CallerAddress>681 Daffodil Ave, Atlanta, GA 30309, USA</CallerAddress>
-    <Latitude>48.714657806064494</Latitude>
-    <Longitude>-97.09939496585615</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>25.431750383629115</Latitude>
+    <Longitude>-113.08882929624768</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>38</Id>
     <Status>Open</Status>
-    <Type>Medical</Type>
+    <Type>Social</Type>
     <Description>Person having panic attack needs support</Description>
     <CallerAddress>792 Camellia St, Colorado Springs, CO 80903, USA</CallerAddress>
-    <Latitude>47.136353462923</Latitude>
-    <Longitude>-116.32706005260212</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-19T22:50:11</MaxEndTime>
+    <Latitude>48.52659275816045</Latitude>
+    <Longitude>-70.42163181528124</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>39</Id>
     <Status>Open</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Car won't start in remote location</Description>
     <CallerAddress>135 Fern Ave, Omaha, NE 68102, USA</CallerAddress>
-    <Latitude>42.0214676417418</Latitude>
-    <Longitude>-68.00100653849354</Longitude>
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <Latitude>41.89976549040312</Latitude>
+    <Longitude>-100.03156450272503</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T23:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>40</Id>
     <Status>Closed</Status>
-    <Type>None</Type>
+    <Type>Technical</Type>
     <Description>Person needs help reading medication labels</Description>
     <CallerAddress>246 Amaranth St, Raleigh, NC 27601, USA</CallerAddress>
-    <Latitude>46.38190729316776</Latitude>
-    <Longitude>-67.9353078668683</Longitude>
-    <StartTime>2025-07-10T22:50:11</StartTime>
-    <MaxEndTime>2025-07-13T03:50:11</MaxEndTime>
+    <Latitude>36.077061609897584</Latitude>
+    <Longitude>-83.4066808380498</Longitude>
+    <StartTime>2025-06-19T23:20:20</StartTime>
+    <MaxEndTime>2025-06-20T05:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>41</Id>
     <Status>Closed</Status>
-    <Type>None</Type>
+    <Type>Medical</Type>
     <Description>Wheelchair tire flat - needs replacement</Description>
     <CallerAddress>357 Daisy Ave, Miami, FL 33101, USA</CallerAddress>
-    <Latitude>35.931621385773184</Latitude>
-    <Longitude>-68.00623176490666</Longitude>
-    <StartTime>2025-06-21T22:50:11</StartTime>
-    <MaxEndTime>2025-06-23T08:50:11</MaxEndTime>
+    <Latitude>48.65368108539347</Latitude>
+    <Longitude>-118.01037324954213</Longitude>
+    <StartTime>2025-07-08T23:20:20</StartTime>
+    <MaxEndTime>2025-07-10T01:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>42</Id>
@@ -457,10 +413,10 @@
     <Type>Medical</Type>
     <Description>Person with visual impairment needs navigation help</Description>
     <CallerAddress>468 Carnation St, Oakland, CA 94612, USA</CallerAddress>
-    <Latitude>37.24971430905948</Latitude>
-    <Longitude>-117.74904951698447</Longitude>
-    <StartTime>2025-06-25T22:50:11</StartTime>
-    <MaxEndTime>2025-06-27T06:50:11</MaxEndTime>
+    <Latitude>41.096238514297184</Latitude>
+    <Longitude>-71.25630214625568</Longitude>
+    <StartTime>2025-07-05T23:20:20</StartTime>
+    <MaxEndTime>2025-07-06T13:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>43</Id>
@@ -468,65 +424,65 @@
     <Type>None</Type>
     <Description>Insulin emergency - diabetic person needs help</Description>
     <CallerAddress>579 Bluebell Ave, Minneapolis, MN 55401, USA</CallerAddress>
-    <Latitude>46.73433797559472</Latitude>
-    <Longitude>-123.35251562130614</Longitude>
-    <StartTime>2025-07-10T22:50:11</StartTime>
-    <MaxEndTime>2025-07-13T00:50:11</MaxEndTime>
+    <Latitude>34.634261596022625</Latitude>
+    <Longitude>-106.92866359954996</Longitude>
+    <StartTime>2025-06-18T23:20:20</StartTime>
+    <MaxEndTime>2025-06-21T01:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>44</Id>
     <Status>Closed</Status>
-    <Type>None</Type>
+    <Type>Social</Type>
     <Description>Person with hearing aid malfunction needs assistance</Description>
     <CallerAddress>681 Gardenia St, Tulsa, OK 74103, USA</CallerAddress>
-    <Latitude>34.57057666936354</Latitude>
-    <Longitude>-108.77394036634914</Longitude>
-    <StartTime>2025-07-06T22:50:11</StartTime>
-    <MaxEndTime>2025-07-09T10:50:11</MaxEndTime>
+    <Latitude>28.423545600774496</Latitude>
+    <Longitude>-76.2424485775444</Longitude>
+    <StartTime>2025-06-24T23:20:20</StartTime>
+    <MaxEndTime>2025-06-27T04:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>45</Id>
     <Status>Closed</Status>
-    <Type>Technical</Type>
+    <Type>Social</Type>
     <Description>Emergency childcare needed - parent hospitalized</Description>
     <CallerAddress>792 Gladiolus Ave, Arlington, TX 76010, USA</CallerAddress>
-    <Latitude>33.238989353539445</Latitude>
-    <Longitude>-80.62643929879002</Longitude>
-    <StartTime>2025-06-22T22:50:11</StartTime>
-    <MaxEndTime>2025-06-24T11:50:11</MaxEndTime>
+    <Latitude>28.240416141876352</Latitude>
+    <Longitude>-77.50420616858767</Longitude>
+    <StartTime>2025-06-17T23:20:20</StartTime>
+    <MaxEndTime>2025-06-18T10:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>46</Id>
     <Status>Closed</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Person needs help with translation</Description>
     <CallerAddress>135 Oleander St, New Orleans, LA 70112, USA</CallerAddress>
-    <Latitude>25.837263723707718</Latitude>
-    <Longitude>-105.32159091702705</Longitude>
-    <StartTime>2025-06-23T22:50:11</StartTime>
-    <MaxEndTime>2025-06-24T15:50:11</MaxEndTime>
+    <Latitude>46.89723682257451</Latitude>
+    <Longitude>-116.60624218548563</Longitude>
+    <StartTime>2025-06-19T23:20:20</StartTime>
+    <MaxEndTime>2025-06-21T21:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>47</Id>
     <Status>Closed</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Oxygen tank running low - needs refill assistance</Description>
     <CallerAddress>246 Buttercup Ave, Wichita, KS 67202, USA</CallerAddress>
-    <Latitude>42.512217195314996</Latitude>
-    <Longitude>-108.83733005535132</Longitude>
-    <StartTime>2025-07-10T22:50:11</StartTime>
-    <MaxEndTime>2025-07-12T15:50:11</MaxEndTime>
+    <Latitude>35.77175131240061</Latitude>
+    <Longitude>-69.29919267252706</Longitude>
+    <StartTime>2025-06-17T23:20:20</StartTime>
+    <MaxEndTime>2025-06-19T13:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>48</Id>
     <Status>Closed</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Person with mobility issues stuck in snow</Description>
     <CallerAddress>357 Hibiscus St, Cleveland, OH 44113, USA</CallerAddress>
-    <Latitude>38.699051032580996</Latitude>
-    <Longitude>-82.73049344100345</Longitude>
-    <StartTime>2025-07-07T22:50:11</StartTime>
-    <MaxEndTime>2025-07-08T07:50:11</MaxEndTime>
+    <Latitude>30.206459291023606</Latitude>
+    <Longitude>-69.31632193246568</Longitude>
+    <StartTime>2025-06-19T23:20:20</StartTime>
+    <MaxEndTime>2025-06-21T21:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>49</Id>
@@ -534,20 +490,64 @@
     <Type>None</Type>
     <Description>Emergency medication delivery needed</Description>
     <CallerAddress>468 Jasmine Ave, Tampa, FL 33602, USA</CallerAddress>
-    <Latitude>44.285341425328916</Latitude>
-    <Longitude>-91.50623244973659</Longitude>
-    <StartTime>2025-07-05T22:50:11</StartTime>
-    <MaxEndTime>2025-07-08T14:50:11</MaxEndTime>
+    <Latitude>39.16424480110564</Latitude>
+    <Longitude>-107.32112701948402</Longitude>
+    <StartTime>2025-07-09T23:20:20</StartTime>
+    <MaxEndTime>2025-07-11T19:20:20</MaxEndTime>
   </Call>
   <Call>
     <Id>1</Id>
-    <Status>Open</Status>
+    <Status>Closed</Status>
     <Type>Medical</Type>
     <Description>Car battery dead - requires jump start</Description>
     <CallerAddress>456 Oak Ave, Los Angeles, CA 90210, USA</CallerAddress>
+    <Latitude>30.07505641283373</Latitude>
+    <Longitude>-107.77550293140476</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>2</Id>
+    <Status>Closed</Status>
+    <Type>Medical</Type>
+    <Description>Locked keys inside vehicle</Description>
+    <CallerAddress>789 Pine St, Chicago, IL 60601, USA</CallerAddress>
+    <Latitude>41.8882756</Latitude>
+    <Longitude>-88.1961933</Longitude>
+    <StartTime>2025-07-15T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>3</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Car stuck in parking garage</Description>
+    <CallerAddress>321 Elm St, Houston, TX 77001, USA</CallerAddress>
+    <Latitude>29.712923</Latitude>
+    <Longitude>-95.4721699</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T23:20:20</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>5</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Wheelchair accessibility issue at building entrance1</Description>
+    <CallerAddress>987 Cedar St, Philadelphia, PA 19101, USA</CallerAddress>
+    <Latitude>39.976646</Latitude>
+    <Longitude>-75.127947</Longitude>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-18T00:00:00</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>4</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Elderly person needs help with groceries12</Description>
+    <CallerAddress>654 Maple Ave, Phoenix, AZ 85001, USA</CallerAddress>
     <Latitude xsi:nil="true" />
     <Longitude xsi:nil="true" />
-    <StartTime>2025-07-13T22:50:11</StartTime>
-    <MaxEndTime>2025-07-18T22:50:11</MaxEndTime>
+    <StartTime>2025-07-14T23:20:20</StartTime>
+    <MaxEndTime>2025-07-19T00:00:00</MaxEndTime>
   </Call>
 </ArrayOfCall>

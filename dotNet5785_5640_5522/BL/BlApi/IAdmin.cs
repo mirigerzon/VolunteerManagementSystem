@@ -17,6 +17,7 @@ public interface IAdmin : IObservable
 {
     DateTime GetSystemClock();
     void AdvanceSystemClock(TimeUnit unit);
+    void ResetSystemClock(); 
     TimeSpan GetRiskTimeSpan();
     void SetRiskTimeSpan(TimeSpan timeSpan);
     void ResetDatabase();
