@@ -16,7 +16,7 @@
     <Window.Resources>
         <ObjectDataProvider x:Key="CallSortFieldCollectionKey" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="bo:OpenCallSortField"/>
+                <x:Type TypeName="bo:CallFieldFilter"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
@@ -391,10 +391,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="80"/>
 
-                    <DataGridTextColumn Header="Status" Binding="{Binding CallStatus}" Width="120">
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <Setter Property="Background" Value="{Binding CallStatus, Converter={StaticResource StatusToBackgroundConverter}}"/>
+                                <Setter Property="Background" Value="{Binding Status, Converter={StaticResource StatusToBackgroundConverter}}"/>
                                 <Setter Property="FontWeight" Value="Medium"/>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -427,7 +427,7 @@
                                             Style="{StaticResource CancelButton}"
                                             CommandParameter="{Binding}" 
                                             Margin="4,0,0,0"
-                                            Visibility="{Binding CallStatus, Converter={StaticResource IsStatusAssignedConverter}}"/>
+                                            Visibility="{Binding Status, Converter={StaticResource IsStatusAssignedConverter}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

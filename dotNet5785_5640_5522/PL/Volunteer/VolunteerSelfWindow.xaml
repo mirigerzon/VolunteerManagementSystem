@@ -453,8 +453,8 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Address:" FontWeight="Medium" Foreground="{StaticResource TextSecondary}" Margin="0,0,12,8"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ActiveCall.Address}" FontWeight="Medium" Foreground="{StaticResource TextPrimary}" Margin="0,0,0,8"/>
+                            <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="Address:" FontWeight="Medium" Foreground="{StaticResource TextSecondary}" Margin="0,0,12,8"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ActiveCall.Address}" FontWeight="Medium" Foreground="{StaticResource TextPrimary}" Margin="0,0,0,8"/>-->
 
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Distance:" FontWeight="Medium" Foreground="{StaticResource TextSecondary}" Margin="0,0,12,8"/>
                             <TextBlock Grid.Row="1" Grid.Column="1"

@@ -14,14 +14,10 @@ public static class Enums
     }
     public enum CallStatusEnum
     {
-        New,
-        Open,
-        InProgress,
-        Treated,
-        Resolved, 
-        Closed,
-        Expired,
-        Aborted
+        Open,               // 0
+        InTreatment,        // 1
+        Closed,             // 2
+        Expired             // 3
     }
     public enum CallTypeEnum
     {

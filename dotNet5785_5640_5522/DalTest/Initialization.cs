@@ -221,7 +221,7 @@ public static class Initialization
                 ? null : (s_rand.Next(0, 2) == 0 ? null : randomStartTime.AddHours(s_rand.Next(1, 48)));
             Call call = new Call(
              s_dal.Config.GetNextCallId(),
-             (s_rand.Next(0, 4) == 0) ? CallStatusEnum.New : (CallStatusEnum)s_rand.Next(0, 3),
+             CallStatusEnum.Open,
              (s_rand.Next(0, 4) == 0) ? CallTypeEnum.Medical : (CallTypeEnum)s_rand.Next(0, 3),
              Descriptions[i],
              CallerAddresses[i],

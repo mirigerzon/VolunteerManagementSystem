@@ -11,7 +11,7 @@ public class IsStatusAssignedConverter : IValueConverter
     {
         if (value is CallStatus status)
         {
-            if (status == CallStatus.InTreatment)
+            if (status == CallStatus.InTreatment || status == CallStatus.InTreatmentAtRisk)
             {
                 return Visibility.Visible;
             }

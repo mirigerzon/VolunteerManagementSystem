@@ -11,6 +11,9 @@
 		<RootNamespace />
 	</PropertyGroup>
 	<ItemGroup>
+	  <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+	</ItemGroup>
+	<ItemGroup>
 	  <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
 	  <ProjectReference Include="..\DalList\DalList.csproj" />
 	  <ProjectReference Include="..\DalTest\DalTest.csproj" />

@@ -1,5 +1,4 @@
-﻿// CallSelectionWindow.xaml.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using BO;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace PL.Volunteer
 {
@@ -21,6 +23,7 @@ namespace PL.Volunteer
         public ObservableCollection<OpenCallInList> OpenCalls { get; set; }
 
         private OpenCallInList selectedCall;
+
         public OpenCallInList SelectedCall
         {
             get => selectedCall;
@@ -29,6 +32,7 @@ namespace PL.Volunteer
                 selectedCall = value;
                 OnPropertyChanged(nameof(SelectedCall));
                 OnPropertyChanged(nameof(Description));
+                UpdateMap();
             }
         }
 
@@ -83,7 +87,7 @@ namespace PL.Volunteer
         {
             OnPropertyChanged(nameof(SelectedCall));
             OnPropertyChanged(nameof(Description));
-            // TODO: Update map
+            UpdateMap();
         }
 
         private void OnPropertyChanged(string name) =>
@@ -93,6 +97,7 @@ namespace PL.Volunteer
         {
             OnPropertyChanged(nameof(SelectedCall));
             OnPropertyChanged(nameof(Description));
+            UpdateMap();
         }
 
         private void ChooseCall_Click(object sender, RoutedEventArgs e)
@@ -118,5 +123,92 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private async void UpdateMap()
+        {
+            if (SelectedCall != null && !string.IsNullOrEmpty(SelectedCall.Address))
+            {
+                try
+                {
+                    var coords = await GetCoordinatesFromAddressAsync(SelectedCall.Address);
+                    if (coords != null)
+                    {
+                        string lat = coords.Value.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        string lon = coords.Value.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                        string htmlContent = $@"
+                            <html>
+                              <head>
+                                <meta http-equiv='X-UA-Compatible' content='IE=Edge'/>
+                                <style>
+                                  html, body {{ margin: 0; padding: 0; height: 100%; }}
+                                  iframe {{ width: 100%; height: 100%; border: none; }}
+                                </style>
+                              </head>
+                              <body>
+                                <iframe 
+                                  src='https://www.openstreetmap.org/export/embed.html?bbox={lon}%2C{lat}%2C{lon}%2C{lat}&layer=mapnik&marker={lat}%2C{lon}'>
+                                </iframe>
+                              </body>
+                            </html>";
+                        MapWebBrowser.NavigateToString(htmlContent);
+                        MapWebBrowser.Visibility = Visibility.Visible;
+                        MapPlaceholder.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        MapWebBrowser.Visibility = Visibility.Collapsed;
+                        MapPlaceholder.Visibility = Visibility.Visible;
+                        MapPlaceholder.Text = "Could not find location for address";
+                    }
+                }
+                catch
+                {
+                    MapWebBrowser.Visibility = Visibility.Collapsed;
+                    MapPlaceholder.Visibility = Visibility.Visible;
+                    MapPlaceholder.Text = "Error loading map";
+                }
+            }
+            else
+            {
+                MapWebBrowser.Visibility = Visibility.Collapsed;
+                MapPlaceholder.Visibility = Visibility.Visible;
+                MapPlaceholder.Text = "Select a call to view location on map";
+            }
+        }
+
+        public async Task<(double Latitude, double Longitude)?> GetCoordinatesFromAddressAsync(string address)
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+                string url = $"https://nominatim.openstreetmap.org/search?format=json&q={Uri.EscapeDataString(address)}&limit=1";
+
+                httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("YourAppName/1.0"); // חובה לפי תנאי Nominatim
+
+                string response = await httpClient.GetStringAsync(url);
+
+                var results = JsonSerializer.Deserialize<List<NominatimResult>>(response);
+                if (results != null && results.Count > 0)
+                {
+                    double lat = double.Parse(results[0].Lat, System.Globalization.CultureInfo.InvariantCulture);
+                    double lon = double.Parse(results[0].Lon, System.Globalization.CultureInfo.InvariantCulture);
+                    return (lat, lon);
+                }
+            }
+            catch
+            {
+                // התעלם משגיאה או החזר null
+            }
+
+            return null;
+        }
+
+        public class NominatimResult
+        {
+            public string Lat { get; set; }
+            public string Lon { get; set; }
+        }
+
     }
 }

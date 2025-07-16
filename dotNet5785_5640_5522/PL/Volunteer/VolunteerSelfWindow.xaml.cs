@@ -7,7 +7,7 @@ using BO;
 
 namespace PL.Volunteer
 {
-    public partial class VolunteerSelfWindow : Window, INotifyPropertyChanged
+    public partial class VolunteerSelfWindow :  Window, INotifyPropertyChanged
     {
         private readonly BlApi.IBl bl = BlApi.Factory.Get();
         public event PropertyChangedEventHandler PropertyChanged;
@@ -18,7 +18,6 @@ namespace PL.Volunteer
         public bool CanChooseCall => !HasActiveCall && Volunteer.IsActive;
         public bool CanChangeActivity => !HasActiveCall;
         public Array TypeOfDistanceValues => Enum.GetValues(typeof(TypeOfDistance));
-
         public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
             const double R = 6371;
@@ -35,7 +34,6 @@ namespace PL.Volunteer
 
             return R * c;
         }
-
         public double ActiveCallDistance
         {
             get
@@ -50,10 +48,8 @@ namespace PL.Volunteer
                     ActiveCall.Latitude.Value, ActiveCall.Longitude.Value);
             }
         }
-
         private static double DegreesToRadians(double degrees) =>
             degrees * Math.PI / 180.0;
-
         public VolunteerSelfWindow(BO.Volunteer volunteer)
         {
             Volunteer = volunteer;
@@ -73,12 +69,10 @@ namespace PL.Volunteer
             InitializeComponent();
             DataContext = this;
         }
-
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             Volunteer.Password = ((PasswordBox)sender).Password;
         }
-
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -91,9 +85,7 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
-
         private void FinishCall_Click(object sender, RoutedEventArgs e)
         {
             if (ActiveAssignment == null) return;
@@ -112,7 +104,6 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void CancelCall_Click(object sender, RoutedEventArgs e)
         {
             if (ActiveAssignment == null) return;
@@ -127,7 +118,6 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void SelectCall_Click(object sender, RoutedEventArgs e)
         {
             var callSelectWindow = new CallSelectionWindow(Volunteer);
@@ -150,16 +140,13 @@ namespace PL.Volunteer
                 }
             }
         }
-
         private void History_Click(object sender, RoutedEventArgs e)
         {
             var historyWindow = new CallHistoryWindow(Volunteer);
             historyWindow.ShowDialog();
         }
-
         private void OnPropertyChanged(string name) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
         private void NotifyVolunteerChange()
         {
             OnPropertyChanged(nameof(Volunteer));
@@ -170,11 +157,7 @@ namespace PL.Volunteer
             OnPropertyChanged(nameof(CanChangeActivity));
             OnPropertyChanged(nameof(ActiveCallDistance));
         }
-
-        // ========== Observer with Dispatcher ==========
-
         private volatile DispatcherOperation? _observerOperation = null;
-
         private void VolunteerObserver()
         {
             if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
@@ -195,12 +178,10 @@ namespace PL.Volunteer
                 }));
             }
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             bl.Volunteer.AddObserver(VolunteerObserver);
         }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             bl.Volunteer.RemoveObserver(VolunteerObserver);

@@ -271,15 +271,15 @@ internal class CallImplementation : BlApi.ICall
                 CallerAddress = call.CallerAddress,
                 StartTime = _dal.Config.Clock,
                 MaxEndTime = call.MaxEndTime,
-                Latitude = null, 
+                Latitude = null,
                 Longitude = null,
-                Status = DO.Enums.CallStatusEnum.New
+                Status = DO.Enums.CallStatusEnum.Open
             };
             lock (AdminManager.BlMutex)
             {
                 _dal.Call.Create(newCall);
             }
-            CallManager.Observers.NotifyListUpdated(); 
+            CallManager.Observers.NotifyListUpdated();
             _ = Helpers.CallManager.UpdateCoordinatesForCallAddressAsync(newCall);
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -337,14 +337,12 @@ internal class CallImplementation : BlApi.ICall
     {
         try
         {
-            lock (AdminManager.BlMutex) // 🔒 lock added
+            lock (AdminManager.BlMutex)
             {
                 var volunteer = _dal.Volunteer.Read(volunteerId);
                 var openCalls = _dal.Call.ReadAll()
                     .Where(call =>
-                        (call.Status == DO.Enums.CallStatusEnum.Open ||
-                         call.Status == DO.Enums.CallStatusEnum.New ||
-                         call.Status == DO.Enums.CallStatusEnum.Aborted) &&
+                        (call.Status == DO.Enums.CallStatusEnum.Open) &&
                         (call.MaxEndTime == null || call.MaxEndTime > _dal.Config.Clock))
                     .Select(call => new OpenCallInList
                     {
@@ -391,7 +389,7 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             Helpers.AdminManager.ThrowOnSimulatorIsRunning(); //stage 7
-            lock (AdminManager.BlMutex) // 🔒 lock added
+            lock (AdminManager.BlMutex) 
             {
                 var assignment = _dal.Assignment.Read(assignmentId);
                 if (assignment == null)
@@ -418,11 +416,11 @@ internal class CallImplementation : BlApi.ICall
                 };
                 _dal.Assignment.Update(assignmentToUpdate);
 
-                var updatedCall = call with { Status = DO.Enums.CallStatusEnum.Resolved };
+                var updatedCall = call with { Status = DO.Enums.CallStatusEnum.Closed };
                 _dal.Call.Update(updatedCall);
             }
-            CallManager.Observers.NotifyListUpdated(); // 🔔 מחוץ ל-lock
-            CallManager.Observers.NotifyItemUpdated(assignmentId); // 🔔 מחוץ ל-lock
+            CallManager.Observers.NotifyListUpdated(); 
+            CallManager.Observers.NotifyItemUpdated(assignmentId);
         }
         catch (Exception ex)
         {
@@ -472,9 +470,6 @@ internal class CallImplementation : BlApi.ICall
             lock (AdminManager.BlMutex) // 🔒 lock added
             {
                 var call = _dal.Call.Read(callId);
-                var existingAssignment = _dal.Assignment.ReadAll()
-                    .Where(a => a.CallId == callId)
-                    .ToList();
                 if (call.MaxEndTime < _dal.Config.Clock)
                 {
                     throw new BlInvalidException($"Call {callId} already has an expired.");
@@ -489,6 +484,18 @@ internal class CallImplementation : BlApi.ICall
                     EndStatus = null
                 };
                 _dal.Assignment.Create(assignmentToAdd);
+                _dal.Call.Update(new DO.Call
+                {
+                    Id = call.Id,
+                    Status = CallStatusEnum.InTreatment,
+                    Type = call.Type,
+                    Description = call.Description,
+                    CallerAddress = call.CallerAddress,
+                    Latitude = call.Latitude,
+                    Longitude = call.Longitude,
+                    StartTime = call.StartTime,
+                    MaxEndTime = call.MaxEndTime
+                });
                 return new BO.CallInProgress
                 {
                     Id = assignmentToAdd.Id,
@@ -507,17 +514,62 @@ internal class CallImplementation : BlApi.ICall
     {
         try
         {
-            lock (AdminManager.BlMutex) // 🔒 lock added
+            DO.Call call;
+            lock (Helpers.AdminManager.BlMutex)
             {
-                var readCall = _dal.Call.Read(id);
-                return Helpers.CallManager.ConvertDoToBo(readCall);
+                call = _dal.Call.Read(id);
             }
+
+            if (call == null)
+                throw new BlDoesNotExistException("Call not found");
+
+            List<DO.Assignment> callAssignments;
+            lock (Helpers.AdminManager.BlMutex)
+            {
+                callAssignments = _dal.Assignment.ReadAll()
+                    .Where(a => a.CallId == id)
+                    .ToList();
+            }
+
+            List<BO.CallAssignInList> boAssignments = callAssignments.Select(a =>
+            {
+                string? volunteerName = null;
+                lock (Helpers.AdminManager.BlMutex)
+                {
+                    var volunteer = _dal.Volunteer.Read(a.VolunteerId);
+                    volunteerName = volunteer?.FullName;
+                }
+
+                return new BO.CallAssignInList
+                {
+                    VolunteerId = a.VolunteerId,
+                    VolunteerName = volunteerName,
+                    StartTreatmentTime = a.ArrivalTime,
+                    EndTreatmentTime = a.EndTime,
+                    EndType = a.EndStatus.HasValue ? (AssignmentEndType?)a.EndStatus.Value : null
+                };
+            }).ToList();
+
+            return new BO.Call
+            {
+                Id = call.Id,
+                Type = (CallType)call.Type,
+                Description = call.Description,
+                CallerAddress = call.CallerAddress,
+                Latitude = call.Latitude,
+                Longitude = call.Longitude,
+                StartTime = call.StartTime,
+                MaxEndTime = call.MaxEndTime,
+                Status = (CallStatus)call.Status,
+                Assignments = boAssignments
+            };
         }
         catch (Exception ex)
         {
-            throw new BlDoesNotExistException("Call read did not succeeded /n", ex);
+            throw new BlInvalidException("Error retrieving call.", ex);
         }
     }
+
     #region Stage 5
     public void AddObserver(Action listObserver) =>
         CallManager.Observers.AddListObserver(listObserver); //stage 5

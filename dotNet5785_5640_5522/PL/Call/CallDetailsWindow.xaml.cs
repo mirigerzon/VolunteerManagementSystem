@@ -19,6 +19,10 @@ namespace PL.Call
 
         public Array CallTypes => Enum.GetValues(typeof(CallType));
 
+        // Time picker properties
+        public List<int> Hours => Enumerable.Range(0, 24).ToList();
+        public List<int> Minutes => Enumerable.Range(0, 60).Where(m => m % 5 == 0).ToList();
+
         private string _buttonText;
         public string ButtonText
         {
@@ -50,13 +54,101 @@ namespace PL.Call
                 OnPropertyChanged(nameof(Call));
                 IsNewCall = (_call.Id == 0);
                 UpdateTexts();
+                UpdateDateTimeFromCall();
             }
+        }
+
+        private DateTime? _maxEndDate;
+        public DateTime? MaxEndDate
+        {
+            get => _maxEndDate;
+            set
+            {
+                _maxEndDate = value;
+                OnPropertyChanged(nameof(MaxEndDate));
+                UpdateCallMaxEndTime();
+            }
+        }
+
+        private int _selectedHour;
+        public int SelectedHour
+        {
+            get => _selectedHour;
+            set
+            {
+                _selectedHour = value;
+                OnPropertyChanged(nameof(SelectedHour));
+                UpdateCallMaxEndTime();
+            }
+        }
+
+        private int _selectedMinute;
+        public int SelectedMinute
+        {
+            get => _selectedMinute;
+            set
+            {
+                _selectedMinute = value;
+                OnPropertyChanged(nameof(SelectedMinute));
+                UpdateCallMaxEndTime();
+            }
+        }
+
+        private string _maxEndTimeDisplay;
+        public string MaxEndTimeDisplay
+        {
+            get => _maxEndTimeDisplay;
+            set { _maxEndTimeDisplay = value; OnPropertyChanged(nameof(MaxEndTimeDisplay)); }
         }
 
         private void UpdateTexts()
         {
             HeaderText = IsNewCall ? "Add New Call" : "Call Details";
             ButtonText = IsNewCall ? "Add Call" : "Update Call";
+        }
+
+        private void UpdateDateTimeFromCall()
+        {
+            if (Call?.MaxEndTime != null)
+            {
+                MaxEndDate = Call.MaxEndTime.Value.Date;
+                SelectedHour = Call.MaxEndTime.Value.Hour;
+                SelectedMinute = Call.MaxEndTime.Value.Minute;
+                UpdateDisplayText();
+            }
+        }
+
+        private void UpdateCallMaxEndTime()
+        {
+            if (Call != null && MaxEndDate.HasValue)
+            {
+                try
+                {
+                    var newDateTime = new DateTime(
+                        MaxEndDate.Value.Year,
+                        MaxEndDate.Value.Month,
+                        MaxEndDate.Value.Day,
+                        SelectedHour,
+                        SelectedMinute,
+                        0
+                    );
+                    Call.MaxEndTime = newDateTime;
+                    OnPropertyChanged(nameof(Call));
+                    UpdateDisplayText();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    // Handle invalid date/time combinations
+                }
+            }
+        }
+
+        private void UpdateDisplayText()
+        {
+            if (Call?.MaxEndTime != null)
+            {
+                MaxEndTimeDisplay = Call.MaxEndTime.Value.ToString("dd/MM/yyyy HH:mm");
+            }
         }
 
         private volatile DispatcherOperation? _observerOperation = null;
@@ -71,14 +163,52 @@ namespace PL.Call
         public CallDetailsWindow()
         {
             InitializeComponent();
+            var defaultDateTime = DateTime.Now.AddDays(1);
             Call = new BO.Call
             {
                 Id = 0,
                 Status = BO.CallStatus.Open,
                 StartTime = DateTime.Now,
-                MaxEndTime = DateTime.Now.AddDays(1),
+                MaxEndTime = defaultDateTime,
             };
+
+            // Set default time picker values
+            MaxEndDate = defaultDateTime.Date;
+            SelectedHour = defaultDateTime.Hour;
+            SelectedMinute = (defaultDateTime.Minute / 5) * 5; // Round to nearest 5 minutes
+            UpdateDisplayText();
+
             DataContext = this;
+        }
+
+        private void DateTimePickerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var popup = FindName("DateTimePopup") as System.Windows.Controls.Primitives.Popup;
+            if (popup != null)
+            {
+                popup.IsOpen = true;
+            }
+        }
+
+        private void SetDateTime_Click(object sender, RoutedEventArgs e)
+        {
+            var popup = FindName("DateTimePopup") as System.Windows.Controls.Primitives.Popup;
+            if (popup != null)
+            {
+                popup.IsOpen = false;
+            }
+            UpdateCallMaxEndTime();
+        }
+
+        private void CancelDateTime_Click(object sender, RoutedEventArgs e)
+        {
+            var popup = FindName("DateTimePopup") as System.Windows.Controls.Primitives.Popup;
+            if (popup != null)
+            {
+                popup.IsOpen = false;
+            }
+            // Reset to original values
+            UpdateDateTimeFromCall();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

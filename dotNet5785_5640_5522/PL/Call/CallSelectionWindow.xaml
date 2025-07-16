@@ -12,13 +12,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <!-- Title -->
         <TextBlock Grid.ColumnSpan="2" Text="Select Call for Treatment" FontSize="22" FontWeight="Bold"
                    HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
         <!-- Calls List -->
         <ListView Grid.Row="1" Grid.Column="0" 
                   ItemsSource="{Binding OpenCalls}" 
-                  SelectedItem="{Binding SelectedCall,Mode=TwoWay}" 
+                  SelectedItem="{Binding SelectedCall, Mode=TwoWay}" 
                   SelectionChanged="CallsList_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -36,6 +38,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
         <!-- Description and Map -->
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">
             <GroupBox Header="Verbal Description">
@@ -43,7 +46,11 @@
             </GroupBox>
             <GroupBox Header="Map">
                 <Border Height="300" Background="LightGray">
-                    <TextBlock Text="Map will be displayed here" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid>
+                        <WebBrowser Name="MapWebBrowser" Visibility="Collapsed"/>
+                        <TextBlock Name="MapPlaceholder" Text="Select a call to view location on map" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
                 </Border>
             </GroupBox>
         </StackPanel>

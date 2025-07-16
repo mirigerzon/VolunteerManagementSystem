@@ -18,9 +18,7 @@ namespace PL.Volunteer
             get => _closedCalls;
             set { _closedCalls = value; OnPropertyChanged(nameof(ClosedCalls)); }
         }
-
         private volatile DispatcherOperation? _observerOperation = null;
-
         public CallHistoryWindow(BO.Volunteer volunteer)
         {
             Volunteer = volunteer;
@@ -28,7 +26,6 @@ namespace PL.Volunteer
             InitializeComponent();
             DataContext = this;
         }
-
         public void RefreshClosedCalls()
         {
             if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
@@ -39,9 +36,7 @@ namespace PL.Volunteer
                 }));
             }
         }
-
         private void Close_Click(object sender, RoutedEventArgs e) => Close();
-
         private void OnPropertyChanged(string name) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }

@@ -90,6 +90,24 @@ public class VolunteerImplementation : BlApi.IVolunteer
 
             if (volunteer == null)
                 throw new BlDoesNotExistException("Volunteer not found");
+            DO.Assignment? openAssignment;
+            lock (Helpers.AdminManager.BlMutex)
+            {
+                openAssignment = _dal.Assignment.ReadAll()
+                    .FirstOrDefault(a => a.VolunteerId == id && a.EndTime == null);
+            }
+
+            BO.CallInProgress? currentCall = null;
+            if (openAssignment != null)
+            {
+                currentCall = new BO.CallInProgress
+                {
+                    Id = openAssignment.Id,
+                    CallId = openAssignment.CallId,
+                    StartTime = openAssignment.ArrivalTime!.Value,
+                    Status = CallInProgressStatus.InProgress
+                };
+            }
 
             return new BO.Volunteer
             {
@@ -105,7 +123,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
                 IsActive = volunteer.IsActive,
                 MaxDistance = volunteer.MaxOfDistance,
                 TypeOfDistance = (TypeOfDistance)volunteer.TypeOfDistance,
-                CurrentCall = null,
+                CurrentCall = currentCall,
             };
         }
         catch (Exception ex)

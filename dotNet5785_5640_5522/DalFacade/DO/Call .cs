@@ -30,8 +30,8 @@ public record Call
     )
 {
     public Call(int id, Enums.CallTypeEnum type, string description, string callerAddress, double latitude, double longitude)
-        : this(id, Enums.CallStatusEnum.New, Enums.CallTypeEnum.Medical, description, callerAddress, latitude, longitude, null, null)
+        : this(id, Enums.CallStatusEnum.Open, Enums.CallTypeEnum.Medical, description, callerAddress, latitude, longitude, null, null)
     {
     }
-    public Call() : this(0, Enums.CallStatusEnum.New, Enums.CallTypeEnum.Medical, "", "", 0, 0, null, null) { }
+    public Call() : this(0, Enums.CallStatusEnum.Open, Enums.CallTypeEnum.Medical, "", "", 0, 0, null, null) { }
 }

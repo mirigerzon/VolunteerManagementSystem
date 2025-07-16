@@ -320,7 +320,7 @@ internal static class VolunteerManager
         lock (AdminManager.BlMutex)
         {
             s_dal.Assignment.Create(newAssignment);
-            var updatedCall = selectedCall with { Status = DO.Enums.CallStatusEnum.InProgress };
+            var updatedCall = selectedCall with { Status = DO.Enums.CallStatusEnum.InTreatment };
             s_dal.Call.Update(updatedCall);
         }
         return true;
@@ -365,7 +365,7 @@ internal static class VolunteerManager
 
                 var updatedCall = currentCall with
                 {
-                    Status = DO.Enums.CallStatusEnum.Treated
+                    Status = DO.Enums.CallStatusEnum.Closed
                 };
                 s_dal.Call.Update(updatedCall);
             }
