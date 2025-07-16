@@ -32,20 +32,20 @@ public static class Initialization
     // Real addresses with corresponding coordinates
     private static string[] VolunteerAddresses = {
         "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
-        "1 Hacker Way, Menlo Park, CA 94025, USA",
-        "410 Terry Ave N, Seattle, WA 98109, USA",
-        "One Apple Park Way, Cupertino, CA 95014, USA",
-        "1 Microsoft Way, Redmond, WA 98052, USA",
-        "355 Main St, Cambridge, MA 02142, USA",
-        "11 Times Square, New York, NY 10036, USA",
-        "1455 Market St, San Francisco, CA 94103, USA",
-        "200 S Mathilda Ave, Sunnyvale, CA 94086, USA",
-        "2747 Park Blvd, Palo Alto, CA 94306, USA",
-        "901 Cherry Ave, San Bruno, CA 94066, USA",
-        "1 Tesla Rd, Austin, TX 78725, USA",
-        "100 Oracle Pkwy, Redwood City, CA 94065, USA",
-        "4750 Wilshire Blvd, Los Angeles, CA 90010, USA",
-        "1901 S Bell Ave, Chicago, IL 60608, USA"
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+        "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
     };
 
     // Coordinates for volunteer addresses (lat, lon)
