@@ -13,7 +13,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
         {
             lock (Helpers.AdminManager.BlMutex) // STAGE 7 - LOCK
             {
-                var volunteer = _dal.Volunteer.ReadAll().FirstOrDefault(v => v.Id == id && v.Password == password);
+                var volunteer = _dal.Volunteer.ReadAll().FirstOrDefault(v => v.Id == id && v.Password == password && (v.IsActive == true || v.Role == Enums.RoleEnum.Admin));
                 if (volunteer == null)
                     throw new BlDoesNotExistException("Invalid credentials");
                 UserRole role = (UserRole)volunteer.Role;
@@ -80,7 +80,7 @@ public class VolunteerImplementation : BlApi.IVolunteer
                 FullName = v.FullName,
                 IsActive = v.IsActive,
                 TotalHandledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Treated),
-                TotalCanceledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.SelfCancelled),
+                TotalCanceledCalls = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.SelfCancelled) + Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.ManagerCancelled),
                 ExpiredCallsCount = Helpers.VolunteerManager.TotalCallsByEndStatus(v.Id, DO.Enums.TerminationTypeEnum.Expired),
                 CallType = Helpers.VolunteerManager.CallTypeIfExist(v.Id),
                 CurrentCallId = openAssignment?.CallId

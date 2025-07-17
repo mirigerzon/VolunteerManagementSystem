@@ -34,9 +34,9 @@ public class Volunteer
     public bool IsActive { get; set; }
     public double? MaxDistance { get; set; }
     public TypeOfDistance? TypeOfDistance { get; set; }
-    public int TotalHandledCalls { get; init; }
-    public int TotalCanceledCalls { get; init; }
-    public int ExpiredCallsCount { get; init; }
+    public int TotalHandledCalls { get; set; }
+    public int TotalCanceledCalls { get; set; }
+    public int ExpiredCallsCount { get; set; }
     public CallInProgress? CurrentCall { get; set; }
     public override string ToString()
     {

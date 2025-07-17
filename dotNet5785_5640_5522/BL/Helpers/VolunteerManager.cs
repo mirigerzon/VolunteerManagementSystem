@@ -97,23 +97,71 @@ internal static class VolunteerManager
             TypeOfDistance = (DO.Enums.TypeOfDistanceEnum)boVolunteer.TypeOfDistance
         };
     }
+    // Converts a business object (DO) volunteer to a data object (BO) volunteer
+    public static BO.Volunteer ConvertDoToBo(DO.Volunteer doVolunteer)
+    {
+        return new BO.Volunteer
+        {
+            Id = doVolunteer.Id,
+            FullName = doVolunteer.FullName,
+            PhoneNumber = doVolunteer.PhoneNumber,
+            Email = doVolunteer.Email,
+            Password = doVolunteer.Password,
+            Address = doVolunteer.Address,
+            Latitude = doVolunteer.Latitude,
+            Longitude = doVolunteer.Longitude,
+            Role = (BO.UserRole)doVolunteer.Role,
+            IsActive = doVolunteer.IsActive,
+            MaxDistance = doVolunteer.MaxOfDistance,
+            TypeOfDistance = (BO.TypeOfDistance?)doVolunteer.TypeOfDistance,
+            TotalHandledCalls = VolunteerManager.TotalCallsByEndStatus(doVolunteer.Id, DO.Enums.TerminationTypeEnum.Treated),
+            TotalCanceledCalls = VolunteerManager.TotalCallsByEndStatus(doVolunteer.Id, DO.Enums.TerminationTypeEnum.SelfCancelled) + VolunteerManager.TotalCallsByEndStatus(doVolunteer.Id, DO.Enums.TerminationTypeEnum.ManagerCancelled),
+            ExpiredCallsCount = VolunteerManager.TotalCallsByEndStatus(doVolunteer.Id, DO.Enums.TerminationTypeEnum.Expired),
+            CurrentCall = null
+        };
+    }
     // Placeholder for periodic updates related to volunteer assignments
     public static void PeriodicVolunteersUpdates(DateTime oldClock, DateTime newClock)
     {
-        IEnumerable<DO.Volunteer> allVolunteers;
-        lock (AdminManager.BlMutex) //stage 7
+        IEnumerable<DO.Volunteer> allDoVolunteers;
+        lock (AdminManager.BlMutex)
         {
-            allVolunteers = s_dal.Volunteer.ReadAll().ToList();
+            allDoVolunteers = s_dal.Volunteer.ReadAll().ToList();
         }
 
-        bool volunteerUpdated = false;
-        foreach (var volunteer in allVolunteers)
+        bool listUpdated = false;
+
+        foreach (var doVolunteer in allDoVolunteers)
         {
-            volunteerUpdated = true;
-            Observers.NotifyItemUpdated(volunteer.Id);
+            var volunteer = VolunteerManager.ConvertDoToBo(doVolunteer);
+            bool updated = false;
+
+            // איפוס שנתי של ExpiredCallsCount
+            if (oldClock.Year != newClock.Year && volunteer.ExpiredCallsCount != 0)
+            {
+                volunteer.ExpiredCallsCount = 0;
+                updated = true;
+            }
+
+            if (volunteer.Role == UserRole.Admin && volunteer.TotalCanceledCalls > 10)
+            {
+                volunteer.IsActive = false;
+                updated = true;
+            }
+
+            if (updated)
+            {
+                var updatedDo = VolunteerManager.ConvertBoToDoAsync(volunteer).GetAwaiter().GetResult();
+                lock (AdminManager.BlMutex)
+                {
+                    s_dal.Volunteer.Update(updatedDo);
+                }
+                Observers.NotifyItemUpdated(volunteer.Id);
+                listUpdated = true;
+            }
         }
-        bool yearChanged = oldClock.Year != newClock.Year;
-        if (yearChanged || volunteerUpdated)
+
+        if (listUpdated || oldClock.Year != newClock.Year)
             Observers.NotifyListUpdated();
     }
     // Gets geographic coordinates (latitude and longitude) for a given address using an external API
@@ -182,7 +230,7 @@ internal static class VolunteerManager
             Email = boVolunteer.Email,
             Password = boVolunteer.Password,
             Address = boVolunteer.Address,
-            Latitude = null, 
+            Latitude = null,
             Longitude = null,
             Role = (DO.Enums.RoleEnum)boVolunteer.Role,
             IsActive = boVolunteer.IsActive,
