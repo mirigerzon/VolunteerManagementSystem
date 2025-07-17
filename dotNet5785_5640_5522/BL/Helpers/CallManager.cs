@@ -266,37 +266,40 @@ internal static class CallManager
         };
     }
     // Updates the status of all open calls whose MaxEndTime has passed to "Expired".
-    public static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
+    internal static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
     {
-        List<int> updatedCallIds = new();
+        IEnumerable<DO.Call> allDoCalls;
         lock (AdminManager.BlMutex)
         {
-            var allCalls = s_dal.Call.ReadAll().ToList(); 
-            foreach (var call in allCalls)
+            allDoCalls = s_dal.Call.ReadAll().ToList();
+        }
+
+        bool listUpdated = false;
+
+        foreach (var doCall in allDoCalls)
+        {
+            var call = CallManager.ConvertDoToBo(doCall);
+            bool updated = false;
+
+            if (call.Status == CallStatus.Open && call.MaxEndTime is not null && newClock > call.MaxEndTime)
             {
-                if (call.Status == CallStatusEnum.Open && call.MaxEndTime != null)
+                call.Status = CallStatus.Expired;
+                updated = true;
+            }
+
+            if (updated)
+            {
+                var updatedDoCall = CallManager.ConvertBoToDoAsync(call).GetAwaiter().GetResult();
+                lock (AdminManager.BlMutex)
                 {
-                    if (newClock > call.MaxEndTime)
-                    {
-                        s_dal.Call.Update(new DO.Call
-                        {
-                            Id = call.Id,
-                            Type = call.Type,
-                            Description = call.Description,
-                            CallerAddress = call.CallerAddress,
-                            StartTime = call.StartTime,
-                            MaxEndTime = call.MaxEndTime,
-                            Status = CallStatusEnum.Expired
-                        });
-                        updatedCallIds.Add(call.Id); 
-                    }
+                    s_dal.Call.Update(updatedDoCall);
                 }
+                Observers.NotifyItemUpdated(call.Id);
+                listUpdated = true;
             }
         }
-        foreach (var id in updatedCallIds)
-            Observers.NotifyItemUpdated(id);
 
-        if (oldClock.Year != newClock.Year)
+        if (listUpdated || oldClock.Year != newClock.Year)
             Observers.NotifyListUpdated();
     }
 }

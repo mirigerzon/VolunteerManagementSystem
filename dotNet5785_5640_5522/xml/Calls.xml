@@ -600,4 +600,15 @@
     <StartTime>2025-07-14T04:19:46</StartTime>
     <MaxEndTime>2025-07-20T04:19:46</MaxEndTime>
   </Call>
+  <Call>
+    <Id>50</Id>
+    <Status>Expired</Status>
+    <Type>Social</Type>
+    <Description>רוצים לישוןןןןןן ויש C# על השכלללל</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</CallerAddress>
+    <Latitude>37.4217636</Latitude>
+    <Longitude>-122.084614</Longitude>
+    <StartTime>2025-07-17T06:20:46</StartTime>
+    <MaxEndTime>0001-01-17T05:00:00</MaxEndTime>
+  </Call>
 </ArrayOfCall>
