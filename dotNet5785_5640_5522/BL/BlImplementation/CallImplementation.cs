@@ -130,7 +130,7 @@ internal class CallImplementation : BlApi.ICall
                 TreatmentDuration = (lastAssign?.EndTreatmentTime.HasValue == true && lastAssign?.StartTreatmentTime.HasValue == true)
                                      ? lastAssign.EndTreatmentTime - lastAssign.StartTreatmentTime
                                      : null,
-                TotalAssignments = call.Assignments?.Count ?? 0
+                TotalAssignments = assignments?.Count ?? 0
             };
         }).ToList();
 

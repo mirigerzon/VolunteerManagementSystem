@@ -402,9 +402,6 @@
 
                     <DataGridTextColumn Header="Type" Binding="{Binding CallType}" Width="100"/>
                     <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime, StringFormat='{}{0:HH:mm dd/MM}'}" Width="120"/>
-                    <DataGridTextColumn Header="Time Left" Binding="{Binding TimeLeft, StringFormat=\{0:mm\\:ss\}}" Width="100"/>
-                    <DataGridTextColumn Header="Last Volunteer" Binding="{Binding LastVolunteerName}" Width="150"/>
-                    <DataGridTextColumn Header="Treatment Duration" Binding="{Binding TreatmentDuration}" Width="130"/>
                     <DataGridTextColumn Header="Total Assignments" Binding="{Binding TotalAssignments}" Width="120"/>
 
                     <DataGridTemplateColumn Header="Actions" Width="180" CanUserSort="False">
