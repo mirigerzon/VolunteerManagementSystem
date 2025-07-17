@@ -205,7 +205,7 @@ public static class Initialization
                 VolunteerLongitudes[i],
                 Enums.RoleEnum.Volunteer,
                 true,
-                (s_rand.NextDouble() * (50 - 5) + 5),
+                (int)(s_rand.NextDouble() * (50000 - 2000) + 2000),
                 (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
             );
 
