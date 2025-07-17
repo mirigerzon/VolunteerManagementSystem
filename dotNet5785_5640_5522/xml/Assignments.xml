@@ -24,4 +24,12 @@
     <EndTime>2025-07-17T04:19:46</EndTime>
     <EndStatus>ManagerCancelled</EndStatus>
   </Assignment>
+  <Assignment>
+    <Id>3</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>3</CallId>
+    <ArrivalTime>2025-07-17T06:15:14</ArrivalTime>
+    <EndTime>2025-07-17T06:15:14</EndTime>
+    <EndStatus>Treated</EndStatus>
+  </Assignment>
 </ArrayOfAssignment>

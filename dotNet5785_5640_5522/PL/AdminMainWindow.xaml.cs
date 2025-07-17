@@ -27,8 +27,17 @@ public partial class AdminMainWindow : Window
         UpdateStatusCounts();
 
         s_bl.Admin.AddClockObserver(OnClockUpdated);
-
+        s_bl.Call.AddObserver(OnCallsListUpdated);
         this.DataContext = this;
+    }
+
+    private void OnCallsListUpdated()
+    {
+        Dispatcher.Invoke(() =>
+        {
+            RefreshCurrentTime();
+            UpdateStatusCounts();
+        });
     }
 
     private void OnClockUpdated()
@@ -215,13 +224,13 @@ public partial class AdminMainWindow : Window
             {
                 var counts = s_bl.Call.GetCallStatusCounts();
                 int safe(int i) => i < counts.Length ? counts[i] : 0;
-                int newCount = safe((int)CallStatus.Open) + safe((int)CallStatus.OpenAtRisk);
-                int activeCount = safe((int)CallStatus.InTreatment) + safe((int)CallStatus.InTreatmentAtRisk);
+                int newCount = safe((int)CallStatus.Open);
+                int activeCount = safe((int)CallStatus.InTreatment);
                 int closedCount = safe((int)CallStatus.Closed) + safe((int)CallStatus.Expired);
                 int total = newCount + activeCount + closedCount;
 
                 AllButton.Content = $"All {total}";
-                NewButton.Content = $"New {newCount}";
+                NewButton.Content = $"Open {newCount}";
                 ActiveButton.Content = $"Active {activeCount}";
                 ClosedButton.Content = $"Closed {closedCount}";
             }));
@@ -259,7 +268,7 @@ public partial class AdminMainWindow : Window
         {
             try { window.Close(); } catch { }
         }
-
+        s_bl.Call.RemoveObserver(OnCallsListUpdated);
         _childWindows.Clear();
         base.OnClosed(e);
     }

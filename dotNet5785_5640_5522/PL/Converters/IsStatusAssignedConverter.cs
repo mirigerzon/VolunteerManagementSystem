@@ -11,14 +11,13 @@ public class IsStatusAssignedConverter : IValueConverter
     {
         if (value is CallStatus status)
         {
-            if (status == CallStatus.InTreatment || status == CallStatus.InTreatmentAtRisk)
+            if (status == CallStatus.InTreatment)
             {
                 return Visibility.Visible;
             }
         }
         return Visibility.Collapsed;
     }
-
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();

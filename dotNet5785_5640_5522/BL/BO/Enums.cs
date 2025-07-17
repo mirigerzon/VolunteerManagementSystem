@@ -35,8 +35,6 @@ public enum CallStatus
     InTreatment,        // 1
     Closed,             // 2
     Expired,            // 3
-    OpenAtRisk,         // 4
-    InTreatmentAtRisk   // 5
 }
 public enum TerminationTypeEnum
 {

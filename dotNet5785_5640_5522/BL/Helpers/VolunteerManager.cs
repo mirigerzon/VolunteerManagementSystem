@@ -339,7 +339,7 @@ internal static class VolunteerManager
                 .FirstOrDefault(a => a.VolunteerId == volunteer.Id && a.EndTime == null);
         }
         if (currentAssignment != null) return false;
-        if (s_rand.NextDouble() >= 0.2) return false;
+        //if (s_rand.NextDouble() >= 0.2) return false;
         List<DO.Call> openCalls;
         lock (AdminManager.BlMutex)
         {

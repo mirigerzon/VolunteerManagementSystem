@@ -134,7 +134,7 @@ namespace PL.Call
                 if (_selectedIsActiveFilter.HasValue)
                 {
                     filteredCalls = _selectedIsActiveFilter.Value
-                        ? filteredCalls.Where(call => call.Status is CallStatus.Open or CallStatus.InTreatment or CallStatus.OpenAtRisk or CallStatus.InTreatmentAtRisk)
+                        ? filteredCalls.Where(call => call.Status is CallStatus.Open or CallStatus.InTreatment)
                         : filteredCalls.Where(call => call.Status is CallStatus.Closed or CallStatus.Expired);
                 }
 

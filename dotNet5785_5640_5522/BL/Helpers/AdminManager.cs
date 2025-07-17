@@ -123,6 +123,28 @@ internal static class AdminManager //stage 4
         }
     }
     private static Task? _simulateTask = null;
+    //private static void clockRunner()
+    //{
+    //    while (!s_stop)
+    //    {
+    //        var oldClock = Now;
+    //        var newClock = Now.AddMinutes(s_interval);
+    //        UpdateClock(newClock);
+    //        if (_periodicTask is null || _periodicTask.IsCompleted)
+    //        {
+    //            _periodicTask = Task.Run(() =>
+    //            {
+    //                VolunteerManager.PeriodicVolunteersUpdates(oldClock, newClock);
+    //                CallManager.PeriodicCallsUpdates(oldClock, newClock);
+    //            });
+    //        }
+    //        try
+    //        {
+    //            Thread.Sleep(1000);
+    //        }
+    //        catch (ThreadInterruptedException) { }
+    //    }
+    //}
     private static void clockRunner()
     {
         while (!s_stop)
@@ -130,6 +152,8 @@ internal static class AdminManager //stage 4
             var oldClock = Now;
             var newClock = Now.AddMinutes(s_interval);
             UpdateClock(newClock);
+
+            // מריצים את עדכוני המתנדבים והקריאות
             if (_periodicTask is null || _periodicTask.IsCompleted)
             {
                 _periodicTask = Task.Run(() =>
@@ -138,6 +162,16 @@ internal static class AdminManager //stage 4
                     CallManager.PeriodicCallsUpdates(oldClock, newClock);
                 });
             }
+
+            // 💥 הוספה: הפעלת סימולציה של פעילות מתנדבים
+            if (_simulateTask is null || _simulateTask.IsCompleted)
+            {
+                _simulateTask = Task.Run(() =>
+                {
+                    VolunteerManager.SimulateVolunteerActivity();
+                });
+            }
+
             try
             {
                 Thread.Sleep(1000);
