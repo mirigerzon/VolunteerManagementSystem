@@ -310,132 +310,183 @@ internal static class VolunteerManager
         List<DO.Volunteer> activeVolunteers;
         List<int> volunteersToNotify = new();
 
-        lock (AdminManager.BlMutex)
+        try
         {
-            activeVolunteers = s_dal.Volunteer.ReadAll(v => v.IsActive).ToList();
-        }
+            lock (AdminManager.BlMutex)
+            {
+                activeVolunteers = s_dal.Volunteer.ReadAll(v => v.IsActive).ToList();
+            }
 
-        foreach (var volunteer in activeVolunteers)
+            foreach (var volunteer in activeVolunteers)
+            {
+                try
+                {
+                    if (TryAssignCallToVolunteer(volunteer))
+                    {
+                        volunteersToNotify.Add(volunteer.Id);
+                    }
+                    else if (TryCompleteOrCancelAssignment(volunteer))
+                    {
+                        volunteersToNotify.Add(volunteer.Id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error processing volunteer {volunteer.Id}: {ex.Message}");
+                }
+            }
+
+            foreach (var id in volunteersToNotify)
+            {
+                try
+                {
+                    Observers.NotifyItemUpdated(id);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to notify observer for volunteer {id}: {ex.Message}");
+                }
+            }
+        }
+        catch (Exception ex)
         {
-            if (TryAssignCallToVolunteer(volunteer))
-            {
-                volunteersToNotify.Add(volunteer.Id);
-            }
-            else if (TryCompleteOrCancelAssignment(volunteer))
-            {
-                volunteersToNotify.Add(volunteer.Id);
-            }
+            Console.WriteLine($"Fatal error in SimulateVolunteerActivity: {ex.Message}");
         }
-
-        foreach (var id in volunteersToNotify)
-            Observers.NotifyItemUpdated(id);
     }
     private static bool TryAssignCallToVolunteer(DO.Volunteer volunteer)
     {
-        DO.Assignment? currentAssignment;
-        lock (AdminManager.BlMutex)
+        try
         {
-            currentAssignment = s_dal.Assignment.ReadAll()
-                .FirstOrDefault(a => a.VolunteerId == volunteer.Id && a.EndTime == null);
-        }
-        if (currentAssignment != null) return false;
-        //if (s_rand.NextDouble() >= 0.2) return false;
-        List<DO.Call> openCalls;
-        lock (AdminManager.BlMutex)
-        {
-            openCalls = s_dal.Call.ReadAll(c =>
-                c.Status == DO.Enums.CallStatusEnum.Open &&
-                c.Latitude != null && c.Longitude != null
-            ).ToList();
-        }
-        var suitableCalls = openCalls
-            .Where(call =>
-                CallManager.CalculateDistance(
-                    volunteer.Longitude, volunteer.Latitude,
-                    call.Longitude, call.Latitude
-                ) <= volunteer.MaxOfDistance)
-            .ToList();
-        if (!suitableCalls.Any()) return false;
-        var selectedCall = suitableCalls[s_rand.Next(suitableCalls.Count)];
-        var newAssignment = new DO.Assignment
-        {
-            VolunteerId = volunteer.Id,
-            CallId = selectedCall.Id,
-            ArrivalTime = DateTime.Now,
-            EndTime = null,
-            EndStatus = null
-        };
-        lock (AdminManager.BlMutex)
-        {
-            s_dal.Assignment.Create(newAssignment);
-            var updatedCall = selectedCall with { Status = DO.Enums.CallStatusEnum.InTreatment };
-            s_dal.Call.Update(updatedCall);
-        }
-        return true;
-    }
-    private static bool TryCompleteOrCancelAssignment(DO.Volunteer volunteer)
-    {
-        DO.Assignment? currentAssignment;
-        lock (AdminManager.BlMutex)
-        {
-            currentAssignment = s_dal.Assignment.ReadAll()
-                .FirstOrDefault(a => a.VolunteerId == volunteer.Id && a.EndTime == null);
-        }
-
-        if (currentAssignment == null) return false;
-
-        DO.Call currentCall;
-        lock (AdminManager.BlMutex)
-        {
-            currentCall = s_dal.Call.Read(currentAssignment.CallId);
-        }
-
-        TimeSpan elapsed = DateTime.Now - currentAssignment.ArrivalTime!.Value;
-
-        double distance = CallManager.CalculateDistance(
-            volunteer.Longitude, volunteer.Latitude,
-            currentCall.Longitude, currentCall.Latitude
-        );
-
-        double minDuration = distance * 2 + s_rand.Next(2, 6); // דקות
-
-        if (elapsed.TotalMinutes >= minDuration)
-        {
-            var updatedAssignment = currentAssignment with
+            DO.Assignment? currentAssignment;
+            lock (AdminManager.BlMutex)
             {
-                EndTime = DateTime.Now,
-                EndStatus = DO.Enums.TerminationTypeEnum.Treated
+                currentAssignment = s_dal.Assignment.ReadAll()
+                    .FirstOrDefault(a => a.VolunteerId == volunteer.Id && a.EndTime == null);
+            }
+
+            if (currentAssignment != null) return false;
+
+            List<DO.Call> openCalls;
+            lock (AdminManager.BlMutex)
+            {
+                openCalls = s_dal.Call.ReadAll(c =>
+                    c.Status == DO.Enums.CallStatusEnum.Open &&
+                    c.Latitude != null && c.Longitude != null
+                ).ToList();
+            }
+
+            var suitableCalls = openCalls
+                .Where(call =>
+                    CallManager.CalculateDistance(
+                        volunteer.Longitude, volunteer.Latitude,
+                        call.Longitude, call.Latitude
+                    ) <= volunteer.MaxOfDistance)
+                .ToList();
+
+            if (!suitableCalls.Any()) return false;
+
+            var selectedCall = suitableCalls[s_rand.Next(suitableCalls.Count)];
+
+            var newAssignment = new DO.Assignment
+            {
+                VolunteerId = volunteer.Id,
+                CallId = selectedCall.Id,
+                ArrivalTime = DateTime.Now,
+                EndTime = null,
+                EndStatus = null
             };
 
             lock (AdminManager.BlMutex)
             {
-                s_dal.Assignment.Update(updatedAssignment);
+                s_dal.Assignment.Create(newAssignment);
 
-                var updatedCall = currentCall with
+                var updatedCall = selectedCall with
                 {
-                    Status = DO.Enums.CallStatusEnum.Closed
+                    Status = DO.Enums.CallStatusEnum.InTreatment
                 };
                 s_dal.Call.Update(updatedCall);
             }
 
             return true;
         }
-        else if (s_rand.NextDouble() < 0.1)
+        catch (Exception ex)
         {
+            Console.WriteLine($"TryAssignCallToVolunteer failed for volunteer {volunteer.Id}: {ex.Message}");
+            return false;
+        }
+    }
+    private static bool TryCompleteOrCancelAssignment(DO.Volunteer volunteer)
+    {
+        try
+        {
+            DO.Assignment? currentAssignment;
             lock (AdminManager.BlMutex)
             {
-                s_dal.Assignment.Delete(currentAssignment.Id);
-
-                var updatedCall = currentCall with
-                {
-                    Status = DO.Enums.CallStatusEnum.Open
-                };
-                s_dal.Call.Update(updatedCall);
+                currentAssignment = s_dal.Assignment.ReadAll()
+                    .FirstOrDefault(a => a.VolunteerId == volunteer.Id && a.EndTime == null);
             }
 
-            return true;
-        }
+            if (currentAssignment == null) return false;
 
-        return false;
+            DO.Call currentCall;
+            lock (AdminManager.BlMutex)
+            {
+                currentCall = s_dal.Call.Read(currentAssignment.CallId);
+            }
+
+            TimeSpan elapsed = DateTime.Now - currentAssignment.ArrivalTime!.Value;
+
+            double distance = CallManager.CalculateDistance(
+                volunteer.Longitude, volunteer.Latitude,
+                currentCall.Longitude, currentCall.Latitude
+            );
+
+            double minDuration = distance * 2 + s_rand.Next(2, 6); // דקות
+
+            if (elapsed.TotalMinutes >= minDuration)
+            {
+                var updatedAssignment = currentAssignment with
+                {
+                    EndTime = DateTime.Now,
+                    EndStatus = DO.Enums.TerminationTypeEnum.Treated
+                };
+
+                lock (AdminManager.BlMutex)
+                {
+                    s_dal.Assignment.Update(updatedAssignment);
+
+                    var updatedCall = currentCall with
+                    {
+                        Status = DO.Enums.CallStatusEnum.Closed
+                    };
+                    s_dal.Call.Update(updatedCall);
+                }
+
+                return true;
+            }
+            else if (s_rand.NextDouble() < 0.1)
+            {
+                lock (AdminManager.BlMutex)
+                {
+                    s_dal.Assignment.Delete(currentAssignment.Id);
+
+                    var updatedCall = currentCall with
+                    {
+                        Status = DO.Enums.CallStatusEnum.Open
+                    };
+                    s_dal.Call.Update(updatedCall);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"TryCompleteOrCancelAssignment failed for volunteer {volunteer.Id}: {ex.Message}");
+            return false;
+        }
     }
+
 }

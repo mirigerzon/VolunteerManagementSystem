@@ -153,7 +153,6 @@ internal static class AdminManager //stage 4
             var newClock = Now.AddMinutes(s_interval);
             UpdateClock(newClock);
 
-            // מריצים את עדכוני המתנדבים והקריאות
             if (_periodicTask is null || _periodicTask.IsCompleted)
             {
                 _periodicTask = Task.Run(() =>
@@ -163,7 +162,6 @@ internal static class AdminManager //stage 4
                 });
             }
 
-            // 💥 הוספה: הפעלת סימולציה של פעילות מתנדבים
             if (_simulateTask is null || _simulateTask.IsCompleted)
             {
                 _simulateTask = Task.Run(() =>

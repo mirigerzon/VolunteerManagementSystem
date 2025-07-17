@@ -13,8 +13,6 @@ internal class AssignmentImplementation : IAssignment
     public void Create(Assignment item)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
-        if (Assignments.Exists(it => it.Id == item.Id))
-            throw new DalDoesNotExistException($"Assignments with ID={item.Id} already exist");
         Assignments.Add(item);
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_Assignments_xml);
     }

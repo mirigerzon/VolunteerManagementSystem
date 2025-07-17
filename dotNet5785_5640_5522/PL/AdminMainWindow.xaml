@@ -46,7 +46,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                               CornerRadius="8">
+                               CornerRadius="2">
                             <ContentPresenter HorizontalAlignment="Center" 
                                             VerticalAlignment="Center"/>
                         </Border>
@@ -68,7 +68,7 @@
             <Setter Property="Foreground" Value="#424242"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Height" Value="40"/>
+            <Setter Property="Height" Value="20"/>
             <Setter Property="Padding" Value="20,8"/>
             <Setter Property="Margin" Value="8"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -81,7 +81,7 @@
                         <Border Background="{TemplateBinding Background}" 
                                BorderBrush="{TemplateBinding BorderBrush}"
                                BorderThickness="{TemplateBinding BorderThickness}"
-                               CornerRadius="8">
+                               CornerRadius="2">
                             <ContentPresenter HorizontalAlignment="Center" 
                                             VerticalAlignment="Center"/>
                         </Border>
@@ -224,10 +224,10 @@
                     </StackPanel>
                 </StackPanel>
 
-                <Button Grid.Column="1" Content="Logout" 
+                <Button Content="Logout" 
                        Style="{StaticResource SecondaryButton}"
-                       FontSize="16" Height="45" Padding="25,10"
-                       Click="Logout_Click"/>
+                       FontSize="16" Height="45" Padding="25,10" Width="120"
+                       Click="Logout_Click" Grid.ColumnSpan="2" Margin="996,9,8,10"/>
             </Grid>
         </Border>
 
@@ -245,9 +245,9 @@
 
                     <!-- System Clock Management -->
                     <GroupBox Header="System Clock Management" Style="{StaticResource ModernGroupBox}">
-                        <StackPanel>
+                        <StackPanel Height="133">
                             <Border Background="#FFF3E0" CornerRadius="12" Padding="20,16" 
-                                   Margin="0,0,0,20">
+                                   Margin="0,0,0,20" Height="61">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="🕐" FontSize="24" VerticalAlignment="Center" 
                                               Margin="0,0,15,0"/>
@@ -259,26 +259,25 @@
                                     </TextBlock>
                                 </StackPanel>
                             </Border>
-
-                            <WrapPanel HorizontalAlignment="Center">
+                            <WrapPanel Height="50" Width="493">
                                 <Button Content="+ Minute" Style="{StaticResource SecondaryButton}"
-                                       FontSize="16" Height="45" Padding="25,10"
+                                       FontSize="16" Height="30" Padding="25,10" Width="80"
                                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                 Click="BtnAdvanceMinute_Click"/>
                                 <Button Content="+ Hour" Style="{StaticResource SecondaryButton}"
-                                       FontSize="16" Height="45" Padding="25,10"
+                                       FontSize="16" Height="30" Padding="25,10" Width="80"
                                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="BtnAdvanceHour_Click"/>
                                 <Button Content="+ Day" Style="{StaticResource SecondaryButton}"
-                                       FontSize="16" Height="45" Padding="25,10"
+                                       FontSize="16" Height="30" Padding="25,10" Width="80"
                                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="BtnAdvanceDay_Click"/>
                                 <Button Content="+ Year" Style="{StaticResource SecondaryButton}"
-                                       FontSize="16" Height="45" Padding="25,10"
+                                       FontSize="16" Height="30" Padding="25,10" Width="80"
                                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="BtnAdvanceYear_Click"/>
                                 <Button Content="Reset" Style="{StaticResource SecondaryButton}"
-                                       FontSize="16" Height="45" Padding="25,10"
+                                       FontSize="16" Height="30" Padding="25,10" Width="80"
                                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                        Click="ResetSystemClock"/>
                             </WrapPanel>
@@ -286,11 +285,11 @@
                     </GroupBox>
 
                     <!-- Risk Time Range Management -->
-                    <GroupBox Header="Risk Time Range Management" Style="{StaticResource ModernGroupBox}" Height="188">
+                    <GroupBox Header="Risk Time Range Management" Style="{StaticResource ModernGroupBox}" Height="145">
                         <StackPanel>
-                            <TextBlock Text="{Binding CurrentRiskRangeText}" FontSize="16" 
-                                      Margin="0,0,0,20" Foreground="#424242"/>
+
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
                                 <Label Content="New Range (hh:mm):" VerticalAlignment="Center" 
                                       FontWeight="Medium" FontSize="16" Margin="0,0,15,0"/>
                                 <TextBox x:Name="txtRiskRange" Width="150" Height="45"
@@ -298,21 +297,21 @@
                                 <Button Content="Update" Style="{StaticResource PrimaryButton}"
                                        FontSize="16" Height="45" Padding="25,10"
                                        Click="BtnUpdateRiskRange_Click"/>
+                                <TextBlock Text="{Binding CurrentRiskRangeText}" FontSize="16" 
+                                        Margin="0,0,0,20" Foreground="#424242" Width="176"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Header="Time Simulator" Margin="0,0,0,20">
+                    <GroupBox Header="Time Simulator" Style="{StaticResource ModernGroupBox}" Margin="0,0,0,20">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,15">
                                 <Label Content="Change Rate - in seconds:" VerticalAlignment="Center"/>
-                                <TextBox Width="80"
-                                    Margin="10,0"
-                                    Text="{Binding Interval, UpdateSourceTrigger=PropertyChanged}"
-                                    IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}" Height="19"/>
+                                <TextBox Width="80" Margin="10,0"
+                                         Text="{Binding Interval, UpdateSourceTrigger=PropertyChanged}"
+                                         IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}" Height="19"/>
                                 <Button Content="{Binding IsSimulatorRunning, Converter={StaticResource SimulatorTextConverter}}"
-                                   Width="200"
-                                   Height="19"
-                                   Click="BtnToggleSimulator_Click"/>
+                                  Style="{StaticResource PrimaryButton}" 
+                                        FontSize="15" Width="200" Height="19" Click="BtnToggleSimulator_Click"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -323,31 +322,39 @@
                 <StackPanel Grid.Column="1" Margin="25,0,0,0">
 
                     <!-- Database Management -->
-                    <GroupBox Header="Database Management" Style="{StaticResource ModernGroupBox}">
+                    <GroupBox Header="Database Management" Style="{StaticResource ModernGroupBox}" RenderTransformOrigin="0.5,0.5" Height="165">
+                        <GroupBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="0.594"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0.79"/>
+                            </TransformGroup>
+                        </GroupBox.RenderTransform>
                         <WrapPanel HorizontalAlignment="Center">
                             <Button Content="🔄 Initialize with Sample Data" 
                                    Style="{StaticResource PrimaryButton}"
-                                   FontSize="16" Height="50" Padding="30,12"
+                                   FontSize="16" Height="50" Padding="30,12" Width="250"
                                    IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                    Click="BtnInitializeDB_Click"/>
                             <Button Content="🗑️ Reset Data" 
                                    Style="{StaticResource SecondaryButton}"
-                                   FontSize="16" Height="50" Padding="30,12"
+                                   FontSize="16" Height="50" Padding="30,12" Width="120"
                                    IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BoolNegate}}"
                                    Click="BtnResetDB_Click"/>
                         </WrapPanel>
                     </GroupBox>
 
                     <!-- System Entities Management -->
-                    <GroupBox Header="System Entities Management" Style="{StaticResource ModernGroupBox}">
+                    <GroupBox Header="System Entities Management" Style="{StaticResource ModernGroupBox}" Height="169">
                         <WrapPanel HorizontalAlignment="Center">
                             <Button Content="👥 Manage Volunteers" 
                                    Style="{StaticResource PrimaryButton}"
-                                   FontSize="16" Height="50" Padding="30,12"
+                                   FontSize="16" Height="50" Padding="30,12" Width="180"
                                    Click="BtnHandleVolunteers_Click"/>
                             <Button Content="📞 Manage Calls" 
                                    Style="{StaticResource PrimaryButton}"
-                                   FontSize="16" Height="50" Padding="30,12"
+                                   FontSize="16" Height="50" Padding="30,12" Width="180"
                                    Click="BtnHandleCalls_Click"/>
                         </WrapPanel>
                     </GroupBox>
@@ -357,20 +364,20 @@
                         <StackPanel>
                             <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,20">
                                 <Button x:Name="AllButton" Content="All (0)" 
-                                       Style="{StaticResource StatusButton}" 
-                                       FontSize="15" Height="40" Padding="20,8"
+                                       Style="{StaticResource PrimaryButton}" 
+                                       FontSize="15" Height="25" Padding="20,8" Width="60"
                                        IsEnabled="False" Click="AllButton_Click"/>
                                 <Button x:Name="NewButton" Content="New (0)" 
-                                       Style="{StaticResource StatusButton}" 
-                                       FontSize="15" Height="40" Padding="20,8"
+                                       Style="{StaticResource PrimaryButton}" 
+                                       FontSize="15" Height="25" Padding="20,8" Width="75"
                                        IsEnabled="False"/>
                                 <Button x:Name="ActiveButton" Content="Active (0)" 
-                                       Style="{StaticResource StatusButton}" 
-                                       FontSize="15" Height="40" Padding="20,8"
+                                       Style="{StaticResource PrimaryButton}" 
+                                       FontSize="15" Height="25" Padding="20,8" Width="75"
                                        IsEnabled="False"/>
                                 <Button x:Name="ClosedButton" Content="Closed (0)" 
-                                       Style="{StaticResource StatusButton}" 
-                                       FontSize="15" Height="40" Padding="20,8"
+                                       Style="{StaticResource PrimaryButton}" 
+                                       FontSize="15" Height="25" Padding="20,8" Width="80"
                                        IsEnabled="False"/>
                             </WrapPanel>
                             <TextBlock Text="Statistics will be updated accordingly to information" 

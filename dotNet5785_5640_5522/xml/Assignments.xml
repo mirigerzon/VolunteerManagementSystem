@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignment>
-    <Id>0</Id>
-    <VolunteerId>328115522</VolunteerId>
-    <CallId>2</CallId>
-    <ArrivalTime>2025-07-17T04:19:46</ArrivalTime>
-    <EndTime>2025-07-17T04:19:46</EndTime>
-    <EndStatus>ManagerCancelled</EndStatus>
-  </Assignment>
-  <Assignment>
     <Id>1</Id>
     <VolunteerId>328115522</VolunteerId>
     <CallId>3</CallId>
@@ -31,5 +23,29 @@
     <ArrivalTime>2025-07-17T06:15:14</ArrivalTime>
     <EndTime>2025-07-17T06:15:14</EndTime>
     <EndStatus>Treated</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>4</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>7</CallId>
+    <ArrivalTime>2025-07-17T21:15:14</ArrivalTime>
+    <EndTime>2025-07-17T21:15:14</EndTime>
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>5</Id>
+    <VolunteerId>328115522</VolunteerId>
+    <CallId>5</CallId>
+    <ArrivalTime>2025-07-17T21:15:14</ArrivalTime>
+    <EndTime>2025-07-17T21:15:14</EndTime>
+    <EndStatus>ManagerCancelled</EndStatus>
+  </Assignment>
+  <Assignment>
+    <Id>0</Id>
+    <VolunteerId>328265640</VolunteerId>
+    <CallId>14</CallId>
+    <ArrivalTime>2025-07-17T05:53:12.5031693+03:00</ArrivalTime>
+    <EndTime xsi:nil="true" />
+    <EndStatus xsi:nil="true" />
   </Assignment>
 </ArrayOfAssignment>
