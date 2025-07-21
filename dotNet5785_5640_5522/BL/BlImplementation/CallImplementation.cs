@@ -357,11 +357,19 @@ internal class CallImplementation : BlApi.ICall
                         DistanceFromVolunteer = Helpers.CallManager.CalculateDistance(volunteer.Longitude, volunteer.Latitude, call.Longitude, call.Latitude)
                     });
 
+                // סינון לפי סוג קריאה אם צריך
                 if (filterByType.HasValue)
                 {
                     openCalls = openCalls.Where(call => call.CallType == filterByType.Value);
                 }
 
+                // ✅ סינון לפי מרחק מקסימלי שהמתנדב מוכן לנסוע
+                if (volunteer.MaxOfDistance is double maxDist)
+                {
+                    openCalls = openCalls.Where(call => call.DistanceFromVolunteer <= maxDist);
+                }
+
+                // מיון
                 if (sortByField.HasValue)
                 {
                     openCalls = sortByField.Value switch
@@ -386,6 +394,7 @@ internal class CallImplementation : BlApi.ICall
             throw new BlInvalidException("Failed to get open calls for volunteer.", ex);
         }
     }
+
     public void UpdateEndTreatment(int id, int assignmentId)
     {
         try

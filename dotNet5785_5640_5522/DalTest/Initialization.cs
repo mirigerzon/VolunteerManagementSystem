@@ -183,7 +183,7 @@ public static class Initialization
             -122.0312,
             Enums.RoleEnum.Admin,
             true,
-            (s_rand.NextDouble() * (50 - 5) + 5),
+            (s_rand.NextDouble() * (3 - 1) + 5),
             (Enums.TypeOfDistanceEnum)s_rand.Next(0, 3)
         );
 

@@ -1,11 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Assignment>
-    <Id>0</Id>
-    <VolunteerId>358884034</VolunteerId>
-    <CallId>35</CallId>
-    <ArrivalTime>2025-07-17T16:59:18.6851736+03:00</ArrivalTime>
-    <EndTime xsi:nil="true" />
-    <EndStatus xsi:nil="true" />
-  </Assignment>
-</ArrayOfAssignment>
+<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />

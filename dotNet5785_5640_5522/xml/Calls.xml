@@ -1,40 +1,520 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCall xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Call>
+    <Id>0</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Flat tire in parking lot needs assistance</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>25.042651498085213</Latitude>
+    <Longitude>-101.64650012432156</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>1</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Car battery dead - requires jump start</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>39.376380245187235</Latitude>
+    <Longitude>-82.82959987581668</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>2</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Locked keys inside vehicle</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>30.645697429516783</Latitude>
+    <Longitude>-96.12956371900437</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>3</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Car stuck in parking garage</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>30.684658108928165</Latitude>
+    <Longitude>-86.98338413441991</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>4</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Elderly person needs help with groceries</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>37.80758024010056</Latitude>
+    <Longitude>-90.26773908649751</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>5</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Wheelchair accessibility issue at building entrance</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>37.601245008872226</Latitude>
+    <Longitude>-104.2434510358762</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>6</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Electric scooter battery died</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>38.75477516945347</Latitude>
+    <Longitude>-113.64634876580743</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>7</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Person needs help carrying heavy items upstairs</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>45.87256515764252</Latitude>
+    <Longitude>-114.852898453559</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>8</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Family stranded - car won't start</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>35.22961854614641</Latitude>
+    <Longitude>-99.41346928596523</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>9</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Need help changing tire on busy street</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>41.20759504990651</Latitude>
+    <Longitude>-92.74118974431164</Longitude>
+    <StartTime>2025-07-17T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>10</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Medical emergency - person needs transport</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>34.66135142754649</Latitude>
+    <Longitude>-89.60828986493976</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>11</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Lost wallet in public area - help searching</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>28.011208121030393</Latitude>
+    <Longitude>-118.18070950936679</Longitude>
+    <StartTime>2025-07-17T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>12</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Food delivery for homeless shelter</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>33.94106012150279</Latitude>
+    <Longitude>-83.60748586989789</Longitude>
+    <StartTime>2025-07-17T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>13</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Pet locked in car - urgent rescue needed</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>29.53085125014833</Latitude>
+    <Longitude>-84.66089938326208</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>14</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Moving assistance for elderly neighbor</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>39.06483967485732</Latitude>
+    <Longitude>-89.45076355430729</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>15</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Car overheated on highway</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>34.44011827705647</Latitude>
+    <Longitude>-78.92079245176812</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>16</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Child separated from family at mall</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>46.04552951048044</Latitude>
+    <Longitude>-88.93153485294765</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>17</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Bike chain broken - need repair help</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>29.72167599720604</Latitude>
+    <Longitude>-113.67821840209292</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>18</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Delivery truck stuck in narrow alley</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>32.651498868489405</Latitude>
+    <Longitude>-123.58391599089224</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>19</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Person fell and needs first aid</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>45.26444865753291</Latitude>
+    <Longitude>-119.92884361137345</Longitude>
+    <StartTime>2025-07-17T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>20</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Broken wheelchair needs temporary fix</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>30.601883731094837</Latitude>
+    <Longitude>-118.2527306742504</Longitude>
+    <StartTime>2025-07-17T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>21</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Lost tourist needs directions and help</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>38.75889138511389</Latitude>
+    <Longitude>-82.79101687187135</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>22</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Flooded basement needs water removal</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>29.475107294489785</Latitude>
+    <Longitude>-93.70584902097869</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>23</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Power outage - elderly person needs assistance</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>37.56912182848392</Latitude>
+    <Longitude>-72.44426180970834</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>24</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Stuck elevator with person inside</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>34.97073058203691</Latitude>
+    <Longitude>-93.79098820102786</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>25</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Ice storm - person needs help getting home</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>47.018626858299385</Latitude>
+    <Longitude>-81.61235554497256</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>26</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Flat tire on motorcycle</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>48.27531853330362</Latitude>
+    <Longitude>-100.4038092252346</Longitude>
+    <StartTime>2025-07-17T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>27</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Person locked out of apartment</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>36.859690692260486</Latitude>
+    <Longitude>-85.42600012677539</Longitude>
+    <StartTime>2025-07-14T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>28</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Heavy furniture delivery assistance needed</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>47.37487516133189</Latitude>
+    <Longitude>-107.2816700078631</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>29</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Car accident - need traffic direction help</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>48.62884579835438</Latitude>
+    <Longitude>-76.85225951011182</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>30</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Diabetic person needs emergency glucose</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>46.42415490410889</Latitude>
+    <Longitude>-120.11828916678354</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>31</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Phone died - need to contact family urgently</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>36.799008500743845</Latitude>
+    <Longitude>-108.49712298208445</Longitude>
+    <StartTime>2025-07-17T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>32</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Slippery sidewalk - person fell</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>31.316301162377155</Latitude>
+    <Longitude>-77.26601656257309</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>33</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Car window broken - need temporary cover</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>27.25880793845342</Latitude>
+    <Longitude>-121.4008800659755</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>34</Id>
+    <Status>Open</Status>
+    <Type>Social</Type>
+    <Description>Lost prescription medication</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>39.80233874685766</Latitude>
+    <Longitude>-99.56216980598927</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>35</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Severe allergic reaction - need EpiPen</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>41.715495487371996</Latitude>
+    <Longitude>-77.52581950060862</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>36</Id>
+    <Status>Open</Status>
+    <Type>None</Type>
+    <Description>Confused elderly person needs help getting home</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>46.79384747952054</Latitude>
+    <Longitude>-111.78043406501715</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>37</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Broken crutch needs temporary replacement</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>33.740429349676134</Latitude>
+    <Longitude>-100.22759305740456</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>38</Id>
+    <Status>Open</Status>
+    <Type>Technical</Type>
+    <Description>Person having panic attack needs support</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>34.11727841179661</Latitude>
+    <Longitude>-115.30145993803887</Longitude>
+    <StartTime>2025-07-16T18:09:19</StartTime>
+    <MaxEndTime>2025-07-20T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
+    <Id>39</Id>
+    <Status>Open</Status>
+    <Type>Medical</Type>
+    <Description>Car won't start in remote location</Description>
+    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
+</CallerAddress>
+    <Latitude>30.66131540615556</Latitude>
+    <Longitude>-92.34802462217347</Longitude>
+    <StartTime>2025-07-15T18:09:19</StartTime>
+    <MaxEndTime>2025-07-19T18:09:19</MaxEndTime>
+  </Call>
+  <Call>
     <Id>40</Id>
     <Status>Closed</Status>
-    <Type>None</Type>
+    <Type>Technical</Type>
     <Description>Person needs help reading medication labels</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>26.720241588597062</Latitude>
-    <Longitude>-124.69258253258539</Longitude>
-    <StartTime>2025-07-09T16:58:17</StartTime>
-    <MaxEndTime>2025-07-12T11:58:17</MaxEndTime>
+    <Latitude>26.46249105908907</Latitude>
+    <Longitude>-124.72314380523939</Longitude>
+    <StartTime>2025-07-13T18:09:19</StartTime>
+    <MaxEndTime>2025-07-14T00:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>41</Id>
     <Status>Closed</Status>
-    <Type>Social</Type>
+    <Type>Medical</Type>
     <Description>Wheelchair tire flat - needs replacement</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>41.20256464693364</Latitude>
-    <Longitude>-70.52589825366081</Longitude>
-    <StartTime>2025-06-30T16:58:17</StartTime>
-    <MaxEndTime>2025-07-02T13:58:17</MaxEndTime>
+    <Latitude>29.47079294700692</Latitude>
+    <Longitude>-86.5330557521028</Longitude>
+    <StartTime>2025-06-21T18:09:19</StartTime>
+    <MaxEndTime>2025-06-23T13:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>42</Id>
     <Status>Closed</Status>
-    <Type>Social</Type>
+    <Type>None</Type>
     <Description>Person with visual impairment needs navigation help</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>40.155678086660735</Latitude>
-    <Longitude>-114.89305461656329</Longitude>
-    <StartTime>2025-06-21T16:58:17</StartTime>
-    <MaxEndTime>2025-06-23T00:58:17</MaxEndTime>
+    <Latitude>32.291205644915195</Latitude>
+    <Longitude>-104.14286392683643</Longitude>
+    <StartTime>2025-06-26T18:09:19</StartTime>
+    <MaxEndTime>2025-06-28T17:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>43</Id>
@@ -43,10 +523,10 @@
     <Description>Insulin emergency - diabetic person needs help</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>46.50908487148088</Latitude>
-    <Longitude>-89.3224351675197</Longitude>
-    <StartTime>2025-07-08T16:58:17</StartTime>
-    <MaxEndTime>2025-07-10T11:58:17</MaxEndTime>
+    <Latitude>44.08596797394358</Latitude>
+    <Longitude>-69.9151175073179</Longitude>
+    <StartTime>2025-06-30T18:09:19</StartTime>
+    <MaxEndTime>2025-06-30T23:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>44</Id>
@@ -55,22 +535,22 @@
     <Description>Person with hearing aid malfunction needs assistance</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>47.439111965535695</Latitude>
-    <Longitude>-90.0108520829145</Longitude>
-    <StartTime>2025-06-24T16:58:17</StartTime>
-    <MaxEndTime>2025-06-25T17:58:17</MaxEndTime>
+    <Latitude>28.589488660710334</Latitude>
+    <Longitude>-84.01121894570917</Longitude>
+    <StartTime>2025-06-23T18:09:19</StartTime>
+    <MaxEndTime>2025-06-26T11:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>45</Id>
     <Status>Closed</Status>
-    <Type>Technical</Type>
+    <Type>Medical</Type>
     <Description>Emergency childcare needed - parent hospitalized</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>41.31908646716248</Latitude>
-    <Longitude>-73.15611130273365</Longitude>
-    <StartTime>2025-07-11T16:58:17</StartTime>
-    <MaxEndTime>2025-07-14T01:58:17</MaxEndTime>
+    <Latitude>27.264794578617263</Latitude>
+    <Longitude>-102.76146707175099</Longitude>
+    <StartTime>2025-07-02T18:09:19</StartTime>
+    <MaxEndTime>2025-07-04T19:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>46</Id>
@@ -79,525 +559,45 @@
     <Description>Person needs help with translation</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>41.91215473319951</Latitude>
-    <Longitude>-113.50480750331472</Longitude>
-    <StartTime>2025-06-24T16:58:17</StartTime>
-    <MaxEndTime>2025-06-27T02:58:17</MaxEndTime>
+    <Latitude>25.028890700622274</Latitude>
+    <Longitude>-102.58627343516048</Longitude>
+    <StartTime>2025-07-01T18:09:19</StartTime>
+    <MaxEndTime>2025-07-04T14:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>47</Id>
     <Status>Closed</Status>
-    <Type>Technical</Type>
+    <Type>Social</Type>
     <Description>Oxygen tank running low - needs refill assistance</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>32.44087185122334</Latitude>
-    <Longitude>-117.4475043788457</Longitude>
-    <StartTime>2025-06-28T16:58:17</StartTime>
-    <MaxEndTime>2025-06-29T18:58:17</MaxEndTime>
+    <Latitude>47.14359943829673</Latitude>
+    <Longitude>-103.02397390427588</Longitude>
+    <StartTime>2025-07-05T18:09:19</StartTime>
+    <MaxEndTime>2025-07-07T03:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>48</Id>
     <Status>Closed</Status>
-    <Type>Social</Type>
+    <Type>Technical</Type>
     <Description>Person with mobility issues stuck in snow</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>38.98749323215302</Latitude>
-    <Longitude>-76.45340550585658</Longitude>
-    <StartTime>2025-07-04T16:58:17</StartTime>
-    <MaxEndTime>2025-07-05T21:58:17</MaxEndTime>
+    <Latitude>35.51752990823594</Latitude>
+    <Longitude>-108.54031670374206</Longitude>
+    <StartTime>2025-07-13T18:09:19</StartTime>
+    <MaxEndTime>2025-07-14T22:09:19</MaxEndTime>
   </Call>
   <Call>
     <Id>49</Id>
     <Status>Closed</Status>
-    <Type>None</Type>
+    <Type>Medical</Type>
     <Description>Emergency medication delivery needed</Description>
     <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
 </CallerAddress>
-    <Latitude>39.96394785363323</Latitude>
-    <Longitude>-79.98867712494379</Longitude>
-    <StartTime>2025-07-03T16:58:17</StartTime>
-    <MaxEndTime>2025-07-04T20:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>36</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Confused elderly person needs help getting home</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>40.12260447253037</Latitude>
-    <Longitude>-85.63045541402076</Longitude>
-    <StartTime>2025-07-17T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>17</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Bike chain broken - need repair help</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>44.20558036216333</Latitude>
-    <Longitude>-120.04128980304263</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>21</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Lost tourist needs directions and help</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>40.16288134728315</Latitude>
-    <Longitude>-88.58198100056762</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>7</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Person needs help carrying heavy items upstairs</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>38.827060906769944</Latitude>
-    <Longitude>-81.7544122226376</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>9</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Need help changing tire on busy street</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>26.10183968223611</Latitude>
-    <Longitude>-92.46557720550535</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>20</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Broken wheelchair needs temporary fix</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>33.46935857215709</Latitude>
-    <Longitude>-88.38299080594732</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>12</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Food delivery for homeless shelter</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>26.072678599704165</Latitude>
-    <Longitude>-74.69848081606455</Longitude>
-    <StartTime>2025-07-17T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>23</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Power outage - elderly person needs assistance</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>29.889383437844536</Latitude>
-    <Longitude>-67.20215224495058</Longitude>
-    <StartTime>2025-07-16T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>6</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Electric scooter battery died</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>36.49852615831905</Latitude>
-    <Longitude>-84.87033662933032</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>8</Id>
-    <Status>InTreatment</Status>
-    <Type>None</Type>
-    <Description>Family stranded - car won't start</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>30.232857568176847</Latitude>
-    <Longitude>-75.41554518194657</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>15</Id>
-    <Status>InTreatment</Status>
-    <Type>None</Type>
-    <Description>Car overheated on highway</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>33.898671312954356</Latitude>
-    <Longitude>-102.02817923108172</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>2</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Locked keys inside vehicle</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>39.59600942283528</Latitude>
-    <Longitude>-124.95605212359384</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>24</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Stuck elevator with person inside</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>44.28123040604817</Latitude>
-    <Longitude>-84.16277055301633</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>37</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Broken crutch needs temporary replacement</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>34.16050479522812</Latitude>
-    <Longitude>-97.5024718169182</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>3</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Car stuck in parking garage</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>39.675020353613476</Latitude>
-    <Longitude>-116.32464151438249</Longitude>
-    <StartTime>2025-07-17T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>28</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Heavy furniture delivery assistance needed</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>48.700092739495176</Latitude>
-    <Longitude>-86.97846369950278</Longitude>
-    <StartTime>2025-07-16T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>39</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Car won't start in remote location</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>27.122541254801487</Latitude>
-    <Longitude>-79.05412285988038</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>31</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Phone died - need to contact family urgently</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>31.361048769769035</Latitude>
-    <Longitude>-107.47771675564233</Longitude>
-    <StartTime>2025-07-16T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>11</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Lost wallet in public area - help searching</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>28.007343203834477</Latitude>
-    <Longitude>-114.53541829466637</Longitude>
-    <StartTime>2025-07-17T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>26</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Flat tire on motorcycle</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>40.12311186238523</Latitude>
-    <Longitude>-106.11378763610773</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>30</Id>
-    <Status>InTreatment</Status>
-    <Type>None</Type>
-    <Description>Diabetic person needs emergency glucose</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>27.84871880829041</Latitude>
-    <Longitude>-116.18668824369117</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>4</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Elderly person needs help with groceries</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>38.91798723944432</Latitude>
-    <Longitude>-90.49852557559484</Longitude>
-    <StartTime>2025-07-16T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>1</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Car battery dead - requires jump start</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>25.168760121818547</Latitude>
-    <Longitude>-107.77979240810791</Longitude>
-    <StartTime>2025-07-16T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>10</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Medical emergency - person needs transport</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>44.865501430067965</Latitude>
-    <Longitude>-121.57924435471647</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>5</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Wheelchair accessibility issue at building entrance</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>31.247478802557325</Latitude>
-    <Longitude>-74.64182728867536</Longitude>
-    <StartTime>2025-07-16T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>13</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Pet locked in car - urgent rescue needed</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>34.871168799747814</Latitude>
-    <Longitude>-119.57393441224258</Longitude>
-    <StartTime>2025-07-17T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>16</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Child separated from family at mall</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>45.13532790827573</Latitude>
-    <Longitude>-118.43071768972439</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>34</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Lost prescription medication</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>48.031678811324525</Latitude>
-    <Longitude>-103.84058089521892</Longitude>
-    <StartTime>2025-07-16T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>25</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Ice storm - person needs help getting home</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>47.64340997620569</Latitude>
-    <Longitude>-67.46429155354386</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>38</Id>
-    <Status>InTreatment</Status>
-    <Type>Social</Type>
-    <Description>Person having panic attack needs support</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>26.982921315822146</Latitude>
-    <Longitude>-120.92804369489667</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>27</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Person locked out of apartment</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>36.27915347829827</Latitude>
-    <Longitude>-107.19703954227381</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>32</Id>
-    <Status>InTreatment</Status>
-    <Type>None</Type>
-    <Description>Slippery sidewalk - person fell</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>39.11431002397711</Latitude>
-    <Longitude>-94.06348666881081</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>22</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Flooded basement needs water removal</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>44.87768254699466</Latitude>
-    <Longitude>-88.90072541388139</Longitude>
-    <StartTime>2025-07-17T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>18</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Delivery truck stuck in narrow alley</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>48.58980011165276</Latitude>
-    <Longitude>-69.74773528388812</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>14</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Moving assistance for elderly neighbor</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>29.29797083572346</Latitude>
-    <Longitude>-93.98254303176031</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>29</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Car accident - need traffic direction help</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>28.6003931660092</Latitude>
-    <Longitude>-101.06403547600995</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-19T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>33</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Car window broken - need temporary cover</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>36.751995165815345</Latitude>
-    <Longitude>-113.75695681275975</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>19</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Person fell and needs first aid</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>35.394801875888746</Latitude>
-    <Longitude>-73.7583195149748</Longitude>
-    <StartTime>2025-07-14T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>0</Id>
-    <Status>InTreatment</Status>
-    <Type>Medical</Type>
-    <Description>Flat tire in parking lot needs assistance</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>43.870993208444006</Latitude>
-    <Longitude>-92.86326887235691</Longitude>
-    <StartTime>2025-07-15T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
-  </Call>
-  <Call>
-    <Id>35</Id>
-    <Status>InTreatment</Status>
-    <Type>Technical</Type>
-    <Description>Severe allergic reaction - need EpiPen</Description>
-    <CallerAddress>1600 Amphitheatre Parkway, Mountain View, CA 94043, USA
-</CallerAddress>
-    <Latitude>41.330386113870645</Latitude>
-    <Longitude>-85.68936520542573</Longitude>
-    <StartTime>2025-07-17T16:58:17</StartTime>
-    <MaxEndTime>2025-07-20T16:58:17</MaxEndTime>
+    <Latitude>38.98335444985561</Latitude>
+    <Longitude>-116.37604211276185</Longitude>
+    <StartTime>2025-07-06T18:09:19</StartTime>
+    <MaxEndTime>2025-07-09T08:09:19</MaxEndTime>
   </Call>
 </ArrayOfCall>
