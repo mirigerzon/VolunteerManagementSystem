@@ -35,6 +35,6 @@ Designed to help organizations keep volunteer information organized and manage s
 ## Author
 **Miriam Gerson**  
 - 📫 Email: a0583286530@gmail.com  
-- 🔗 GitHub: [mirigerson](https://github.com/mirigerzon)  
-- 🔗 LinkedIn: [Miri-Gerson](https://www.linkedin.com/in/miri-gerzon)
+- 🔗 GitHub: [mirigerzon](https://github.com/mirigerzon)  
+- 🔗 LinkedIn: [miri-gerzon](https://www.linkedin.com/in/miri-gerzon)
 
