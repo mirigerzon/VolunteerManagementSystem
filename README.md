@@ -29,3 +29,12 @@ Designed to help organizations keep volunteer information organized and manage s
 1. Clone the repository:
    ```bash
    git clone https://github.com/mirigerzon/VolunteerManagementSystem.git
+   
+---
+
+## Author
+**Miriam Gerson**  
+- 📫 Email: a0583286530@gmail.com  
+- 🔗 GitHub: [mirigerson](https://github.com/mirigerzon)  
+- 🔗 LinkedIn: [Miri-Gerson](https://www.linkedin.com/in/miri-gerzon)
+
